@@ -33,4 +33,5 @@ do
         printf "$k %20s\n" Differ
     fi
 done
+rm .cor
 printf "\nTests that will differ because of path printing:\n42.invalid\nsyntax_error_05.s\n"
