@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   asm.h                                              :+:    :+:            */
+/*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/29 16:11:16 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/07/02 11:57:21 by mvan-eng      ########   odam.nl         */
+/*   Created: 2020/07/01 19:24:35 by mvan-eng      #+#    #+#                 */
+/*   Updated: 2020/07/02 12:44:14 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "../../inc/asm.h"
 
-# include "../libs/ft_printf/includes/ft_printf.h"
-# include <fcntl.h>
+/*
+**  TODO
+**  - lexical analysis
+**  - write to .cor file
+*/
 
-# define OK 0
-# define ERROR -1
+int     main(void)
+{
+    int fd;
 
-
-#endif
+    fd = open("test.cor", O_CREAT | O_RDWR, 0777);
+    ft_printf("fd: %i\n");
+    ft_putstr_fd("testing\n", fd);
+}
