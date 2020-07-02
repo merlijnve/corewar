@@ -15,22 +15,22 @@ mv invalid_asm/*.out.own invalid_asm_out/
 for j in invalid_asm_out/*.out
 do
     if cmp -s $j $j.own; then
-        printf "$j %20s\n" Same
+        printf "$j %40s\n" Same
     else
-        printf "$j %20s\n" Differ
+        printf "$j %40s\n" Differ
     fi
 done
+rm invalid_asm_out/*.out.own
 for i in valid_asm/*.s
 do
-    ./$path/asm $i > $i.out.own
+    ./$path/asm $i
 done
-mv valid_asm/*.out.own valid_asm_out/
-for k in valid_asm_out/*.out
+for k in valid_asm/*.cor
 do
-    if cmp -s $k $k.own; then
+    if cmp -s $k $k.orig; then
         printf "$k %20s\n" Same
     else
         printf "$k %20s\n" Differ
     fi
 done
-printf "\nTests that will differ because of path printing:\n42.invalid\nsyntax_error_05.s\nMost of the valid maps\n"
+printf "\nTests that will differ because of path printing:\n42.invalid\nsyntax_error_05.s\n"
