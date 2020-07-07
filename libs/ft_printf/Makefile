@@ -6,9 +6,18 @@
 #    By: jboer <jboer@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/19 16:21:30 by jboer         #+#    #+#                  #
-#    Updated: 2020/06/29 16:23:19 by mvan-eng      ########   odam.nl          #
+#    Updated: 2020/07/07 18:28:34 by jboer         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
+
+BLACK        := $(shell tput -Txterm setaf 0)
+RED          := $(shell tput -Txterm setaf 1)
+GREEN        := $(shell tput -Txterm setaf 2)
+YELLOW       := $(shell tput -Txterm setaf 3)
+LIGHTPURPLE  := $(shell tput -Txterm setaf 4)
+PURPLE       := $(shell tput -Txterm setaf 5)
+BLUE         := $(shell tput -Txterm setaf 6)
+RESET        := $(shell tput -Txterm setaf 7)
 
 NAME = libftprintf.a
 
@@ -39,18 +48,18 @@ LIB = libft/libft.a
 all: $(NAME)
 
 $(NAME):
-	@echo ">>>>>	$(NAME) COMPILING STARTED	<<<<<"
+	@echo ">>>>>	${YELLOW}$(NAME) COMPILING STARTED${RESET}	<<<<<"
 	@gcc -c $(FLAGS) $(SRCS) $(SRCSL) -I $(LIB)
 	@ar rc $(NAME) $(OBJ) $(OBJL)
 	@ranlib $(NAME)
-	@echo ">>>>>	$(NAME) COMPILING SUCCESS	<<<<<"
+	@echo ">>>>>	${GREEN}$(NAME) COMPILING SUCCESS${RESET}	<<<<<"
 
 clean:
-	@echo ">>>>>	CLEANING $(NAME)	<<<<<"
+	@echo ">>>>>	${BLUE}CLEANING $(NAME)${RESET}	<<<<<"
 	@rm -rf $(OBJ) $(OBJL)
 
 fclean: clean
-	@echo ">>>>>	REMOVING $(NAME)	<<<<<"
+	@echo ">>>>>	${BLUE}REMOVING $(NAME)${RESET}	<<<<<"
 	@rm -f $(NAME)
 
 re: fclean all
