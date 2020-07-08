@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/01 19:24:35 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/07/02 12:44:14 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/07/08 21:26:23 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,20 @@
 /*
 **  TODO
 **  - lexical analysis
+**	- calculate zjmps and stuff
 **  - write to .cor file
 */
 
-int     main(void)
+int		main(int argc, char **argv)
 {
-    int fd;
+	int		input_fd;
+	t_asm	asm_s;
 
-    fd = open("test.cor", O_CREAT | O_RDWR, 0777);
-    ft_printf("fd: %i\n");
-    ft_putstr_fd("testing\n", fd);
+	ft_bzero(&asm_s, sizeof(asm_s));
+	input_fd = check_args(argc, argv, &asm_s);
+	// FOR OPENING OF NEW FILE WITH CORRECT RIGHTS
+	//output_fd = open("test.cor", O_CREAT | O_RDWR, 0600);
+	//close(fd);
+	close(input_fd);
+	return (0);
 }

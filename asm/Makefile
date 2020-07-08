@@ -6,7 +6,7 @@
 #    By: mvan-eng <mvan-eng@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/29 14:58:00 by mvan-eng      #+#    #+#                  #
-#    Updated: 2020/07/07 18:47:46 by jboer         ########   odam.nl          #
+#    Updated: 2020/07/08 15:56:38 by mvan-eng      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ RESET        := $(shell tput -Txterm setaf 7)
 
 NAME = asm
 
-FILES = main
+FILES = main check_args
 SRC = $(FILES:%=src/%.c)
 LIB = ../libs/libft/libft.a ../libs/ft_printf/libftprintf.a
 FLAGS = -Wall -Werror -Wextra
