@@ -10,15 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/asm.h"
+#include <stdlib.h>
+#include <libft.h>
+#include "asm.h"
 
-void	exit_check_args(char **argv, char **argv_s, int signal)
+void	exit_check_args(char **argv, char **argv_s, t_ret signal)
 {
-	if (signal == ERROR)
+	if (signal == kError)
 	{
 		if (argv != argv_s)
 			free(argv_s);
-		exit(ERROR);
+		exit(EXIT_FAILURE);
 	}
 	else if (argv != argv_s)
 		free(argv_s);
@@ -65,7 +67,7 @@ char	**strip_flags(int argc, char **argv, t_asm *asm_s)
 	return (argv_s);
 }
 
-int		check_args(int argc, char **argv, t_asm *asm_s)
+int		check_args(int argc, char *argv[], t_asm *asm_s)
 {
 	int		input_fd;
 	char	**argv_s;
@@ -75,17 +77,17 @@ int		check_args(int argc, char **argv, t_asm *asm_s)
 	argv_s = strip_flags(argc, argv, asm_s);
 	if (argc - asm_s->n_flags == 1)
 	{
-		ft_printf("Usage: ./orig_asm [-a] <sourcefile.s>\n"
+		ft_printf("Usage: %s [-a] <sourcefile.s>\n"
 		"\t-a : Instead of creating a .cor file, outputs a stripped"
-		" and annotated version of the code to the standard output\n");
-		exit_check_args(argv, argv_s, ERROR);
+		" and annotated version of the code to the standard output\n", argv[0]);
+		exit_check_args(argv, argv_s, kError);
 	}
 	input_fd = open(argv_s[argc - asm_s->n_flags - 1], O_RDONLY);
 	if (input_fd == -1)
 	{
 		perror(argv_s[argc - asm_s->n_flags - 1]);
-		exit_check_args(argv, argv_s, ERROR);
+		exit_check_args(argv, argv_s, kError);
 	}
-	exit_check_args(argv, argv_s, OK);
+	exit_check_args(argv, argv_s, kSuccess);
 	return (input_fd);
 }

@@ -13,12 +13,24 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# include "../libs/ft_printf/includes/ft_printf.h"
 # include <fcntl.h>
 # include <stdio.h>
 
-# define OK 0
-# define ERROR -1
+# include <ft_printf.h>
+
+typedef enum e_ret			t_ret;
+
+// Errors
+//  0 -  9 Standart errors
+// 10 - 29 Input Erros
+// 30 - 39 Algo Errors
+//
+
+enum	e_ret
+{
+	kSuccess = 0,
+	kError = -1,
+};
 
 /* 
 **
