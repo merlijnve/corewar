@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   vm.h                                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: joris <joris@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
+/*   Updated: 2020/07/13 17:24:21 by joris         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "op.h"
+
+/** Head vm struct */
+typedef struct		s_vm
+{
+	int				champ_fd[MAX_PLAYERS];
+	int				champ_c;
+	int				f_dump;
+}					t_vm;
 
 /** Player struct */
 typedef struct s_player
