@@ -1,4 +1,33 @@
-#include "op.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   vm.h                                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: joris <joris@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
+/*   Updated: 2020/07/14 19:23:19 by jboer         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef VM_H
+# define VM_H
+
+# include <op.h>
+# include <ft_printf.h>
+# include <stdbool.h>
+
+# define OK     0
+# define ERROR  -1
+
+/** Head vm struct */
+typedef struct		s_vm
+{
+	int				champ_fd[MAX_PLAYERS];
+	int				champ_c;
+	int				f_dump;
+    int             f_n;
+}					t_vm;
 
 /** Player struct */
 typedef struct s_player
@@ -57,3 +86,7 @@ typedef struct s_arena
     /** Operations */
     op_t op_tab[17];
 } t_arena;
+
+int			check_args(int argc, char **argv, t_vm *vm_s);
+
+#endif
