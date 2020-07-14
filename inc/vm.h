@@ -6,15 +6,16 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/14 19:23:19 by jboer         ########   odam.nl         */
+/*   Updated: 2020/07/14 19:49:56 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
-# include <op.h>
-# include <ft_printf.h>
+# include "op.h"
+# include "ft_printf.h"
+# include "libft.h"
 # include <stdbool.h>
 
 # define OK     0

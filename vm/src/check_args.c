@@ -6,11 +6,11 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/14 19:05:46 by jboer         ########   odam.nl         */
+/*   Updated: 2020/07/14 19:38:44 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/vm.h"
+#include "vm.h"
 
 /** 
 *	error numbers;
@@ -23,7 +23,7 @@ static int	number_champ(int index, int argc, char **argv, t_vm *vm_s)
 
 	if (index < argc - 1)
 	{
-		player_n = ft_atoi(argv[index]) // This can mess up the player count because it takes everything as a player number	
+		player_n = ft_atoi(argv[index]); // This can mess up the player count because it takes everything as a player number	
 	}
 	else
 		return (-2);

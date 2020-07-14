@@ -6,7 +6,7 @@
 #    By: jboer <jboer@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/07 19:33:45 by jboer         #+#    #+#                  #
-#    Updated: 2020/07/07 19:33:45 by jboer         ########   odam.nl          #
+#    Updated: 2020/07/14 19:48:26 by mvan-eng      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,14 @@ NAME = corewar
 FILES = main
 SRC = $(FILES:%=src/%.c)
 LIB = ../libs/libft/libft.a ../libs/ft_printf/libftprintf.a
+INC = ../inc/
 FLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
 
 $(NAME): $(SRC)
 		@echo ">>>>>	${YELLOW}$(NAME) COMPILING STARTED${RESET}	<<<<<"
-		@gcc $(FLAGS) $(SRC) $(LIB) -o $(NAME)
+		@gcc $(FLAGS) $(SRC) $(LIB) -o $(NAME) -I $(INC)
 		@echo ">>>>>	${GREEN}$(NAME) COMPILING SUCCESS${RESET}	<<<<<"
 
 clean:
