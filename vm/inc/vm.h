@@ -6,11 +6,18 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/13 17:24:21 by joris         ########   odam.nl         */
+/*   Updated: 2020/07/14 17:47:05 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
+#ifndef VM_H
+# define VM_H
+
+# include <op.h>
+# include <ft_printf.h>
+
+# define OK     0
+# define ERROR  -1
 
 /** Head vm struct */
 typedef struct		s_vm
@@ -18,6 +25,7 @@ typedef struct		s_vm
 	int				champ_fd[MAX_PLAYERS];
 	int				champ_c;
 	int				f_dump;
+    int             f_n;
 }					t_vm;
 
 /** Player struct */
@@ -77,3 +85,7 @@ typedef struct s_arena
     /** Operations */
     op_t op_tab[17];
 } t_arena;
+
+int			check_args(int argc, char **argv, t_vm *vm_s);
+
+#endif
