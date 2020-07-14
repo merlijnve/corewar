@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/14 17:47:05 by jboer         ########   odam.nl         */
+/*   Updated: 2020/07/14 19:23:19 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <op.h>
 # include <ft_printf.h>
+# include <stdbool.h>
 
 # define OK     0
 # define ERROR  -1
