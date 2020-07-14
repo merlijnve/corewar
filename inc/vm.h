@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/14 19:49:56 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/07/14 20:14:05 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include "ft_printf.h"
 # include "libft.h"
 # include <stdbool.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <unistd.h>
 
 # define OK     0
 # define ERROR  -1
