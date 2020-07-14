@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/29 16:11:16 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/07/08 18:40:36 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/07/14 16:29:20 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <fcntl.h>
 # include <stdio.h>
-
+# include <unistd.h>
 # include <ft_printf.h>
 
 typedef enum e_ret			t_ret;

@@ -1,64 +1,138 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: mvan-eng <mvan-eng@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2019/01/10 14:10:44 by mvan-eng      #+#    #+#                  #
-#    Updated: 2020/07/07 18:28:46 by jboer         ########   odam.nl          #
+#                                                       ::::::::: :::::::::    #
+#    Makefile                                          :+:       :+:           #
+#                                                     +:+       +:+            #
+#    By: ffredrik <ffredrik@student.codam.nl>        :#::+::#  :#::+::#        #
+#                                                   +#+       +#+              #
+#    Created: 2019/01/08 16:32:51 by ffredrik      #+#       #+#               #
+#    Updated: 2019/02/11 20:48:31 by ffredrik     ###       ###                #
 #                                                                              #
 # **************************************************************************** #
 
-BLACK        := $(shell tput -Txterm setaf 0)
-RED          := $(shell tput -Txterm setaf 1)
-GREEN        := $(shell tput -Txterm setaf 2)
-YELLOW       := $(shell tput -Txterm setaf 3)
-LIGHTPURPLE  := $(shell tput -Txterm setaf 4)
-PURPLE       := $(shell tput -Txterm setaf 5)
-BLUE         := $(shell tput -Txterm setaf 6)
-RESET        := $(shell tput -Txterm setaf 7)
-
 NAME = libft.a
-FLAGS = -Wall -Wextra -Werror
-FILES = ft_isdigit.c ft_memcmp.c ft_putendl_fd.c ft_strcmp.c ft_striter.c \
-ft_strncmp.c ft_strsub.c ft_islower.c ft_memcpy.c ft_putnbr.c ft_strcpy.c \
-ft_striteri.c ft_strncpy.c ft_strtrim.c ft_atoi.c ft_isprint.c ft_memdel.c \
-ft_putnbr_fd.c ft_strdcount.c ft_strjoin.c ft_strnequ.c ft_tolower.c \
-ft_bzero.c ft_isupper.c ft_memmove.c ft_putstr.c ft_strdcpy.c ft_strlcat.c\
-ft_strnew.c ft_toupper.c ft_digitc.c ft_itoa.c ft_memset.c ft_putstr_fd.c \
-ft_strdel.c ft_strlen.c ft_strnstr.c ft_isalnum.c ft_memalloc.c ft_putchar.c\
-ft_strcat.c ft_strdlen.c ft_strmap.c ft_strrchr.c ft_isalpha.c ft_memccpy.c \
-ft_putchar_fd.c ft_strchr.c ft_strdup.c ft_strmapi.c ft_strsplit.c \
-ft_isascii.c ft_memchr.c ft_putendl.c ft_strclr.c ft_strequ.c ft_strncat.c \
-ft_strstr.c ft_lstnew.c ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c \
-ft_lstmap.c ft_lncount.c ft_strndup.c ft_putcmap.c get_next_line.c ft_mapdel.c\
-ft_putimap.c ft_count_pointers.c ft_longlongc.c ft_lltoa.c ft_datoi.c \
-ft_nbrbase.c ft_natoi.c ft_putnbrlong.c ft_intlen.c ft_intos.c ft_longtos.c \
-ft_llintlen.c ft_str_to_uppercase.c ft_charindex.c ft_ulltoa.c ft_ullintlen.c \
-ft_fltoa.c ft_straddtofront.c ft_straddtoend.c ft_unbrbase.c ft_arrdel.c \
-ft_strlchr.c
 
-SRC = $(FILES:%=srcs/%)
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -g
 
-OBJ = $(FILES:.c=.o)
+AR = ar
+ARFLAGS = rcs
+
+HEADERS = libft.h
+
+SRCS =	ft_atoi.c \
+		ft_bzero.c \
+		ft_isalnum.c \
+		ft_isalpha.c \
+		ft_isascii.c \
+		ft_isdigit.c \
+		ft_islower.c \
+		ft_isprint.c \
+		ft_isspace.c \
+		ft_isupper.c \
+		ft_strisdigit.c \
+		ft_itoa.c \
+		ft_itoa_base.c \
+		ft_log.c \
+		ft_memalloc.c \
+		ft_memccmp.c \
+		ft_memccpy.c \
+		ft_memrcpy.c \
+		ft_memchr.c \
+		ft_memcmp.c \
+		ft_memcpy.c \
+		ft_memdel.c \
+		ft_memdup.c \
+		ft_memichr.c \
+		ft_memmove.c \
+		ft_memrchr.c \
+		ft_memset.c \
+		ft_putnbr_fd.c \
+		ft_putchar.c \
+		ft_putchar_fd.c \
+		ft_putendl.c \
+		ft_putendl_fd.c \
+		ft_putnbr.c \
+		ft_putstr.c \
+		ft_putstr_fd.c \
+		ft_strcat.c \
+		ft_strlcat.c \
+		ft_strchr.c \
+		ft_strclen.c \
+		ft_strllen.c \
+		ft_strclr.c \
+		ft_strcmp.c \
+		ft_strcpy.c \
+		ft_strdel.c \
+		ft_strdup.c \
+		ft_strequ.c \
+		ft_strichr.c \
+		ft_striter.c \
+		ft_striteri.c \
+		ft_strjoin.c \
+		ft_strlen.c \
+		ft_strmap.c \
+		ft_strmapi.c \
+		ft_strncat.c \
+		ft_strncmp.c \
+		ft_strncpy.c \
+		ft_strndup.c \
+		ft_strnequ.c \
+		ft_strnew.c \
+		ft_strnstr.c \
+		ft_strrchr.c \
+		ft_strsplit.c \
+		ft_strstr.c \
+		ft_strsub.c \
+		ft_strtrim.c \
+		ft_strctrim.c \
+		ft_strcnt.c \
+		ft_strncnt.c \
+		ft_tolower.c \
+		ft_toupper.c \
+		ft_min.c \
+		ft_max.c \
+		ft_strlower.c \
+		ft_strupper.c \
+		ft_utoa_base.c \
+		ft_lstnew.c \
+		ft_lstdelone.c \
+		ft_lstdel.c \
+		ft_lstadd.c \
+		ft_lstiter.c \
+		ft_lstmap.c \
+		ft_lstrev.c \
+		ft_dictnew.c \
+		ft_dictadd.c \
+		ft_dictget.c \
+		ft_dictremove.c \
+		ft_dictfree.c \
+		ft_hdictnew.c \
+		ft_hdictadd.c \
+		ft_hdictget.c \
+		ft_hdictremove.c \
+		ft_hdictfree.c \
+		ft_hdicthash.c \
+		get_next_line.c
+
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME):
-	@echo ">>>>>	${YELLOW}$(NAME) COMPILING STARTED${RESET}	<<<<<"
-	@gcc $(FLAGS) -c $(SRC)
-	@ar rcs libft.a $(OBJ)
-	@ranlib $(NAME)
-	@rm -f $(OBJ)
-	@echo ">>>>>	${GREEN}$(NAME) COMPILING SUCCESS${RESET}	<<<<<"
+%.o: %.c $(HEADERS)
+	@$(CC) -o $@ -c $< $(CFLAGS)
+	@echo CC: $<
 
-clean:
-	@echo ">>>>>	${BLUE}CLEANING $(NAME)${RESET}	<<<<<"
-	@rm -f $(OBJ)
+$(NAME): $(OBJS)
+	@echo MAKING LIBRARY
+	@$(AR) $(ARFLAGS) $(NAME) $(OBJS)
 
 fclean: clean
-	@echo ">>>>>	${BLUE}REMOVING $(NAME)${RESET}	<<<<<"
+	@echo REMOVING LIBRARY
 	@rm -f $(NAME)
 
-re: fclean all
+clean:
+	@echo REMOVING OBJECT FILES
+	@rm -f $(OBJS)
+
+re: fclean $(NAME)

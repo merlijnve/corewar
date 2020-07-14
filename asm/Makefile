@@ -6,30 +6,30 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/06/11 12:44:39 by floris        ########   odam.nl          #
+#    Updated: 2020/07/14 16:29:56 by mvan-eng      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = asm
-LIBFT_LOC = ../libft
-LIBFT_PRINTF_LOC = ../ft_printf
+LIBFT_LOC = ../libs/libft
+LIBFT_PRINTF_LOC = ../libs/ft_printf
 NAME_LIBFT = $(LIBFT_LOC)/libft.a
 NAME_LIBFT_PRINTF = $(LIBFT_PRINTF_LOC)/libftprintf.a
 
 CC = clang
-C_FLAGS = -Wall -Wextra # -Werror
+C_FLAGS = -Wall -Wextra -Werror
 
 AR = ar
 AR_FLAGS = rcs
 
 C_HEADERS = \
-	$(wildcard *.h)
+	$(wildcard ../inc/*.h)
 
 C_INCLUDES = \
-	-I ./
+	-I ../inc/
 
 C_SRCS = \
-	$(wildcard *.c)
+	$(wildcard src/*.c)
 
 C_OBJS = $(C_SRCS:.c=.o)
 
