@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/14 20:14:05 by jboer         ########   odam.nl         */
+/*   Updated: 2020/07/15 18:38:56 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@
 # define OK     0
 # define ERROR  -1
 
-/** Head vm struct */
+/* 
+** Head vm struct 
+** 
+*/
+
 typedef struct		s_vm
 {
-	int				champ_fd[MAX_PLAYERS];
+	int				champ_fd[MAX_PLAYERS][2];
 	int				champ_c;
 	int				f_dump;
-    int             f_n;
+    int             arg_check;
 }					t_vm;
 
 /** Player struct */
@@ -89,7 +93,7 @@ typedef struct s_arena
     int check_count;
 
     /** Operations */
-    op_t op_tab[17];
+    // op_t op_tab[17];
 } t_arena;
 
 int			check_args(int argc, char **argv, t_vm *vm_s);
