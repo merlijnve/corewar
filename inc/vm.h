@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/15 18:38:56 by jboer         ########   odam.nl         */
+/*   Updated: 2020/07/15 22:15:32 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@
 
 typedef struct		s_vm
 {
-	int				champ_fd[MAX_PLAYERS][2];
+	int				champ_fd[MAX_PLAYERS];
+    int             champ_i[MAX_PLAYERS];
 	int				champ_c;
+    int             high_n;
 	int				f_dump;
-    int             arg_check;
 }					t_vm;
 
 /** Player struct */
