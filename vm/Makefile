@@ -6,7 +6,7 @@
 #    By: jboer <jboer@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/07 19:33:45 by jboer         #+#    #+#                  #
-#    Updated: 2020/07/15 19:48:53 by jboer         ########   odam.nl          #
+#    Updated: 2020/07/16 12:44:04 by joris         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ RESET        := $(shell tput -Txterm setaf 7)
 
 NAME = corewar
 
-FILES = * #CLEAN WILDCARD
+FILES = main check_args
 SRC = $(FILES:%=src/%.c)
 LIB = ../libs/libft/libft.a ../libs/ft_printf/libftprintf.a
 INC = ../inc/
