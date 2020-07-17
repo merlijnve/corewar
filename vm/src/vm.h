@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/15 20:34:16 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/07/17 15:51:42 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 # include "libft.h"
 # include <stdbool.h>
 # include <fcntl.h>
+# include <stdlib.h>
 
-# define OK     0
-# define ERROR  -1
+# define CHAMP_FILESIZE (16 + PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
+
+# define OK					0
+# define ERROR				-1
+# define ERROR_BAD_HEADER	-12
 
 /** Head vm struct */
 typedef struct		s_vm
@@ -34,7 +38,10 @@ typedef struct		s_vm
 /** Player struct */
 typedef struct		s_champion
 {
-    int id;
+    int		id;
+	char	bytecode[CHAMP_FILESIZE];
+	char	*name;
+	char	*comment;
 }					t_champion;
 
 /** Additional cell information */
