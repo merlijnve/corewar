@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/16 14:50:06 by joris         ########   odam.nl         */
+/*   Updated: 2020/07/19 19:06:33 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void	output_error(int error_number, char *arg)
 {
 	if (error_number == -2)
-		ft_putendl("Usage: ./corewar [-dump N | -n (1-MAX_PLAYERS)] <champion1.cor> <...>");
+		ft_putendl("Usage: ./corewar [-dump N | -n (1-MAX_PLAYERS)] "
+		"<champion1.cor> <...>");
 	if (error_number == -3)
 		ft_printf("Can't read source file %s\n", arg);
 	if (error_number == -4)
@@ -31,9 +32,7 @@ static int	dump_flag(int index, int argc, char **argv, t_vm *vm_s)
 {
 	index++;
 	if (index < argc)
-	{
 		vm_s->f_dump = ft_atoi(argv[index]); // This can mess up the player count because it takes everything as a player number
-	}
 	else
 		output_error(-2, NULL);
 	return (index);
@@ -54,7 +53,7 @@ static int	number_champ(int index, int argc, char **argv, t_vm *vm_s)
 
 	if (index > argc - 1)
 		output_error(-2, NULL);
-	player_n = ft_atoi(argv[index]); // This can mess up the player count because it takes everything as a player number	
+	player_n = ft_atoi(argv[index]); // This can mess up the player count because it takes everything as a player number
 	if (player_n > MAX_PLAYERS || player_n <= 0 || player_n == vm_s->high_n ||
 	vm_s->champ_fd[player_n - 1] != 0)
 		output_error(-2, NULL);
@@ -111,9 +110,7 @@ void		check_args(int argc, char **argv, t_vm *vm_s)
 
 	index_fd = 0;
 	loop_args(argc, argv, vm_s);
-	if (vm_s->champ_c == 0)
-		output_error(-2, NULL);
-	if (vm_s->high_n > vm_s->champ_c)
+	if (vm_s->champ_c == 0 || vm_s->high_n > vm_s->champ_c)
 		output_error(-2, NULL);
 	while (vm_s->champ_c > index_fd)
 	{
@@ -124,7 +121,6 @@ void		check_args(int argc, char **argv, t_vm *vm_s)
 			if (vm_s->champ_fd[index_fd] < 0)
 				output_error(-3, argv[vm_s->champ_i[index_fd]]);
 		}
-		ft_printf("fd:%i\n", vm_s->champ_fd[index_fd]);
 		index_fd++;
 	}
 }
