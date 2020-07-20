@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/19 16:07:40 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/07/19 19:12:19 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@
 
 # define CHAMP_FILESIZE (16 + PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
 
-# define OK					0
-# define ERROR				-1
-# define ERROR_BAD_HEADER	-12
+# define OK							0
+# define ERROR						-1
+# define ERROR_BAD_HEADER			-12
+# define ERROR_BAD_SIZE				-13
+# define ERROR_BAD_NULL				-14
 
 /** Head vm struct */
 typedef struct		s_vm
@@ -42,6 +44,8 @@ typedef struct		s_champion
 	char	bytecode[CHAMP_FILESIZE];
 	char	*name;
 	char	*comment;
+	char	*exec_code;
+	size_t	exec_code_size;
 }					t_champion;
 
 /** Additional cell information */
