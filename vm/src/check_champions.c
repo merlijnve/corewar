@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/15 15:39:40 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/07/20 16:21:20 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/07/21 15:31:45 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,14 @@ int		check_file(int fd, t_champion *champion)
 	return (OK);
 }
 
-int		check_champions(int *fds)
+int		check_champions(t_champion *champions)
 {
-	t_champion	champions[MAX_PLAYERS];
 	int			i;
 	int			ret;
 
 	i = 0;
 	ft_bzero(&champions, sizeof(champions));
-	ret = check_file(fds[i], &champions[i]);
+	ret = check_file(champions[i].fd, &champions[i]);
 	if (ret < OK)
 	{
 		if (ret == ERROR_BAD_HEADER)
@@ -100,15 +99,5 @@ int		check_champions(int *fds)
 			"[filename]");
 		exit(ret);
 	}
-	return (OK);
-}
-
-int		main(int argc, char **argv)
-{
-	int	fd;
-
-	(void)argc;
-	fd = open(argv[1], O_RDONLY);
-	check_champions(&fd);
 	return (OK);
 }
