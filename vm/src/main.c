@@ -14,10 +14,11 @@
 
 int			main(int argc, char **argv)
 {
-	t_vm	vm_s;
+	t_vm		vm_s;
+	t_champion	champions[MAX_PLAYERS];
 
+	ft_bzero(&champions, sizeof(champions));
 	ft_bzero(&vm_s, sizeof(vm_s));
-	if (check_args(argc, argv, &vm_s) == ERROR)
-		return (ERROR);
+	check_args(argc, argv, &vm_s, &(*champions));
 	return (OK);
 }
