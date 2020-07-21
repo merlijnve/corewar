@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/16 12:54:06 by joris         ########   odam.nl         */
+/*   Updated: 2020/07/21 15:49:00 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@
 # include <stdio.h>
 # include <unistd.h>
 
-# define OK     0
-# define ERROR  -1
+# define CHAMP_FILESIZE             (16 + PROG_NAME_LENGTH + COMMENT_LENGTH
++ CHAMP_MAX_SIZE)
+# define OK                         0
+# define ERROR                      -1
+# define ERROR_BAD_HEADER           -12
+# define ERROR_BAD_SIZE             -13
+# define ERROR_BAD_NULL             -14
 
 /* 
 ** Head vm struct 
@@ -40,10 +45,15 @@ typedef struct		s_vm
 }					t_vm;
 
 /** Player struct */
-typedef struct s_player
+typedef struct      s_champion
 {
-    int id;
-} t_player;
+    int				id;
+    char			bytecode[CHAMP_FILESIZE];
+    char			*name;
+    char			*comment;
+    char			*exec_code;
+    size_t			exec_code_size;
+}                   t_champion;
 
 /** Additional cell information */
 typedef struct s_cell
@@ -97,6 +107,7 @@ typedef struct s_arena
     // op_t op_tab[17];
 } t_arena;
 
-void			check_args(int argc, char **argv, t_vm *vm_s);
+void			check_args(int argc, char **argv, t_vm *vm_s, t_champion
+*champ_s);
 
 #endif
