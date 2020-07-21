@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/21 15:49:00 by jboer         ########   odam.nl         */
+/*   Updated: 2020/07/21 17:34:53 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdio.h>
 # include <unistd.h>
 
-# define CHAMP_FILESIZE             (16 + PROG_NAME_LENGTH + COMMENT_LENGTH
+# define CHAMP_FILESIZE             (16 + PROG_NAME_LENGTH + COMMENT_LENGTH \
 + CHAMP_MAX_SIZE)
 # define OK                         0
 # define ERROR                      -1
@@ -48,7 +48,9 @@ typedef struct		s_vm
 typedef struct      s_champion
 {
     int				id;
+	int				fd;
     char			bytecode[CHAMP_FILESIZE];
+	char			*file_name;
     char			*name;
     char			*comment;
     char			*exec_code;
@@ -80,7 +82,7 @@ typedef struct s_arena
     t_cursor *cursors;
 
     /** Individual player structs */
-    t_player players[MAX_PLAYERS + 1];
+    t_champion champions[MAX_PLAYERS + 1];
 
     /** Amount of players */
     int player_count;
