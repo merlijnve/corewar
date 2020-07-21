@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/19 19:06:33 by joris         ########   odam.nl         */
+/*   Updated: 2020/07/21 16:20:10 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	number_champ(int index, int argc, char **argv, t_vm *vm_s)
 			output_error(-4, NULL);
 	}
 	else
-		output_error(-2, NULL); // Isn't nessecary but keeps the user on point, no champion after -n flag
+		output_error(-2, NULL); // Isn't necessary but keeps the user on point, no champion after -n flag
 	return (index);
 }
 
@@ -104,11 +104,14 @@ static void	loop_args(int argc, char **argv, t_vm *vm_s)
 	}
 }
 
-void		check_args(int argc, char **argv, t_vm *vm_s)
+void		check_args(int argc, char **argv, t_vm *vm_s,
+t_champion *champions)
 {
 	int		index_fd;
+	int		c;
 
 	index_fd = 0;
+	c = 0;
 	loop_args(argc, argv, vm_s);
 	if (vm_s->champ_c == 0 || vm_s->high_n > vm_s->champ_c)
 		output_error(-2, NULL);
@@ -122,5 +125,10 @@ void		check_args(int argc, char **argv, t_vm *vm_s)
 				output_error(-3, argv[vm_s->champ_i[index_fd]]);
 		}
 		index_fd++;
+	}
+	while (c < vm_s->champ_c)
+	{
+		champions[c].file_name = argv[vm_s->champ_i[c]];
+		c++;
 	}
 }
