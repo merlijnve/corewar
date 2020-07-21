@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/14 19:49:56 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/07/21 16:31:38 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_arena
     int check_count;
 
     /** Operations */
-    op_t op_tab[17];
+    // op_t op_tab[17];
 } t_arena;
 
 int			check_args(int argc, char **argv, t_vm *vm_s);
