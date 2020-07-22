@@ -57,3 +57,5 @@ typedef struct s_arena
     /** Operations */
     op_t op_tab[17];
 } t_arena;
+
+int create_cursors(t_arena *arena_s);
