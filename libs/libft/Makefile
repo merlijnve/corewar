@@ -12,13 +12,13 @@
 
 NAME = libft.a
 
-CC = clang
-CFLAGS = -Wall -Wextra -Werror -g
+CC = gcc
+CFLAGS = -Wall -Wextra -g
 
 AR = ar
 ARFLAGS = rcs
 
-HEADERS = libft.h
+HEADERS = ./libft.h
 
 SRCS =	ft_atoi.c \
 		ft_bzero.c \

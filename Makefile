@@ -30,7 +30,7 @@ $(NAME):
 		@make -C libs/libft
 		@make -C libs/ft_printf
 		# @make -C asm
-		# @make -C [name of vm folder]
+		@make -C vm
 		@echo ">>>>>	${GREEN}$(NAME) COMPILING SUCCESS${RESET}	<<<<<"
 
 clean:

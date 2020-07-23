@@ -11,12 +11,12 @@
 # **************************************************************************** #
 
 NAME = libftprintf.a
-LIBFT_LOC = ../libft
+LIBFT_LOC = ../libft/
 NAME_DL = libftprintf.dylib
 NAME_LIBFT = $(LIBFT_LOC)/libft.a
 
 CC = clang
-C_FLAGS = -Wall -Wextra -Werror
+C_FLAGS = -Wall -Wextra
 
 AR = ar
 AR_FLAGS = rcs
@@ -36,7 +36,7 @@ C_HEADERS = \
 
 C_INCLUDES = \
 	-I ./ \
-	-I ./libft/includes/ \
+	-I ./libft/ \
 	-I ./FSM/ \
 	-I ./object_printing/ \
 	-I ./object_printing/extra/ \

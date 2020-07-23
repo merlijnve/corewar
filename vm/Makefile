@@ -23,15 +23,15 @@ NAME = corewar
 
 FILES = main check_args check_champions
 SRC = $(FILES:%=src/%.c)
-LIB = ../libs/libft/libft.a ../libs/ft_printf/libftprintf.a
 INC = ../inc/
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Wextra
+LIBS = -L ../libs/libft -L ../libs/ft_printf -lft -lftprintf
 
 all: $(NAME)
 
 $(NAME): $(SRC)
 		@echo ">>>>>	${YELLOW}$(NAME) COMPILING STARTED${RESET}	<<<<<"
-		@gcc $(FLAGS) $(SRC) $(LIB) -o $(NAME) -I $(INC)
+		@clang $(LIBS) $(FLAGS) $(SRC) -o $(NAME) -I $(INC) 
 		@echo ">>>>>	${GREEN}$(NAME) COMPILING SUCCESS${RESET}	<<<<<"
 
 clean:
