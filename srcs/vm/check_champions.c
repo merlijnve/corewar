@@ -15,10 +15,7 @@
 
 int		check_file_header(char *buff)
 {
-	if ((unsigned char)buff[0] == 0x00 && (unsigned char)buff[1] == 0xEA &&
-	(unsigned char)buff[2] == 0x83 && (unsigned char)buff[3] == 0xF3)
-		return (OK);
-	return (ERROR);
+	return ft_strncmp(buff, COREWAR_EXEC_MAGIC, 4) == 0 ? OK : ERROR;
 }
 
 /*
