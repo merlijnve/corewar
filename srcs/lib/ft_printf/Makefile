@@ -12,7 +12,6 @@
 
 NAME = libftprintf.a
 LIBFT_LOC = ../libft
-NAME_DL = libftprintf.dylib
 NAME_LIBFT = $(LIBFT_LOC)/libft.a
 
 CC = clang
@@ -36,7 +35,6 @@ C_HEADERS = \
 
 C_INCLUDES = \
 	-I ./ \
-	-I ./libft/includes/ \
 	-I ./FSM/ \
 	-I ./object_printing/ \
 	-I ./object_printing/extra/ \
@@ -108,18 +106,10 @@ $(NAME): $(C_OBJS)
 $(NAME_LIBFT):
 	@make -C $(LIBFT_LOC)
 
-$(NAME_DL): $(C_OBJS) $(NAME_LIBFT)
-	@echo CREATING: $(NAME_DL)
-	@clang -fPIC -dynamiclib -o $(NAME_DL) $(C_OBJS) -lft -L../libft/
-
-dylib: $(NAME_DL)
-
 fclean: clean
 	@make -C $(LIBFT_LOC) fclean
 	@echo DELETING: $(NAME)
 	@rm -f $(NAME)
-	@echo DELETING: $(NAME_DL)
-	@rm -f $(NAME_DL)
 
 clean:
 	@make -C $(LIBFT_LOC) clean

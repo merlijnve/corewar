@@ -11,37 +11,33 @@
 # **************************************************************************** #
 
 NAME = asm
-LIBFT_LOC = ../libs/libft
-LIBFT_PRINTF_LOC = ../libs/ft_printf
+CC = clang
+C_FLAGS = -Wall -Wextra # -Werror - NOTE: Set back after prod.
+
+LIBFT_LOC = ../lib/libft
+LIBFT_PRINTF_LOC = ../lib/ft_printf
+
 NAME_LIBFT = $(LIBFT_LOC)/libft.a
 NAME_LIBFT_PRINTF = $(LIBFT_PRINTF_LOC)/libftprintf.a
 
-CC = clang
-C_FLAGS = -Wall -Wextra -Werror
+LINK_FLAGS = -lftprintf -lft
 
-AR = ar
-AR_FLAGS = rcs
+C_HEADERS = asm.h
+C_INCLUDES = -I ../includes/
+C_SRCS = main.c check_args.c
+C_OBJS = $(C_SRCS:%.c=%.o)
 
-C_HEADERS = \
-	$(wildcard ../inc/*.h)
+.PHONY: fclean clean all re
 
-C_INCLUDES = \
-	-I ../inc/
-
-C_SRCS = \
-	$(wildcard src/*.c)
-
-C_OBJS = $(C_SRCS:.c=.o)
+%.o: %.c $(C_HEADERS)
+	@$(CC) -o $@ -c $< $(C_FLAGS) $(C_INCLUDES)
+	@echo CC: $<
 
 all: $(NAME)
 
-%.o: %.c $(C_HEADERS)
-	@$(CC) -o $@ -c $< $(C_FLAGS) $(C_INCLUDES) -I $(LIBFT_LOC) -I $(LIBFT_PRINTF_LOC)
-	@echo CC: $<
-
 $(NAME): $(C_OBJS) $(NAME_LIBFT) $(NAME_LIBFT_PRINTF)
 	@echo CREATING: $(NAME)
-	@$(CC) -o $(NAME) $(C_OBJS) -L $(LIBFT_LOC) -L $(LIBFT_PRINTF_LOC) -lft -lftprintf
+	@$(CC) -o $(NAME) $(C_OBJS) $(C_INCLUDES) -L $(LIBFT_LOC) -L $(LIBFT_PRINTF_LOC) $(LINK_FLAGS)
 
 $(NAME_LIBFT):
 	@make -C $(LIBFT_LOC)
@@ -62,4 +58,3 @@ clean:
 	@rm -f $(C_OBJS)
 
 re: fclean $(NAME)
-
