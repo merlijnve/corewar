@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/29 15:42:54 by joris         ########   odam.nl         */
+/*   Updated: 2020/07/29 15:46:42 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ typedef struct      s_champion
 	int				argv_index;
     char			bytecode[CHAMP_FILESIZE];
 	char			*file_name;
-    char			*name;
-    char			*comment;
-    char			*exec_code;
+    unsigned char	*name;
+    unsigned char	*comment;
+    unsigned char	*exec_code;
     size_t			exec_code_size;
 }                   t_champion;
 

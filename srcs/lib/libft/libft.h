@@ -69,6 +69,8 @@ char			*ft_strupper(char *str);
 
 long long		ft_min(long long x, long long y);
 long long		ft_max(long long x, long long y);
+void*			ft_minp(void *x, void *y);
+void*			ft_maxp(void *x, void *y);
 
 void			*ft_memalloc(size_t size);
 void			ft_memdel(void **ap);
@@ -199,9 +201,6 @@ struct			s_queue
 {
 	t_queue		*prev;
 	t_queue		*next;
-
-
-
 };
 
 t_hdict			*ft_queuenew(size_t size);

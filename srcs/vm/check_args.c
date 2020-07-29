@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/23 15:39:16 by joris         ########   odam.nl         */
+/*   Updated: 2020/07/29 15:39:31 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static void	output_error(int error_number, char *arg)
 **	Simple check and add of the -dump flag
 */
 
-static int	dump_flag(int index, int argc, char **argv, t_vm *vm_s)
+static int	dump_flag(int index, int argc, char **argv, t_arena *arena)
 {
 	index++;
 	if (index < argc)
-		vm_s->f_dump = ft_atoi(argv[index]); // This can mess up the player count because it takes everything as a player number
+		arena->dump_flag = ft_atoi(argv[index]); // This can mess up the player count because it takes everything as a player number
 	else
 		output_error(-2, NULL);
 	return (index);
@@ -54,11 +54,9 @@ static int	number_champ(int index, int argc, char **argv, t_arena *arena)
 	if (index > argc - 1)
 		output_error(-2, NULL);
 	player_n = ft_atoi(argv[index]); // This can mess up the player count because it takes everything as a player number
-	if (player_n > MAX_PLAYERS || player_n <= 0 || player_n == vm_s->high_n ||
-	vm_s->champ_fd[player_n - 1] != 0)
+	if (player_n > MAX_PLAYERS || player_n <= 0 ||
+	arena->n_flag || arena->champions[player_n - 1].fd != 0)
 		output_error(-2, NULL);
-	if (player_n > vm_s->high_n)
-		vm_s->high_n = player_n;
 	index++;
 	if (ft_strstr(argv[index], ".cor") != NULL)
 	{
@@ -102,6 +100,7 @@ static void	loop_args(int argc, char **argv, t_arena *arena)
 			index = dump_flag(index, argc, argv, arena);
 		index++;
 	}
+
 }
 
 void		check_args(int argc, char **argv, t_arena *arena)
@@ -112,7 +111,7 @@ void		check_args(int argc, char **argv, t_arena *arena)
 	index_fd = 0;
 	c = 0;
 	loop_args(argc, argv, arena);
-	if (arena->champion_count == 0 || vm_s->high_n > arena->champion_count)
+	if (arena->champion_count == 0 || arena->n_flag > arena->champion_count)
 		output_error(-2, NULL);
 	while (arena->champion_count > index_fd)
 	{
