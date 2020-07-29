@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/14 19:38:44 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/07/23 15:39:16 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	dump_flag(int index, int argc, char **argv, t_vm *vm_s)
 **	-4: Too many champions
 */
 
-static int	number_champ(int index, int argc, char **argv, t_vm *vm_s)
+static int	number_champ(int index, int argc, char **argv, t_arena *arena)
 {
 	int		player_n;
 
@@ -62,12 +62,12 @@ static int	number_champ(int index, int argc, char **argv, t_vm *vm_s)
 	index++;
 	if (ft_strstr(argv[index], ".cor") != NULL)
 	{
-		vm_s->champ_fd[player_n - 1] = open(argv[index], O_RDONLY);
-		vm_s->champ_i[player_n - 1] = index;
-		if (vm_s->champ_fd[player_n - 1] < 0)
+		arena->champions[player_n - 1].fd = open(argv[index], O_RDONLY);
+		arena->champions[player_n - 1].argv_index = index;
+		if (arena->champions[player_n - 1].fd < 0)
 			output_error(-3, argv[index]);
-		vm_s->champ_c++;
-		if (vm_s->champ_c > MAX_PLAYERS)
+		arena->champion_count++;
+		if (arena->champion_count > MAX_PLAYERS)
 			output_error(-4, NULL);
 	}
 	else
@@ -79,7 +79,7 @@ static int	number_champ(int index, int argc, char **argv, t_vm *vm_s)
 **	Extracts data from the given arguments or stops on a certain error
 */
 
-static void	loop_args(int argc, char **argv, t_vm *vm_s)
+static void	loop_args(int argc, char **argv, t_arena *arena)
 {
 	int		index;
 
@@ -88,47 +88,46 @@ static void	loop_args(int argc, char **argv, t_vm *vm_s)
 	{
 		if (ft_strstr(argv[index], ".cor") != NULL)
 		{
-			vm_s->champ_c++;
-			if (vm_s->champ_c > MAX_PLAYERS)
+			arena->champion_count++;
+			if (arena->champion_count > MAX_PLAYERS)
 				output_error(-4, NULL);
-			vm_s->champ_i[vm_s->champ_c - 1] = index;
+			arena->champions[arena->champion_count - 1].argv_index = index;
 		}
 		if (ft_strcmp(argv[index], "-n") == OK)
 		{
 			index++;
-			index = number_champ(index, argc, argv, vm_s);
+			index = number_champ(index, argc, argv, arena);
 		}
 		if (ft_strcmp(argv[index], "-dump") == OK)
-			index = dump_flag(index, argc, argv, vm_s);
+			index = dump_flag(index, argc, argv, arena);
 		index++;
 	}
 }
 
-void		check_args(int argc, char **argv, t_vm *vm_s,
-t_champion *champions)
+void		check_args(int argc, char **argv, t_arena *arena)
 {
 	int		index_fd;
 	int		c;
 
 	index_fd = 0;
 	c = 0;
-	loop_args(argc, argv, vm_s);
-	if (vm_s->champ_c == 0 || vm_s->high_n > vm_s->champ_c)
+	loop_args(argc, argv, arena);
+	if (arena->champion_count == 0 || vm_s->high_n > arena->champion_count)
 		output_error(-2, NULL);
-	while (vm_s->champ_c > index_fd)
+	while (arena->champion_count > index_fd)
 	{
-		if (vm_s->champ_fd[index_fd] == 0)
+		if (arena->champions[index_fd].fd == 0)
 		{
-			vm_s->champ_fd[index_fd] =
-			open(argv[vm_s->champ_i[index_fd]], O_RDONLY);
-			if (vm_s->champ_fd[index_fd] < 0)
-				output_error(-3, argv[vm_s->champ_i[index_fd]]);
+			arena->champions[index_fd].fd =
+			open(argv[arena->champions[index_fd].argv_index], O_RDONLY);
+			if (arena->champions[index_fd].fd < 0)
+				output_error(-3, argv[arena->champions[index_fd].argv_index]);
 		}
 		index_fd++;
 	}
-	while (c < vm_s->champ_c)
+	while (c < arena->champion_count)
 	{
-		champions[c].file_name = argv[vm_s->champ_i[c]];
+		arena->champions[c].file_name = argv[arena->champions[c].argv_index];
 		c++;
 	}
 }
