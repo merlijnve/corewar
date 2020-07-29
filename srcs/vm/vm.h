@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/23 15:19:36 by joris         ########   odam.nl         */
+/*   Updated: 2020/07/29 15:42:54 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,6 @@
 # define ERROR_BAD_HEADER           -12
 # define ERROR_BAD_SIZE             -13
 # define ERROR_BAD_NULL             -14
-
-typedef struct		s_vm
-{
-	int				champ_fd[MAX_PLAYERS];
-    int             champ_i[MAX_PLAYERS];
-	int				champ_c;
-    int				high_n;
-	int				f_dump;
-}					t_vm;
 
 /** Player struct */
 typedef struct      s_champion
@@ -78,9 +69,9 @@ typedef struct s_arena
     t_cursor *cursors;
 
     /** Individual player structs */
-    t_champion champions[MAX_PLAYERS + 1];
-
-    /** Amount of champions */
+    t_champion champions[MAX_PLAYERS + 1];		
+	
+	/** Amount of champions */
     int 		champion_count;
 
 	int			dump_flag;
