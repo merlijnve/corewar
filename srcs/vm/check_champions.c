@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/15 15:39:40 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/07/23 15:33:59 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/07/29 15:30:14 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@
 **	compares first 4 bytes for correct magic header 0x00EA83F3
 */
 
-int		check_file_header(unsigned char *bytecode)
+int		check_file_header(unsigned char *buff)
 {
-	if (bytecode[0] == 0x00 && bytecode[1] == 0xEA && bytecode[2] == 0x83 &&
-	bytecode[3] == 0xF3)
-		return (OK);
-	return (ERROR);
+	return (ft_strncmp(buff, COREWAR_EXEC_MAGIC, 4) == 0 ? OK : ERROR);
 }
 
 /*
