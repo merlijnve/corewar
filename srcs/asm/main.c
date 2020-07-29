@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-// #include "asm.h"
+#include "asm.h"
+#include "input_parser.h"
 
 /*
 **  TODO
@@ -23,13 +24,23 @@
 int		main(int argc, char **argv)
 {
 	int		input_fd;
-	// t_asm	asm_s;
+	t_list	*lines;
+	t_asm	asmblr;
 
-	// ft_bzero(&asm_s, sizeof(asm_s));
-	// input_fd = check_args(argc, argv, &asm_s);
-	// // FOR OPENING OF NEW FILE WITH CORRECT RIGHTS
-	// //output_fd = open("test.cor", O_CREAT | O_RDWR, 0600);
-	// //close(fd);
-	// close(input_fd);
+	ft_bzero(&asmblr, sizeof(asmblr));
+	input_fd = check_args(argc, argv, &asmblr);
+	// FOR OPENING OF NEW FILE WITH CORRECT RIGHTS
+	//output_fd = open("test.cor", O_CREAT | O_RDWR, 0600);
+	//close(fd);
+
+	char *file;
+
+	read_file(input_fd, &file);
+//	ft_lstrev(&lines);
+//	parse_file(lines, &asmblr);
+
+	ft_printf("file:\n%s", file);
+
+	close(input_fd);
 	return (0);
 }

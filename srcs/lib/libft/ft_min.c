@@ -16,3 +16,10 @@ long long	ft_min(long long x, long long y)
 		return (x);
 	return (y);
 }
+
+void		*ft_minp(void *x, void *y)
+{
+	if (x <= y)
+		return (x);
+	return (y);
+}
