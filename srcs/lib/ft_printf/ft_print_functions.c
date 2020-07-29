@@ -14,6 +14,12 @@
 #include <libft.h>
 #include "ft_print_functions.h"
 
+# ifdef LINUX
+#  define MY_FILENO _file;
+# else
+#  define MY_FILENO _fileno;
+# endif
+
 static t_pf_ret		print_buffer(t_pf_buffer *buff, size_t len, t_pf_obj *obj)
 {
 	int ret;
@@ -25,7 +31,7 @@ static t_pf_ret		print_buffer(t_pf_buffer *buff, size_t len, t_pf_obj *obj)
 				? PF_RET_SUCCESS : PF_RET_WRITE_ERROR);
 	else if (obj->dtype == PRINT_DEST_STREAM)
 	{
-		fd = obj->dest.file->_file;
+		fd = obj->dest.file->MY_FILENO;
 		if (fd >= 0)
 			ret = (write(fd, buff->data, len) >= 0
 				? PF_RET_SUCCESS : PF_RET_WRITE_ERROR);
