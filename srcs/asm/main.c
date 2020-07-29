@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include "asm.h"
+// #include "asm.h"
 
 /*
 **  TODO
@@ -23,13 +23,13 @@
 int		main(int argc, char **argv)
 {
 	int		input_fd;
-	t_asm	asm_s;
+	// t_asm	asm_s;
 
-	ft_bzero(&asm_s, sizeof(asm_s));
-	input_fd = check_args(argc, argv, &asm_s);
-	// FOR OPENING OF NEW FILE WITH CORRECT RIGHTS
-	//output_fd = open("test.cor", O_CREAT | O_RDWR, 0600);
-	//close(fd);
-	close(input_fd);
+	// ft_bzero(&asm_s, sizeof(asm_s));
+	// input_fd = check_args(argc, argv, &asm_s);
+	// // FOR OPENING OF NEW FILE WITH CORRECT RIGHTS
+	// //output_fd = open("test.cor", O_CREAT | O_RDWR, 0600);
+	// //close(fd);
+	// close(input_fd);
 	return (0);
 }
