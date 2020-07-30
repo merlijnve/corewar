@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   errors.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: joris <joris@student.codam.nl>               +#+                     */
+/*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/07/09 14:37:52 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/29 20:31:39 by wmisiedj      ########   odam.nl         */
+/*   Created: 2020/01/29 15:25:41 by wmisiedj      #+#    #+#                 */
+/*   Updated: 2020/07/29 16:33:36 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include <libft.h>
+#include <unistd.h>
 
-int			main(int argc, char **argv)
+int		ft_error(int e)
 {
-	t_arena		arena_s;
-	t_champion	champions[MAX_PLAYERS];
-
-	ft_bzero(&arena_s, sizeof(arena_s));
-
-	check_args(argc, argv, &arena_s);
-
-	start_arena(&arena_s);
-	return (OK);
+	if (e == ERR_PARAMS)
+		print_usage();
+	else if (e == ERR_FILE)
+		ft_dprintf(STDERR_FILENO, "Error reading file, might be empty.\n");
+	return (-1);
 }

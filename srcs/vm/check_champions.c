@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/15 15:39:40 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/07/29 15:30:14 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/07/29 21:16:50 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int		check_file_header(unsigned char *buff)
 {
-	return (ft_strncmp(buff, COREWAR_EXEC_MAGIC, 4) == 0 ? OK : ERROR);
+	return (ft_strncmp((const char *)buff, (const char *)COREWAR_EXEC_MAGIC, 4) == 0 ? OK : ERROR);
 }
 
 /*

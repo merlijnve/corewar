@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   errors.h                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: joris <joris@student.codam.nl>               +#+                     */
+/*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/07/09 14:37:52 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/29 20:31:39 by wmisiedj      ########   odam.nl         */
+/*   Created: 2020/01/29 15:24:11 by wmisiedj      #+#    #+#                 */
+/*   Updated: 2020/07/29 16:29:25 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#ifndef FT_CW_VM_ERROR_H
+# define FT_CW_VM_ERROR_H
 
-int			main(int argc, char **argv)
-{
-	t_arena		arena_s;
-	t_champion	champions[MAX_PLAYERS];
+# define ERR_PARAMS -2
+# define ERR_FILE -3
+# define ERR_TOO_MANY_CHAMP -4
+# define ERR_OTHER -99
 
-	ft_bzero(&arena_s, sizeof(arena_s));
+int ft_error(int i);
 
-	check_args(argc, argv, &arena_s);
-
-	start_arena(&arena_s);
-	return (OK);
-}
+#endif

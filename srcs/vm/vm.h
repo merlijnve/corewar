@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/29 15:46:42 by joris         ########   odam.nl         */
+/*   Updated: 2020/07/29 21:08:43 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 # include "op.h"
 # include "ft_printf.h"
 # include "libft.h"
+# include "./errors/errors.h"
+
 # include <stdbool.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
 
+# define DEBUG_FILE                 "debug.log"
 # define CHAMP_FILESIZE             (16 + PROG_NAME_LENGTH + COMMENT_LENGTH \
 + CHAMP_MAX_SIZE)
 # define OK                         0
@@ -100,6 +103,7 @@ typedef struct s_arena
     // op_t op_tab[17];
 } t_arena;
 
+void		    print_usage(void);
 void			check_args(int argc, char **argv, t_arena *arena);
-
+void            start_arena(t_arena *arena_s);
 #endif
