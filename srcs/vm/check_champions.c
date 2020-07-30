@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/15 15:39:40 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/07/29 15:30:14 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/07/30 14:05:28 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@
 **	compares first 4 bytes for correct magic header 0x00EA83F3
 */
 
-int		check_file_header(unsigned char *buff)
+int		check_file_header(const char *buff)
 {
-	return (ft_strncmp(buff, COREWAR_EXEC_MAGIC, 4) == 0 ? OK : ERROR);
+	if ((unsigned char)buff[0] == 0x00 && (unsigned char)buff[1] == 0xEA &&
+	(unsigned char)buff[2] == 0x83 && (unsigned char)buff[3] == 0xF3)
+		return (OK);
+	return (ERROR);
 }
 
 /*
@@ -81,7 +84,7 @@ int		check_file(int fd, t_champion *champion)
 {
 	ft_bzero(&champion->bytecode, CHAMP_FILESIZE + 1);
 	read(fd, &champion->bytecode, CHAMP_FILESIZE);
-	if (check_file_header(champion->bytecode) == ERROR)
+	if (check_file_header((char *)champion->bytecode) == ERROR)
 		return (ERROR_BAD_HEADER);
 	if (check_null(champion->bytecode) == ERROR)
 		return (ERROR_BAD_NULL);
@@ -95,31 +98,51 @@ int		check_file(int fd, t_champion *champion)
 }
 
 /*
+**	PRINT_CHAMPIONS
+**	debug function for printing champion data
+*/
+
+void	print_champions(t_champion *champions, int champion_count)
+{
+	int	i;
+
+	i = 0;
+	while (i < champion_count)
+	{
+		ft_printf("filename:\n%s\n", champions[i].file_name);
+		ft_printf("name:\n%s\n", champions[i].name);
+		ft_printf("comment:\n%s\n", champions[i].comment);
+		ft_printf("exec_code_size:\n%d\n", champions[i].exec_code_size);
+		i++;
+	}
+}
+
+/*
 **	CHECK_CHAMPIONS
 **	loops through array of champions to get checked
 */
 
-int		check_champions(t_champion *champions)
+int		check_champions(t_champion *champions, int champion_count)
 {
 	int			i;
 	int			ret;
 
 	i = 0;
-	while (champions[i].file_name != NULL)
+	while (i < champion_count)
 	{
 		ret = check_file(champions[i].fd, &champions[i]);
 		if (ret < OK)
 		{
 			if (ret == ERROR_BAD_HEADER)
 				ft_printf("Error: File %s has an invalid header\n",
-				champions->file_name);
+				champions[i].file_name);
 			if (ret == ERROR_BAD_SIZE)
 				ft_printf("Error: File %s has too large a code (%d bytes >"
-				" 682 bytes\n", champions->file_name,
+				" 682 bytes\n", champions[i].file_name,
 				champions[i].exec_code_size);
 			if (ret == ERROR_BAD_NULL)
 				ft_printf("Error: File %s is not properly formatted "
-				"with nulls\n", champions->file_name);
+				"with nulls\n", champions[i].file_name);
 			exit(ret);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/29 15:46:42 by joris         ########   odam.nl         */
+/*   Updated: 2020/07/30 13:50:23 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define ERROR_BAD_HEADER           -12
 # define ERROR_BAD_SIZE             -13
 # define ERROR_BAD_NULL             -14
+# define HEADER_SIZE				4
+# define NULL_SIZE					4
 
 /** Player struct */
 typedef struct      s_champion
@@ -36,7 +38,7 @@ typedef struct      s_champion
     int				id;
 	int				fd;
 	int				argv_index;
-    char			bytecode[CHAMP_FILESIZE];
+    unsigned char	bytecode[CHAMP_FILESIZE];
 	char			*file_name;
     unsigned char	*name;
     unsigned char	*comment;
@@ -91,7 +93,7 @@ typedef struct s_arena
     int cycles_to_die;
 
     /** Current count of cycles past */
-    int cylces_count;
+    int cycles_count;
 
     /** Check counter */
     int check_count;
@@ -101,5 +103,6 @@ typedef struct s_arena
 } t_arena;
 
 void			check_args(int argc, char **argv, t_arena *arena);
+int				check_champions(t_champion *champions, int champion_count);
 
 #endif
