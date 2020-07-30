@@ -6,11 +6,11 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/07/14 16:29:56 by mvan-eng      ########   odam.nl          #
+#    Updated: 2020/07/29 15:48:26 by merlijn       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = vm
+NAME = corewar
 CC = clang
 C_FLAGS = -Wall -Wextra # -Werror - NOTE: Set back after prod.
 
