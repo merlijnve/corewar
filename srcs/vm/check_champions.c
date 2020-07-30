@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/15 15:39:40 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/07/30 14:05:28 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/07/30 17:49:19 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 **	compares first 4 bytes for correct magic header 0x00EA83F3
 */
 
-int		check_file_header(const char *buff)
+int		check_file_header(unsigned char *bytecode)
 {
-	if ((unsigned char)buff[0] == 0x00 && (unsigned char)buff[1] == 0xEA &&
-	(unsigned char)buff[2] == 0x83 && (unsigned char)buff[3] == 0xF3)
+	if (bytecode[0] == 0x00 && bytecode[1] == 0xEA &&
+	bytecode[2] == 0x83 && bytecode[3] == 0xF3)
 		return (OK);
 	return (ERROR);
 }
@@ -84,7 +84,7 @@ int		check_file(int fd, t_champion *champion)
 {
 	ft_bzero(&champion->bytecode, CHAMP_FILESIZE + 1);
 	read(fd, &champion->bytecode, CHAMP_FILESIZE);
-	if (check_file_header((char *)champion->bytecode) == ERROR)
+	if (check_file_header(champion->bytecode) == ERROR)
 		return (ERROR_BAD_HEADER);
 	if (check_null(champion->bytecode) == ERROR)
 		return (ERROR_BAD_NULL);
