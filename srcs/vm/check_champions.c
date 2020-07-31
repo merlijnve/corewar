@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/15 15:39:40 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/07/30 19:16:25 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/07/31 17:37:25 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,9 @@ size_t	get_exec_code_size(unsigned char *bytecode)
 **	offset is used to indicate where a null is supposed to start
 */
 
-int		check_null(unsigned char *bytecode)
+int		check_null(t_champion *champion)
 {
-	size_t	offset_1;
-	size_t	offset_2;
-
-	offset_1 = PROG_NAME_LENGTH + HEADER_SIZE;
-	offset_2 = PROG_NAME_LENGTH + COMMENT_LENGTH + HEADER_SIZE + 2 * NULL_SIZE;
-	if (bytecode[offset_1] == 0x00
-	&& bytecode[offset_1 + 1] == 0x00
-	&& bytecode[offset_1 + 2] == 0x00
-	&& bytecode[offset_1 + 3] == 0x00
-	&& bytecode[offset_2] == 0x00
-	&& bytecode[offset_2 + 1] == 0x00
-	&& bytecode[offset_2 + 2] == 0x00
-	&& bytecode[offset_2 + 3] == 0x00)
-		return (OK);
-	return (ERROR);
+	return (OK);
 }
 
 /*
@@ -80,20 +66,42 @@ int		check_null(unsigned char *bytecode)
 **	- exec_code
 */
 
+int		read_champion_file(int fd, t_cw_champ_file *cw_file)
+{
+	t_index idx;
+	ssize_t	rbytes;
+
+	idx = 0;
+	rbytes = 10;
+	while (rbytes != EOF && rbytes > 0)
+	{
+		rbytes = read(fd, &cw_file[idx], CHAMP_FILESIZE - idx);
+		idx += rbytes;
+		if (idx >= CHAMP_FILESIZE && rbytes != EOF)
+			return (ERROR);
+	}
+	return (idx);
+}
+
 int		check_file(int fd, t_champion *champion)
 {
-	ft_bzero(&champion->bytecode, CHAMP_FILESIZE + 1);
-	read(fd, &champion->bytecode, CHAMP_FILESIZE);
-	if (check_file_header(champion->bytecode) == ERROR)
+	int ret;
+	
+	ret = read_champion_file(fd, &champion->champ);
+	if (champion->champ.magic == COREWAR_EXEC_MAGICR)
+	{
+		champion->champ.magic = rev_bytes_32(champion->champ.magic);
+		champion->champ.size = rev_bytes_32(champion->champ.size);
+	}
+
+	
+	debug_print_champion(champion);
+	if (champion->champ.magic != COREWAR_EXEC_MAGIC)
 		return (ERROR_BAD_HEADER);
-	if (check_null(champion->bytecode) == ERROR)
+	if (champion->champ.nt_comment != 0 || champion->champ.nt_name != 0)
 		return (ERROR_BAD_NULL);
-	champion->name = champion->bytecode + 4;
-	champion->comment = champion->bytecode + 12 + PROG_NAME_LENGTH;
-	champion->exec_code_size = get_exec_code_size(champion->bytecode);
-	if (champion->exec_code_size > CHAMP_MAX_SIZE)
+	if (champion->champ.size > CHAMP_MAX_SIZE)
 		return (ERROR_BAD_SIZE);
-	champion->exec_code = champion->bytecode + CHAMP_FILESIZE - CHAMP_MAX_SIZE;
 	return (OK);
 }
 
@@ -102,6 +110,7 @@ int		check_file(int fd, t_champion *champion)
 **	debug function for printing champion data
 */
 
+
 void	print_champions(t_champion *champions, int champion_count)
 {
 	int	i;
@@ -109,10 +118,7 @@ void	print_champions(t_champion *champions, int champion_count)
 	i = 0;
 	while (i < champion_count)
 	{
-		ft_printf("filename:\n%s\n", champions[i].file_name);
-		ft_printf("name:\n%s\n", champions[i].name);
-		ft_printf("comment:\n%s\n", champions[i].comment);
-		ft_printf("exec_code_size:\n%d\n", champions[i].exec_code_size);
+		debug_print_champion(&champions[i]);
 		i++;
 	}
 }
@@ -134,12 +140,10 @@ int		check_champions(t_champion *champions, int champion_count)
 		if (ret < OK)
 		{
 			if (ret == ERROR_BAD_HEADER)
-				ft_printf("Error: File %s has an invalid header\n",
+				ft_printf("Error: File %s has an invalid header.\n",
 				champions[i].file_name);
 			if (ret == ERROR_BAD_SIZE)
-				ft_printf("Error: File %s has too large a code (%d bytes >"
-				" 682 bytes\n", champions[i].file_name,
-				champions[i].exec_code_size);
+				ft_printf("Error: File %s has too large a code.\n", champions[i].file_name);
 			if (ret == ERROR_BAD_NULL)
 				ft_printf("Error: File %s is not properly formatted "
 				"with nulls\n", champions[i].file_name);

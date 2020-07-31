@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/07/29 15:48:26 by merlijn       ########   odam.nl          #
+#    Updated: 2020/07/31 14:40:18 by wmisiedj      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,15 @@ C_HEADERS = \
 
 C_INCLUDES = \
 	-I ./ \
-	-I ../includes/
+	-I ../includes/ \
+	-I ../lib/ft_printf/
 
 C_SRCS = \
 	check_args.c \
 	check_champions.c \
+	utils.c \
+	debug.c \
+	arena.c \
 	main.c
 
 C_OBJS = $(C_SRCS:%.c=%.o)

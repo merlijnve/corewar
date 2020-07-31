@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/07/29 21:08:28 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/07/31 17:19:54 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ static void        place_champions(t_arena *arena_s)
     i = 0;
     offset = MEM_SIZE / arena_s->champion_count;
 
+    printf_debug("Placing champions in memory...\n");
+
     while (i < arena_s->champion_count)
     {
         ft_memcpy(
             arena_s->mem + (i * offset),
-            arena_s->champions[i].exec_code,
+            (const void *)(arena_s->champions[i].champ.exec_code)[i],
             CHAMP_FILESIZE
         );
         i++;
@@ -33,10 +35,10 @@ static void        place_champions(t_arena *arena_s)
 
 void        start_arena(t_arena *arena_s)
 {
-    // Let's start the arena.
+    printf_debug("Starting arena... \n");
 
     // First, let's place the champions.
     place_champions(arena_s); 
 
-    debug_print_map(arena_s);
+    // debug_print_map(arena_s);
 }

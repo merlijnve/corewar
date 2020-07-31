@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/30 19:16:11 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/07/31 17:36:47 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,14 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
+#include <stdint.h>
 
 # define DEBUG_FILE                 "debug.log"
-# define CHAMP_FILESIZE             (16 + PROG_NAME_LENGTH + COMMENT_LENGTH \
-+ CHAMP_MAX_SIZE)
+# define MAGIC_NUMBER_LEN           (sizeof(COREWAR_EXEC_MAGIC))
+
+# define CHAMP_FILESIZE             (MAGIC_NUMBER_LEN + NULL_SIZE + NULL_SIZE \
+    + HEADER_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
+
 # define OK                         0
 # define ERROR                      -1
 # define ERROR_BAD_HEADER           -12
@@ -36,17 +40,29 @@
 # define NULL_SIZE					4
 
 /** Player struct */
+typedef struct s_cw_champ_file
+{
+    uint32_t magic; // 4
+    char name[PROG_NAME_LENGTH]; // 128
+    uint32_t nt_name; // 4
+    uint32_t size; // 4
+    char comment[COMMENT_LENGTH]; // 2048
+    uint32_t nt_comment; // 4
+    // SUB TOTAL: 2192
+    char exec_code[CHAMP_MAX_SIZE]; // 682 % 4 = 2
+    // SUB TOTAL: 2874
+} t_cw_champ_file; // TOTAL: 1850 ?
+// 2874 % 4 = 2
+
 typedef struct      s_champion
 {
+    t_cw_champ_file champ;
+
     int				id;
 	int				fd;
+
 	int				argv_index;
-    unsigned char	bytecode[CHAMP_FILESIZE];
 	char			*file_name;
-    unsigned char	*name;
-    unsigned char	*comment;
-    unsigned char	*exec_code;
-    size_t			exec_code_size;
 }                   t_champion;
 
 /** Additional cell information */
@@ -66,6 +82,8 @@ typedef struct s_cursor
     bool carry;
     int opcode;
 } t_cursor;
+
+
 
 /** Arena environment */
 typedef struct s_arena
@@ -109,5 +127,13 @@ void		    print_usage(void);
 void			check_args(int argc, char **argv, t_arena *arena);
 void            start_arena(t_arena *arena_s);
 int				check_champions(t_champion *champions, int champion_count);
+
+int             ft_strntoi(unsigned char *str, int n);
+uint32_t        rev_bytes_32(uint32_t value);
+
+void            debug_print_hex(unsigned char *str, int n);
+int		        printf_debug(const char *format, ...);
+void	        debug_print_champion(t_champion *champion);
+
 
 #endif
