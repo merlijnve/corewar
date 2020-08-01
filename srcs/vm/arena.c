@@ -6,11 +6,31 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/08/01 16:17:15 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 20:38:51 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "vm.h"
+
+static void         introduce_champions(t_arena *arena_s)
+{
+    int i;
+    t_champion *champion;
+
+    i = 0;
+    champion = NULL;
+    ft_printf("Introducing contestants...\n");
+    while (i < arena_s->champion_count)
+    {
+        champion = &(arena_s->champions[i]);
+        if (arena_s->champions[i].id != -1)
+        {
+            ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\")\n",
+            champion->id, champion->champ.size, champion->champ.name, champion->champ.comment);
+        }
+        i++;
+    }
+}
 
 static void        place_champions(t_arena *arena_s)
 {
@@ -24,8 +44,9 @@ static void        place_champions(t_arena *arena_s)
 
     while (i < arena_s->champion_count)
     {
+        arena_s->champions[i].mem_index = i * offset;
         ft_memcpy(
-            arena_s->mem + (i * offset),
+            arena_s->mem + arena_s->champions[i].mem_index,
             ((const void *)(arena_s->champions[i].champ.exec_code)),
             CHAMP_MAX_SIZE
         );
@@ -33,14 +54,60 @@ static void        place_champions(t_arena *arena_s)
     }
 }
 
+static void check_cursors(t_cursor *cursorlst)
+{
+    t_cursor *current;
+
+    current = cursorlst;
+    while (current)
+    {
+        if (current->cycles_to_die <= 0)
+        {
+            // DIE
+        }
+        if (current->cycles_to_die > 0)
+        {
+            // CHECK ONCE.
+        }
+        else
+        {
+            // CHECK EVERY CYCLE.
+        }
+        debug_print("[Cursor Turn] Cursor ID %d - Pos: %d", current->id, current->pos);
+        current = cursorlst->next;
+    }
+}
+
+static void start_loop(t_arena *arena_s)
+{
+    while (arena_s->cursors)
+    {
+        check_cursors(arena_s->cursors);
+        arena_s->cycles_count++;
+        if (CYCLE_TIMEOUT)
+            sleep(CYCLE_TIMEOUT);
+    }
+}
+
+void        init_arena(t_arena *arena_s)
+{
+    arena_s->last_alive = 0; // TODO: Highest player id.
+    arena_s->cycles_to_die = CYCLE_TO_DIE;
+
+    place_champions(arena_s); 
+}
+
 void        start_arena(t_arena *arena_s)
 {
     debug_printf("Starting arena... \n");
 
-    // First, let's place the champions.
-    place_champions(arena_s); 
-
+    // Init
+    init_arena(arena_s);
     debug_print_map(arena_s);
 
-    debug_printf("\nPlacing cursors...\n");
+    init_cursors(arena_s);
+    debug_print_cursors(arena_s->cursors);
+
+    introduce_champions(arena_s);
+    debug_printf("\nStarting game processes / game loop?...\n");
 }

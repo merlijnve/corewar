@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 20:58:11 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/08/01 16:36:00 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 17:48:24 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,25 @@ void	print_memory(const void *addr, size_t size)
 		}
 		debug_printf("\n");
 		i += width;
+	}
+}
+
+void		debug_print_cursor(t_cursor *cursor)
+{
+	debug_printf("-- Cursor id: %d --\n", cursor->id);
+	debug_printf(" - current pos: %d\n\n", cursor->pos);
+}
+
+void		debug_print_cursors(t_cursor *cursors)
+{
+	t_cursor *start;
+
+	start = cursors;
+
+	while (start != NULL)
+	{
+		debug_print_cursor(start);
+		start = start->next;
 	}
 }
 
