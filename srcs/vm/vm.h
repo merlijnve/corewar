@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/01 20:37:34 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 20:53:19 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,12 @@ typedef struct s_cursor
 {
     struct s_cursor *next;
     struct s_cursor *prev;
+
     int id;
+
     int pos;
-    int cycles_to_die;
+    int live;
+
     bool carry;
     int opcode;
 } t_cursor;
@@ -138,6 +141,11 @@ int             ft_strntoi(unsigned char *str, int n);
 uint32_t        rev_bytes_32(uint32_t value);
 
 void            init_cursors(t_arena *arena_s);
+
+t_cursor        *cursor_create();
+t_cursor        *cursor_add(t_cursor **acursor, t_cursor *new);
+t_cursor        *cursor_del(t_cursor **acursor, t_cursor *del);
+t_cursor        *cursor_clone(t_cursor *origin);
 
 void            debug_print_hex(unsigned char *str, int n);
 int		        debug_printf(const char *format, ...);

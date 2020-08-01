@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/08/01 20:38:51 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 21:14:12 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,35 +54,34 @@ static void        place_champions(t_arena *arena_s)
     }
 }
 
-static void check_cursors(t_cursor *cursorlst)
+/**
+ * Check if we can kill cursors
+ */
+static void check_cursors(t_arena *arena_s)
 {
     t_cursor *current;
 
-    current = cursorlst;
+    current = arena_s->cursors;
     while (current)
     {
-        if (current->cycles_to_die <= 0)
-        {
-            // DIE
-        }
-        if (current->cycles_to_die > 0)
-        {
-            // CHECK ONCE.
-        }
-        else
-        {
-            // CHECK EVERY CYCLE.
-        }
-        debug_print("[Cursor Turn] Cursor ID %d - Pos: %d", current->id, current->pos);
-        current = cursorlst->next;
+        // TODO: Add kill logic. 
+        debug_printf("[Cursor Turn] Cursor ID %d - Pos: %d", current->id, current->pos);
+        current = current->next;
     }
+    arena_s->check_count++;
 }
 
 static void start_loop(t_arena *arena_s)
 {
     while (arena_s->cursors)
     {
-        check_cursors(arena_s->cursors);
+        if (arena_s->cycles_to_die > 0 && !arena_s->check_count) {
+            // CHEK ONCE in cycles to die.
+            check_cursors(arena_s);
+        } else if (arena_s->cycles_to_die <= 0) {
+            // Check every cycle
+            check_cursors(arena_s);
+        }
         arena_s->cycles_count++;
         if (CYCLE_TIMEOUT)
             sleep(CYCLE_TIMEOUT);
