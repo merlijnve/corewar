@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 20:58:11 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/08/01 15:30:55 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 16:36:00 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_memory(const void *addr, size_t size)
 	char 			*str;
     size_t             width;
     
-    width = 64;
+    width = 16;
 	str = "0123456789abcdef";
 	p = (unsigned char *)addr;
 	i = 0;
@@ -44,25 +44,25 @@ void	print_memory(const void *addr, size_t size)
 		j = 0;
 		while (j < width && i + j < size)
 		{
-            printf_debug("%02hhX", p[i + j]);
+            debug_printf("%02hhX", p[i + j]);
 			if (j % 2)
-				printf_debug(" ");
+				debug_printf(" ");
 			j += 1;
 		}
 		while (j < width)
 		{
-			printf_debug(" ");
+			debug_printf(" ");
 			if (j % 2)
-				printf_debug(" ");
+				debug_printf(" ");
 			j++;
 		}
 		j = 0;
 		while (j < width && i + j < size)
 		{
-            printf_debug("%c", ft_isprint(p[i + j]) ? p[i + j] : '.');
+            debug_printf("%c", ft_isprint(p[i + j]) ? p[i + j] : '.');
 			j += 1;
 		}
-		printf_debug("\n");
+		debug_printf("\n");
 		i += width;
 	}
 }
@@ -72,7 +72,7 @@ void        debug_print_map(t_arena *arena)
     print_memory(arena->mem, MEM_SIZE);
 }
 
-int		printf_debug(const char *format, ...)
+int		debug_printf(const char *format, ...)
 {
 	va_list		ap;
     int ret;
@@ -96,11 +96,11 @@ void	debug_print_champion(t_champion *champion)
 {
 	t_cw_champ_file champ;
 
-    printf_debug("[DEBUG] Champion: %s\n", champion->champ.name);
-    printf_debug("filename: '%s'\n", champion->file_name);
-    printf_debug("name: '%s'\n", champion->champ.name);
-	printf_debug("magic: %#x vs %#x\n", champion->champ.magic, COREWAR_EXEC_MAGIC, MAGIC_NUMBER_LEN);
-	printf_debug("exec size: '%d' \n", champion->champ.size);
-	printf_debug("comment: '%s'\n", champion->champ.comment);
-	printf_debug("---\n\n");
+    debug_printf("[DEBUG] Champion: %s\n", champion->champ.name);
+    debug_printf("filename: '%s'\n", champion->file_name);
+    debug_printf("name: '%s'\n", champion->champ.name);
+	debug_printf("magic: %#x vs %#x\n", champion->champ.magic, COREWAR_EXEC_MAGIC, MAGIC_NUMBER_LEN);
+	debug_printf("exec size: '%d' \n", champion->champ.size);
+	debug_printf("comment: '%s'\n", champion->champ.comment);
+	debug_printf("---\n\n");
 }

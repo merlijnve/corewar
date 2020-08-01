@@ -6,13 +6,13 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/07/31 14:40:18 by wmisiedj      ########   odam.nl          #
+#    Updated: 2020/08/01 16:40:59 by wmisiedj      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
 CC = clang
-C_FLAGS = -Wall -Wextra # -Werror - NOTE: Set back after prod.
+C_FLAGS = -Wall -Wextra -gfull # -Werror - NOTE: Set back after prod.
 
 LIBFT_LOC = ../lib/libft
 LIBFT_PRINTF_LOC = ../lib/ft_printf
@@ -27,6 +27,7 @@ C_HEADERS = \
 
 C_INCLUDES = \
 	-I ./ \
+	-I ./errors/ \
 	-I ../includes/ \
 	-I ../lib/ft_printf/
 
@@ -36,6 +37,7 @@ C_SRCS = \
 	utils.c \
 	debug.c \
 	arena.c \
+	errors/errors.c \
 	main.c
 
 C_OBJS = $(C_SRCS:%.c=%.o)
