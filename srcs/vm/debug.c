@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 20:58:11 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/07/31 18:29:41 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 15:30:55 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,14 @@ int		printf_debug(const char *format, ...)
     int fd;
 
     ret = 0;
-    fd = open(DEBUG_FILE, O_WRONLY | O_APPEND | O_CREAT, 0666);
+    fd = STDOUT_FILENO;
+    if (!DEBUG_ENABLED)
+        return (0);
+    if (DEBUG_FILE)
+        fd = open(DEBUG_FILE, O_WRONLY | O_APPEND | O_CREAT, 0666);
 	va_start(ap, format);
-    ft_vdprintf(STDOUT_FILENO, format, ap);
+    if (DEBUG_PRINT)
+        ft_vdprintf(STDOUT_FILENO, format, ap);
     ret = ft_vdprintf(fd, format, ap);
 	va_end(ap);
 	return (ret);

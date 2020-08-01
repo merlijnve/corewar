@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/07/31 17:36:47 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 15:28:40 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <unistd.h>
 #include <stdint.h>
 
-# define DEBUG_FILE                 "debug.log"
+
 # define MAGIC_NUMBER_LEN           (sizeof(COREWAR_EXEC_MAGIC))
 
 # define CHAMP_FILESIZE             (MAGIC_NUMBER_LEN + NULL_SIZE + NULL_SIZE \
@@ -38,6 +38,10 @@
 # define ERROR_BAD_NULL             -14
 # define HEADER_SIZE				4
 # define NULL_SIZE					4
+
+# define DEBUG_ENABLED              1
+# define DEBUG_PRINT                1
+# define DEBUG_FILE                 "debug.log"
 
 /** Player struct */
 typedef struct s_cw_champ_file
@@ -134,6 +138,5 @@ uint32_t        rev_bytes_32(uint32_t value);
 void            debug_print_hex(unsigned char *str, int n);
 int		        printf_debug(const char *format, ...);
 void	        debug_print_champion(t_champion *champion);
-
 
 #endif
