@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/29 15:25:41 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/08/01 16:15:53 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 16:55:27 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ int 	print_error(const char *format, va_list ap)
 void vm_error(int e, ...)
 {
 	va_list ap;
+	char    *msg;
 
+	msg = NULL;
 	va_start(ap, e);
 	if (e == ERR_PARAMS)
 		print_usage();
@@ -37,7 +39,13 @@ void vm_error(int e, ...)
 	else if (e == ERR_BAD_NULL)
 		print_error("File %s is not properly formatted with nulls\n", ap);
 	else
-		print_error("An unknown error occured.", ap);
+	{
+		msg = va_arg(ap, char *);
+		if (msg != NULL)
+			ft_dprintf(STDERR_FILENO, "An unknown error occured: %s", msg);
+		else 
+			print_error("An unknown error occured.", ap);
+	}
 	va_end(ap);
 	exit(EXIT_FAILURE);
 }
