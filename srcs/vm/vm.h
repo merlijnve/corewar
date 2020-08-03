@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/02 19:07:40 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/03 23:27:03 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define DEBUG_ENABLED              1
 # define DEBUG_PRINT                1
 # define DEBUG_FILE                 "debug.log"
+# define DEBUG_MAX_CYCLES           50
 
 # define CYCLE_TIMEOUT              5
 
@@ -82,12 +83,14 @@ typedef struct s_cursor
 
     int id;
 
-    char *pos;
+    int pos;
 
-    int live_cycle;
+    int last_alive;
 
     bool carry;
     int opcode;
+
+    int timeout;
 } t_cursor;
 
 
@@ -123,11 +126,15 @@ typedef struct s_arena
 
     int cycles_to_die;
 
-    /** Current count of cycles past */
-    int cycles_count;
+    /** Current cycle */
+    int current_cycle;
+
+    int cycle_count;
 
     /** Check counter */
     int check_count;
+
+    int check_bleed;
 
     /** Operations */
     // op_t op_tab[17];

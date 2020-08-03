@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/08/02 19:17:51 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/03 23:30:10 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ static void         introduce_champions(t_arena *arena_s)
         }
         i++;
     }
+}
+
+static int        decrease_cycles(t_arena *arena_s)
+{
+    arena_s->cycles_to_die -= CYCLE_DELTA;
+    return (arena_s->cycles_to_die >= 0);
 }
 
 static void        place_champions(t_arena *arena_s)
@@ -60,40 +66,69 @@ static void        place_champions(t_arena *arena_s)
  * it performed operation 'live' 
  * more than cycles_to_die or more cycles ago.
  */
-static void check_cursors(t_arena *arena_s)
+static void vm_cursor_alive(t_arena *arena_s)
 {
     t_cursor *current;
+    int      last_cycle;
 
     current = arena_s->cursors;
+    last_cycle = 0;
     while (current)
     {
-        debug_printf("[Cursor Check] Cursor (#%d) | Position: [%02hhX](%d)", current->id, current->pos, &arena_s->mem - &current->pos);
-        if (arena_s->cycles_to_die - arena_s->live_count < 0)
+        last_cycle = arena_s->current_cycle - current->last_alive;
+        if (last_cycle >= arena_s->cycles_to_die)
+        {
+            current = current->next;
             cursor_del(arena_s->champions, current);
-        // TODO: 
-        // if (arena_s->live_count )
-        // TODO: Add kill logic. 
-        // 
-        current = current->next;
+        }
     }
     arena_s->check_count++;
 }
 
-static void start_loop(t_arena *arena_s)
+int     vm_run_cursors(t_arena *arena_s)
 {
-    while (arena_s->cursors)
+    t_cursor *current;
+
+    current = arena_s->cursors;
+
+    while (current)
     {
-        if (arena_s->cycles_to_die > 0 && !arena_s->check_count) {
-            // CHEK ONCE in cycles to die.
-            check_cursors(arena_s);
-        } else if (arena_s->cycles_to_die <= 0) {
-            // Check every cycle
-            check_cursors(arena_s);
+        if (current->timeout == 0)
+            ; // TODO: Fetch current op code, set in cursor.
+        if (current->timeout > 0)
+            --current->timeout;
+        else
+        {
+            // TODO: Execute operation.
+            // TODO: Move cursor.
+            // TODO: Maybe remove operation from cursor.
         }
-        arena_s->cycles_count++;
-        if (CYCLE_TIMEOUT)
-            sleep(CYCLE_TIMEOUT);
+        current = current->next;
     }
+}
+
+int     vm_cycle(t_arena *arena_s)
+{
+    // STOP IF ALL CURSORS ARE GONE.
+    if (arena_s->cursors == NULL)
+        return (0);
+    // CHECK IF WE NEED TO REMOVE DEAD CURSORS
+    if (arena_s->current_cycle >= arena_s->cycles_to_die)
+    {
+        vm_cursor_alive(arena_s);
+        arena_s->current_cycle = 0;
+    }
+    // CHECK IF WE NEED TO DECREASE CYCLES TO DIE
+    if (arena_s->live_count >= NBR_LIVE)
+    {
+        decrease_cycles(arena_s);
+        arena_s->live_count = 0;
+    }
+    if (arena_s->live_count == 0 && arena_s->check_count > MAX_CHECKS)
+        decrease_cycles(arena_s);
+    vm_run_cursors(arena_s);
+    arena_s->current_cycle++;
+    return (1);
 }
 
 void        init_arena(t_arena *arena_s)
@@ -117,4 +152,16 @@ void        start_arena(t_arena *arena_s)
 
     introduce_champions(arena_s);
     debug_printf("\nStarting game processes / game loop?...\n");
+
+    while (vm_cycle(arena_s))
+    {
+        debug_printf(" -- Running cycle '%d' (%d/%d)\n", arena_s->cycle_count, \
+            arena_s->current_cycle, arena_s->cycles_to_die);
+        arena_s->cycle_count++;
+        if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
+        {
+            debug_printf(" -- DEBUG: Max debug cycle count reached.\n");
+            break;
+        }
+    }
 }
