@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/30 19:22:32 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/07/31 16:03:07 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 16:30:26 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int  char_base(int c, int base)
 			return (i);
 		i++;
 	}
+
 	return (-1);
 }
 

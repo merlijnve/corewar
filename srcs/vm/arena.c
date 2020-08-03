@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/07/31 18:28:52 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 16:17:15 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void        place_champions(t_arena *arena_s)
     i = 0;
     offset = MEM_SIZE / arena_s->champion_count;
 
-    printf_debug("Placing champions in memory...\n\n");
+    debug_printf("Placing champions in memory...\n\n");
 
     while (i < arena_s->champion_count)
     {
@@ -35,12 +35,12 @@ static void        place_champions(t_arena *arena_s)
 
 void        start_arena(t_arena *arena_s)
 {
-    printf_debug("Starting arena... \n");
+    debug_printf("Starting arena... \n");
 
     // First, let's place the champions.
     place_champions(arena_s); 
 
     debug_print_map(arena_s);
 
-    printf_debug("\nPlacing cursors...\n");
+    debug_printf("\nPlacing cursors...\n");
 }

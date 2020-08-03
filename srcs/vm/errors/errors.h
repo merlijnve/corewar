@@ -6,18 +6,26 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/29 15:24:11 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/07/29 16:29:25 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 16:14:46 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CW_VM_ERROR_H
 # define FT_CW_VM_ERROR_H
 
+# define OK 1
+# define ERROR -1
+
 # define ERR_PARAMS -2
 # define ERR_FILE -3
 # define ERR_TOO_MANY_CHAMP -4
+
+# define ERR_BAD_HEADER -11
+# define ERR_BAD_SIZE -12
+# define ERR_BAD_NULL -13
+
 # define ERR_OTHER -99
 
-int ft_error(int i);
+void    vm_error(int e, ...);
 
 #endif

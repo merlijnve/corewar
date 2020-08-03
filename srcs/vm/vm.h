@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/01 15:28:40 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/01 16:17:15 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@
 # define CHAMP_FILESIZE             (MAGIC_NUMBER_LEN + NULL_SIZE + NULL_SIZE \
     + HEADER_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
 
-# define OK                         0
-# define ERROR                      -1
-# define ERROR_BAD_HEADER           -12
-# define ERROR_BAD_SIZE             -13
-# define ERROR_BAD_NULL             -14
 # define HEADER_SIZE				4
 # define NULL_SIZE					4
 
@@ -136,7 +131,7 @@ int             ft_strntoi(unsigned char *str, int n);
 uint32_t        rev_bytes_32(uint32_t value);
 
 void            debug_print_hex(unsigned char *str, int n);
-int		        printf_debug(const char *format, ...);
+int		        debug_printf(const char *format, ...);
 void	        debug_print_champion(t_champion *champion);
 
 #endif
