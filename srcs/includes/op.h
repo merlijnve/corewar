@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2013/10/04 11:33:27 by zaz           #+#    #+#                 */
-/*   Updated: 2020/06/29 17:34:46 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/07/31 17:36:09 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ typedef char	t_arg_type;
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
-# define COREWAR_EXEC_MAGIC		0xea83f3
+# define COREWAR_EXEC_MAGIC		0x00ea83f3
+# define COREWAR_EXEC_MAGICR	0xf383ea00
 
 typedef struct		header_s
 {
