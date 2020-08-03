@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/08/01 21:14:12 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/02 19:17:51 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ static void        place_champions(t_arena *arena_s)
 }
 
 /**
- * Check if we can kill cursors
+ * Check if we can kill cursors.
+ * Cursor is considered dead, if 
+ * it performed operation 'live' 
+ * more than cycles_to_die or more cycles ago.
  */
 static void check_cursors(t_arena *arena_s)
 {
@@ -64,8 +67,13 @@ static void check_cursors(t_arena *arena_s)
     current = arena_s->cursors;
     while (current)
     {
+        debug_printf("[Cursor Check] Cursor (#%d) | Position: [%02hhX](%d)", current->id, current->pos, &arena_s->mem - &current->pos);
+        if (arena_s->cycles_to_die - arena_s->live_count < 0)
+            cursor_del(arena_s->champions, current);
+        // TODO: 
+        // if (arena_s->live_count )
         // TODO: Add kill logic. 
-        debug_printf("[Cursor Turn] Cursor ID %d - Pos: %d", current->id, current->pos);
+        // 
         current = current->next;
     }
     arena_s->check_count++;

@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/01 20:53:19 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/02 19:07:40 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@ typedef struct s_cursor
 
     int id;
 
-    int pos;
-    int live;
+    char *pos;
+
+    int live_cycle;
 
     bool carry;
     int opcode;
