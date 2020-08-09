@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/09 17:44:05 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/08/09 21:04:00 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,16 @@ typedef struct s_cell
 } t_cell;
 
 /** Individual cursor */
-typedef struct s_cursor
+typedef struct		s_cursor
 {
     struct s_cursor *next;
     struct s_cursor *prev;
-    int id;
-    int pos;
-    bool carry;
-    int opcode;
-} t_cursor;
+    int				id;
+    int				pos;
+    bool			carry;
+    int				opcode;
+	int				registries[16];
+}					t_cursor;
 
 
 
@@ -134,5 +135,6 @@ void            debug_print_hex(unsigned char *str, int n);
 int		        debug_printf(const char *format, ...);
 void	        debug_print_champion(t_champion *champion);
 void        	debug_print_map(t_arena *arena);
+int				is_registry(int arg);
 
 #endif
