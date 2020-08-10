@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/30 19:22:32 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/08/01 16:30:26 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/09 17:41:01 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,20 @@ uint32_t rev_bytes_32(uint32_t value)
          (value & 0x00FF0000U) >> 8 | (value & 0xFF000000U) >> 24;
 }
 
-static int  char_base(int c, int base)
-{
-    int i;
+// static int  char_base(int c, int base)
+// {
+//     int i;
 
-    i = 0;
-	while (i < base)
-	{
-		if (ft_tolower(c) == "0123456789abcdef"[i])
-			return (i);
-		i++;
-	}
+//     i = 0;
+// 	while (i < base)
+// 	{
+// 		if (ft_tolower(c) == "0123456789abcdef"[i])
+// 			return (i);
+// 		i++;
+// 	}
 
-	return (-1);
-}
-
+// 	return (-1);
+// }
 
 int     ft_strntoi(unsigned char *str, int n)
 {
