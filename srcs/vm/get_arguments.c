@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 14:41:11 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/12 16:22:19 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/12 18:47:33 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	get_argument_types(int byte, t_cursor *cursor)
 	int	i;
 
 	i = 2;
-
 	if ((byte & 3) != 0)
 		vm_error(ERR_BAD_ENC);
 	while (i >= 0)
