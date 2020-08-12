@@ -6,11 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/08/12 14:51:31 by merlijn       ########   odam.nl         */
-=======
-/*   Updated: 2020/08/12 15:42:16 by merlijn       ########   odam.nl         */
->>>>>>> feat/operation_add
+/*   Updated: 2020/08/12 16:14:46 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +157,7 @@ int		        debug_printf(const char *format, ...);
 void	        debug_print_champion(t_champion *champion);
 void        	debug_print_map(t_arena *arena);
 int				is_registry(int arg);
+void			add(char *mem, t_cursor *cursor);
+void			get_arguments(char *mem, t_cursor *cursor);
 
 #endif
