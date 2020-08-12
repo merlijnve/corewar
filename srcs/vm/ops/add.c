@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/09 19:53:23 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/08/12 16:29:29 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/12 16:31:15 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		add(char *mem, t_cursor *cursor)
 	arg1 = mem[(cursor->pos + 2) % MEM_SIZE];
 	arg2 = mem[(cursor->pos + 3) % MEM_SIZE];
 	arg3 = mem[(cursor->pos + 4) % MEM_SIZE];
-	if (is_registry(arg1) == OK && is_registry(arg2) == OK && is_registry(arg3))
+	if (is_registry(arg1) && is_registry(arg2) && is_registry(arg3))
 	{
 		sum = cursor->registries[arg1] + cursor->registries[arg2];
 		cursor->registries[arg3] = sum;
