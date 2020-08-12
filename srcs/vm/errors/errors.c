@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/29 15:25:41 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/08/01 16:55:27 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/12 15:40:40 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void vm_error(int e, ...)
 		print_error("File %s has too large a code.\n", ap);
 	else if (e == ERR_BAD_NULL)
 		print_error("File %s is not properly formatted with nulls\n", ap);
+	else if (e == ERR_BAD_ARGTYPE)
+		print_error("File %s has bad argument types\n", ap);
 	else
 	{
 		msg = va_arg(ap, char *);
