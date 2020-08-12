@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/09 21:04:00 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/08/12 14:51:31 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,21 @@ typedef struct s_cell
     bool taken;
 } t_cell;
 
+/*
+**	Argument
+**	type can be value of
+**	- T_REG = 0x01 = 1
+**	- T_DIR = 0x10 = 2
+**	- T_IND = 0x11 = 3
+**	- empty = 0x00 = 0
+*/
+
+typedef struct	s_argument
+{
+	int			type;
+	int			value;
+}				t_argument;
+
 /** Individual cursor */
 typedef struct		s_cursor
 {
@@ -81,6 +96,7 @@ typedef struct		s_cursor
     bool			carry;
     int				opcode;
 	int				registries[16];
+	t_argument		args[3];
 }					t_cursor;
 
 

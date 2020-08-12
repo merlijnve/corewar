@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/29 15:24:11 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/08/09 18:23:01 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/08/12 15:08:51 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define ERR_BAD_HEADER -11
 # define ERR_BAD_SIZE -12
 # define ERR_BAD_NULL -13
+
+/* bad encoding byte */
+# define ERR_BAD_ENC -14
 
 # define ERR_OTHER -99
 
