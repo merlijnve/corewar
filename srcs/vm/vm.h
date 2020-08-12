@@ -6,7 +6,11 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2020/08/12 14:51:31 by merlijn       ########   odam.nl         */
+=======
+/*   Updated: 2020/08/12 15:42:16 by merlijn       ########   odam.nl         */
+>>>>>>> feat/operation_add
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +41,11 @@
 # define DEBUG_ENABLED              1
 # define DEBUG_PRINT                1
 # define DEBUG_FILE                 "debug.log"
+
+#define ARG_TYPE_REG			1
+#define ARG_TYPE_DIR			2
+#define ARG_TYPE_IND			3
+#define ARG_TYPE_NONE			0
 
 /** Player struct */
 typedef struct s_cw_champ_file

@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 14:41:11 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/12 15:19:32 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/12 16:05:02 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 **	empty = 0x00 = 0
 */
 
-int		get_argument_types(int byte, t_cursor *cursor)
+static int	get_argument_types(int byte, t_cursor *cursor)
 {
 	int	i;
 
@@ -39,18 +39,11 @@ int		get_argument_types(int byte, t_cursor *cursor)
 	return (OK);
 }
 
-int		get_argument_values(char *mem, t_cursor *cursor)
-{
-	get_direct_value();
-	get_indirect_value();
-}
-
-void	get_arguments(char *mem, t_cursor *cursor)
+void		get_arguments(char *mem, t_cursor *cursor)
 {
 	int	encoding_byte;
 
 	encoding_byte = mem[(cursor->pos + 1) % MEM_SIZE];
 	if (get_argument_types(encoding_byte, cursor) != OK)
 		vm_error(ERR_BAD_ENC);
-	get_argument_values(mem, cursor);
 }
