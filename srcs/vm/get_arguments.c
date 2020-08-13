@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 14:41:11 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/13 17:05:11 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/13 18:06:47 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@
 **	t_dir_size should be 2 or 4
 */
 
-int		get_direct_argument(char *mem, int t_dir_size, int pos)
+int		get_direct_argument(char *mem, int t_dir_size, int arg_pos)
 {
 	int	sum;
 
 	sum = 0;
 	if (t_dir_size == 2)
 	{
-		sum = mem[pos % MEM_SIZE] << 8;
-		sum += mem[pos + 1 % MEM_SIZE];
+		sum = mem[get_pos(arg_pos, 0)] << 8;
+		sum += mem[get_pos(arg_pos, 1)];
 	}
 	else if (t_dir_size == 4)
 	{
-		sum = mem[pos % MEM_SIZE] << 24;
-		sum += mem[pos + 1 % MEM_SIZE] << 16;
-		sum += mem[pos + 2 % MEM_SIZE] << 8;
-		sum += mem[pos + 3 % MEM_SIZE];
+		sum = mem[get_pos(arg_pos, 0)] << 24;
+		sum += mem[get_pos(arg_pos, 1)] << 16;
+		sum += mem[get_pos(arg_pos, 2)] << 8;
+		sum += mem[get_pos(arg_pos, 3)];
 	}
 	return (sum);
 }
@@ -54,7 +54,7 @@ void	get_argument_types(char *mem, t_cursor *cursor)
 	int	i;
 	int byte;
 
-	byte = mem[(cursor->pos + 1) % MEM_SIZE];
+	byte = mem[get_pos(cursor->pos, 1)];
 	i = 2;
 	if ((byte & 3) != 0)
 		return ;

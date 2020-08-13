@@ -6,11 +6,21 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/09 20:48:30 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/08/13 15:25:05 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/13 17:51:16 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+/*
+**	GET_POS
+**	Gets new position in arena with modulo calculation
+*/
+
+int		get_pos(int cursor_pos, int pos)
+{
+	return ((cursor_pos + pos) % MEM_SIZE);
+}
 
 /*
 **	IS_REGISTRY
