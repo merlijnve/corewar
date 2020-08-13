@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/13 18:02:20 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/13 22:32:31 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define MAGIC_NUMBER_LEN			(sizeof(COREWAR_EXEC_MAGIC))
 
 # define CHAMP_FILESIZE				(MAGIC_NUMBER_LEN + NULL_SIZE + NULL_SIZE \
-    + HEADER_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
+	+ HEADER_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
 
 # define HEADER_SIZE				4
 # define NULL_SIZE					4
@@ -158,5 +158,8 @@ void			add(char *mem, t_cursor *cursor);
 void			get_argument_types(char *mem, t_cursor *cursor);
 int				get_direct_argument(char *mem, int t_dir_size, int pos);
 int				get_pos(int cursor_pos, int pos);
+int				read_4_bytes(char *mem, int pos);
+int				get_indirect_argument(char *mem, int cursor_pos, int arg_pos,\
+	bool idx);
 
 #endif

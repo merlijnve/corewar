@@ -6,11 +6,31 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 14:41:11 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/13 18:06:47 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/13 22:32:37 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+/*
+**	GET_INDIRECT_ARGUMENT
+**	Uses idx argument to check for IDX_MOD truncating
+**	reads 4 bytes from address
+**	returns int
+*/
+
+int		get_indirect_argument(char *mem, int cursor_pos, int arg_pos, bool idx)
+{
+	int arg_value;
+	int	result;
+
+	arg_value = (int)mem[arg_pos];
+	if (idx == true)
+		result = read_4_bytes(mem, cursor_pos + (arg_value % IDX_MOD));
+	else
+		result = read_4_bytes(mem, cursor_pos + arg_value);
+	return (result);
+}
 
 /*
 **	GET_DIRECT_ARGUMENT
@@ -30,12 +50,7 @@ int		get_direct_argument(char *mem, int t_dir_size, int arg_pos)
 		sum += mem[get_pos(arg_pos, 1)];
 	}
 	else if (t_dir_size == 4)
-	{
-		sum = mem[get_pos(arg_pos, 0)] << 24;
-		sum += mem[get_pos(arg_pos, 1)] << 16;
-		sum += mem[get_pos(arg_pos, 2)] << 8;
-		sum += mem[get_pos(arg_pos, 3)];
-	}
+		sum = read_4_bytes(mem, arg_pos);
 	return (sum);
 }
 
