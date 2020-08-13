@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/13 15:28:10 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/13 17:05:46 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,6 @@ void			debug_print_map(t_arena *arena);
 int				is_registry(int arg);
 void			add(char *mem, t_cursor *cursor);
 void			get_argument_types(char *mem, t_cursor *cursor);
+int				get_direct_argument(char *mem, int t_dir_size, int pos);
 
 #endif
