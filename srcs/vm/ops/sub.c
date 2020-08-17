@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/17 19:45:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/17 19:53:09 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/17 20:51:28 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,3 @@ void		sub(char *mem, t_cursor *cursor)
 			cursor->carry = 0;
 	}
 }
-
