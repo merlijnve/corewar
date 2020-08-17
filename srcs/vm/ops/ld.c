@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/17 20:01:26 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/17 20:51:15 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/17 21:50:18 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,22 @@ static int	check_ld_argument_types(t_argument *args)
 
 static void	get_ld_argument_values(char *mem, t_cursor *cursor)
 {
+	int	offset;
+
+	offset = 2;
 	if (cursor->args[0].type == ARG_TYPE_DIR)
-		cursor->args[0].value = get_direct_argument(mem, 4, cursor->pos + 2);
+	{
+		cursor->args[0].value = get_direct_argument(mem, 4, cursor->pos +
+		offset);
+		offset += 4;
+	}
 	else
-		cursor->args[0].value = get_indirect_argument(mem,
-		cursor->pos, cursor->pos + 2, true);
-	cursor->args[1].value = mem[get_pos(cursor->pos, 6)];
+	{
+		cursor->args[0].value = get_indirect_argument(mem, cursor->pos, offset,
+		true);
+		offset += 2;
+	}
+	cursor->args[1].value = mem[get_pos(cursor->pos, offset)];
 }
 
 /*

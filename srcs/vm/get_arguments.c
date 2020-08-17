@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 14:41:11 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/13 22:32:37 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/17 21:53:43 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int		get_indirect_argument(char *mem, int cursor_pos, int arg_pos, bool idx)
 	int arg_value;
 	int	result;
 
-	arg_value = (int)mem[arg_pos];
+	arg_pos += cursor_pos;
+	arg_value = (int)mem[arg_pos] << 8;
+	arg_value += mem[arg_pos + 1];
 	if (idx == true)
 		result = read_4_bytes(mem, cursor_pos + (arg_value % IDX_MOD));
 	else
