@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 20:58:11 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/08/01 16:36:00 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/09 20:08:43 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_memory(const void *addr, size_t size)
 	char 			*str;
     size_t             width;
     
-    width = 16;
+    width = 64;
 	str = "0123456789abcdef";
 	p = (unsigned char *)addr;
 	i = 0;
@@ -94,7 +94,7 @@ int		debug_printf(const char *format, ...)
 
 void	debug_print_champion(t_champion *champion)
 {
-	t_cw_champ_file champ;
+	//t_cw_champ_file champ;
 
     debug_printf("[DEBUG] Champion: %s\n", champion->champ.name);
     debug_printf("filename: '%s'\n", champion->file_name);

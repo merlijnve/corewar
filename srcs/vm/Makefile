@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/08/01 16:40:59 by wmisiedj      ########   odam.nl          #
+#    Updated: 2020/08/12 15:03:43 by merlijn       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ C_SRCS = \
 	debug.c \
 	arena.c \
 	errors/errors.c \
-	main.c
+	main.c \
+	ops/add.c \
+	get_arguments.c \
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 
