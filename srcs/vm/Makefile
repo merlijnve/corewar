@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/08/17 19:54:21 by merlijn       ########   odam.nl          #
+#    Updated: 2020/08/17 20:53:50 by merlijn       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ C_SRCS = \
 	main.c \
 	get_arguments.c \
 	ops/add.c \
-	ops/sub.c
+	ops/sub.c \
+	ops/ld.c
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 

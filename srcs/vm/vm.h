@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/17 19:53:56 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/17 20:54:03 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,5 +162,6 @@ int				read_4_bytes(char *mem, int pos);
 int				get_indirect_argument(char *mem, int cursor_pos, int arg_pos,\
 	bool idx);
 void			sub(char *mem, t_cursor *cursor);
+void			ld(char *mem, t_cursor *cursor);
 
 #endif
