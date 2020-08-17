@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/17 20:58:31 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/17 22:32:40 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/17 23:02:18 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	get_first_ldi_argument(char *mem, t_cursor *cursor)
 
 static int	get_second_ldi_argument(char *mem, t_cursor *cursor, int offset)
 {
-	if (cursor->args[1].type = ARG_TYPE_REG)
+	if (cursor->args[1].type == ARG_TYPE_REG)
 	{
 		cursor->args[1].value = mem[get_pos(cursor->pos, offset)];
 		if (!is_registry(cursor->args[1].value))
@@ -70,7 +70,7 @@ static int	get_second_ldi_argument(char *mem, t_cursor *cursor, int offset)
 		cursor->args[1].value = cursor->registries[cursor->args[1].value];
 		offset += 1;
 	}
-	if (cursor->args[1].type = ARG_TYPE_DIR)
+	if (cursor->args[1].type == ARG_TYPE_DIR)
 	{
 		cursor->args[1].value = get_direct_argument(mem, 2, cursor->pos +
 		offset);
