@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/08/17 20:53:50 by merlijn       ########   odam.nl          #
+#    Updated: 2020/08/17 22:31:15 by merlijn       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ C_SRCS = \
 	check_args.c \
 	check_champions.c \
 	utils.c \
+	utils_2.c \
 	debug.c \
 	arena.c \
 	errors/errors.c \
@@ -42,7 +43,8 @@ C_SRCS = \
 	get_arguments.c \
 	ops/add.c \
 	ops/sub.c \
-	ops/ld.c
+	ops/ld.c \
+	ops/ldi.c
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 
