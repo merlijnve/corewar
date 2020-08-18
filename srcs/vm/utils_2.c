@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/09 20:48:30 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/08/17 20:23:32 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/18 21:29:35 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ int		read_4_bytes(char *mem, int pos)
 	sum += mem[get_pos(pos, 2)] << 8;
 	sum += mem[get_pos(pos, 3)];
 	return (sum);
+}
+
+void	write_4_bytes(unsigned char *mem, int pos, int value)
+{
+	int temp;
+
+	temp = value >> 24 & 0xff;
+	mem[get_pos(pos, 0)] = temp;
+	temp = value >> 16 & 0xff;
+	mem[get_pos(pos, 1)] = temp;
+	temp = value >> 8 & 0xff;
+	mem[get_pos(pos, 2)] = temp;
+	temp = value & 0xff;
+	mem[get_pos(pos, 3)] = temp;
 }
 
 /*
