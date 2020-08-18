@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/17 22:51:11 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/17 22:58:35 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,6 @@ void			sub(char *mem, t_cursor *cursor);
 void			ld(char *mem, t_cursor *cursor);
 void			ldi(char *mem, t_cursor *cursor);
 void			lld(char *mem, t_cursor *cursor);
+void			lldi(char *mem, t_cursor *cursor);
 
 #endif
