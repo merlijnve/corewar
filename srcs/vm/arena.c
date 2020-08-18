@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/08/03 23:30:10 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/18 13:15:26 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,26 @@ static void        place_champions(t_arena *arena_s)
 static void vm_cursor_alive(t_arena *arena_s)
 {
     t_cursor *current;
+    t_cursor *tmp;
     int      last_cycle;
 
     current = arena_s->cursors;
     last_cycle = 0;
+    tmp = NULL;
     while (current)
     {
         last_cycle = arena_s->current_cycle - current->last_alive;
         if (last_cycle >= arena_s->cycles_to_die)
         {
+            tmp = current;
             current = current->next;
-            cursor_del(arena_s->champions, current);
+            cursor_del(&tmp, current);
         }
     }
     arena_s->check_count++;
 }
 
-int     vm_run_cursors(t_arena *arena_s)
+void     vm_run_cursors(t_arena *arena_s)
 {
     t_cursor *current;
 

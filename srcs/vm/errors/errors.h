@@ -6,14 +6,14 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/29 15:24:11 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/08/01 16:14:46 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/13 15:16:12 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CW_VM_ERROR_H
 # define FT_CW_VM_ERROR_H
 
-# define OK 1
+# define OK 0
 # define ERROR -1
 
 # define ERR_PARAMS -2

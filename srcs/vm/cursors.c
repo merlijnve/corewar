@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/08/01 20:54:51 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/18 13:17:42 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_cursor *cursor_add(t_cursor **acursor, t_cursor *new)
 		new->next = *acursor;
 		*acursor = new;
 	}
+
+    return (*acursor);
 }
 
 t_cursor *cursor_del(t_cursor **acursor, t_cursor *del)
@@ -52,7 +54,7 @@ t_cursor *cursor_del(t_cursor **acursor, t_cursor *del)
     debug_printf("[Cursor] Deleting cursor %d", del->id);
 
     // TODO: Actually delete the specific cursor.
-    return acursor;
+    return (*acursor);
 }
 
 /*
