@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/08/01 16:40:59 by wmisiedj      ########   odam.nl          #
+#    Updated: 2020/08/01 17:46:16 by wmisiedj      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ C_SRCS = \
 	utils.c \
 	debug.c \
 	arena.c \
+	cursors.c \
 	errors/errors.c \
 	main.c
 
