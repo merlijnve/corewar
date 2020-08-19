@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/19 17:54:04 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/19 18:16:20 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,5 +173,6 @@ void			sti(char *mem, t_cursor *cursor);
 void			and(char *mem, t_cursor *cursor);
 void			or(char *mem, t_cursor *cursor);
 void			xor(char *mem, t_cursor *cursor);
+void			aff(char *mem, t_cursor *cursor);
 
 #endif
