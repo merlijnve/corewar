@@ -1,2 +1,12 @@
+# Objects / Libraries
 *.o
+*.a
+
+# Binaries
+srcs/asm/asm
+srcs/vm/vm
+srcs/vm/corewar
+
+# MISC
 .DS_Store
+*.log
