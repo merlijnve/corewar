@@ -6,11 +6,12 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 17:49:22 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/19 17:52:52 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/19 18:23:52 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
 static int	check_or_argument_types(t_argument *args)
 {
 	if (args[0].type != ARG_TYPE_REG && args[0].type != ARG_TYPE_DIR &&
@@ -32,7 +33,7 @@ int i)
 		cursor->args[i].value = mem[get_pos(cursor->pos, offset)];
 		if (!is_registry(cursor->args[i].value))
 			return (ERROR);
-		cursor->args[i].value = cursor->registries[cursor->args[i].value];
+		cursor->args[i].value = cursor->registries[cursor->args[i].value - 1];
 		offset += 1;
 	}
 	if (cursor->args[i].type == ARG_TYPE_DIR)
@@ -83,7 +84,7 @@ void		or(char *mem, t_cursor *cursor)
 	if (get_or_argument_values(mem, cursor) == ERROR)
 		return ;
 	result = cursor->args[0].value | cursor->args[1].value;
-	cursor->registries[cursor->args[2].value] = result;
+	cursor->registries[cursor->args[2].value - 1] = result;
 	if (result == 0)
 		cursor->carry = 1;
 	else

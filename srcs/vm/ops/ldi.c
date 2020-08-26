@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/17 20:58:31 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/17 23:02:18 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/19 18:20:55 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	get_first_ldi_argument(char *mem, t_cursor *cursor)
 		cursor->args[0].value = mem[get_pos(cursor->pos, offset)];
 		if (!is_registry(cursor->args[0].value))
 			return (ERROR);
-		cursor->args[0].value = cursor->registries[cursor->args[0].value];
+		cursor->args[0].value = cursor->registries[cursor->args[0].value - 1];
 		offset += 1;
 	}
 	if (cursor->args[0].type == ARG_TYPE_DIR)
@@ -67,7 +67,7 @@ static int	get_second_ldi_argument(char *mem, t_cursor *cursor, int offset)
 		cursor->args[1].value = mem[get_pos(cursor->pos, offset)];
 		if (!is_registry(cursor->args[1].value))
 			return (ERROR);
-		cursor->args[1].value = cursor->registries[cursor->args[1].value];
+		cursor->args[1].value = cursor->registries[cursor->args[1].value - 1];
 		offset += 1;
 	}
 	if (cursor->args[1].type == ARG_TYPE_DIR)
@@ -112,5 +112,5 @@ void		ldi(char *mem, t_cursor *cursor)
 		return ;
 	value = read_4_bytes(mem, cursor->pos + ((cursor->args[0].value +
 	cursor->args[1].value) % IDX_MOD));
-	cursor->registries[cursor->args[2].value] = value;
+	cursor->registries[cursor->args[2].value - 1] = value;
 }

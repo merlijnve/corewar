@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 15:51:14 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/19 17:40:00 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/19 18:20:07 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int i)
 		cursor->args[i].value = mem[get_pos(cursor->pos, offset)];
 		if (!is_registry(cursor->args[i].value))
 			return (ERROR);
-		cursor->args[i].value = cursor->registries[cursor->args[i].value];
+		cursor->args[i].value = cursor->registries[cursor->args[i].value - 1];
 		offset += 1;
 	}
 	if (cursor->args[i].type == ARG_TYPE_DIR)
@@ -84,7 +84,7 @@ void		and(char *mem, t_cursor *cursor)
 	if (get_and_argument_values(mem, cursor) == ERROR)
 		return ;
 	result = cursor->args[0].value & cursor->args[1].value;
-	cursor->registries[cursor->args[2].value] = result;
+	cursor->registries[cursor->args[2].value - 1] = result;
 	if (result == 0)
 		cursor->carry = 1;
 	else

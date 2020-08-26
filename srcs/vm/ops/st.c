@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/18 20:13:20 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/18 21:30:38 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/19 18:22:06 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void		st(char *mem, t_cursor *cursor)
 	{
 		arg2 = mem[get_pos(cursor->pos, 3)];
 		if (is_registry(arg2))
-			cursor->registries[arg2] = cursor->registries[arg1];
+			cursor->registries[arg2 - 1] = cursor->registries[arg1 - 1];
 	}
 	else
 	{
 		arg2 = mem[get_pos(cursor->pos, 3)] << 8;
 		arg2 += mem[get_pos(cursor->pos, 4)];
 		write_4_bytes((unsigned char *)mem, cursor->pos + (arg2 % IDX_MOD),
-		cursor->registries[arg1]);
+		cursor->registries[arg1 - 1]);
 	}
 }
