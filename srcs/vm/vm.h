@@ -167,7 +167,12 @@ void			ld(char *mem, t_cursor *cursor);
 void			ldi(char *mem, t_cursor *cursor);
 void			lld(char *mem, t_cursor *cursor);
 void			lldi(char *mem, t_cursor *cursor);
+void			lldi(char *mem, t_cursor *cursor);
 void			st(char *mem, t_cursor *cursor);
 void			sti(char *mem, t_cursor *cursor);
+void			and(char *mem, t_cursor *cursor);
+void			or(char *mem, t_cursor *cursor);
+void			xor(char *mem, t_cursor *cursor);
+void			aff(char *mem, t_cursor *cursor);
 
 #endif
