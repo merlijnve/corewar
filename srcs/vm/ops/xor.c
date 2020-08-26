@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   and.c                                              :+:    :+:            */
+/*   xor.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/19 15:51:14 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/19 18:20:07 by merlijn       ########   odam.nl         */
+/*   Created: 2020/08/19 17:52:43 by merlijn       #+#    #+#                 */
+/*   Updated: 2020/08/19 18:24:00 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static int	check_and_argument_types(t_argument *args)
+static int	check_xor_argument_types(t_argument *args)
 {
 	if (args[0].type != ARG_TYPE_REG && args[0].type != ARG_TYPE_DIR &&
 	args[0].type != ARG_TYPE_IND)
@@ -51,7 +51,7 @@ int i)
 	return (offset);
 }
 
-static int	get_and_argument_values(char *mem, t_cursor *cursor)
+static int	get_xor_argument_values(char *mem, t_cursor *cursor)
 {
 	int offset;
 
@@ -69,21 +69,21 @@ static int	get_and_argument_values(char *mem, t_cursor *cursor)
 }
 
 /*
-**	AND
-**	Performs bitwise AND on argument 1 and 2
+**	XOR
+**	Performs bitwise XOR on argument 1 and 2
 **	Saves result in registry from argument 3
 */
 
-void		and(char *mem, t_cursor *cursor)
+void		xor(char *mem, t_cursor *cursor)
 {
 	int	result;
 
 	get_argument_types(mem, cursor);
-	if (check_and_argument_types(cursor->args) == ERROR)
+	if (check_xor_argument_types(cursor->args) == ERROR)
 		return ;
-	if (get_and_argument_values(mem, cursor) == ERROR)
+	if (get_xor_argument_values(mem, cursor) == ERROR)
 		return ;
-	result = cursor->args[0].value & cursor->args[1].value;
+	result = cursor->args[0].value ^ cursor->args[1].value;
 	cursor->registries[cursor->args[2].value - 1] = result;
 	if (result == 0)
 		cursor->carry = 1;
