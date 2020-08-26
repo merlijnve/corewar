@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/08/17 22:58:19 by merlijn       ########   odam.nl          #
+#    Updated: 2020/08/18 13:07:36 by wmisiedj      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ C_SRCS = \
 	utils_2.c \
 	debug.c \
 	arena.c \
+	cursors.c \
 	errors/errors.c \
 	main.c \
 	get_arguments.c \

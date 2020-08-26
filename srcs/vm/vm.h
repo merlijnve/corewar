@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/17 22:58:35 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/18 13:12:30 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define DEBUG_ENABLED				1
 # define DEBUG_PRINT				1
 # define DEBUG_FILE					"debug.log"
+# define DEBUG_MAX_CYCLES           42
 
 #define ARG_TYPE_REG				1
 #define ARG_TYPE_DIR				2
@@ -63,6 +64,7 @@ typedef struct		s_champion
 	int				id;
 	int				fd;
 	int				argv_index;
+    int             mem_index;
 	char			*file_name;
 }					t_champion;
 
@@ -98,6 +100,8 @@ typedef struct		s_cursor
 	bool			carry;
 	int				opcode;
 	int				registries[16];
+    int             last_alive;
+    int             timeout;
 	t_argument		args[3];
 }					t_cursor;
 
@@ -114,6 +118,8 @@ typedef struct s_arena
 	
 	/** Amount of champions */
 	int 		champion_count;
+
+    int         cursor_count;
 
 	int			dump_flag;
 
@@ -132,7 +138,13 @@ typedef struct s_arena
 	int cycles_to_die;
 
 	/** Current count of cycles past */
-	int cycles_count;
+	int cycle_count;
+
+    int current_cycle;
+
+    int live_count;
+
+    int last_alive;
 
 	/** Check counter */
 	int check_count;
@@ -146,6 +158,20 @@ void			check_args(int argc, char **argv, t_arena *arena);
 void			start_arena(t_arena *arena_s);
 int				check_champions(t_champion *champions, int champion_count);
 
+int             ft_strntoi(unsigned char *str, int n);
+uint32_t        rev_bytes_32(uint32_t value);
+
+void            init_cursors(t_arena *arena_s);
+
+t_cursor        *cursor_create();
+t_cursor        *cursor_add(t_cursor **acursor, t_cursor *new);
+t_cursor        *cursor_del(t_cursor **acursor, t_cursor *del);
+t_cursor        *cursor_clone(t_cursor *origin);
+
+void            debug_print_hex(unsigned char *str, int n);
+int		        debug_printf(const char *format, ...);
+void	        debug_print_champion(t_champion *champion);
+void		    debug_print_cursors(t_cursor *cursors);
 int				ft_strntoi(unsigned char *str, int n);
 uint32_t		rev_bytes_32(uint32_t value);
 
