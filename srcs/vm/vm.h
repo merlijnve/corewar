@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/18 13:12:30 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/18 22:02:51 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void			get_argument_types(char *mem, t_cursor *cursor);
 int				get_direct_argument(char *mem, int t_dir_size, int pos);
 int				get_pos(int cursor_pos, int pos);
 int				read_4_bytes(char *mem, int pos);
+void			write_4_bytes(unsigned char *mem, int pos, int value);
 int				get_indirect_argument(char *mem, int cursor_pos, int arg_pos,
 	bool idx);
 void			sub(char *mem, t_cursor *cursor);
@@ -192,5 +193,12 @@ void			ld(char *mem, t_cursor *cursor);
 void			ldi(char *mem, t_cursor *cursor);
 void			lld(char *mem, t_cursor *cursor);
 void			lldi(char *mem, t_cursor *cursor);
+void			lldi(char *mem, t_cursor *cursor);
+void			st(char *mem, t_cursor *cursor);
+void			sti(char *mem, t_cursor *cursor);
+void			and(char *mem, t_cursor *cursor);
+void			or(char *mem, t_cursor *cursor);
+void			xor(char *mem, t_cursor *cursor);
+void			aff(char *mem, t_cursor *cursor);
 
 #endif
