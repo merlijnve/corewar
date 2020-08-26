@@ -38,6 +38,7 @@ C_SRCS = \
 	utils_2.c \
 	debug.c \
 	arena.c \
+	cursors.c \
 	errors/errors.c \
 	main.c \
 	get_arguments.c \
