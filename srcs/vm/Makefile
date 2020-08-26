@@ -45,7 +45,9 @@ C_SRCS = \
 	ops/add.c \
 	ops/sub.c \
 	ops/ld.c \
-	ops/ldi.c
+	ops/ldi.c \
+	ops/lld.c \
+	ops/lldi.c
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 

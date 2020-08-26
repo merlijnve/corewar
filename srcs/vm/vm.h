@@ -190,5 +190,7 @@ int				get_indirect_argument(char *mem, int cursor_pos, int arg_pos,
 void			sub(char *mem, t_cursor *cursor);
 void			ld(char *mem, t_cursor *cursor);
 void			ldi(char *mem, t_cursor *cursor);
+void			lld(char *mem, t_cursor *cursor);
+void			lldi(char *mem, t_cursor *cursor);
 
 #endif
