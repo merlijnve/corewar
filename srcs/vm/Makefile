@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/08/18 21:30:21 by merlijn       ########   odam.nl          #
+#    Updated: 2020/08/18 22:02:58 by merlijn       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,12 @@ C_SRCS = \
 	ops/ldi.c \
 	ops/lld.c \
 	ops/lldi.c \
-	ops/st.c
+	ops/st.c \
+	ops/sti.c \
+	ops/and.c \
+	ops/or.c \
+	ops/xor.c \
+	ops/aff.c
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 
