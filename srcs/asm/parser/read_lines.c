@@ -14,24 +14,29 @@
 #include <libft.h>
 #include "input_parser.h"
 
-t_ret	read_lines(int fd, t_list **lines)
+t_ret	read_lines(char *file, t_list **lines)
 {
 	t_ret			ret;
-	char			*line;
+	t_index			idx;
 	t_list			*item;
+	char			*last;
 
 	ret = kSuccess;
-	while (get_next_line(fd, &line) > 0 && ret == kSuccess)
+	idx = 0;
+	last = file;
+	while (file[idx] != '\0' && ret == kSuccess)
 	{
-		item = ft_memalloc(sizeof(t_list));
-		if (item == NULL)
-			return (kErrorAlloc);
-		if (line)
-			item->content = ft_strtrim(line);
-		free(line);
-		item->next = *lines;
-		*lines = item;
+		if (file[idx] == '\n') {
+			item = ft_memalloc(sizeof(t_list));
+			if (item == NULL)
+				return (kErrorAlloc);
+			item->content = ft_strnew((&file[idx] - last) + 1);
+			ft_memcpy(item->content, last, &file[idx] - last);
+			item->next = *lines;
+			*lines = item;
+			last = &file[idx + 1];
+		}
+		idx++;
 	}
 	return (ret);
 }
-
