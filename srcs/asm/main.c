@@ -21,25 +21,39 @@
 **  - write to .cor file
 */
 
+
+static void print_lines(t_list *lines)
+{
+	ft_printf("LINES:\n ++++ START ++++\n");
+	while (lines->next != NULL)
+	{
+		ft_printf("line: %.4d | %s\n", 0, lines->content);
+		lines = lines->next;
+	}
+	ft_printf("++++ END ++++\n");
+}
+
 int		main(int argc, char **argv)
 {
 	int		input_fd;
-	t_list	*lines;
 	t_asm	asmblr;
+	char *file;
+	t_list *lines;
 
+	file = NULL;
 	ft_bzero(&asmblr, sizeof(asmblr));
 	input_fd = check_args(argc, argv, &asmblr);
-	// FOR OPENING OF NEW FILE WITH CORRECT RIGHTS
-	//output_fd = open("test.cor", O_CREAT | O_RDWR, 0600);
-	//close(fd);
-
-	char *file;
 
 	read_file(input_fd, &file);
-//	ft_lstrev(&lines);
-//	parse_file(lines, &asmblr);
 
-	ft_printf("file:\n%s", file);
+	ft_printf("FILE:\n ++++ START ++++\n\n%s\n ++++ END ++++\n", file);
+
+	read_lines(file, &lines);
+	ft_lstrev(&lines);
+
+	print_lines(lines);
+
+	parse_file(lines, &asmblr);
 
 	close(input_fd);
 	return (0);
