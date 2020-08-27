@@ -99,6 +99,9 @@ static t_line_type	line_type(char *line)
 	if (line == NULL)
 		return (kUndefinedLine);
 
+	if (*line == '#')
+		return (kSourceCommentLine);
+
 	// if line is empty
 	if (*line == '\0')
 		return (kEmptyLine);
