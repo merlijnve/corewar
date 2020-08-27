@@ -36,7 +36,7 @@ enum	e_parse_flag
 
 #pragma mark - funcs
 
-t_ret	read_lines(int fd, t_list **lines);
+t_ret	read_lines(char *file, t_list **lines);
 t_ret	read_file(int fd, char **buffer);
 t_ret   parse_file(t_list *lines, t_asm *asmblr);
 
