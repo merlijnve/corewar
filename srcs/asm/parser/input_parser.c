@@ -16,37 +16,37 @@
 
 static t_inst	is_inst(char *line)
 {
-	if (ft_strncmp(line, "add", 3 ==  0))
+	if (ft_strncmp(line, "add", 3) == 0)
 		return (kInstAdd);
-	if (ft_strncmp(line, "aff", 3 ==  0))
+	if (ft_strncmp(line, "aff", 3) == 0)
 		return (kInstAff);
-	if (ft_strncmp(line, "and", 3 ==  0))
+	if (ft_strncmp(line, "and", 3) == 0)
 		return (kInstAnd);
-	if (ft_strncmp(line, "fork", 4 ==  0))
+	if (ft_strncmp(line, "fork", 4) == 0)
 		return (kInstFork);
-	if (ft_strncmp(line, "ld", 2 ==  0))
+	if (ft_strncmp(line, "ld", 2) == 0)
 		return (kInstLd);
-	if (ft_strncmp(line, "ldi", 3 ==  0))
+	if (ft_strncmp(line, "ldi", 3) == 0)
 		return (kInstLdi);
-	if (ft_strncmp(line, "lfork", 5 ==  0))
+	if (ft_strncmp(line, "lfork", 5) == 0)
 		return (kInstLfork);
-	if (ft_strncmp(line, "live", 4 ==  0))
+	if (ft_strncmp(line, "live", 4) == 0)
 		return (kInstLive);
-	if (ft_strncmp(line, "lld", 3 ==  0))
+	if (ft_strncmp(line, "lld", 3) == 0)
 		return (kInstLld);
-	if (ft_strncmp(line, "lldi", 4 ==  0))
+	if (ft_strncmp(line, "lldi", 4) == 0)
 		return (kInstLldi);
-	if (ft_strncmp(line, "or", 2 ==  0))
+	if (ft_strncmp(line, "or", 2) == 0)
 		return (kInstOr);
-	if (ft_strncmp(line, "st", 2 ==  0))
+	if (ft_strncmp(line, "st", 2) == 0)
 		return (kInstSt);
-	if (ft_strncmp(line, "sti", 3 ==  0))
+	if (ft_strncmp(line, "sti", 3) == 0)
 		return (kInstSti);
-	if (ft_strncmp(line, "sub", 3 ==  0))
+	if (ft_strncmp(line, "sub", 3) == 0)
 		return (kInstSub);
-	if (ft_strncmp(line, "xor", 3 ==  0))
+	if (ft_strncmp(line, "xor", 3) == 0)
 		return (kInstXor);
-	if (ft_strncmp(line, "zjmp", 4 ==  0))
+	if (ft_strncmp(line, "zjmp", 4) == 0)
 		return (kInstZjmp);
 	return (kInstNone);
 }
@@ -148,6 +148,13 @@ static t_ret	check_line(t_parse_flag *flag, t_parse_state *state, t_line_type ty
 	return (kSuccess);
 }
 
+static char *ft_strstart(char *str)
+{
+	while (*str != '\0' && ft_isspace(*str))
+		str++;
+	return (str);
+}
+
 t_ret		parse_file(t_list *lines, t_asm *asmblr)
 {
 	t_parse_state	state;
@@ -160,50 +167,28 @@ t_ret		parse_file(t_list *lines, t_asm *asmblr)
 	ret = kSuccess;
 	while (lines != NULL && ret == kSuccess)
 	{
-		type = line_type(lines->content);
+		type = line_type(ft_strstart(lines->content));
 		ret = check_line(&flag, &state, type);
 		if (lines->content && ret == kSuccess)
 		{
-
-			switch (type) {
-				case kUndefinedLine:
-					ft_printf("kUndefinedLine: %s\n", lines->content);
-					break;
-				case kNameLine:
-					ft_printf("kNameLine:      %s\n", lines->content);
-					break;
-				case kCommentLine:
-					ft_printf("kCommentLine:   %s\n", lines->content);
-					break;
-				case kInstLine:
-					ft_printf("kInstLine:      %s\n", lines->content);
-					break;
-				case kInstLabelLine:
-					ft_printf("kInstLabelLine: %s\n", lines->content);
-					break;
-				case kLabelLine:
-					ft_printf("kLabelLine:     %s\n", lines->content);
-					break;
-				case kEmptyLine:
-					ft_printf("kEmptyLine:     %s\n", lines->content);
-					break;
-				default:
-					ft_printf("THIS SHIT SHOULD NOT HAPPEN: %s\n", lines->content);
-					break;
-			}
-
-//			if (type == kCommandLine)
-//				ret = handle_command(&flag, &state, lines->content, lemin);
-//			else if (type == kCommentLine)
-//				;
-//			else if (type == kAntsLine)
-//				ret = handle_ants(&state, lines->content, lemin);
-//			else if (type == kRoomLine)
-//				ret = handle_room(&flag, lines->content, lemin);
-//			else if (type == kLinkLine)
-//				ret = handle_link(&flag, lines->content, lemin);
-//			else if (type == kUndefinedLine)
-//				ft_printf("kUndefinedLine: %s\n", lines->content);
+			if (type == kUndefinedLine)
+				ft_printf("    kUndefinedLine: %s\n", lines->content);
+			if (type == kUndefinedLine)
+				ft_printf("         kNameLine: %s\n", lines->content);
+			if (type == kUndefinedLine)
+				ft_printf("      kCommentLine: %s\n", lines->content);
+			if (type == kUndefinedLine)
+				ft_printf("         kInstLine: %s\n", lines->content);
+			if (type == kUndefinedLine)
+				ft_printf("    kInstLabelLine: %s\n", lines->content);
+			if (type == kUndefinedLine)
+				ft_printf("        kLabelLine: %s\n", lines->content);
+			if (type == kUndefinedLine)
+				ft_printf("        kEmptyLine: %s\n", lines->content);
+			if (type == kUndefinedLine)
+				ft_printf("kSourceCommentLine: %s\n", lines->content);
+			else
+				ft_printf("THIS SHIT SHOULD NOT HAPPEN: %s\n", lines->content);
 		}
 		lines = lines->next;
 	}
