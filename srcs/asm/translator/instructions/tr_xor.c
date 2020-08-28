@@ -16,7 +16,6 @@ t_ret translate_xor(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
 {
 	t_ret ret;
 
-	ret = kSuccess;
 	put_instruction(&asmblr->bytecode, kInstXor);
 	put_encode(&asmblr->bytecode, (t_enbyte){tft(parts[0].token), tft(parts[1].token), kTReg, kTNone});
 

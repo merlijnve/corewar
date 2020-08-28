@@ -16,7 +16,6 @@ t_ret asm_regtoint(char *str)
 {
 	int number;
 
-	number = 0;
 	if (*str != 'r')
 		return kError;
 

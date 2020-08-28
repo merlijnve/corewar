@@ -16,7 +16,6 @@ t_ret translate_sti(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
 {
 	t_ret ret;
 
-	ret = kSuccess;
 	put_instruction(&asmblr->bytecode, kInstSti);
 	put_encode(&asmblr->bytecode, (t_enbyte){kTReg, tft(parts[1].token), tft(parts[0].token), kTNone});
 
