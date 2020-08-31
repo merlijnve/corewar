@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/18 22:02:51 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/08/31 20:26:44 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define HEADER_SIZE				4
 # define NULL_SIZE					4
 
-# define DEBUG_ENABLED				1
+# define DEBUG_ENABLED				0
 # define DEBUG_PRINT				1
 # define DEBUG_FILE					"debug.log"
 # define DEBUG_MAX_CYCLES           42
@@ -200,5 +200,6 @@ void			and(char *mem, t_cursor *cursor);
 void			or(char *mem, t_cursor *cursor);
 void			xor(char *mem, t_cursor *cursor);
 void			aff(char *mem, t_cursor *cursor);
+void			visual_main(t_arena *arena);
 
 #endif

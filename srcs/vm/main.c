@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:37:52 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/01 17:00:51 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/08/31 20:19:58 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int			main(int argc, char **argv)
 	check_args(argc, argv, &arena);
 	check_champions(arena.champions, arena.champion_count);
 	start_arena(&arena);
+	visual_main(&arena);
 	return (EXIT_SUCCESS);
 }
