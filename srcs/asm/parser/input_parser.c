@@ -19,37 +19,37 @@
 
 t_inst	is_inst(char *line)
 {
-	if (ft_strncmp(line, "add", 3) == 0)
+	if (ft_strcmp(line, "add") == 0)
 		return (kInstAdd);
-	if (ft_strncmp(line, "aff", 3) == 0)
+	if (ft_strcmp(line, "aff") == 0)
 		return (kInstAff);
-	if (ft_strncmp(line, "and", 3) == 0)
+	if (ft_strcmp(line, "and") == 0)
 		return (kInstAnd);
-	if (ft_strncmp(line, "fork", 4) == 0)
+	if (ft_strcmp(line, "fork") == 0)
 		return (kInstFork);
-	if (ft_strncmp(line, "ld", 2) == 0)
+	if (ft_strcmp(line, "ld") == 0)
 		return (kInstLd);
-	if (ft_strncmp(line, "ldi", 3) == 0)
+	if (ft_strcmp(line, "ldi") == 0)
 		return (kInstLdi);
-	if (ft_strncmp(line, "lfork", 5) == 0)
+	if (ft_strcmp(line, "lfork") == 0)
 		return (kInstLfork);
-	if (ft_strncmp(line, "live", 4) == 0)
+	if (ft_strcmp(line, "live") == 0)
 		return (kInstLive);
-	if (ft_strncmp(line, "lld", 3) == 0)
+	if (ft_strcmp(line, "lld") == 0)
 		return (kInstLld);
-	if (ft_strncmp(line, "lldi", 4) == 0)
+	if (ft_strcmp(line, "lldi") == 0)
 		return (kInstLldi);
-	if (ft_strncmp(line, "or", 2) == 0)
+	if (ft_strcmp(line, "or") == 0)
 		return (kInstOr);
-	if (ft_strncmp(line, "st", 2) == 0)
+	if (ft_strcmp(line, "st") == 0)
 		return (kInstSt);
-	if (ft_strncmp(line, "sti", 3) == 0)
+	if (ft_strcmp(line, "sti") == 0)
 		return (kInstSti);
-	if (ft_strncmp(line, "sub", 3) == 0)
+	if (ft_strcmp(line, "sub") == 0)
 		return (kInstSub);
-	if (ft_strncmp(line, "xor", 3) == 0)
+	if (ft_strcmp(line, "xor") == 0)
 		return (kInstXor);
-	if (ft_strncmp(line, "zjmp", 4) == 0)
+	if (ft_strcmp(line, "zjmp") == 0)
 		return (kInstZjmp);
 	return (kInstUndef);
 }
@@ -79,7 +79,7 @@ static t_line_type	has_label(char *line)
 	space = find_space(line);
 	if (sym != NULL && (space == NULL || (space != NULL && sym < space)))
 	{
-		if (sym[1] != '\0' || sym[1] != '\n' )
+		if (sym[1] != '\0')
 		{
 			poten = ft_strtrim(&sym[1]);
 			type = is_inst(poten);
