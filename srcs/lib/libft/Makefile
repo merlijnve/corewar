@@ -20,7 +20,8 @@ ARFLAGS = rcs
 
 HEADERS = libft.h
 
-SRCS =	ft_atoi.c \
+SRCS =	ft_putmemle.c \
+		ft_atoi.c \
 		ft_bzero.c \
 		ft_isalnum.c \
 		ft_isalpha.c \
