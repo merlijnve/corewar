@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/01 16:24:40 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/01 16:52:47 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void		update_window(t_arena *arena)
 
 void		visual_main(t_arena *arena)
 {
-	char	ch;
-
 	initscr();
 	noecho();
 	cbreak();

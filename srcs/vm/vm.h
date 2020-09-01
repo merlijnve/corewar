@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/01 15:39:58 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/01 16:51:10 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "ft_printf.h"
 # include "libft.h"
 # include "./errors/errors.h"
-# include "ncurses.h"
+# include <ncurses.h>
 
 # include <stdbool.h>
 # include <stdlib.h>
