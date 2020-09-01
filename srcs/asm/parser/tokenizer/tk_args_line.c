@@ -35,6 +35,11 @@ t_ret tk_args_line(char *line, t_place loc, t_list **tokens)
 			ret = get_tk_for_reg(line, &token, &loc);
 			done = 1;
 		}
+		else if (ft_isalnum(line[loc.chr]))
+		{
+			ret = get_tk_for_ind(line, &token, &loc);
+			done = 1;
+		}
 		if (done == 1)
 			add_token(tokens, &token);
 		done = 0;

@@ -30,6 +30,8 @@ typedef enum e_args_type	t_args_type;
 typedef enum e_asm_token	t_asm_token;
 
 
+void	print_memory(const void *addr, size_t size); // TODO: remove
+
 // Errors
 //  0 -  9 Standart errors
 // 10 - 29 Input Erros
@@ -97,12 +99,15 @@ enum e_args_type
 
 enum e_asm_token
 {
+	kTokenNone = 0,
 	kTokenLabel,
 	kTokenInstruction,
 	kTokenRegister,
 	kTokenSeperator,
+	kTokenDirect,
 	kTokenDirectLabel,
 	kTokenIndirect,
+	kTokenIndirectLabel,
 	kTokenUnknown,
 };
 
@@ -145,8 +150,9 @@ struct	s_asm
 
 struct	s_jump
 {
-	char	*label;
-	byte	*place;
+	char		*label;
+	byte		*place;
+	t_args_type	type;
 };
 
 struct	s_place
