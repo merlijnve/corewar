@@ -74,7 +74,13 @@ int		main(int argc, char **argv)
 	tokens_from_lines(lines, &tokens);
 	print_tokens(tokens);
 
-	translate(tokens, &asmblr, NULL);
+	asmblr.bytecode.bytecode = ft_memalloc(2048); // TODO: move this to somewhere else
+	ft_memset(asmblr.bytecode.bytecode, '\xAA', 2048);
+	asmblr.bytecode.bcpoint = asmblr.bytecode.bytecode;
+
+
+	t_error error = {};
+	error.error = translate(tokens, &asmblr, &error);
 
 	close(input_fd);
 	return (0);
