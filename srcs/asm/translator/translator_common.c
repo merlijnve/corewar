@@ -40,7 +40,7 @@ t_ret put_direct(t_asm *asmblr, char* direct)
 	t_list *item;
 	t_jump *jump;
 
-	if (direct[0] == '%' && direct[1] == ':')
+	if (direct[0] == DIRECT_CHAR && direct[1] == LABEL_CHAR)
 	{
 		jump = ft_memalloc(sizeof(jump));
 		item = ft_memalloc(sizeof(item));

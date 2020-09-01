@@ -12,9 +12,12 @@
 
 #include <stdlib.h>
 #include <ft_printf.h>
-#include "input_parser.h"
+#include <op.h>
 
-static t_inst	is_inst(char *line)
+#include "input_parser.h"
+#include "tokenizer.h"
+
+t_inst	is_inst(char *line)
 {
 	if (ft_strncmp(line, "add", 3) == 0)
 		return (kInstAdd);
@@ -48,7 +51,7 @@ static t_inst	is_inst(char *line)
 		return (kInstXor);
 	if (ft_strncmp(line, "zjmp", 4) == 0)
 		return (kInstZjmp);
-	return (kInstNone);
+	return (kInstUndef);
 }
 
 static void	*find_space(char *line)
@@ -72,7 +75,7 @@ static t_line_type	has_label(char *line)
 	char	*poten; // potential
 	t_inst	type;
 
-	sym = ft_strchr(line, ':');
+	sym = ft_strchr(line, LABEL_CHAR);
 	space = find_space(line);
 	if (sym != NULL && (space == NULL || (space != NULL && sym < space)))
 	{
@@ -91,7 +94,7 @@ static t_line_type	has_label(char *line)
 
 }
 
-static t_line_type	line_type(char *line)
+t_line_type	line_type(char *line)
 {
 
 	t_line_type type;
@@ -99,7 +102,7 @@ static t_line_type	line_type(char *line)
 	if (line == NULL)
 		return (kUndefinedLine);
 
-	if (*line == '#')
+	if (*line == COMMENT_CHAR)
 		return (kSourceCommentLine);
 
 	// if line is empty
@@ -155,7 +158,7 @@ static char *ft_strstart(char *str)
 	return (str);
 }
 
-t_ret		parse_file(t_list *lines, t_asm *asmblr)
+t_ret		lines_to_tokens(t_list *lines, t_list **tokens)
 {
 	t_parse_state	state;
 	t_parse_flag	flag;
@@ -165,6 +168,17 @@ t_ret		parse_file(t_list *lines, t_asm *asmblr)
 	state = kNoParseState;
 	flag = kNoFlag;
 	ret = kSuccess;
+
+	*tokens = NULL;
+
+//	tokens_from_lines(lines, tokens);
+//	ft_lstrev(tokens);
+//	while (tokens != NULL && ret == kSuccess)
+//	{
+//		tokens = tokens->next;
+//	}
+
+
 	while (lines != NULL && ret == kSuccess)
 	{
 		type = line_type(ft_strstart(lines->content));
@@ -172,21 +186,21 @@ t_ret		parse_file(t_list *lines, t_asm *asmblr)
 		if (lines->content && ret == kSuccess)
 		{
 			if (type == kUndefinedLine)
-				ft_printf("    kUndefinedLine: %s\n", lines->content);
-			if (type == kUndefinedLine)
-				ft_printf("         kNameLine: %s\n", lines->content);
-			if (type == kUndefinedLine)
-				ft_printf("      kCommentLine: %s\n", lines->content);
-			if (type == kUndefinedLine)
-				ft_printf("         kInstLine: %s\n", lines->content);
-			if (type == kUndefinedLine)
-				ft_printf("    kInstLabelLine: %s\n", lines->content);
-			if (type == kUndefinedLine)
-				ft_printf("        kLabelLine: %s\n", lines->content);
-			if (type == kUndefinedLine)
-				ft_printf("        kEmptyLine: %s\n", lines->content);
-			if (type == kUndefinedLine)
-				ft_printf("kSourceCommentLine: %s\n", lines->content);
+				ft_printf("    kUndefinedLine %.3d: %s\n", lines->content_size, lines->content);
+			else if (type == kNameLine)
+				ft_printf("         kNameLine %.3d: %s\n", lines->content_size, lines->content);
+			else if (type == kCommentLine)
+				ft_printf("      kCommentLine %.3d: %s\n", lines->content_size, lines->content);
+			else if (type == kInstLine)
+				ft_printf("         kInstLine %.3d: %s\n", lines->content_size, lines->content);
+			else if (type == kInstLabelLine)
+				ft_printf("    kInstLabelLine %.3d: %s\n", lines->content_size, lines->content);
+			else if (type == kLabelLine)
+				ft_printf("        kLabelLine %.3d: %s\n", lines->content_size, lines->content);
+			else if (type == kEmptyLine)
+				ft_printf("        kEmptyLine %.3d: %s\n", lines->content_size, lines->content);
+			else if (type == kSourceCommentLine)
+				ft_printf("kSourceCommentLine %.3d: %s\n", lines->content_size, lines->content);
 			else
 				ft_printf("THIS SHIT SHOULD NOT HAPPEN: %s\n", lines->content);
 		}
