@@ -32,6 +32,7 @@ t_tksave *get_reg(char *line, t_place *loc);
 t_ret	get_tk_for_inst(char *line, t_tksave *token, t_place *loc);
 t_ret	get_tk_for_label(char *line, t_tksave *token, t_place *loc);
 t_ret	get_tk_for_reg(char *line, t_tksave *token, t_place *loc);
+t_ret	get_tk_for_ind(char *line, t_tksave *token, t_place *loc);
 t_ret	get_tk_for_dir(char *line, t_tksave *token, t_place *loc);
 t_ret	get_tk_for_sep(char *line, t_tksave *token, t_place *loc);
 
