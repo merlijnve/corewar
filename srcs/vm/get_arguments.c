@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 14:41:11 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/20 16:38:04 by jboer         ########   odam.nl         */
+/*   Updated: 2020/09/01 16:36:02 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,24 @@ int		get_direct_argument(char *mem, int t_dir_size, int arg_pos)
 	return (sum);
 }
 
-int		calc_jump(t_cursor *cursor, int op)
+void	calc_jump(t_cursor *cursor, int op)
 {
 	int	jump;
 	int	i;
 
 	i = 0;
 	jump = 1;
-	if (op != 15 || op != 12 ||
-	op != 9 || op != 1)
+	if (op != 15 && op != 12 && op != 9 && op != 1)
 		jump++;
 	while (i < 3)
 	{
-		if (cursor->args[i].type == 3 || (op == 9 || op == 10
+		if (cursor->args[i].type == ARG_TYPE_IND || (op == 9 || op == 10
 		|| op == 11 || op == 12 || op == 14 || op == 15))
-			jump++;
-		else if (cursor->args[i].type == 2 && (op != 9 || op != 10
+			jump = jump + 2;
+		else if (cursor->args[i].type == ARG_TYPE_DIR && (op != 9 || op != 10
 		|| op != 11 || op != 12 || op != 14 || op != 15))
 			jump = jump + 4;
-		else if (cursor->args[i].type == 1)
+		else if (cursor->args[i].type == ARG_TYPE_REG)
 			jump++;
 		i++;
 	}
