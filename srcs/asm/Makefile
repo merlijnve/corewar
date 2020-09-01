@@ -44,7 +44,13 @@ C_SRCS = \
 	./parser/metaparse.c \
 	./parser/read_file.c \
 	./parser/read_lines.c \
+	./parser/tokenizer/tk_args_line.c \
+	./parser/tokenizer/tk_inst_label_line.c \
+	./parser/tokenizer/tk_inst_line.c \
+	./parser/tokenizer/tk_label_line.c \
 	./parser/tokenizer/tokenizer.c \
+	./parser/tokenizer/tokenizer_common.c \
+	./print_memory.c \
 	./translator/instructions/tr_add.c \
 	./translator/instructions/tr_aff.c \
 	./translator/instructions/tr_and.c \
@@ -61,8 +67,10 @@ C_SRCS = \
 	./translator/instructions/tr_sub.c \
 	./translator/instructions/tr_xor.c \
 	./translator/instructions/tr_zjmp.c \
+	./translator/translator.c \
 	./translator/translator_common.c \
 	./translator/translator_utils.c
+
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 
