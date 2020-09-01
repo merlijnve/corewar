@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/15 15:39:40 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/08/01 16:12:29 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/01 18:21:47 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		read_champion_file(int fd, t_cw_champ_file *cw_file)
 int		check_file(int fd, t_champion *champion)
 {
 	int ret;
-	
+
 	ret = read_champion_file(fd, &champion->champ);
 	if (champion->champ.magic == COREWAR_EXEC_MAGICR)
 	{

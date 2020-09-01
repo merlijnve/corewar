@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/09 20:48:30 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/08/18 21:29:35 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/01 18:20:39 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		get_pos(int cursor_pos, int pos)
 int		read_4_bytes(char *mem, int pos)
 {
 	int	sum;
-		
+
 	sum = mem[get_pos(pos, 0)] << 24;
 	sum += mem[get_pos(pos, 1)] << 16;
 	sum += mem[get_pos(pos, 2)] << 8;
