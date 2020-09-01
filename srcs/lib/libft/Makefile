@@ -100,6 +100,7 @@ SRCS =	ft_atoi.c \
 		ft_lstdel.c \
 		ft_lstadd.c \
 		ft_lstiter.c \
+		ft_lstlen.c \
 		ft_lstmap.c \
 		ft_lstrev.c \
 		ft_dictnew.c \
