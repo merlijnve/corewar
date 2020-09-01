@@ -12,7 +12,7 @@
 
 #include "translator.h"
 
-t_ret translate_ldi(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
+t_ret translate_ldi(t_asm *asmblr, t_tksave parts[], t_error *error)
 {
 	t_ret ret;
 

@@ -12,7 +12,7 @@
 
 #include "translator.h"
 
-t_ret translate_lfork(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
+t_ret translate_lfork(t_asm *asmblr, t_tksave parts[], t_error *error)
 {
 	put_instruction(&asmblr->bytecode, kInstLfork);
 	return (put_part(asmblr, &parts[0], kInstLfork, error));

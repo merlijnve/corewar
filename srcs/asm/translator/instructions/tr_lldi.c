@@ -12,7 +12,7 @@
 
 #include "translator.h"
 
-t_ret translate_lldi(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
+t_ret translate_lldi(t_asm *asmblr, t_tksave parts[], t_error *error)
 {
 	put_instruction(&asmblr->bytecode, kInstLldi);
 	put_encode(&asmblr->bytecode, (t_enbyte){tft(parts[0].token), tft(parts[1].token), kTReg, kTNone});
