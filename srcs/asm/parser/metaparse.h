@@ -15,6 +15,6 @@
 
 #include "asm.h"
 
-t_ret	get_meta_from_file(char *file, t_tksave tokens[2], t_error *error);
+t_ret	get_meta_from_file(t_list *lines, t_tksave tokens[2], t_error *error);
 
 #endif
