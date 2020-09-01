@@ -21,6 +21,7 @@ typedef enum e_parse_state	t_parse_state;
 enum	e_parse_state
 {
 	kNoParseState,
+	kMetaParseState,
 	kNameParseState,
     kCommentParseState,
 	kAsmParseState,
@@ -36,14 +37,18 @@ enum	e_parse_flag
 
 #pragma mark - funcs
 
-t_ret	read_lines(char *file, t_list **lines);
-t_ret	read_file(int fd, char **buffer);
-t_ret   parse_file(t_list *lines, t_asm *asmblr);
+t_ret		read_lines(char *file, t_list **lines);
+t_ret		read_file(int fd, char **buffer);
+t_ret   	parse_file(t_list *lines, t_asm *asmblr);
 
-t_ret	handle_name(t_parse_flag *flag, t_parse_state *state, char *line, t_asm *asmblr);
-t_ret	handle_comment(t_parse_flag *flag, t_parse_state *state, char *line, t_asm *asmblr);
-t_ret	handle_label(t_parse_flag *flag, t_parse_state *state, char *line, t_asm *asmblr);
-t_ret	handle_label(t_parse_flag *flag, t_parse_state *state, char *line, t_asm *asmblr);
+t_inst		is_inst(char *line);
+t_line_type	line_type(char *line);
+
+
+t_ret		handle_name(t_parse_flag *flag, t_parse_state *state, char *line, t_asm *asmblr);
+t_ret		handle_comment(t_parse_flag *flag, t_parse_state *state, char *line, t_asm *asmblr);
+t_ret		handle_label(t_parse_flag *flag, t_parse_state *state, char *line, t_asm *asmblr);
+t_ret		handle_label(t_parse_flag *flag, t_parse_state *state, char *line, t_asm *asmblr);
 
 
 #endif
