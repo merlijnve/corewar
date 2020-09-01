@@ -35,6 +35,7 @@ typedef enum e_asm_token	t_asm_token;
 // 10 - 29 Input Erros
 // 30 - 39 Translation Errors
 // 40 - 49 Linking errors
+// 50 - 69 Token errors
 //
 
 enum	e_ret
@@ -48,6 +49,8 @@ enum	e_ret
 	kInvalidArgumentCount = -30,
 
 	kLinkingError = -40,
+
+	kTokenError = -50,
 };
 
 enum    e_line_type
@@ -65,6 +68,7 @@ enum    e_line_type
 enum e_inst
 {
     kInstNone = -1,
+	kInstUndef = 0x00,
 	kInstLive = 0x01,
 	kInstLd = 0x02,
 	kInstSt = 0x03,
@@ -147,8 +151,8 @@ struct	s_jump
 
 struct	s_place
 {
-	unsigned int ln;
-	unsigned int chr;
+	t_index ln;
+	t_index chr;
 };
 
 struct	s_tksave
