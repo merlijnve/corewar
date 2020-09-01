@@ -6,11 +6,11 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/08/18 13:15:26 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/01 16:20:13 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "vm.h"
+#include "vm.h"
 
 static void         introduce_champions(t_arena *arena_s)
 {
@@ -131,6 +131,7 @@ int     vm_cycle(t_arena *arena_s)
         decrease_cycles(arena_s);
     vm_run_cursors(arena_s);
     arena_s->current_cycle++;
+	update_window(arena_s);
     return (1);
 }
 
@@ -155,7 +156,7 @@ void        start_arena(t_arena *arena_s)
 
     introduce_champions(arena_s);
     debug_printf("\nStarting game processes / game loop?...\n");
-
+	visual_main(arena_s);
     while (vm_cycle(arena_s))
     {
         debug_printf(" -- Running cycle '%d' (%d/%d)\n", arena_s->cycle_count, \

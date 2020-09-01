@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/31 20:26:44 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/01 15:39:58 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_printf.h"
 # include "libft.h"
 # include "./errors/errors.h"
+# include "ncurses.h"
 
 # include <stdbool.h>
 # include <stdlib.h>
@@ -151,6 +152,8 @@ typedef struct s_arena
 
 	/** Operations */
 	// op_t op_tab[17];
+	WINDOW		*win;
+	WINDOW		*stats;
 }				t_arena;
 
 void			print_usage(void);
@@ -201,5 +204,6 @@ void			or(char *mem, t_cursor *cursor);
 void			xor(char *mem, t_cursor *cursor);
 void			aff(char *mem, t_cursor *cursor);
 void			visual_main(t_arena *arena);
+void			update_window(t_arena *arena);
 
 #endif
