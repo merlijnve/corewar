@@ -14,19 +14,6 @@
 
 t_ret translate_live(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
 {
-	t_ret ret;
-
-	ret = kSuccess;
-	if (partc != 1)
-		ret = kInvalidArgumentCount;
-	if (ret == kSuccess)
-	{
-		put_instruction(&asmblr->bytecode, kInstLive);
-		ret = put_direct(asmblr, parts[0].str);
-	}
-	if (ret != kSuccess)
-		error->token = &parts[0];
-
-	error->error = ret;
-	return (ret);
+	put_instruction(&asmblr->bytecode, kInstLive);
+	return put_part(asmblr, &parts[0], kInstLive, error);
 }

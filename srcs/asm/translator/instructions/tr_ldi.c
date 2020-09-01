@@ -19,15 +19,11 @@ t_ret translate_ldi(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
 	put_instruction(&asmblr->bytecode, kInstLdi);
 	put_encode(&asmblr->bytecode, (t_enbyte){tft(parts[0].token), tft(parts[1].token), kTReg, kTNone});
 
-	ret = put_part(asmblr, &parts[0], error);
+	ret = put_part(asmblr, &parts[0], kInstLdi, error);
 	if (ret == kSuccess)
-		ret = put_part(asmblr, &parts[1], error);
-
+		ret = put_part(asmblr, &parts[1], kInstLdi, error);
 	if (ret == kSuccess)
-		ret = put_registry(&asmblr->bytecode, asm_regtoint(parts[2].str));
-	if (ret != kSuccess)
-		error->token = &parts[2];
+		ret = put_part(asmblr, &parts[2], kInstLdi, error);
 
-	error->error = ret;
 	return (ret);
 }

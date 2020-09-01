@@ -17,17 +17,13 @@ t_ret translate_sti(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
 	t_ret ret;
 
 	put_instruction(&asmblr->bytecode, kInstSti);
-	put_encode(&asmblr->bytecode, (t_enbyte){kTReg, tft(parts[1].token), tft(parts[0].token), kTNone});
+	put_encode(&asmblr->bytecode, (t_enbyte){kTReg, tft(parts[1].token), tft(parts[2].token), kTNone});
 
-	ret = put_registry(&asmblr->bytecode, asm_regtoint(parts[2].str));
-	if (ret != kSuccess)
-		error->token = &parts[0];
-
+	ret = put_part(asmblr, &parts[0], kInstSti, error);
 	if (ret == kSuccess)
-		ret = put_part(asmblr, &parts[1], error);
+		ret = put_part(asmblr, &parts[1], kInstSti, error);
 	if (ret == kSuccess)
-		ret = put_part(asmblr, &parts[2], error);
+		ret = put_part(asmblr, &parts[2], kInstSti, error);
 
-	error->error = ret;
 	return (ret);
 }

@@ -14,15 +14,8 @@
 
 t_ret translate_aff(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
 {
-	t_ret ret;
-
 	put_instruction(&asmblr->bytecode, kInstAdd);
 	put_encode(&asmblr->bytecode, (t_enbyte){kTDir, kTNone, kTNone, kTNone});
 
-	ret = put_registry(&asmblr->bytecode, asm_regtoint(parts[0].str));
-	if (ret != kSuccess)
-		error->token = &parts[0];
-
-	error->error = ret;
-	return (ret);
+	return (put_part(asmblr, &parts[0], kInstAdd, error));
 }

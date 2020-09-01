@@ -19,20 +19,11 @@ t_ret translate_add(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
 	put_instruction(&asmblr->bytecode, kInstAdd);
 	put_encode(&asmblr->bytecode, (t_enbyte){kTDir, kTDir, kTDir, kTNone});
 
-	ret = put_registry(&asmblr->bytecode, asm_regtoint(parts[0].str));
-	if (ret != kSuccess)
-		error->token = &parts[0];
-
+	ret = put_part(asmblr, &parts[0], kInstAdd, error);
 	if (ret == kSuccess)
-		ret = put_registry(&asmblr->bytecode, asm_regtoint(parts[1].str));
-	if (ret != kSuccess)
-		error->token = &parts[1];
-
+		ret = put_part(asmblr, &parts[1], kInstAdd, error);
 	if (ret == kSuccess)
-		ret = put_registry(&asmblr->bytecode, asm_regtoint(parts[2].str));
-	if (ret != kSuccess)
-		error->token = &parts[2];
+		ret = put_part(asmblr, &parts[2], kInstAdd, error);
 
-	error->error = ret;
 	return (ret);
 }

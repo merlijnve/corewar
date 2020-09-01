@@ -16,20 +16,12 @@ t_ret translate_ld(t_asm *asmblr, int partc, t_tksave parts[], t_error *error)
 {
 	t_ret ret;
 
-	ret = kSuccess;
 	put_instruction(&asmblr->bytecode, kInstLd);
 	put_encode(&asmblr->bytecode, (t_enbyte){tft(parts[0].token), kTReg, kTNone, kTNone});
 
+	ret = put_part(asmblr, &parts[0], kInstLd, error);
 	if (ret == kSuccess)
-		ret = put_direct(asmblr, parts[0].str);
-	if (ret != kSuccess)
-		error->token = &parts[0];
+		ret = put_part(asmblr, &parts[1], kInstLd, error);
 
-	if (ret == kSuccess)
-		ret = put_registry(&asmblr->bytecode, asm_regtoint(parts[1].str));
-	if (ret != kSuccess)
-		error->token = &parts[1];
-
-	error->error = ret;
 	return (ret);
 }
