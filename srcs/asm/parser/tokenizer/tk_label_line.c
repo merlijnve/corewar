@@ -19,7 +19,7 @@ t_ret tk_label_line(char *line, t_place loc, t_list **tokens)
 	while (line[loc.chr] != '\0' && ft_isspace(line[loc.chr]))
 		loc.chr++;
 
-	ret = get_tk_for_inst(line, token, &loc);
+	ret = get_tk_for_label(line, token, &loc);
 	add_token(tokens, token);
 
 	return (ret);

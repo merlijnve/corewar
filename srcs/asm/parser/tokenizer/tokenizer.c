@@ -44,7 +44,7 @@ t_ret tokens_from_lines(t_list *lines, t_list **tokens)
 	// SKIPP FIRST PART FOR NOW!
 	while (lines != NULL) {
 		type = line_type(lines->content);
-		if (type == kInstLine || type == kInstLabelLine)
+		if (type == kInstLine || type == kInstLabelLine || type == kLabelLine)
 			break ;
 		lines = lines->next;
 	}
