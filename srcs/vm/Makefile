@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/08/18 22:02:58 by merlijn       ########   odam.nl          #
+#    Updated: 2020/08/31 20:23:12 by mvan-eng      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT_PRINTF_LOC = ../lib/ft_printf
 NAME_LIBFT = $(LIBFT_LOC)/libft.a
 NAME_LIBFT_PRINTF = $(LIBFT_PRINTF_LOC)/libftprintf.a
 
-LINK_FLAGS = -lftprintf -lft 
+LINK_FLAGS = -lftprintf -lft -lncurses
 
 C_HEADERS = \
 	vm.h
@@ -53,7 +53,8 @@ C_SRCS = \
 	ops/and.c \
 	ops/or.c \
 	ops/xor.c \
-	ops/aff.c
+	ops/aff.c \
+	visual/visual_main.c
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 
