@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_atoi.c                                          :+:    :+:            */
+/*   ft_putmembe.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void		ft_putmemle(void *mem, uint64_t num, size_t size)
+void		ft_putmembe(void *mem, uint64_t num, size_t size)
 {
 	uint8_t	*mems;
 	t_index idx;
