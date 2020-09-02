@@ -60,7 +60,7 @@ static void print_bc(t_asm *asmblr, size_t size)
 int		main(int argc, char **argv)
 {
 	int		input_fd;
-	t_asm	asmblr;
+	t_asm	*asmblr;
 	char 	*file;
 	t_list 	*lines;
 	t_list 	*tokens;
@@ -69,8 +69,13 @@ int		main(int argc, char **argv)
 	lines = NULL;
 	tokens = NULL;
 	file = NULL;
-	ft_bzero(&asmblr, sizeof(asmblr));
-	input_fd = check_args(argc, argv, &asmblr);
+	asmblr = NULL;
+	asmblr = ft_memalloc(sizeof(t_asm));
+
+	if (asmblr == NULL)
+		return 0;
+
+	input_fd = check_args(argc, argv, asmblr);
 
 	read_file(input_fd, &file);
 	ft_printf("FILE:\n ++++ START ++++\n%s\n ++++ END ++++\n\n", file);
@@ -81,17 +86,17 @@ int		main(int argc, char **argv)
 	tokens_from_lines(lines, &tokens);
 	print_tokens(tokens);
 
-	asmblr.bytecode.bytecode = ft_memalloc(2048); // TODO: move this to somewhere else
-	ft_memset(asmblr.bytecode.bytecode, '\x00', 2048);
-	asmblr.bytecode.bcpoint = asmblr.bytecode.bytecode;
+	asmblr->bytecode.bytecode = ft_memalloc(2048); // TODO: move this to somewhere else
+	ft_memset(asmblr->bytecode.bytecode, '\x00', 2048);
+	asmblr->bytecode.bcpoint = asmblr->bytecode.bytecode;
 
-	print_bc(&asmblr, 64);
+	print_bc(asmblr, 64);
 	if (error.code == kSuccess)
-		error.code = translate(tokens, &asmblr, &error);
-	print_bc(&asmblr, 64);
+		error.code = translate(tokens, asmblr, &error);
+	print_bc(asmblr, 64);
 	if (error.code == kSuccess)
-		error.code = asm_link(&asmblr, &error);
-	print_bc(&asmblr, 64);
+		error.code = asm_link(asmblr, &error);
+	print_bc(asmblr, 64);
 
 	// error
 	if (error.code != kSuccess)

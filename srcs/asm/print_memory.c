@@ -89,9 +89,7 @@ static void	ft_print_row(const void *addr, size_t size)
 void	print_memory(const void *addr, size_t size)
 {
 	long	temp_size;
-	int		idx;
 
-	idx = 0;
 	temp_size = (long)size;
 	while (temp_size > 0)
 	{

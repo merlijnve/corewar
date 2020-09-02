@@ -43,6 +43,7 @@ static t_ret	find_marker(t_list *markers, t_jump *jump, t_marker **marker)
 
 	found = NULL;
 	ret = kSuccess;
+	*marker = NULL;
 
 	while (markers != NULL)
 	{

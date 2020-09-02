@@ -105,7 +105,7 @@ t_ret translate(t_list *tokens, t_asm *asmblr, t_error *error)
 	idx = 0;
 	ret = prepare_tokens(tokens, &tk_arr);
 
-	while (tk_arr[idx].token != kTokenNone && ret == kSuccess)
+	while (ret == kSuccess && tk_arr[idx].token != kTokenNone)
 	{
 		if (tk_arr[idx].token == kTokenInstruction)
 		{

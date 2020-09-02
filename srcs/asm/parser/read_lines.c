@@ -22,6 +22,11 @@ static t_ret	add_lines(t_list **lines, char *file, char *last, t_index idx)
 	if (item == NULL)
 		return (kErrorAlloc);
 	item->content = ft_memalloc((&file[idx] - last) + 1);
+	if (item->content == NULL)
+	{
+		free(item);
+		return (kErrorAlloc);
+	}
 	item->content_size = (*lines != NULL ? (*lines)->content_size + 1 : 1);
 	ft_memcpy(item->content, last, (&file[idx] - last));
 	item->next = *lines;
