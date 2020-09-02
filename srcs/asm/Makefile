@@ -23,15 +23,17 @@ NAME_LIBFT_PRINTF = $(LIBFT_PRINTF_LOC)/libftprintf.a
 LINK_FLAGS = -lftprintf -lft
 
 C_HEADERS = \
-	./parser/tokenizer/tokenizer.h \
+	./asm.h \
+	./linker/linker.h \
 	./parser/input_parser.h \
 	./parser/metaparse.h \
-	./translator/translator.h \
-	./asm.h
+	./parser/tokenizer/tokenizer.h \
+	./translator/translator.h
 
 C_INCLUDES = \
 	-I ../includes/ \
 	-I ./ \
+	-I ./linker/ \
 	-I ./parser/tokenizer/ \
 	-I ./parser/ \
 	-I ./parser/ \
@@ -39,6 +41,7 @@ C_INCLUDES = \
 
 C_SRCS = \
 	./check_args.c \
+	./linker/linker.c \
 	./main.c \
 	./parser/input_parser.c \
 	./parser/metaparse.c \
@@ -70,7 +73,6 @@ C_SRCS = \
 	./translator/translator.c \
 	./translator/translator_common.c \
 	./translator/translator_utils.c
-
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 

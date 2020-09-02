@@ -51,6 +51,7 @@ enum	e_ret
 	kInvalidArgumentCount = -30,
 
 	kLinkingError = -40,
+	kLinkNotFoundError = -41,
 
 	kTokenError = -50,
 };
@@ -133,8 +134,9 @@ struct	s_bytecode
 	size_t	length;
 	byte	*bcpoint;
 	byte	*bytecode;
-	t_list	*requested;
-	t_list	*available;
+	t_index	last_inst;
+	t_list	*jump; // adresses from where a jump needs to be done
+	t_list	*marker; // markers to jump to
 };
 
 struct	s_asm
@@ -143,15 +145,13 @@ struct	s_asm
 	char		*name;
 	char		*comment;
 	t_bytecode	bytecode;
-	t_dict		*translator;
-	t_list		*jump; // adresses from where a jump needs to be done
-	t_list		*marker; // markers to jump to
 };
 
 struct	s_jump
 {
-	char		*label;
+	t_tksave	*token;
 	t_index		idx;
+	t_index		ins_idx;
 	t_args_type	type;
 };
 

@@ -87,10 +87,10 @@ static t_ret put_marker(t_asm *asmblr, t_tksave *part)
 		return (kErrorAlloc);
 	}
 
-	marker->label = ft_strdup(part->str);
+	marker->token = part;
 	marker->idx = (asmblr->bytecode.bcpoint - asmblr->bytecode.bytecode);
 	item->content = marker;
-	ft_lstadd(&asmblr->marker, item);
+	ft_lstadd(&asmblr->bytecode.marker, item);
 
 	return (ret);
 }
@@ -104,10 +104,6 @@ t_ret translate(t_list *tokens, t_asm *asmblr, t_error *error)
 
 	idx = 0;
 	ret = prepare_tokens(tokens, &tk_arr);
-
-	ft_printf("start asmblr export\n");
-	print_memory(asmblr->bytecode.bytecode, 100);
-	ft_printf("end asmblr export\n\n");
 
 	while (tk_arr[idx].token != kTokenNone && ret == kSuccess)
 	{
@@ -126,11 +122,6 @@ t_ret translate(t_list *tokens, t_asm *asmblr, t_error *error)
 		else
 			ret = kError; // TODO: find correct error
 	}
-
-	ft_printf("start asmblr export\n");
-	print_memory(asmblr->bytecode.bytecode, 100);
-	ft_printf("end asmblr export\n\n");
-	// TODO: linking
 
 	return (ret);
 }
