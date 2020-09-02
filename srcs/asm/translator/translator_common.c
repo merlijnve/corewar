@@ -43,8 +43,8 @@ t_ret put_indirect(t_asm *asmblr, t_tksave *token, size_t dsize)
 
 	if (token->str[0] == LABEL_CHAR)
 	{
-		jump = ft_memalloc(sizeof(jump));
-		item = ft_memalloc(sizeof(item));
+		jump = ft_memalloc(sizeof(t_jump));
+		item = ft_memalloc(sizeof(t_list));
 		if (jump == NULL || item == NULL)
 			return kErrorAlloc;
 		jump->token = token;
@@ -69,8 +69,8 @@ t_ret put_direct(t_asm *asmblr, t_tksave *token, size_t dsize)
 
 	if (token->str[0] == DIRECT_CHAR && token->str[1] == LABEL_CHAR)
 	{
-		jump = ft_memalloc(sizeof(jump));
-		item = ft_memalloc(sizeof(item));
+		jump = ft_memalloc(sizeof(t_jump));
+		item = ft_memalloc(sizeof(t_list));
 		if (jump == NULL || item == NULL)
 			return kErrorAlloc;
 		jump->token = token;
