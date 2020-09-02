@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include "translator.h"
 
 #include "input_parser.h" // for is_inst, maybe move to general location?
@@ -67,6 +69,32 @@ static t_ret prepare_tokens(t_list *tokens, t_tksave **tk_arr)
 	return (kSuccess);
 }
 
+static t_ret put_marker(t_asm *asmblr, t_tksave *part)
+{
+	t_ret		ret;
+	t_list		*item;
+	t_marker	*marker;
+
+	ret = kSuccess;
+
+	item = ft_memalloc(sizeof(t_list));
+	marker = ft_memalloc(sizeof(t_marker));
+
+	if (item == NULL || marker == NULL)
+	{
+		free(item);
+		free(marker);
+		return (kErrorAlloc);
+	}
+
+	marker->label = ft_strdup(part->str);
+	marker->idx = (asmblr->bytecode.bcpoint - asmblr->bytecode.bytecode);
+	item->content = marker;
+	ft_lstadd(&asmblr->marker, item);
+
+	return (ret);
+}
+
 t_ret translate(t_list *tokens, t_asm *asmblr, t_error *error)
 {
 	t_ret		ret;
@@ -92,8 +120,8 @@ t_ret translate(t_list *tokens, t_asm *asmblr, t_error *error)
 		}
 		else if (tk_arr[idx].token == kTokenLabel)
 		{
+			put_marker(asmblr, &tk_arr[idx]);
 			idx++;
-			// create label for current location
 		}
 		else
 			ret = kError; // TODO: find correct error
