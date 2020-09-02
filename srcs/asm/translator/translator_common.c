@@ -47,15 +47,15 @@ t_ret put_indirect(t_asm *asmblr, char* indirect, size_t dsize)
 		if (jump == NULL || item == NULL)
 			return kErrorAlloc;
 		jump->label = ft_strdup(indirect);
-		jump->place = asmblr->bytecode.bcpoint;
+		jump->idx = (asmblr->bytecode.bcpoint - asmblr->bytecode.bytecode);
 		jump->type = kTInd;
 		item->content = jump;
 		item->content_size = 0;
 		ft_lstadd(&asmblr->jump, item);
-		ft_putmemle(asmblr->bytecode.bcpoint, 0x8888888888888888, dsize);
+		ft_putmembe(asmblr->bytecode.bcpoint, 0x8888888888888888, dsize);
 	}
 	else
-		ft_putmemle(asmblr->bytecode.bcpoint, ft_atoi(&indirect[0]), dsize);
+		ft_putmembe(asmblr->bytecode.bcpoint, ft_atoi(&indirect[0]), dsize);
 	asmblr->bytecode.bcpoint += dsize;
 	return (kSuccess);
 }
@@ -72,15 +72,15 @@ t_ret put_direct(t_asm *asmblr, char* direct, size_t dsize)
 		if (jump == NULL || item == NULL)
 			return kErrorAlloc;
 		jump->label = ft_strdup(direct);
-		jump->place = asmblr->bytecode.bcpoint;
+		jump->idx = (asmblr->bytecode.bcpoint - asmblr->bytecode.bytecode);
 		jump->type = kTDir;
 		item->content = jump;
 		item->content_size = 0;
 		ft_lstadd(&asmblr->jump, item);
-		ft_putmemle(asmblr->bytecode.bcpoint, 0x8888888888888888, dsize);
+		ft_putmembe(asmblr->bytecode.bcpoint, 0x8888888888888888, dsize);
 	}
 	else
-		ft_putmemle(asmblr->bytecode.bcpoint, ft_atoi(&direct[1]), dsize);
+		ft_putmembe(asmblr->bytecode.bcpoint, ft_atoi(&direct[1]), dsize);
 	asmblr->bytecode.bcpoint += dsize;
 	return (kSuccess);
 }

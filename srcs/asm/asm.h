@@ -151,7 +151,7 @@ struct	s_asm
 struct	s_jump
 {
 	char		*label;
-	byte		*place;
+	t_index		idx;
 	t_args_type	type;
 };
 
