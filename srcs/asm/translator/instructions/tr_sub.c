@@ -25,7 +25,7 @@ t_ret translate_sub(t_asm *asmblr, t_tksave parts[], t_error *error)
 	if (ret == kSuccess)
 		ret = put_part(asmblr, &parts[2], kInstSub, error);
 
-	error->error = ret;
+	error->code = ret;
 	return (ret);
 }
 

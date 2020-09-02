@@ -64,7 +64,7 @@ t_ret	put_part(t_asm *asmblr, t_tksave *part, t_inst inst, t_error *error)
 	if (ret != kSuccess)
 		error->token = part;
 
-	error->error = ret;
+	error->code = ret;
 	return (ret);
 }
 

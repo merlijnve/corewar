@@ -88,7 +88,7 @@ t_ret	get_meta_from_file(t_list *lines, t_tksave tokens[2], t_error *error)
 //	ln = lines;
 //
 //
-//	error->error = kSuccess;
+//	error->code = kSuccess;
 //	return (ret);
 //}
 

@@ -170,7 +170,7 @@ struct	s_tksave
 
 struct s_error
 {
-	t_ret error;
+	t_ret code;
 	t_tksave *token;
 };
 
