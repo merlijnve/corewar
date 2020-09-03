@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/03 14:20:19 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/03 16:27:00 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,23 @@
 
 # define MAGIC_NUMBER_LEN	4
 # define ARGS_MAX			3
+
+# define OP_LIVE			1
+# define OP_LD				2
+# define OP_ST				3
+# define OP_ADD				4
+# define OP_SUB				5
+# define OP_AND				6
+# define OP_OR				7
+# define OP_XOR				8
+# define OP_ZJMP			9
+# define OP_LDI				10
+# define OP_STI				11
+# define OP_FORK			12
+# define OP_LLD				13
+# define OP_LLDI			14
+# define OP_LFORK			15
+# define OP_AFF				16
 
 # define HEADER_SIZE		4
 # define NULL_SIZE			4
