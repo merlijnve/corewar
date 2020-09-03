@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/01 13:13:15 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/02 21:18:16 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,39 @@ t_cursor    *cursor_clone(t_cursor *origin)
         return (NULL);
     ft_memcpy(cursor, origin, sizeof(t_cursor));
     
-    // TODO: Assign new ID / position / position in list for cursor?
-    return (cursor);
+	// TODO: Assign new ID / position / position in list for cursor?
+	return (cursor);
 }
 
 t_cursor *cursor_add(t_cursor **acursor, t_cursor *new)
 {
-    if (acursor != NULL && new != NULL)
+	if (acursor != NULL && new != NULL)
 	{
 		new->next = *acursor;
 		*acursor = new;
 	}
-
-    return (*acursor);
+	return (*acursor);
 }
 
-t_cursor *cursor_del(t_cursor **acursor, t_cursor *del)
+t_cursor	*cursor_del(t_cursor *current)
 {
-    debug_printf("[Cursor] Deleting cursor %d", del->id);
+	t_cursor	*prev;
+	t_cursor	*del;
 
-    // TODO: Actually delete the specific cursor.
-    return (*acursor);
+	del = current;
+	current = current->next;
+	if (del->prev == NULL)
+	{
+		free(del);
+		current->prev = NULL;
+	}
+	else
+	{
+		prev = del->prev;
+		free(del);
+		current->prev = prev;
+	}
+	return (current);
 }
 
 /*
@@ -86,6 +98,5 @@ void    init_cursors(t_arena *arena_s)
         }
         ++i;
     }
-
     arena_s->cursors = start;
 }
