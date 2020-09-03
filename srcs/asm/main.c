@@ -18,44 +18,14 @@
 #include "translator.h"
 #include "linker.h"
 
+#include "debugging.h" // TODO: Remove
+
 /*
 **  TODO
 **  - lexical analysis
 **	- calculate zjmps and stuff
 **  - write to .cor file
 */
-
-
-static void print_lines(t_list *lines)
-{
-	ft_printf("LINES:\n ++++ START ++++\n");
-	while (lines != NULL)
-	{
-		ft_printf("line: %.4d | %s\n", lines->content_size, lines->content);
-		lines = lines->next;
-	}
-	ft_printf("++++ END ++++\n\n");
-}
-
-static void print_tokens(t_list *lines)
-{
-	t_tksave *part;
-
-	ft_printf("LINES:\n ++++ START ++++\n");
-	while (lines != NULL)
-	{
-		part = lines->content;
-		ft_printf("token: %.3d:%.3d %d | %s\n", part->loc.ln, part->loc.chr, part->token, part->str);
-		lines = lines->next;
-	}
-	ft_printf("++++ END ++++\n\n");
-}
-
-static void print_bc(t_asm *asmblr, size_t size)
-{
-	print_memory(asmblr->bytecode.bytecode, size);
-	ft_printf("\n");
-}
 
 int		main(int argc, char **argv)
 {
@@ -78,7 +48,7 @@ int		main(int argc, char **argv)
 	input_fd = check_args(argc, argv, asmblr);
 
 	read_file(input_fd, &file);
-	ft_printf("FILE:\n ++++ START ++++\n%s\n ++++ END ++++\n\n", file);
+	print_file(file);
 
 	read_lines(file, &lines);
 	print_lines(lines);
@@ -87,8 +57,8 @@ int		main(int argc, char **argv)
 	print_tokens(tokens);
 
 	asmblr->bytecode.bytecode = ft_memalloc(2048); // TODO: move this to somewhere else
-	ft_memset(asmblr->bytecode.bytecode, '\x00', 2048);
 	asmblr->bytecode.bcpoint = asmblr->bytecode.bytecode;
+	ft_memset(asmblr->bytecode.bytecode, '\x00', 2048);
 
 	print_bc(asmblr, 64);
 	if (error.code == kSuccess)

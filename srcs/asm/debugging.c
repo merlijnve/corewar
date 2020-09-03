@@ -1,17 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   print_memory.c                                     :+:    :+:            */
+/*   debugging.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: exam <marvin@codam.nl>                       +#+                     */
+/*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2018/10/19 16:01:33 by exam          #+#    #+#                 */
-/*   Updated: 2018/10/19 16:01:35 by exam          ########   odam.nl         */
+/*   Created: 2020/06/11 15:29:33 by floris        #+#    #+#                 */
+/*   Updated: 2020/06/11 15:29:35 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <unistd.h>
+
+#include "debugging.h"
+
+#pragma mark - printing utils
+
+void print_file(char *file)
+{
+	ft_printf("FILE:\n ++++ START ++++\n%s\n ++++ END ++++\n\n", file);
+}
+
+void print_lines(t_list *lines)
+{
+	ft_printf("LINES:\n ++++ START ++++\n");
+	while (lines != NULL)
+	{
+		ft_printf("line: %.4d | %s\n", lines->content_size, lines->content);
+		lines = lines->next;
+	}
+	ft_printf("++++ END ++++\n\n");
+}
+
+void print_tokens(t_list *lines)
+{
+	t_tksave *part;
+
+	ft_printf("LINES:\n ++++ START ++++\n");
+	while (lines != NULL)
+	{
+		part = lines->content;
+		ft_printf("token: %.3d:%.3d %d | %s\n", part->loc.ln, part->loc.chr, part->token, part->str);
+		lines = lines->next;
+	}
+	ft_printf("++++ END ++++\n\n");
+}
+
+void print_bc(t_asm *asmblr, size_t size)
+{
+	print_memory(asmblr->bytecode.bytecode, size);
+	ft_printf("\n");
+}
+
+#pragma mark - memory_print
 
 static void	ft_print_chars(const void *addr, size_t size)
 {
