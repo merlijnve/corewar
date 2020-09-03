@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #ifndef METAPARSE_H
-#define METAPARSE_H
+# define METAPARSE_H
 
-#include "asm.h"
+# include "asm.h"
 
-t_ret	get_meta_from_file(t_list *lines, t_tksave tokens[2], t_error *error);
+t_ret	get_meta_from_file(t_list *lines, t_asm *asmblr, t_error *error);
 
 #endif

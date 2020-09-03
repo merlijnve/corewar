@@ -27,14 +27,13 @@ t_ret asm_regtoint(char *str)
 	int number;
 
 	if (*str != 'r')
-		return kError;
+		return kError; // TODO: correct error
 
-	// check if all numbers
+	// TODO: check if all numbers
 	// if (ft_stralpha())
 
 	number = ft_atoi(&str[1]);
-
-	return number >= 0 ? number : kError;
+	return number >= 0 ? number : kError; // TODO: correct error
 }
 
 void	reverse_eb(t_enbyte *eb)
@@ -42,11 +41,10 @@ void	reverse_eb(t_enbyte *eb)
 	t_enbyte bc;
 
 	bc = *eb;
-
-	eb->arg1  = bc.empty;
-	eb->arg2  = bc.arg3;
-	eb->arg3  = bc.arg2;
-	eb->empty = bc.arg1;
+	eb->arg1 = bc.arg4;
+	eb->arg2 = bc.arg3;
+	eb->arg3 = bc.arg2;
+	eb->arg4 = bc.arg1;
 }
 
 t_ret	put_part(t_asm *asmblr, t_tksave *part, t_inst inst, t_error *error)
@@ -60,19 +58,17 @@ t_ret	put_part(t_asm *asmblr, t_tksave *part, t_inst inst, t_error *error)
 		ret = put_direct(asmblr, part, ret_size(inst));
 	else if (tft(part->token) == kTInd)
 		ret = put_indirect(asmblr, part, 2);
-
 	if (ret != kSuccess)
 		error->token = part;
-
 	error->code = ret;
 	return (ret);
 }
 
 t_args_type tft(t_asm_token token)
 {
-	if (token == kTokenDirectLabel || token == kTokenDirect)
+	if (token == kTokenDirLabel || token == kTokenDir)
 		return (kTDir);
-	if (token == kTokenIndirectLabel || token == kTokenIndirect)
+	if (token == kTokenIndLabel || token == kTokenInd)
 		return (kTInd);
 	if (token == kTokenRegister)
 		return (kTReg);

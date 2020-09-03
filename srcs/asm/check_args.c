@@ -14,7 +14,7 @@
 #include <libft.h>
 #include "asm.h"
 
-void	exit_check_args(char **argv, char **argv_s, t_ret signal)
+void	exit_check_args(char *argv[], char *argv_s[], t_ret signal)
 {
 	if (signal == kError)
 	{
@@ -42,7 +42,7 @@ int		count_strings(char **argv, char *s)
 	return (count);
 }
 
-char	**strip_flags(int argc, char **argv, t_asm *asm_s)
+char	**strip_flags(int argc, char *argv[], t_asm *asm_s)
 {
 	int		i;
 	int		j;

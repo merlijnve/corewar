@@ -17,12 +17,12 @@
 
 #pragma mark - printing utils
 
-void print_file(char *file)
+void		print_file(char *file)
 {
 	ft_printf("FILE:\n ++++ START ++++\n%s\n ++++ END ++++\n\n", file);
 }
 
-void print_lines(t_list *lines)
+void		print_lines(t_list *lines)
 {
 	ft_printf("LINES:\n ++++ START ++++\n");
 	while (lines != NULL)
@@ -33,7 +33,7 @@ void print_lines(t_list *lines)
 	ft_printf("++++ END ++++\n\n");
 }
 
-void print_tokens(t_list *lines)
+void		print_tokens(t_list *lines)
 {
 	t_tksave *part;
 
@@ -41,13 +41,14 @@ void print_tokens(t_list *lines)
 	while (lines != NULL)
 	{
 		part = lines->content;
-		ft_printf("token: %.3d:%.3d %d | %s\n", part->loc.ln, part->loc.chr, part->token, part->str);
+		ft_printf("token: %.3d:%.3d %d | %s\n",
+					part->loc.ln, part->loc.chr, part->token, part->str);
 		lines = lines->next;
 	}
 	ft_printf("++++ END ++++\n\n");
 }
 
-void print_bc(t_asm *asmblr, size_t size)
+void		print_bc(t_asm *asmblr, size_t size)
 {
 	print_memory(asmblr->bytecode.bytecode, size);
 	ft_printf("\n");
@@ -128,7 +129,7 @@ static void	ft_print_row(const void *addr, size_t size)
 	ft_print_chars(addr, size);
 }
 
-void	print_memory(const void *addr, size_t size)
+void		print_memory(const void *addr, size_t size)
 {
 	long	temp_size;
 

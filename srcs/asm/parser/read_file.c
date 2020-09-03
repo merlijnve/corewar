@@ -30,8 +30,6 @@ static void *ft_realloc(void *buff, const void *badd, size_t sold, size_t sadd)
 	return (new);
 }
 
-#define BUFF_SIZE 1024
-
 t_ret	read_file(int fd, char **buffer)
 {
 	char	part[BUFF_SIZE];

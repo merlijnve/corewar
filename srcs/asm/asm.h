@@ -21,7 +21,7 @@
 # include <libft.h>
 # include <ft_printf.h>
 
-typedef uint8_t byte;
+typedef uint8_t 			t_byte;
 
 typedef enum e_ret			t_ret;
 typedef enum e_line_type	t_line_type;
@@ -46,9 +46,11 @@ enum	e_ret
 	kError = -1,
 	kErrorAlloc = -2,
 
-	kParseError = -10,
+	kInputError = -10,
+	kParseError = -11,
 
-	kInvalidArgumentCount = -30,
+	kTranslationError = -30,
+	kInvalidArgumentCount = -31,
 
 	kLinkingError = -40,
 	kLinkNotFoundError = -41,
@@ -105,10 +107,10 @@ enum e_asm_token
 	kTokenInstruction,
 	kTokenRegister,
 	kTokenSeperator,
-	kTokenDirect,
-	kTokenDirectLabel,
-	kTokenIndirect,
-	kTokenIndirectLabel,
+	kTokenDir,
+	kTokenDirLabel,
+	kTokenInd,
+	kTokenIndLabel,
 	kTokenUnknown,
 };
 
@@ -126,14 +128,14 @@ struct	s_enbyte
 	t_args_type	arg1 : 2;
 	t_args_type	arg2 : 2;
 	t_args_type	arg3 : 2;
-	t_args_type	empty : 2;
+	t_args_type	arg4 : 2;
 };
 
 struct	s_bytecode
 {
 	size_t	length;
-	byte	*bcpoint;
-	byte	*bytecode;
+	t_byte	*bcpoint;
+	t_byte	*bytecode;
 	t_index	last_inst;
 	t_list	*jump; // adresses from where a jump needs to be done
 	t_list	*marker; // markers to jump to
@@ -163,17 +165,15 @@ struct	s_place
 
 struct	s_tksave
 {
-	char *str;
-	t_asm_token token;
-	t_place	loc;
+	char		*str;
+	t_asm_token	token;
+	t_place		loc;
 };
 
 struct s_error
 {
-	t_ret code;
-	t_tksave *token;
+	t_ret		code;
+	t_tksave	*token;
 };
-
-int		check_args(int argc, char **argv, t_asm *asm_s);
 
 #endif

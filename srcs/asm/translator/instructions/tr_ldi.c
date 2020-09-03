@@ -17,13 +17,12 @@ t_ret translate_ldi(t_asm *asmblr, t_tksave parts[], t_error *error)
 	t_ret ret;
 
 	put_instruction(&asmblr->bytecode, kInstLdi);
-	put_encode(&asmblr->bytecode, (t_enbyte){tft(parts[0].token), tft(parts[1].token), kTReg, kTNone});
-
+	put_encode(&asmblr->bytecode,
+		(t_enbyte){tft(parts[0].token), tft(parts[1].token), kTReg, kTNone});
 	ret = put_part(asmblr, &parts[0], kInstLdi, error);
 	if (ret == kSuccess)
 		ret = put_part(asmblr, &parts[1], kInstLdi, error);
 	if (ret == kSuccess)
 		ret = put_part(asmblr, &parts[2], kInstLdi, error);
-
 	return (ret);
 }

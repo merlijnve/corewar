@@ -13,6 +13,7 @@
 #include <libft.h>
 
 #include "asm.h"
+#include "check_args.h"
 #include "input_parser.h"
 #include "tokenizer.h"
 #include "translator.h"

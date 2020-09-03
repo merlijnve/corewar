@@ -104,12 +104,10 @@ t_ret translate(t_list *tokens, t_asm *asmblr, t_error *error)
 
 	idx = 0;
 	ret = prepare_tokens(tokens, &tk_arr);
-
 	while (ret == kSuccess && tk_arr[idx].token != kTokenNone)
 	{
 		if (tk_arr[idx].token == kTokenInstruction)
 		{
-			// no check needed, as should already be validated tokens
 			type = is_inst(tk_arr[idx].str);
 			ret = tr_funcs[type](asmblr, &tk_arr[idx + 1], error);
 			idx += tr_argc[type] + 1;
@@ -120,8 +118,7 @@ t_ret translate(t_list *tokens, t_asm *asmblr, t_error *error)
 			idx++;
 		}
 		else
-			ret = kError; // TODO: find correct error
+			ret = kTranslationError; // TODO: find correct error
 	}
-
 	return (ret);
 }

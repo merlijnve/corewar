@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
-#define TOKENIZER_H
+# define TOKENIZER_H
 
-#include "asm.h"
+# include "asm.h"
 
 t_ret tokens_from_lines(t_list *lines, t_list **tokens);
 t_ret add_token(t_list **tokens, t_tksave *token);
 
-#pragma mark - tokenizers
+# pragma mark - tokenizers
 
 t_ret tk_inst_line(char *line, t_place loc, t_list **tokens);
 t_ret tk_inst_label_line(char *line, t_place loc, t_list **tokens);
 t_ret tk_label_line(char *line, t_place loc, t_list **tokens);
 t_ret tk_args_line(char *line, t_place loc, t_list **tokens);
 
-#pragma mark - tokenizer common
+# pragma mark - tokenizer common
 
 t_tksave *get_reg(char *line, t_place *loc);
 

@@ -17,13 +17,12 @@ t_ret translate_add(t_asm *asmblr, t_tksave parts[], t_error *error)
 	t_ret ret;
 
 	put_instruction(&asmblr->bytecode, kInstAdd);
-	put_encode(&asmblr->bytecode, (t_enbyte){kTDir, kTDir, kTDir, kTNone});
-
+	put_encode(&asmblr->bytecode,
+				(t_enbyte){kTDir, kTDir, kTDir, kTNone});
 	ret = put_part(asmblr, &parts[0], kInstAdd, error);
 	if (ret == kSuccess)
 		ret = put_part(asmblr, &parts[1], kInstAdd, error);
 	if (ret == kSuccess)
 		ret = put_part(asmblr, &parts[2], kInstAdd, error);
-
 	return (ret);
 }

@@ -41,7 +41,7 @@ t_ret tokens_from_lines(t_list *lines, t_list **tokens)
 	t_line_type	type;
 	ret = kSuccess;
 
-	// SKIPP FIRST PART FOR NOW!
+	// TODO: Replace this with metaparser
 	while (lines != NULL) {
 		type = line_type(lines->content);
 		if (type == kInstLine || type == kInstLabelLine || type == kLabelLine)
@@ -53,11 +53,14 @@ t_ret tokens_from_lines(t_list *lines, t_list **tokens)
 	{
 		type = line_type(lines->content);
 		if (type == kInstLine)
-			ret = tk_inst_line(lines->content, (t_place){lines->content_size, 0}, tokens);
+			ret = tk_inst_line(lines->content,
+				(t_place){lines->content_size, 0}, tokens);
 		else if (type == kInstLabelLine)
-			ret = tk_inst_label_line(lines->content, (t_place){lines->content_size, 0}, tokens);
+			ret = tk_inst_label_line(lines->content,
+				(t_place){lines->content_size, 0}, tokens);
 		else if (type == kLabelLine)
-			ret = tk_label_line(lines->content, (t_place){lines->content_size, 0}, tokens);
+			ret = tk_label_line(lines->content,
+				(t_place){lines->content_size, 0}, tokens);
 		lines = lines->next;
 	}
 	ft_lstrev(tokens);

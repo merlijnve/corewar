@@ -40,6 +40,7 @@ C_INCLUDES = \
 	-I ./translator/
 
 C_SRCS = \
+	./debugging.c \
 	./check_args.c \
 	./linker/linker.c \
 	./main.c \
@@ -53,7 +54,6 @@ C_SRCS = \
 	./parser/tokenizer/tk_label_line.c \
 	./parser/tokenizer/tokenizer.c \
 	./parser/tokenizer/tokenizer_common.c \
-	./print_memory.c \
 	./translator/instructions/tr_add.c \
 	./translator/instructions/tr_aff.c \
 	./translator/instructions/tr_and.c \

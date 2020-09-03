@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   tr_lldi.c                                          :+:    :+:            */
+/*   input_parser.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/27 13:01:20 by floris        #+#    #+#                 */
-/*   Created: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
+/*   Created: 2020/06/11 15:29:33 by floris        #+#    #+#                 */
+/*   Updated: 2020/06/11 15:29:35 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "translator.h"
+#ifndef CHECK_ARGS_H
+# define CHECK_ARGS_H
 
-t_ret translate_lldi(t_asm *asmblr, t_tksave parts[], t_error *error)
-{
-	put_instruction(&asmblr->bytecode, kInstLldi);
-	put_encode(&asmblr->bytecode,
-		(t_enbyte){tft(parts[0].token), tft(parts[1].token), kTReg, kTNone});
-	return (put_part(asmblr, &parts[0], kInstLldi, error));
-}
+#include "asm.h"
+
+int		check_args(int argc, char *argv[], t_asm *asm_s);
+
+#endif

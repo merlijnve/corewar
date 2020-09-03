@@ -15,9 +15,9 @@
 
 #include "asm.h"
 
-void print_file(char *file);
-void print_lines(t_list *lines);
-void print_tokens(t_list *lines);
-void print_bc(t_asm *asmblr, size_t size);
+void	print_file(char *file);
+void	print_lines(t_list *lines);
+void	print_tokens(t_list *lines);
+void	print_bc(t_asm *asmblr, size_t size);
 
 #endif

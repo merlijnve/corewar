@@ -18,13 +18,11 @@ t_ret translate_sub(t_asm *asmblr, t_tksave parts[], t_error *error)
 
 	put_instruction(&asmblr->bytecode, kInstSub);
 	put_encode(&asmblr->bytecode, (t_enbyte){kTDir, kTDir, kTDir, kTNone});
-
 	ret = put_part(asmblr, &parts[0], kInstSub, error);
 	if (ret == kSuccess)
 		ret = put_part(asmblr, &parts[1], kInstSub, error);
 	if (ret == kSuccess)
 		ret = put_part(asmblr, &parts[2], kInstSub, error);
-
 	error->code = ret;
 	return (ret);
 }
