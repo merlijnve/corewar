@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/03 16:32:48 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/03 16:46:18 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_cursor *cursor_add(t_arena *arena, t_cursor *clone)
         if (clone != NULL)
             ft_memcpy(cursor, clone, sizeof(t_cursor));
         cursor->id = arena->cursor_count;
-    cursor->next = NULL;
+        cursor->next = NULL;
         arena->cursor_count++;
         if (arena->cursors == NULL)
             arena->cursors = cursor;
@@ -60,7 +60,7 @@ void    cursor_del(t_cursor **head, int id)
 
     temp = *head;
 
-	if (temp != NULL && temp->id != id)
+	if (temp != NULL && temp->id == id)
 	{
 		*head = temp->next;
 		free(temp);
@@ -72,7 +72,7 @@ void    cursor_del(t_cursor **head, int id)
         temp = temp->next;
     }
 
-    if (temp == NULL) return;
+    if (temp == NULL || prev == NULL) return;
 
     prev->next = temp->next;
 
