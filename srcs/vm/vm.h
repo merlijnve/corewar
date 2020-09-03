@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/03 13:16:17 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/03 14:14:01 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <stdint.h>
 
 # define MAGIC_NUMBER_LEN	4
+# define ARGS_MAX			3
 
 # define HEADER_SIZE		4
 # define NULL_SIZE			4
@@ -166,7 +167,7 @@ uint32_t			rev_bytes_32(uint32_t value);
 void				init_cursors(t_arena *arena_s);
 
 t_cursor 			*cursor_add(t_arena *arena, t_cursor *clone);
-t_cursor			*cursor_del(t_cursor **acursor, t_cursor *del);
+void    			cursor_del(t_cursor **head, int id)
 
 void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);

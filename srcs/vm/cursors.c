@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/03 13:07:48 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/03 14:14:12 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_cursor    *cursor_clone(t_cursor *origin)
         return (NULL);
     ft_memcpy(cursor, origin, sizeof(t_cursor));
     
-    // TODO: Assign new ID / position / position in list for cursor?
-    return (cursor);
+	// TODO: Assign new ID / position / position in list for cursor?
+	return (cursor);
 }
 
 // TODO: Should place cursor in the beginning of the list
@@ -67,12 +67,30 @@ t_cursor *cursor_add(t_arena *arena, t_cursor *clone)
     return (arena->cursors);
 }
 
-t_cursor *cursor_del(t_cursor **acursor, t_cursor *del)
+void    cursor_del(t_cursor **head, int id)
 {
-    debug_printf("[Cursor] Deleting cursor %d", del->id);
+	t_cursor	*temp;
+	t_cursor	*prev;
 
-    // TODO: Actually delete the specific cursor.
-    return (*acursor);
+    temp = *head;
+
+	if (temp != NULL && temp->id != id)
+	{
+		*head = temp->next;
+		free(temp);
+	}
+
+    while (temp != NULL && temp->id != id) 
+    {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) return;
+
+    prev->next = temp->next;
+
+    free(temp);
 }
 
 /*
