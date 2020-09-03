@@ -16,7 +16,7 @@
 # include "op.h"
 # include "ft_printf.h"
 # include "libft.h"
-# include "./errors/errors.h"
+# include "errors.h"
 # include <ncurses.h>
 
 # include <stdbool.h>
