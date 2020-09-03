@@ -12,6 +12,12 @@
 
 #include "libft.h"
 
+/*
+** This function is a bit cryptic, but is used to place a number in Big Endian
+** order into memmory, independent of the Endianity of the running system
+** Unfortunately no easyer way to write this code.
+*/
+
 void		ft_putmembe(void *mem, uint64_t num, size_t size)
 {
 	uint8_t	*mems;
