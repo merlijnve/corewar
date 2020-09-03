@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 14:41:11 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/03 12:12:14 by jboer         ########   odam.nl         */
+/*   Updated: 2020/09/03 15:35:16 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,23 @@ void	calc_jump(t_cursor *cursor, int op)
 
 	i = 0;
 	jump = 1;
-	if (op != 15 && op != 12 && op != 9 && op != 1)
+	if (op != OP_LFORK && op != OP_FORK && op != OP_ZJMP && op != OP_LIVE)
 		jump++;
 	while (i < 3)
 	{
 		if (cursor->args[i].type == ARG_TYPE_REG)
 			jump++;
-		else if (cursor->args[i].type == ARG_TYPE_DIR && (op != 9 && op != 10
-		&& op != 11 && op != 12 && op != 14 && op != 15))
+		else if (cursor->args[i].type == ARG_TYPE_DIR && (op != OP_ZJMP &&
+		op != OP_LDI && op != OP_STI && op != OP_FORK && op != OP_LLDI &&
+		op != OP_LFORK))
 			jump = jump + 4;
-		else if (cursor->args[i].type == ARG_TYPE_IND || (op == 9 || op == 10
-		|| op == 11 || op == 12 || op == 14 || op == 15))
+		else if (cursor->args[i].type == ARG_TYPE_IND || (op == OP_ZJMP ||
+		op == OP_LDI || op == OP_STI || op == OP_FORK || op == OP_LLDI ||
+		op == OP_LFORK))
 			jump = jump + 2;
 		i++;
 	}
-	cursor->jump = jump;	
+	cursor->jump = jump;
 }
 
 /*
