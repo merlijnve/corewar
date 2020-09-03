@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   read_file.c                                        :+:    :+:            */
+/*   tk_instruction_line.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -10,44 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <libft.h>
-#include "input_parser.h"
+#include "tokenizer.h"
 
-static void *ft_realloc(void *buff, const void *badd, size_t sold, size_t sadd)
+t_ret tk_inst_line(char *line, t_place loc, t_list **tokens)
 {
-	void *new;
+	t_ret		ret;
+	t_tksave	*token;
 
-	new = ft_memalloc(sold + sadd + 1);
-
-	if (new != NULL)
-	{
-		ft_memcpy(new, buff, sold);
-		ft_memcpy(new + sold, badd, sadd);
-		ft_memset(new + sold + sadd, '\0', 1);
-	}
-	free(buff);
-	return (new);
-}
-
-t_ret	read_file(int fd, char **buffer)
-{
-	char	part[BUFF_SIZE];
-	t_ret	ret;
-	ssize_t	rret;
-	size_t	bsize;
-
-	ret = kSuccess;
-	rret = 1;
-	bsize = 0;
-	while (rret > 0)
-	{
-		rret = read(fd, part, BUFF_SIZE);
-		if (rret > 0)
-		{
-			*buffer = ft_realloc(*buffer, part, bsize, rret);
-			bsize += rret;
-		}
-	}
+	token = ft_memalloc(sizeof(t_tksave));
+	if (token == NULL)
+		return (kErrorAlloc);
+	while (line[loc.chr] != '\0' && ft_isspace(line[loc.chr]))
+		loc.chr++;
+	ret = get_tk_for_inst(line, token, &loc);
+	add_token(tokens, token);
+	if (ret == kSuccess)
+		ret = tk_args_line(line, loc, tokens);
 	return (ret);
 }

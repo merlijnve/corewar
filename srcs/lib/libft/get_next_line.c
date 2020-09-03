@@ -82,7 +82,7 @@ int			read_from_file(const int fd, t_dict *cache)
 	buff = (char *)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1));
 	last_read = read(fd, buff, BUFF_SIZE);
 	if (last_read < 0)
-		rc = kError;
+		rc = kError; // TODO: correct error
 	if (last_read == 0 && rc != kError)
 		rc = kEndLine;
 	curd = ft_dictget(cache, fd);

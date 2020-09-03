@@ -14,24 +14,46 @@
 #include <libft.h>
 #include "input_parser.h"
 
-t_ret	read_lines(int fd, t_list **lines)
+static t_ret	add_lines(t_list **lines, char *file, char *last, t_index idx)
 {
-	t_ret			ret;
-	char			*line;
-	t_list			*item;
+	t_list	*item;
 
-	ret = kSuccess;
-	while (get_next_line(fd, &line) > 0 && ret == kSuccess)
+	item = ft_memalloc(sizeof(t_list));
+	if (item == NULL)
+		return (kErrorAlloc);
+	item->content = ft_memalloc((&file[idx] - last) + 1);
+	if (item->content == NULL)
 	{
-		item = ft_memalloc(sizeof(t_list));
-		if (item == NULL)
-			return (kErrorAlloc);
-		if (line)
-			item->content = ft_strtrim(line);
-		free(line);
-		item->next = *lines;
-		*lines = item;
+		free(item);
+		return (kErrorAlloc);
 	}
-	return (ret);
+	item->content_size = (*lines != NULL ? (*lines)->content_size + 1 : 1);
+	ft_memcpy(item->content, last, (&file[idx] - last));
+	item->next = *lines;
+	*lines = item;
+	return (kSuccess);
 }
 
+t_ret			read_lines(char *file, t_list **lines)
+{
+	t_ret			ret;
+	t_index			idx;
+	char			*last;
+
+	idx = 0;
+	last = file;
+	ret = kSuccess;
+	while (file[idx] != '\0' && ret == kSuccess)
+	{
+		if (file[idx] == '\n') {
+			ret = add_lines(lines, file, last, idx);
+			last = &file[idx + 1];
+		}
+		idx++;
+	}
+	if (ret == kSuccess && idx >= 1)
+		ret = add_lines(lines, file, last, idx);
+	if (ret == kSuccess)
+		ft_lstrev(lines);
+	return (ret);
+}

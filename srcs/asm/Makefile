@@ -22,9 +22,58 @@ NAME_LIBFT_PRINTF = $(LIBFT_PRINTF_LOC)/libftprintf.a
 
 LINK_FLAGS = -lftprintf -lft
 
-C_HEADERS = asm.h
-C_INCLUDES = -I ../includes/
-C_SRCS = main.c check_args.c
+C_HEADERS = \
+	./asm.h \
+	./linker/linker.h \
+	./parser/input_parser.h \
+	./parser/metaparse.h \
+	./parser/tokenizer/tokenizer.h \
+	./translator/translator.h
+
+C_INCLUDES = \
+	-I ../includes/ \
+	-I ./ \
+	-I ./linker/ \
+	-I ./parser/tokenizer/ \
+	-I ./parser/ \
+	-I ./parser/ \
+	-I ./translator/
+
+C_SRCS = \
+	./debugging.c \
+	./check_args.c \
+	./linker/linker.c \
+	./main.c \
+	./parser/input_parser.c \
+	./parser/metaparse.c \
+	./parser/read_file.c \
+	./parser/read_lines.c \
+	./parser/tokenizer/tk_args_line.c \
+	./parser/tokenizer/tk_inst_label_line.c \
+	./parser/tokenizer/tk_inst_line.c \
+	./parser/tokenizer/tk_label_line.c \
+	./parser/tokenizer/tokenizer.c \
+	./parser/tokenizer/tokenizer_common.c \
+	./translator/instructions/tr_add.c \
+	./translator/instructions/tr_aff.c \
+	./translator/instructions/tr_and.c \
+	./translator/instructions/tr_fork.c \
+	./translator/instructions/tr_ld.c \
+	./translator/instructions/tr_ldi.c \
+	./translator/instructions/tr_lfork.c \
+	./translator/instructions/tr_live.c \
+	./translator/instructions/tr_lld.c \
+	./translator/instructions/tr_lldi.c \
+	./translator/instructions/tr_or.c \
+	./translator/instructions/tr_st.c \
+	./translator/instructions/tr_sti.c \
+	./translator/instructions/tr_sub.c \
+	./translator/instructions/tr_xor.c \
+	./translator/instructions/tr_zjmp.c \
+	./translator/translator.c \
+	./translator/translator_common.c \
+	./translator/translator_utils.c
+
 C_OBJS = $(C_SRCS:%.c=%.o)
 
 .PHONY: fclean clean all re

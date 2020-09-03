@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <string.h>
+# include <stdint.h>
 
 # pragma mark - Types
 
@@ -29,6 +30,8 @@ enum e_lft_ret
 };
 
 # pragma mark - Functions
+
+void			ft_putmembe(void *mem, uint64_t num, size_t size);
 
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
@@ -134,6 +137,7 @@ void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void(*f)(t_list *elem));
 void			ft_lstrev(t_list **lst);
 t_list			*ft_lstmap(t_list *lst, t_list*(*f)(t_list *elem));
+size_t			ft_lstlen(t_list *lst);
 
 # pragma mark - Dictionary
 

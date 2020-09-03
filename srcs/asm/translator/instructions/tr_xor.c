@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   read_file.c                                        :+:    :+:            */
+/*   tr_xor.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -10,44 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <libft.h>
-#include "input_parser.h"
+#include "translator.h"
 
-static void *ft_realloc(void *buff, const void *badd, size_t sold, size_t sadd)
+t_ret translate_xor(t_asm *asmblr, t_tksave parts[], t_error *error)
 {
-	void *new;
+	t_ret ret;
 
-	new = ft_memalloc(sold + sadd + 1);
-
-	if (new != NULL)
-	{
-		ft_memcpy(new, buff, sold);
-		ft_memcpy(new + sold, badd, sadd);
-		ft_memset(new + sold + sadd, '\0', 1);
-	}
-	free(buff);
-	return (new);
-}
-
-t_ret	read_file(int fd, char **buffer)
-{
-	char	part[BUFF_SIZE];
-	t_ret	ret;
-	ssize_t	rret;
-	size_t	bsize;
-
-	ret = kSuccess;
-	rret = 1;
-	bsize = 0;
-	while (rret > 0)
-	{
-		rret = read(fd, part, BUFF_SIZE);
-		if (rret > 0)
-		{
-			*buffer = ft_realloc(*buffer, part, bsize, rret);
-			bsize += rret;
-		}
-	}
+	put_instruction(&asmblr->bytecode, kInstXor);
+	put_encode(&asmblr->bytecode,
+				(t_enbyte){tft(parts[0].token), tft(parts[1].token), kTReg, kTNone});
+	ret = put_part(asmblr, &parts[0], kInstXor, error);
+	if (ret == kSuccess)
+		ret = put_part(asmblr, &parts[1], kInstXor, error);
+	if (ret == kSuccess)
+		ret = put_part(asmblr, &parts[2], kInstXor, error);
 	return (ret);
 }
