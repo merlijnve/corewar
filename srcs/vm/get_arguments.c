@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 14:41:11 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/17 21:53:43 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/01 17:03:20 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,30 @@ int		get_direct_argument(char *mem, int t_dir_size, int arg_pos)
 	else if (t_dir_size == 4)
 		sum = read_4_bytes(mem, arg_pos);
 	return (sum);
+}
+
+void	calc_jump(t_cursor *cursor, int op)
+{
+	int	jump;
+	int	i;
+
+	i = 0;
+	jump = 1;
+	if (op != 15 && op != 12 && op != 9 && op != 1)
+		jump++;
+	while (i < 3)
+	{
+		if (cursor->args[i].type == ARG_TYPE_REG)
+			jump++;
+		else if (cursor->args[i].type == ARG_TYPE_DIR && (op != 9 || op != 10
+		|| op != 11 || op != 12 || op != 14 || op != 15))
+			jump = jump + 4;
+		else if (cursor->args[i].type == ARG_TYPE_IND || (op == 9 || op == 10
+		|| op == 11 || op == 12 || op == 14 || op == 15))
+			jump = jump + 2;
+		i++;
+	}
+	cursor->jump = jump;	
 }
 
 /*
