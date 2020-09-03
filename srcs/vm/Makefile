@@ -23,38 +23,39 @@ NAME_LIBFT_PRINTF = $(LIBFT_PRINTF_LOC)/libftprintf.a
 LINK_FLAGS = -lftprintf -lft -lncurses
 
 C_HEADERS = \
-	vm.h
+	./errors/errors.h \
+	./vm.h
 
 C_INCLUDES = \
 	-I ./ \
 	-I ./errors/ \
 	-I ../includes/ \
-	-I ../lib/ft_printf/
 
 C_SRCS = \
-	check_args.c \
-	check_champions.c \
-	utils.c \
-	utils_2.c \
-	debug.c \
-	arena.c \
-	cursors.c \
-	errors/errors.c \
-	main.c \
-	get_arguments.c \
-	ops/add.c \
-	ops/sub.c \
-	ops/ld.c \
-	ops/ldi.c \
-	ops/lld.c \
-	ops/lldi.c \
-	ops/st.c \
-	ops/sti.c \
-	ops/and.c \
-	ops/or.c \
-	ops/xor.c \
-	ops/aff.c \
-	visual/visual_main.c
+	./arena.c \
+	./check_args.c \
+	./check_champions.c \
+	./cursors.c \
+	./debug.c \
+	./errors/errors.c \
+	./get_arguments.c \
+	./main.c \
+	./op.c \
+	./ops/add.c \
+	./ops/aff.c \
+	./ops/and.c \
+	./ops/ld.c \
+	./ops/ldi.c \
+	./ops/lld.c \
+	./ops/lldi.c \
+	./ops/or.c \
+	./ops/st.c \
+	./ops/sti.c \
+	./ops/sub.c \
+	./ops/xor.c \
+	./utils.c \
+	./utils_2.c \
+	./visual/visual_main.c
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 

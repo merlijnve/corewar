@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   input_parser.h                                     :+:    :+:            */
+/*   debugging.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/11 15:29:15 by floris        #+#    #+#                 */
-/*   Updated: 2020/06/11 15:29:26 by floris        ########   odam.nl         */
+/*   Created: 2020/06/11 15:29:33 by floris        #+#    #+#                 */
+/*   Updated: 2020/06/11 15:29:35 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_PARSER_H
-# define INPUT_PARSER_H
+#ifndef debugging_h
+#define debugging_h
 
-# include "asm.h"
+#include "asm.h"
 
-# define BUFF_SIZE 1024
-
-# pragma mark - funcs
-
-t_ret		read_lines(char *file, t_list **lines);
-t_ret		read_file(int fd, char **buffer);
-t_ret   	parse_file(t_list *lines, t_asm *asmblr);
-
-t_inst		is_inst(char *line);
-t_line_type	line_type(char *line);
+void	print_file(char *file);
+void	print_lines(t_list *lines);
+void	print_tokens(t_list *lines);
+void	print_bc(t_asm *asmblr, size_t size);
 
 #endif

@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_printf.h>
 #include "vm.h"
-#include "ft_printf_types.h"
-#include "ft_print_functions.h"
 
 void        debug_print_hex(unsigned char *str, int n)
 {

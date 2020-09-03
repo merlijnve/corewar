@@ -19,6 +19,8 @@
 #define REG_SIZE				4
 #define DIR_SIZE				REG_SIZE
 
+#define REG_SIZE_ASM			1
+#define IND_SIZE_ASM			2
 
 # define REG_CODE				1
 # define DIR_CODE				2
@@ -35,6 +37,8 @@
 #define LABEL_CHAR				':'
 #define DIRECT_CHAR				'%'
 #define SEPARATOR_CHAR			','
+#define REGISTER_CHAR			'r'
+
 
 #define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"
 

@@ -20,7 +20,8 @@ ARFLAGS = rcs
 
 HEADERS = libft.h
 
-SRCS =	ft_atoi.c \
+SRCS =	ft_putmembe.c \
+		ft_atoi.c \
 		ft_bzero.c \
 		ft_isalnum.c \
 		ft_isalpha.c \
@@ -100,6 +101,7 @@ SRCS =	ft_atoi.c \
 		ft_lstdel.c \
 		ft_lstadd.c \
 		ft_lstiter.c \
+		ft_lstlen.c \
 		ft_lstmap.c \
 		ft_lstrev.c \
 		ft_dictnew.c \

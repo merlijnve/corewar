@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/08/09 18:19:49 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/03 17:21:00 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@ static int	dump_flag(int index, int argc, char **argv, t_arena *arena)
 {
 	index++;
 	if (index < argc)
-		arena->dump_flag = ft_atoi(argv[index]); // This can mess up the player count because it takes everything as a player number
+		arena->dump_flag = ft_atoi(argv[index]);
 	else
 		vm_error(ERR_PARAMS);
 	return (index);
 }
 
 /*
+**	NUMBER_CHAMP
 **	Numbers a champ after the use of -n flag,
-**	and checks for errors ->
-**	error_numbers;
-**	-2: Invalid flag use
-**	-3: Can't open source file
-**	-4: Too many champions
+**	and checks for invalid use of arguments
+**
+**	NOTE:
+**	THE NEXT ARGUMENT'S ASCII VALUE WILL BE TAKEN AS PLAYER NUMBER,
+**	this behavior corresponds to the original Corewar VM
 */
 
 static int	number_champ(int index, int argc, char **argv, t_arena *arena)
@@ -41,7 +42,7 @@ static int	number_champ(int index, int argc, char **argv, t_arena *arena)
 
 	if (index > argc - 1)
 		vm_error(ERR_PARAMS);
-	player_n = ft_atoi(argv[index]); // This can mess up the player count because it takes everything as a player number
+	player_n = ft_atoi(argv[index]);
 	if (player_n > MAX_PLAYERS || player_n <= 0 ||
 	arena->n_flag || arena->champions[player_n - 1].fd != 0)
 	{
@@ -60,12 +61,14 @@ static int	number_champ(int index, int argc, char **argv, t_arena *arena)
 			vm_error(ERR_TOO_MANY_CHAMP, NULL);
 	}
 	else
-		vm_error(ERR_PARAMS); // Isn't necessary but keeps the user on point, no champion after -n flag
+		vm_error(ERR_PARAMS);
 	return (index);
 }
 
 /*
-**	Extracts data from the given arguments or stops on a certain error
+**	LOOP_ARGS
+**	Extracts data from the given arguments
+**	Checks invalid use of arguments
 */
 
 static void	loop_args(int argc, char **argv, t_arena *arena)
@@ -84,7 +87,8 @@ static void	loop_args(int argc, char **argv, t_arena *arena)
 		}
 		if (ft_strcmp(argv[index], "-n") == 0)
 		{
-			ft_printf("%s, strcmp: %d\n", argv[index], ft_strcmp(argv[index], "-n"));
+			ft_printf("%s, strcmp: %d\n", argv[index],
+			ft_strcmp(argv[index], "-n"));
 			index++;
 			index = number_champ(index, argc, argv, arena);
 		}
@@ -93,6 +97,12 @@ static void	loop_args(int argc, char **argv, t_arena *arena)
 		index++;
 	}
 }
+
+/*
+**	CHECK_ARGS
+**	Checks for invalid use of arguments
+**	Extracts the necessary arguments to asign in the given struct
+*/
 
 void		check_args(int argc, char **argv, t_arena *arena)
 {
