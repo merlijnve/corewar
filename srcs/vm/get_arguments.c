@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 14:41:11 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/01 17:03:20 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/03 12:12:14 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	calc_jump(t_cursor *cursor, int op)
 	{
 		if (cursor->args[i].type == ARG_TYPE_REG)
 			jump++;
-		else if (cursor->args[i].type == ARG_TYPE_DIR && (op != 9 || op != 10
-		|| op != 11 || op != 12 || op != 14 || op != 15))
+		else if (cursor->args[i].type == ARG_TYPE_DIR && (op != 9 && op != 10
+		&& op != 11 && op != 12 && op != 14 && op != 15))
 			jump = jump + 4;
 		else if (cursor->args[i].type == ARG_TYPE_IND || (op == 9 || op == 10
 		|| op == 11 || op == 12 || op == 14 || op == 15))
