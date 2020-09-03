@@ -99,6 +99,7 @@ t_ret	get_tk_for_dir(char *line, t_tksave *token, t_place *loc)
 	return (kSuccess);
 }
 
+
 t_ret	get_tk_for_reg(char *line, t_tksave *token, t_place *loc)
 {
 	t_index idx;

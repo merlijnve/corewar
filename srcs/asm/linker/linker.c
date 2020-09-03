@@ -10,7 +10,7 @@
 #include "linker.h"
 #include "translator.h"
 
-// TODO: this function has to be checked.. does it compare correctly
+// TODO: this function has to be checked.. does it compare correctly (it maybe now does)
 static int	clean_and_compare(char *jmp, char *mkr)
 {
 	t_index	sp_jmp;
@@ -29,8 +29,8 @@ static int	clean_and_compare(char *jmp, char *mkr)
 		sp_jmp++;
 		sp_mkr++;
 	}
-	if (   jmp[sp_jmp] == '\0' || !ft_isalnum(jmp[sp_jmp + 1])
-		|| mkr[sp_mkr] == '\0' || !ft_isalnum(mkr[sp_mkr + 1]))
+	if ((jmp[sp_jmp] == '\0' || !ft_isalnum(jmp[sp_jmp]))
+		&& (mkr[sp_mkr] == '\0' || !ft_isalnum(mkr[sp_mkr])))
 		return 1;
 	else
 		return 0;
