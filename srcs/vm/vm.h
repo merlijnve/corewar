@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/03 14:20:19 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/03 15:28:31 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define NULL_SIZE			4
 # define CHAMP_FILESIZE		2875
 
-# define DEBUG_ENABLED		1
-# define DEBUG_PRINT		1
+# define DEBUG_ENABLED		0
+# define DEBUG_PRINT		0
 # define DEBUG_FILE			"debug.log"
 # define DEBUG_MAX_CYCLES	42
 

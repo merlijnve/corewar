@@ -6,30 +6,37 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/01 16:52:47 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/03 16:31:50 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ncurses.h"
+#include <signal.h>
 #include "vm.h"
 
-static void	show_arena(WINDOW *win, char *mem)
+static void	show_arena(WINDOW *win, t_arena *arena)
 {
 	int i;
 	int j;
+	int width;
 
 	i = 0;
 	j = 0;
+	width = 62;
 	while (i < MEM_SIZE)
 	{
-		while (j < 62)
+		while (j < width)
 		{
-			wprintw(win, "%02X%02X ", (unsigned char)mem[i + j], (unsigned char)mem[i + j + 1]);
-			j += 2;
+			wattrset(win, COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
+			wprintw(win, "%02X", (unsigned char)(arena->mem)[i + j]);
+			attroff(COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
+			if ((i + j) % 2)
+				wprintw(win, " ");
+			j += 1;
 		}
 		j = 0;
 		wprintw(win, "\n");
-		i += 64;
+		i += width;
 	}
 	wrefresh(win);
 }
@@ -78,7 +85,7 @@ void		update_window(t_arena *arena)
 {
 	arena->win = newwin(64, 256, 1, 2);
 	arena->stats = newwin(62, 95, 2, 159);
-	show_arena(arena->win, arena->mem);
+	show_arena(arena->win, arena);
 	show_stats(arena->stats, arena);
 	sleep(1);
 }
