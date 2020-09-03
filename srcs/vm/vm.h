@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/01 18:54:19 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/03 13:16:17 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define NULL_SIZE			4
 # define CHAMP_FILESIZE		2875
 
-# define DEBUG_ENABLED		0
+# define DEBUG_ENABLED		1
 # define DEBUG_PRINT		1
 # define DEBUG_FILE			"debug.log"
 # define DEBUG_MAX_CYCLES	42
@@ -165,10 +165,8 @@ uint32_t			rev_bytes_32(uint32_t value);
 
 void				init_cursors(t_arena *arena_s);
 
-t_cursor			*cursor_create();
-t_cursor			*cursor_add(t_cursor **acursor, t_cursor *new);
+t_cursor 			*cursor_add(t_arena *arena, t_cursor *clone);
 t_cursor			*cursor_del(t_cursor **acursor, t_cursor *del);
-t_cursor			*cursor_clone(t_cursor *origin);
 
 void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);
