@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/09/03 20:53:47 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/05 17:12:06 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void vm_cursor_alive(t_arena *arena_s)
     debug_printf("Running cursor alive check...\n");
     while (current)
     {
-		last_cycle = arena_s->current_cycle - current->last_alive;
+		last_cycle = arena_s->cycles_till_check - current->last_alive;
 		if (last_cycle >= arena_s->cycles_to_die)
             cursor_del(&arena_s->cursors, current->id);
     }
@@ -95,13 +95,15 @@ void     vm_run_cursors(t_arena *arena_s)
         debug_printf("Running cursor id: %d...\n", current->id);
         if (current->timeout == 0)
         {
+            // THIS WAS A TEST.
             current->opcode = read_4_bytes(arena_s->mem, get_pos(current->pos, 0));
             debug_printf("Reading cursor op code: %d...\n", current->opcode);
         }
         if (current->timeout > 0)
-            --current->timeout;
+            current->timeout -= 1;
         else
         {
+            // TODO: READ ENCODING BYTE AND ARGUMENTS
             // TODO: Execute operation.
             current->pos = get_pos(current->pos, 1);
             debug_printf("Moving cursor forward.\n");
@@ -112,28 +114,30 @@ void     vm_run_cursors(t_arena *arena_s)
     }
 }
 
-int     vm_cycle(t_arena *arena_s)
+bool     vm_cycle(t_arena *arena_s)
 {
     // STOP IF ALL CURSORS ARE GONE.
     if (arena_s->cursors == NULL)
-        return (0);
+        return (false);
     // CHECK IF WE NEED TO REMOVE DEAD CURSORS
-    if (arena_s->current_cycle >= arena_s->cycles_to_die)
+    if (arena_s->cycles_till_check >= arena_s->cycles_to_die)
     {
         vm_cursor_alive(arena_s);
-        arena_s->current_cycle = 0;
-    }
-    // CHECK IF WE NEED TO DECREASE CYCLES TO DIE
+        arena_s->cycles_till_check = 0;
+        // -- HIER?
+           // CHECK IF WE NEED TO DECREASE CYCLES TO DIE
     if (arena_s->live_count >= NBR_LIVE)
     {
         decrease_cycles(arena_s);
         arena_s->live_count = 0;
     }
+    }
+ 
     if (arena_s->live_count == 0 && arena_s->check_count > MAX_CHECKS)
         decrease_cycles(arena_s);
     vm_run_cursors(arena_s);
-    arena_s->current_cycle++;
-    return (1);
+    arena_s->cycles_till_check++;
+    return (true);
 }
 
 void        init_arena(t_arena *arena_s)
@@ -163,7 +167,7 @@ void        start_arena(t_arena *arena_s)
     while (vm_cycle(arena_s))
     {
         debug_printf(" -- Running cycle '%d' (%d/%d)\n", arena_s->cycle_count, \
-            arena_s->current_cycle, arena_s->cycles_to_die);
+            arena_s->cycles_till_check, arena_s->cycles_to_die);
         arena_s->cycle_count++;
         if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
         {
