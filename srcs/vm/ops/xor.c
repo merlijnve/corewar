@@ -16,13 +16,13 @@ static int	check_xor_argument_types(t_argument *args)
 {
 	if (args[0].type != ARG_TYPE_REG && args[0].type != ARG_TYPE_DIR &&
 	args[0].type != ARG_TYPE_IND)
-		return (ERROR);
+		return (kError);
 	if (args[1].type != ARG_TYPE_REG && args[1].type != ARG_TYPE_DIR &&
 	args[1].type != ARG_TYPE_IND)
-		return (ERROR);
+		return (kError);
 	if (args[2].type != ARG_TYPE_REG)
-		return (ERROR);
-	return (OK);
+		return (kError);
+	return (kOk);
 }
 
 static int	get_argument_all_types(char *mem, t_cursor *cursor, int offset,
@@ -32,7 +32,7 @@ int i)
 	{
 		cursor->args[i].value = mem[get_pos(cursor->pos, offset)];
 		if (!is_registry(cursor->args[i].value))
-			return (ERROR);
+			return (kError);
 		cursor->args[i].value = cursor->registries[cursor->args[i].value - 1];
 		offset += 1;
 	}
@@ -57,15 +57,15 @@ static int	get_xor_argument_values(char *mem, t_cursor *cursor)
 
 	offset = 2;
 	offset = get_argument_all_types(mem, cursor, offset, 0);
-	if (offset == ERROR)
-		return (ERROR);
+	if (offset == kError)
+		return (kError);
 	offset = get_argument_all_types(mem, cursor, offset, 1);
-	if (offset == ERROR)
-		return (ERROR);
+	if (offset == kError)
+		return (kError);
 	cursor->args[2].value = mem[get_pos(cursor->pos, offset)];
 	if (!is_registry(cursor->args[2].value))
-		return (ERROR);
-	return (OK);
+		return (kError);
+	return (kOk);
 }
 
 /*
@@ -79,9 +79,9 @@ void		xor(char *mem, t_cursor *cursor)
 	int	result;
 
 	get_argument_types(mem, cursor);
-	if (check_xor_argument_types(cursor->args) == ERROR)
+	if (check_xor_argument_types(cursor->args) == kError)
 		return ;
-	if (get_xor_argument_values(mem, cursor) == ERROR)
+	if (get_xor_argument_values(mem, cursor) == kError)
 		return ;
 	result = cursor->args[0].value ^ cursor->args[1].value;
 	cursor->registries[cursor->args[2].value - 1] = result;

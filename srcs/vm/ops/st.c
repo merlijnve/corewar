@@ -15,12 +15,12 @@
 static int	check_st_argument_types(t_argument *args)
 {
 	if (args[0].type != ARG_TYPE_REG)
-		return (ERROR);
+		return (kError);
 	if (args[1].type != ARG_TYPE_REG && args[1].type != ARG_TYPE_IND)
-		return (ERROR);
+		return (kError);
 	if (args[2].type != ARG_TYPE_NONE)
-		return (ERROR);
-	return (OK);
+		return (kError);
+	return (kOk);
 }
 
 /*
@@ -35,7 +35,7 @@ void		st(char *mem, t_cursor *cursor)
 	int	arg2;
 
 	get_argument_types(mem, cursor);
-	if (check_st_argument_types(cursor->args) == ERROR)
+	if (check_st_argument_types(cursor->args) == kError)
 		return ;
 	arg1 = mem[get_pos(cursor->pos, 2)];
 	if (!is_registry(arg1))

@@ -13,19 +13,24 @@
 #ifndef FT_CW_VM_ERROR_H
 # define FT_CW_VM_ERROR_H
 
-# undef  OK
-# define OK 0
-# define ERROR -1
+typedef enum e_error t_error;
 
-# define ERR_PARAMS -2
-# define ERR_FILE -3
-# define ERR_TOO_MANY_CHAMP -4
+enum e_error
+{
+	kOk = 0,
+	kError = -1,
 
-# define ERR_BAD_HEADER -11
-# define ERR_BAD_SIZE -12
-# define ERR_BAD_NULL -13
+	kErrParams = -2,
+	kErrFile = -3,
+	kErrTooManyChamps = -4,
 
-# define ERR_OTHER -99
+	kErrBadHeader = -11,
+	kErrBadSize = -12,
+	kErrBadNull = -13,
+
+	kErrOther = -99,
+};
+
 
 void    vm_error(int e, ...);
 

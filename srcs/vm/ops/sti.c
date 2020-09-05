@@ -15,13 +15,13 @@
 static int	check_sti_argument_types(t_argument *args)
 {
 	if (args[0].type != ARG_TYPE_REG)
-		return (ERROR);
+		return (kError);
 	if (args[1].type != ARG_TYPE_DIR && args[1].type != ARG_TYPE_IND &&
 	args[1].type != ARG_TYPE_REG)
-		return (ERROR);
+		return (kError);
 	if (args[2].type != ARG_TYPE_REG && args[2].type != ARG_TYPE_DIR)
-		return (ERROR);
-	return (OK);
+		return (kError);
+	return (kOk);
 }
 
 static int	get_second_sti_argument(char *mem, t_cursor *cursor)
@@ -33,7 +33,7 @@ static int	get_second_sti_argument(char *mem, t_cursor *cursor)
 	{
 		cursor->args[1].value = mem[get_pos(cursor->pos, offset)];
 		if (!is_registry(cursor->args[1].value))
-			return (ERROR);
+			return (kError);
 		cursor->args[1].value = cursor->registries[cursor->args[1].value - 1];
 		offset += 1;
 	}
@@ -58,7 +58,7 @@ static int	get_third_sti_argument(char *mem, t_cursor *cursor, int offset)
 	{
 		cursor->args[2].value = mem[get_pos(cursor->pos, offset)];
 		if (!is_registry(cursor->args[2].value))
-			return (ERROR);
+			return (kError);
 		cursor->args[2].value = cursor->registries[cursor->args[2].value - 1];
 		offset += 1;
 	}
@@ -77,14 +77,14 @@ int			get_sti_argument_values(char *mem, t_cursor *cursor)
 
 	cursor->args[0].value = mem[get_pos(cursor->pos, 2)];
 	if (!is_registry(cursor->args[0].value))
-		return (ERROR);
+		return (kError);
 	offset = get_second_sti_argument(mem, cursor);
-	if (offset == ERROR)
-		return (ERROR);
+	if (offset == kError)
+		return (kError);
 	offset = get_third_sti_argument(mem, cursor, offset);
-	if (offset == ERROR)
-		return (ERROR);
-	return (OK);
+	if (offset == kError)
+		return (kError);
+	return (kOk);
 }
 
 /*
@@ -97,7 +97,7 @@ void		sti(char *mem, t_cursor *cursor)
 	int	write_pos;
 
 	get_argument_types(mem, cursor);
-	if (check_sti_argument_types(cursor->args) == ERROR)
+	if (check_sti_argument_types(cursor->args) == kError)
 		return ;
 	if (get_sti_argument_values(mem, cursor))
 		return ;

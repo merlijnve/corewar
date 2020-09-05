@@ -22,7 +22,7 @@ static int	dump_flag(int index, int argc, char **argv, t_arena *arena)
 	if (index < argc)
 		arena->dump_flag = ft_atoi(argv[index]);
 	else
-		vm_error(ERR_PARAMS);
+		vm_error(kErrParams);
 	return (index);
 }
 
@@ -41,13 +41,13 @@ static int	number_champ(int index, int argc, char **argv, t_arena *arena)
 	int		player_n;
 
 	if (index > argc - 1)
-		vm_error(ERR_PARAMS);
+		vm_error(kErrParams);
 	player_n = ft_atoi(argv[index]);
 	if (player_n > MAX_PLAYERS || player_n <= 0 ||
 	arena->n_flag || arena->champions[player_n - 1].fd != 0)
 	{
 		debug_printf("TESTING... %d\n", player_n);
-		vm_error(ERR_PARAMS);
+		vm_error(kErrParams);
 	}
 	index++;
 	if (ft_strstr(argv[index], ".cor") != NULL)
@@ -55,13 +55,13 @@ static int	number_champ(int index, int argc, char **argv, t_arena *arena)
 		arena->champions[player_n - 1].fd = open(argv[index], O_RDONLY);
 		arena->champions[player_n - 1].argv_index = index;
 		if (arena->champions[player_n - 1].fd < 0)
-			vm_error(ERR_FILE, argv[index]);
+			vm_error(kErrFile, argv[index]);
 		arena->champion_count++;
 		if (arena->champion_count > MAX_PLAYERS)
-			vm_error(ERR_TOO_MANY_CHAMP, NULL);
+			vm_error(kErrTooManyChamps, NULL);
 	}
 	else
-		vm_error(ERR_PARAMS);
+		vm_error(kErrParams);
 	return (index);
 }
 
@@ -82,7 +82,7 @@ static void	loop_args(int argc, char **argv, t_arena *arena)
 		{
 			arena->champion_count++;
 			if (arena->champion_count > MAX_PLAYERS)
-				vm_error(ERR_TOO_MANY_CHAMP);
+				vm_error(kErrTooManyChamps);
 			arena->champions[arena->champion_count - 1].argv_index = index;
 		}
 		if (ft_strcmp(argv[index], "-n") == 0)
@@ -113,7 +113,7 @@ void		check_args(int argc, char **argv, t_arena *arena)
 	c = 0;
 	loop_args(argc, argv, arena);
 	if (arena->champion_count == 0 || arena->n_flag > arena->champion_count)
-		vm_error(ERR_PARAMS, NULL);
+		vm_error(kErrParams, NULL);
 	while (arena->champion_count > index_fd)
 	{
 		if (arena->champions[index_fd].fd == 0)
@@ -121,7 +121,7 @@ void		check_args(int argc, char **argv, t_arena *arena)
 			arena->champions[index_fd].fd =
 			open(argv[arena->champions[index_fd].argv_index], O_RDONLY);
 			if (arena->champions[index_fd].fd < 0)
-				vm_error(ERR_FILE, argv[arena->champions[index_fd].argv_index]);
+				vm_error(kErrFile, argv[arena->champions[index_fd].argv_index]);
 		}
 		index_fd++;
 	}

@@ -17,8 +17,8 @@ static int	check_sub_argument_types(t_argument *args)
 	if (args[0].type != ARG_TYPE_REG
 	|| args[1].type != ARG_TYPE_REG
 	|| args[2].type != ARG_TYPE_REG)
-		return (ERROR);
-	return (OK);
+		return (kError);
+	return (kOk);
 }
 
 void		sub(char *mem, t_cursor *cursor)
@@ -29,7 +29,7 @@ void		sub(char *mem, t_cursor *cursor)
 	int sum;
 
 	get_argument_types(mem, cursor);
-	if (check_sub_argument_types(cursor->args) == ERROR)
+	if (check_sub_argument_types(cursor->args) == kError)
 		return ;
 	arg1 = mem[get_pos(cursor->pos, 2)];
 	arg2 = mem[get_pos(cursor->pos, 3)];
