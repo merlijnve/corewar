@@ -79,3 +79,48 @@ typedef struct		header_s
   unsigned int		prog_size;
   char				comment[COMMENT_LENGTH + 1];
 }					header_t;
+
+#pragma mark - from asm
+
+typedef enum e_inst			t_inst;
+typedef enum e_args_type	t_args_type;
+
+enum e_inst
+{
+	kInstNone = -1,
+	kInstUndef = 0x00,
+	kInstLive = 0x01,
+	kInstLd = 0x02,
+	kInstSt = 0x03,
+	kInstAdd = 0x04,
+	kInstSub = 0x05,
+	kInstAnd = 0x06,
+	kInstOr = 0x07,
+	kInstXor = 0x08,
+	kInstZjmp = 0x09,
+	kInstLdi = 0x0A,
+	kInstSti = 0x0B,
+	kInstFork = 0x0C,
+	kInstLld = 0x0D,
+	kInstLldi = 0x0E,
+	kInstLfork = 0x0F,
+	kInstAff = 0x10,
+};
+
+enum e_args_type
+{
+	kTReg = 0b01,
+	kTDir = 0b10,
+	kTInd = 0b11,
+	kTNone = 0b00,
+};
+
+typedef struct s_enbyte		t_enbyte;
+
+struct	s_enbyte
+{
+	t_args_type	arg1 : 2;
+	t_args_type	arg2 : 2;
+	t_args_type	arg3 : 2;
+	t_args_type	arg4 : 2;
+};

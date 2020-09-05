@@ -20,13 +20,12 @@
 
 # include <libft.h>
 # include <ft_printf.h>
+# include <op.h>
 
 typedef uint8_t 			t_byte;
 
 typedef enum e_ret			t_ret;
 typedef enum e_line_type	t_line_type;
-typedef enum e_inst			t_inst;
-typedef enum e_args_type	t_args_type;
 typedef enum e_asm_token	t_asm_token;
 
 
@@ -70,36 +69,6 @@ enum    e_line_type
 	kEmptyLine,
 };
 
-enum e_inst
-{
-    kInstNone = -1,
-	kInstUndef = 0x00,
-	kInstLive = 0x01,
-	kInstLd = 0x02,
-	kInstSt = 0x03,
-	kInstAdd = 0x04,
-	kInstSub = 0x05,
-	kInstAnd = 0x06,
-	kInstOr = 0x07,
-	kInstXor = 0x08,
-	kInstZjmp = 0x09,
-	kInstLdi = 0x0A,
-	kInstSti = 0x0B,
-	kInstFork = 0x0C,
-	kInstLld = 0x0D,
-	kInstLldi = 0x0E,
-	kInstLfork = 0x0F,
-	kInstAff = 0x10,
-};
-
-enum e_args_type
-{
-	kTReg = 0b01,
-	kTDir = 0b10,
-	kTInd = 0b11,
-	kTNone = 0b00,
-};
-
 enum e_asm_token
 {
 	kTokenNone = 0,
@@ -118,18 +87,9 @@ typedef struct s_bytecode	t_bytecode;
 typedef struct s_asm		t_asm;
 typedef struct s_jump		t_jump;
 typedef struct s_jump		t_marker;
-typedef struct s_enbyte		t_enbyte;
 typedef struct s_place		t_place;
 typedef struct s_tksave		t_tksave;
 typedef struct s_error		t_error;
-
-struct	s_enbyte
-{
-	t_args_type	arg1 : 2;
-	t_args_type	arg2 : 2;
-	t_args_type	arg3 : 2;
-	t_args_type	arg4 : 2;
-};
 
 struct	s_bytecode
 {
