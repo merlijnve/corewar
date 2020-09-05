@@ -88,25 +88,28 @@ typedef struct		s_cell
 
 typedef struct		s_argument
 {
-	int				type;
+	t_args_type		type;
 	int				value;
 }					t_argument;
 
+
 /** Individual cursor */
-typedef struct		s_cursor
+
+typedef struct s_cursor	t_cursor;
+
+struct		s_cursor
 {
-	struct s_cursor *next;
-	struct s_cursor *prev;
+	t_cursor 		*next;
 	int				id;
 	int				pos;
 	int				jump;
 	bool			carry;
-	int				opcode;
+	t_inst			opcode;
 	int				registries[16];
 	int				last_alive;
 	int				timeout;
 	t_argument		args[3];
-}					t_cursor;
+};
 
 /** Arena environment */
 typedef struct		s_arena

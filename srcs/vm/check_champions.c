@@ -38,7 +38,7 @@ int		read_champion_file(int fd, t_cw_champ_file *cw_file)
 		if (idx >= CHAMP_FILESIZE && rbytes != EOF)
 			return (kError);
 	}
-	return (idx);
+	return ((int)idx);
 }
 
 int		check_file(int fd, t_champion *champion)
