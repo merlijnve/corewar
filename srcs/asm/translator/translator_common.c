@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "translator.h"
-#include "op.h"
 
 void put_instruction(t_bytecode *bc, t_inst inst)
 {

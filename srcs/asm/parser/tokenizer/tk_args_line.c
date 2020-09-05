@@ -5,7 +5,6 @@
 //  Created by Floris Fredrikze on 31/08/2020.
 //
 
-#include <op.h>
 #include "tokenizer.h"
 
 // TODO: Find a way to break this up a little
