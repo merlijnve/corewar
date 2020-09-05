@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/09/03 14:16:09 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/03 20:53:47 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static void vm_cursor_alive(t_arena *arena_s)
     current = arena_s->cursors;
     last_cycle = 0;
     tmp = NULL;
+    debug_printf("Running cursor alive check...\n");
     while (current)
     {
 		last_cycle = arena_s->current_cycle - current->last_alive;
@@ -92,17 +93,23 @@ void     vm_run_cursors(t_arena *arena_s)
 
     while (current)
     {
+        debug_printf("Running cursor id: %d...\n", current->id);
         if (current->timeout == 0)
-            ; // TODO: Fetch current op code, set in cursor.
+        {
+            current->opcode = read_4_bytes(arena_s->mem, get_pos(current->pos, 0));
+            debug_printf("Reading cursor op code: %d...\n", current->opcode);
+        }
         if (current->timeout > 0)
             --current->timeout;
         else
         {
             // TODO: Execute operation.
-            // TODO: Move cursor.
+            current->pos = get_pos(current->pos, 1);
+            debug_printf("Moving cursor forward.\n");
             // TODO: Maybe remove operation from cursor.
         }
         current = current->next;
+        update_window(arena_s, current);
     }
 }
 
@@ -127,13 +134,12 @@ int     vm_cycle(t_arena *arena_s)
         decrease_cycles(arena_s);
     vm_run_cursors(arena_s);
     arena_s->current_cycle++;
-	update_window(arena_s);
     return (1);
 }
 
 void        init_arena(t_arena *arena_s)
 {
-    arena_s->last_alive = 0; // TODO: Highest player id.
+    arena_s->last_alive = arena_s->champion_count - 1;
     arena_s->cycles_to_die = CYCLE_TO_DIE;
 
     place_champions(arena_s); 
@@ -152,7 +158,9 @@ void        start_arena(t_arena *arena_s)
 
     introduce_champions(arena_s);
     debug_printf("\nStarting game processes / game loop?...\n");
-	visual_main(arena_s);
+
+    if (DEBUG_VISUAL)
+	    visual_main(arena_s);
     while (vm_cycle(arena_s))
     {
         debug_printf(" -- Running cycle '%d' (%d/%d)\n", arena_s->cycle_count, \

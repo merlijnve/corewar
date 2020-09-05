@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/03 16:46:18 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/03 20:27:43 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 void        cursor_setpos(t_arena *arena, t_cursor *cursor, int pos)
 {
     if (cursor->pos != -1) {
-        arena->cells[cursor->pos].taken = 0;
+        arena->cells[get_pos(cursor->pos, 0)].taken = 0;
     }
-    cursor->pos = pos;
-    arena->cells[cursor->pos].taken = 1;
+    cursor->pos = get_pos(pos, 0);
+    arena->cells[get_pos(cursor->pos, 0)].taken = 1;
 }
 
 // TODO: Should place cursor in the beginning of the list

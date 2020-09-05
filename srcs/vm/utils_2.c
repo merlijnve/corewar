@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/09 20:48:30 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/01 18:20:39 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/03 20:35:39 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 **	Gets new position in arena with modulo calculation
 */
 
-int		get_pos(int cursor_pos, int pos)
+int		get_pos(int cursor_pos, int offset)
 {
-	return ((cursor_pos + pos) % MEM_SIZE);
+	return ((cursor_pos + offset) % MEM_SIZE);
 }
 
 /*

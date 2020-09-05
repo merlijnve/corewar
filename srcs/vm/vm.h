@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/03 20:02:53 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/03 20:53:59 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@
 # define NULL_SIZE			4
 # define CHAMP_FILESIZE		2875
 
-# define DEBUG_ENABLED		0
-# define DEBUG_PRINT		0
+# define DEBUG_ENABLED		1
+# define DEBUG_PRINT		1
 # define DEBUG_FILE			"debug.log"
 # define DEBUG_MAX_CYCLES	42
+# define DEBUG_VISUAL		0
 
 # define ARG_TYPE_REG		1
 # define ARG_TYPE_DIR		2
@@ -219,6 +220,6 @@ void				or(char *mem, t_cursor *cursor);
 void				xor(char *mem, t_cursor *cursor);
 void				aff(char *mem, t_cursor *cursor);
 void				visual_main(t_arena *arena);
-void				update_window(t_arena *arena);
+void				update_window(t_arena *arena, t_cursor *cursor);
 
 #endif
