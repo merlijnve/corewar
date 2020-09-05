@@ -63,19 +63,19 @@ void	calc_jump(t_cursor *cursor, int op)
 
 	i = 0;
 	jump = 1;
-	if (op != OP_LFORK && op != OP_FORK && op != OP_ZJMP && op != OP_LIVE)
+	if (op != kInstLfork && op != kInstFork && op != kInstZjmp && op != kInstLive)
 		jump++;
 	while (i < 3)
 	{
 		if (cursor->args[i].type == ARG_TYPE_REG)
 			jump++;
-		else if (cursor->args[i].type == ARG_TYPE_DIR && (op != OP_ZJMP &&
-		op != OP_LDI && op != OP_STI && op != OP_FORK && op != OP_LLDI &&
-		op != OP_LFORK))
+		else if (cursor->args[i].type == ARG_TYPE_DIR && (op != kInstZjmp &&
+		op != kInstLdi && op != kInstSti && op != kInstFork && op != kInstLldi &&
+		op != kInstLfork))
 			jump = jump + 4;
-		else if (cursor->args[i].type == ARG_TYPE_IND || (op == OP_ZJMP ||
-		op == OP_LDI || op == OP_STI || op == OP_FORK || op == OP_LLDI ||
-		op == OP_LFORK))
+		else if (cursor->args[i].type == ARG_TYPE_IND || (op == kInstZjmp ||
+		op == kInstLdi || op == kInstSti || op == kInstFork || op == kInstLldi ||
+		op == kInstLfork))
 			jump = jump + 2;
 		i++;
 	}

@@ -15,12 +15,12 @@
 static int	check_lld_argument_types(t_argument *args)
 {
 	if (args[0].type != ARG_TYPE_DIR && args[0].type != ARG_TYPE_IND)
-		return (ERROR);
+		return (kError);
 	if (args[1].type != ARG_TYPE_REG)
-		return (ERROR);
+		return (kError);
 	if (args[2].type != ARG_TYPE_NONE)
-		return (ERROR);
-	return (OK);
+		return (kError);
+	return (kOk);
 }
 
 /*
@@ -58,7 +58,7 @@ static void	get_lld_argument_values(char *mem, t_cursor *cursor)
 void		lld(char *mem, t_cursor *cursor)
 {
 	get_argument_types(mem, cursor);
-	if (check_lld_argument_types(cursor->args) == ERROR)
+	if (check_lld_argument_types(cursor->args) == kError)
 		return ;
 	get_lld_argument_values(mem, cursor);
 	if (is_registry(cursor->args[1].value))

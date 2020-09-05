@@ -16,12 +16,12 @@ static int	check_lldi_argument_types(t_argument *args)
 {
 	if (args[0].type != ARG_TYPE_DIR && args[0].type != ARG_TYPE_IND &&
 	args[0].type != ARG_TYPE_REG)
-		return (ERROR);
+		return (kError);
 	if (args[1].type != ARG_TYPE_REG && args[1].type != ARG_TYPE_DIR)
-		return (ERROR);
+		return (kError);
 	if (args[2].type != ARG_TYPE_REG)
-		return (ERROR);
-	return (OK);
+		return (kError);
+	return (kOk);
 }
 
 /*
@@ -41,7 +41,7 @@ static int	get_first_lldi_argument(char *mem, t_cursor *cursor)
 	{
 		cursor->args[0].value = mem[get_pos(cursor->pos, offset)];
 		if (!is_registry(cursor->args[0].value))
-			return (ERROR);
+			return (kError);
 		cursor->args[0].value = cursor->registries[cursor->args[0].value - 1];
 		offset += 1;
 	}
@@ -66,7 +66,7 @@ static int	get_second_lldi_argument(char *mem, t_cursor *cursor, int offset)
 	{
 		cursor->args[1].value = mem[get_pos(cursor->pos, offset)];
 		if (!is_registry(cursor->args[1].value))
-			return (ERROR);
+			return (kError);
 		cursor->args[1].value = cursor->registries[cursor->args[1].value - 1];
 		offset += 1;
 	}
@@ -84,15 +84,15 @@ static int	get_lldi_argument_values(char *mem, t_cursor *cursor)
 	int offset;
 
 	offset = get_first_lldi_argument(mem, cursor);
-	if (offset == ERROR)
-		return (ERROR);
+	if (offset == kError)
+		return (kError);
 	offset = get_second_lldi_argument(mem, cursor, offset);
-	if (offset == ERROR)
-		return (ERROR);
+	if (offset == kError)
+		return (kError);
 	cursor->args[2].value = mem[get_pos(cursor->pos, offset)];
 	if (!is_registry(cursor->args[2].value))
-		return (ERROR);
-	return (OK);
+		return (kError);
+	return (kOk);
 }
 
 /*
@@ -107,9 +107,9 @@ void		lldi(char *mem, t_cursor *cursor)
 	int value;
 
 	get_argument_types(mem, cursor);
-	if (check_lldi_argument_types(cursor->args) == ERROR)
+	if (check_lldi_argument_types(cursor->args) == kError)
 		return ;
-	if (get_lldi_argument_values(mem, cursor) == ERROR)
+	if (get_lldi_argument_values(mem, cursor) == kError)
 		return ;
 	value = read_4_bytes(mem, cursor->pos + cursor->args[0].value +
 	cursor->args[1].value);

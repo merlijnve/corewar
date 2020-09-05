@@ -36,9 +36,9 @@ int		read_champion_file(int fd, t_cw_champ_file *cw_file)
 		rbytes = read(fd, &cw_file[idx], CHAMP_FILESIZE - idx);
 		idx += rbytes;
 		if (idx >= CHAMP_FILESIZE && rbytes != EOF)
-			return (ERROR);
+			return (kError);
 	}
-	return (idx);
+	return ((int)idx);
 }
 
 int		check_file(int fd, t_champion *champion)
@@ -53,12 +53,12 @@ int		check_file(int fd, t_champion *champion)
 	}
 	debug_print_champion(champion);
 	if (champion->champ.magic != COREWAR_EXEC_MAGIC)
-		return (ERR_BAD_HEADER);
+		return (kErrBadHeader);
 	if (champion->champ.nt_comment != 0 || champion->champ.nt_name != 0)
-		return (ERR_BAD_NULL);
+		return (kErrBadNull);
 	if (champion->champ.size > CHAMP_MAX_SIZE)
-		return (ERR_BAD_SIZE);
-	return (OK);
+		return (kErrBadSize);
+	return (kOk);
 }
 
 /*
@@ -82,5 +82,5 @@ int		check_champions(t_champion *champions, int champion_count)
 		}
 		i++;
 	}
-	return (OK);
+	return (kOk);
 }

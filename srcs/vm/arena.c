@@ -73,7 +73,6 @@ static void vm_cursor_alive(t_arena *arena_s)
     int      	last_cycle;
 
     current = arena_s->cursors;
-    last_cycle = 0;
     tmp = NULL;
     debug_printf("Running cursor alive check...\n");
     while (current)

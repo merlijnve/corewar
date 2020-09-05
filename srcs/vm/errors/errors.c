@@ -26,17 +26,17 @@ void vm_error(int e, ...)
 
 	msg = NULL;
 	va_start(ap, e);
-	if (e == ERR_PARAMS)
+	if (e == kErrParams)
 		print_usage();
-	else if (e == ERR_FILE)
+	else if (e == kErrFile)
 		print_error("Error reading source file %s\n", ap);
-	else if (e == ERR_TOO_MANY_CHAMP)
+	else if (e == kErrTooManyChamps)
 		print_error("Too many champions\n", ap);
-	else if (e == ERR_BAD_HEADER)
+	else if (e == kErrBadHeader)
 		print_error("File %s has an invalid header.\n", ap);
-	else if (e == ERR_BAD_SIZE)
+	else if (e == kErrBadSize)
 		print_error("File %s has too large a code.\n", ap);
-	else if (e == ERR_BAD_NULL)
+	else if (e == kErrBadNull)
 		print_error("File %s is not properly formatted with nulls\n", ap);
 	else
 	{
