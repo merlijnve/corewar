@@ -32,6 +32,7 @@ C_INCLUDES = \
 	-I ../includes/ \
 
 C_SRCS = \
+	../lib/shared/shared.c \
 	./arena.c \
 	./check_args.c \
 	./check_champions.c \

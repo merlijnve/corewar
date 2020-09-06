@@ -56,7 +56,7 @@
 **
 */
 
-typedef char	t_arg_type;
+// TODO: remove this
 
 #define T_REG					1
 #define T_DIR					2
@@ -124,3 +124,21 @@ struct	s_enbyte
 	t_args_type	arg3 : 2;
 	t_args_type	arg4 : 2;
 };
+
+/*
+** Info struct for operations
+*/
+
+typedef struct s_opinfo t_opinfo;
+
+struct s_opinfo
+{
+	int argc;
+	int dir_size;
+	int timeout;
+};
+
+
+#pragma mark - Shared
+
+const t_opinfo *get_opinfo(t_inst intst);

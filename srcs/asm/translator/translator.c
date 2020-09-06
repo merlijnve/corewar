@@ -16,11 +16,6 @@
 
 #include "input_parser.h" // for is_inst, maybe move to general location?
 
-static int	tr_argc[17] =
-{
-	0,1,2,2,3,3,3,3,3,1,3,3,1,2,3,1,1
-};
-
 static t_tr_func tr_funcs[17] =
 {
 	NULL,
