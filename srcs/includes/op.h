@@ -72,6 +72,8 @@
 # define COREWAR_EXEC_MAGIC		0x00ea83f3
 # define COREWAR_EXEC_MAGICR	0xf383ea00
 
+#include <stdbool.h>
+
 typedef struct		header_s
 {
   unsigned int		magic;
@@ -136,6 +138,7 @@ struct s_opinfo
 	int			argc;
 	int			dir_size;
 	int			timeout;
+	bool		has_enbyte;
 	t_enbyte	v_args[3]; // valid args
 };
 
