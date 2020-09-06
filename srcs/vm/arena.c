@@ -108,10 +108,26 @@ void     vm_run_cursors(t_arena *arena_s)
         {
             debug_printf("Reading cursor op code: %d...\n", current->opcode);
 			// TODO: validate opcode (jump 1 if error)
-			// TODO: read and validate encoding byte (if existant)
-			// TODO: read and validate arguments
-			// TODO: if error don't execute and jump to next
-			// TODO: if ok execute code and jump to next
+			if (is_opcode(current->opcode))
+			{
+				if (get_opinfo(current->opcode)->has_enbyte)
+				{
+					if (is_valid_enbyte(current->opcode, (t_enbyte *)&arena_s->mem[get_pos(current->pos, 1)]))
+					{
+						// TODO: read and validate arguments
+						// TODO: EXECUTE
+					}
+					current->pos += args_lenght((t_enbyte *)&arena_s->mem[get_pos(current->pos, 1)], current->opcode);
+				}
+				else
+				{
+					// TODO: read and validate arguments
+					// TODO: EXECUTE
+					current->pos += args_lenght(NULL, current->opcode);
+				}
+			}
+			else
+				current->pos += 1;
 			current->timeout = -1; // after moving always -1
         }
         current = current->next;

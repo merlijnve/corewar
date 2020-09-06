@@ -199,6 +199,9 @@ int					get_pos(int cursor_pos, int pos);
 int					read_4_bytes(char *mem, int pos);
 void				write_4_bytes(unsigned char *mem, int pos, int value);
 int					is_registry(int arg);
+int					args_lenght(t_enbyte *byte, t_inst inst);
+
+bool 				is_valid_enbyte(t_inst inst, t_enbyte *enbyte);
 
 #pragma mark - Operations
 

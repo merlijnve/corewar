@@ -25,16 +25,25 @@ int		arg_length(t_args_type type, t_inst inst)
 	return (0);
 }
 
-int		args_lenght(t_enbyte byte, t_inst inst)
+int		args_lenght(t_enbyte *byte, t_inst inst)
 {
 	int len;
 
 	len = 0;
 	if (is_opcode(inst))
 	{
-		len += arg_length(byte.arg1, inst);
-		len += arg_length(byte.arg2, inst);
-		len += arg_length(byte.arg3, inst);
+		if (get_opinfo(inst)->has_enbyte)
+		{
+			len += arg_length(byte->arg1, inst);
+			len += arg_length(byte->arg2, inst);
+			len += arg_length(byte->arg3, inst);
+		}
+		else
+		{
+			len += arg_length(get_opinfo(inst)->v_args[0].arg1, inst);
+			len += arg_length(get_opinfo(inst)->v_args[1].arg1, inst);
+			len += arg_length(get_opinfo(inst)->v_args[2].arg1, inst);
+		}
 	}
 	return (len);
 }
