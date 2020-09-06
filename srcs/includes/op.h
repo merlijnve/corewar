@@ -133,9 +133,10 @@ typedef struct s_opinfo t_opinfo;
 
 struct s_opinfo
 {
-	int argc;
-	int dir_size;
-	int timeout;
+	int			argc;
+	int			dir_size;
+	int			timeout;
+	t_enbyte	v_args[3]; // valid args
 };
 
 
