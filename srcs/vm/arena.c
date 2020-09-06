@@ -93,6 +93,7 @@ void     vm_run_cursors(t_arena *arena_s)
     while (current)
     {
         debug_printf("Running cursor id: %d...\n", current->id);
+
 		// If -1 or smaller, this is a marker that last cycle there was a move
 		// so we now have to write new instruction
 		if (current->timeout < 0)
@@ -100,21 +101,18 @@ void     vm_run_cursors(t_arena *arena_s)
 			current->opcode = arena_s->mem[get_pos(current->pos, 0)];
 			current->timeout = get_timeout(current->opcode);
 		}
-        if (current->timeout == 0)
+		if (current->timeout > 0)
+			current->timeout -= 1;
+		// read information and validate
+		if (current->timeout == 0)
         {
-            // THIS WAS A TEST.
-            current->opcode = read_4_bytes(arena_s->mem, get_pos(current->pos, 0));
             debug_printf("Reading cursor op code: %d...\n", current->opcode);
-        }
-        if (current->timeout > 0)
-            current->timeout -= 1;
-        else
-        {
-            // TODO: READ ENCODING BYTE AND ARGUMENTS
-            // TODO: Execute operation.
-            current->pos = get_pos(current->pos, 1);
-            debug_printf("Moving cursor forward.\n");
-            // TODO: Maybe remove operation from cursor.
+			// TODO: validate opcode (jump 1 if error)
+			// TODO: read and validate encoding byte (if existant)
+			// TODO: read and validate arguments
+			// TODO: if error don't execute and jump to next
+			// TODO: if ok execute code and jump to next
+			current->timeout = -1; // after moving always -1
         }
         current = current->next;
         update_window(arena_s, current);

@@ -193,6 +193,7 @@ uint32_t			rev_bytes_32(uint32_t value);
 
 #pragma mark - Utils 2
 
+bool				is_opcode(t_inst inst);
 int					get_timeout(t_inst inst);
 int					get_pos(int cursor_pos, int pos);
 int					read_4_bytes(char *mem, int pos);
