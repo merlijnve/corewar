@@ -13,10 +13,6 @@
 #ifndef VM_H
 # define VM_H
 
-# include "op.h"
-# include "ft_printf.h"
-# include "libft.h"
-# include "errors.h"
 # include <ncurses.h>
 
 # include <stdbool.h>
@@ -25,6 +21,11 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdint.h>
+
+# include "op.h"
+# include "ft_printf.h"
+# include "libft.h"
+# include "errors.h"
 
 # define MAGIC_NUMBER_LEN	4
 # define ARGS_MAX			3
@@ -144,7 +145,7 @@ typedef struct		s_arena
 	/** Current count of cycles past */
 	int				cycle_count;
 
-	int				current_cycle;
+	int				cycles_till_check;
 
 	int				live_count;
 
@@ -162,11 +163,9 @@ typedef struct		s_arena
 
 void				print_usage(void);
 void				check_args(int argc, char **argv, t_arena *arena);
+
 void				start_arena(t_arena *arena_s);
 int					check_champions(t_champion *champions, int champion_count);
-
-int					ft_strntoi(unsigned char *str, int n);
-uint32_t			rev_bytes_32(uint32_t value);
 
 void				init_cursors(t_arena *arena_s);
 
@@ -177,22 +176,35 @@ void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);
 void				debug_print_champion(t_champion *champion);
 void				debug_print_cursors(t_cursor *cursors);
-int					ft_strntoi(unsigned char *str, int n);
-uint32_t			rev_bytes_32(uint32_t value);
 
 void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);
 void				debug_print_champion(t_champion *champion);
 void				debug_print_map(t_arena *arena);
-int					is_registry(int arg);
-void				add(char *mem, t_cursor *cursor);
 void				get_argument_types(char *mem, t_cursor *cursor);
 int					get_direct_argument(char *mem, int t_dir_size, int pos);
+
+#pragma mark - Utils
+
+// TODO: check if can be removed?
+int					ft_strntoi(unsigned char *str, int n);
+// TODO: check if can be removed?
+uint32_t			rev_bytes_32(uint32_t value);
+
+#pragma mark - Utils 2
+
+int					get_timeout(t_inst inst);
 int					get_pos(int cursor_pos, int pos);
 int					read_4_bytes(char *mem, int pos);
 void				write_4_bytes(unsigned char *mem, int pos, int value);
-int					get_indirect_argument(char *mem, int cursor_pos,
-	int arg_pos, bool idx);
+int					is_registry(int arg);
+
+#pragma mark - Operations
+
+int					get_indirect_argument
+	(char *mem, int cursor_pos, int arg_pos, bool idx);
+
+void				add(char *mem, t_cursor *cursor);
 void				sub(char *mem, t_cursor *cursor);
 void				ld(char *mem, t_cursor *cursor);
 void				ldi(char *mem, t_cursor *cursor);
@@ -205,6 +217,9 @@ void				and(char *mem, t_cursor *cursor);
 void				or(char *mem, t_cursor *cursor);
 void				xor(char *mem, t_cursor *cursor);
 void				aff(char *mem, t_cursor *cursor);
+
+#pragma mark - Visualizer
+
 void				visual_main(t_arena *arena);
 void				update_window(t_arena *arena, t_cursor *cursor);
 

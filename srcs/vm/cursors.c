@@ -72,7 +72,8 @@ void    cursor_del(t_cursor **head, int id)
         temp = temp->next;
     }
 
-    if (temp == NULL || prev == NULL) return;
+    if (temp == NULL || prev == NULL)
+		return;
 
     prev->next = temp->next;
 

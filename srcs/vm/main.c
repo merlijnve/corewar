@@ -14,7 +14,7 @@
 
 void		print_usage(void)
 {
-	ft_putendl("Usage: ./corewar [-dump N | -n (1-MAX_PLAYERS)] "
+	ft_printf("Usage: ./corewar [-dump N | -n (1-MAX_PLAYERS)] "
 		"<champion1.cor> <...>");
 }
 
