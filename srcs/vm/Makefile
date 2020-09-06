@@ -42,6 +42,7 @@ C_SRCS = \
 	./get_arguments.c \
 	./main.c \
 	./op.c \
+	./op_arch_checker.c \
 	./ops/add.c \
 	./ops/aff.c \
 	./ops/and.c \
