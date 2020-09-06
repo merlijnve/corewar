@@ -93,6 +93,13 @@ void     vm_run_cursors(t_arena *arena_s)
     while (current)
     {
         debug_printf("Running cursor id: %d...\n", current->id);
+		// If -1 or smaller, this is a marker that last cycle there was a move
+		// so we now have to write new instruction
+		if (current->timeout < 0)
+		{
+			current->opcode = arena_s->mem[get_pos(current->pos, 0)];
+			current->timeout = get_timeout(current->opcode);
+		}
         if (current->timeout == 0)
         {
             // THIS WAS A TEST.
