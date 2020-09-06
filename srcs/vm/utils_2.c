@@ -12,6 +12,33 @@
 
 #include "vm.h"
 
+int		arg_length(t_args_type type, t_inst inst)
+{
+	if (type == kTReg)
+		return (REG_SIZE_ASM);
+	else if (type == kTDir)
+		return (get_opinfo(inst)->dir_size);
+	else if (type == kTInd)
+		return (IND_SIZE_ASM);
+	else if (type == kTNone)
+		return (0);
+	return (0);
+}
+
+int		args_lenght(t_enbyte byte, t_inst inst)
+{
+	int len;
+
+	len = 0;
+	if (is_opcode(inst))
+	{
+		len += arg_length(byte.arg1, inst);
+		len += arg_length(byte.arg2, inst);
+		len += arg_length(byte.arg3, inst);
+	}
+	return (len);
+}
+
 bool	is_opcode(t_inst inst)
 {
 	if (inst >= kInstLive && inst <= kInstAff)
@@ -25,16 +52,10 @@ bool	is_opcode(t_inst inst)
 **	Get timeout per instruction
 */
 
-static const int	g_timeout_table[17] =
-{
-	0, // no instruction (padding)
-	10, 5, 5, 10, 10, 6, 6, 6, 20, 25, 25, 800, 10, 50, 1000, 2
-};
-
 int			get_timeout(t_inst inst)
 {
 	if (is_opcode(inst))
-		return (g_timeout_table[inst]);
+		return (get_opinfo(inst)->timeout);
 	else
 		// TODO: find out what should be placed here?
 		// 0 so it will be moved in this cycle
