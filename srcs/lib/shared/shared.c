@@ -169,7 +169,7 @@ static const t_opinfo	g_opinfo[16] =
 			{kTNone, kTNone, kTNone, kTNone},
 		}
 	},
-	{
+	{ // aff
 		.argc = 1, .dir_size = 4, .timeout = 2,
 		.has_enbyte = true,
 		.v_args =
