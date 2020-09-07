@@ -72,10 +72,11 @@ void    cursor_del(t_cursor **head, int id)
 		prev = temp;
 		temp = temp->next;
 	}
-	if (*head == found)
+	if (*head == found && found != NULL)
 		*head = found->next;
-	else
+	else if (prev != NULL && found != NULL)
 		prev->next = found->next;
+	free(found);
 }
 
 /*

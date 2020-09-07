@@ -50,7 +50,7 @@ void		print_tokens(t_list *lines)
 
 void		print_bc(t_asm *asmblr, size_t size)
 {
-	print_memory(asmblr->bytecode.bytecode, size);
+	debug_print_mem(asmblr->bytecode.bytecode, size);
 	ft_printf("\n");
 }
 
@@ -129,7 +129,7 @@ static void	ft_print_row(const void *addr, size_t size)
 	ft_print_chars(addr, size);
 }
 
-void		print_memory(const void *addr, size_t size)
+void		debug_print_mem(const void *addr, size_t size)
 {
 	long	temp_size;
 

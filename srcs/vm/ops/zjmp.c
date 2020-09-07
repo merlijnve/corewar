@@ -15,6 +15,6 @@
 void	inst_zjmp(t_arena *arena, t_cursor *cursor)
 {
 	if (cursor->carry == 1)
-		cursor->jump = cursor->args[0].value;
+		cursor->jump = cursor->args[0].value % IDX_MOD;
 	return;
 }

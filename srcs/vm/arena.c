@@ -72,6 +72,7 @@ static void        place_champions(t_arena *arena_s)
 static void vm_cursor_alive(t_arena *arena_s)
 {
     t_cursor	*current;
+	t_cursor	*tmp;
     int      	last_cycle;
 
     current = arena_s->cursors;
@@ -81,10 +82,10 @@ static void vm_cursor_alive(t_arena *arena_s)
 		last_cycle = arena_s->cycles_till_check - current->last_alive;
 		if (last_cycle >= arena_s->cycles_to_die)
 		{
+			tmp = current->next;
 			debug_printf("Deleting cursor: %d\n", current->id);
 			cursor_del(&arena_s->cursors, current->id);
-			current = current->next;
-			free(current);
+			current = tmp;
 		}
 		else
 			current = current->next;
@@ -116,7 +117,7 @@ static void     vm_run_cursors(t_arena *arena_s)
 		// read information and validate
 		if (current->timeout == 0)
         {
-            debug_printf("Reading cursor [%d] op code: %d...\n", current->opcode, get_pos(current->pos, 0));
+            debug_printf("Reading cursor [%d] op code: %d...\n", get_pos(current->pos, 0), current->opcode);
 
 			// TODO: check if this can be mergered
 			if (is_opcode(current->opcode))
@@ -152,23 +153,25 @@ static void     vm_run_cursors(t_arena *arena_s)
 			current->timeout = -1; // after moving always -1
 			current->pos += current->jump;
 			current->jump = 0;
-        }
-        current = current->next;
-//        update_window(arena_s, current);
-    }
+			debug_print_mem(arena_s->mem, 64);
+		}
+		current = current->next;
+		if (DEBUG_VISUAL)
+			update_window(arena_s, current);
+	}
 }
 
 bool     vm_cycle(t_arena *arena_s)
 {
-    // STOP IF ALL CURSORS ARE GONE.
-    if (arena_s->cursors == NULL)
-        return (false);
-    // CHECK IF WE NEED TO REMOVE DEAD CURSORS
-    if (arena_s->cycles_till_check >= arena_s->cycles_to_die)
-    {
-        vm_cursor_alive(arena_s);
-        arena_s->cycles_till_check = 0;
-        // -- HIER?
+	// STOP IF ALL CURSORS ARE GONE.
+	if (arena_s->cursors == NULL)
+		return (false);
+	// CHECK IF WE NEED TO REMOVE DEAD CURSORS
+	if (arena_s->cycles_till_check >= arena_s->cycles_to_die)
+	{
+		vm_cursor_alive(arena_s);
+		arena_s->cycles_till_check = 0;
+		// -- HIER?
            // CHECK IF WE NEED TO DECREASE CYCLES TO DIE
     if (arena_s->live_count >= NBR_LIVE)
     {
@@ -206,8 +209,8 @@ void        start_arena(t_arena *arena_s)
     introduce_champions(arena_s);
     debug_printf("\nStarting game processes / game loop?...\n");
 
-//    if (DEBUG_VISUAL)
-//	    visual_main(arena_s);
+    if (DEBUG_VISUAL)
+	    visual_main(arena_s);
     while (vm_cycle(arena_s))
     {
         debug_printf(" -- Running cycle '%d' (%d/%d)\n", arena_s->cycle_count, \

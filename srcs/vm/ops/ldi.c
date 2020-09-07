@@ -27,6 +27,6 @@ void		inst_ldi(t_arena *arena, t_cursor *cursor)
 	if (cursor->args[1].type == kTReg)
 		cursor->args[1].value = cursor->registries[cursor->args[1].value - 1];
 	value = read_4_bytes(arena->mem,
-		get_pos(cursor->pos, cursor->args[0].value + cursor->args[1].value));
+		get_pos(cursor->pos, (cursor->args[0].value + cursor->args[1].value) % IDX_MOD));
 	cursor->registries[cursor->args[2].value - 1] = value;
 }

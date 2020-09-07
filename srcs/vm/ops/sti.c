@@ -24,6 +24,7 @@ void		inst_sti(t_arena *arena, t_cursor *cursor)
 	if (cursor->args[2].type == kTReg)
 		cursor->args[2].value = cursor->registries[cursor->args[2].value - 1];
 	write_4_bytes(arena->mem,
-		get_pos(cursor->pos, cursor->args[1].value + cursor->args[2].value),
-	cursor->registries[cursor->args[0].value - 1]);
+		get_pos(cursor->pos,
+			(cursor->args[1].value + cursor->args[2].value) % IDX_MOD),
+		cursor->registries[cursor->args[0].value - 1]);
 }

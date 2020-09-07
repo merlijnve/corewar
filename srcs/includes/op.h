@@ -139,6 +139,8 @@ struct s_opinfo
 	int			dir_size;
 	int			timeout;
 	bool		has_enbyte;
+	bool		needs_address;
+	bool		mod_trunc;
 	t_enbyte	v_args[3]; // valid args
 };
 

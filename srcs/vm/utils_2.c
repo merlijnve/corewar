@@ -43,7 +43,7 @@ int		args_length(t_enbyte byte, t_inst inst)
 {
 	int len;
 
-	len = 0;
+	len = 1;
 	if (is_opcode(inst))
 	{
 		len += arg_length(get_arg(byte, inst, 1), inst);

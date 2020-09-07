@@ -11,11 +11,18 @@
 /* ************************************************************************** */
 #include "vm.h"
 
-static int		ind_arg(uint8_t *mem, int idx)
+static int		ind_arg(uint8_t *mem, t_cursor *cursor, int idx)
 {
+	int adress;
 	int value;
 
-	value = (int16_t)read_2_bytes(mem, idx);
+	if (get_opinfo(cursor->opcode)->mod_trunc)
+		adress = (int16_t)read_2_bytes(mem, idx) % IDX_MOD;
+	else
+		adress = (int16_t)read_2_bytes(mem, idx);
+	if (get_opinfo(cursor->opcode)->needs_address)
+		return (adress);
+	value = read_4_bytes(mem, get_pos(cursor->pos, adress));
 	return (value);
 }
 
@@ -56,9 +63,9 @@ static bool	arg_for_idx(t_arena *arena, t_cursor *cur, int *offset, int nr)
 	{
 		cur->args[nr - 1].type = type;
 		arg_len = arg_length(type, cur->opcode);
-		if (type == kTDir)
-			cur->args[nr - 1].value = ind_arg(arena->mem, cur->pos + *offset);
 		if (type == kTInd)
+			cur->args[nr - 1].value = ind_arg(arena->mem, cur ,cur->pos + *offset);
+		if (type == kTDir)
 			cur->args[nr - 1].value = dir_arg(arena->mem, cur->pos + *offset, get_opinfo(cur->opcode)->dir_size);
 		if (type == kTReg)
 			cur->args[nr - 1].value = reg_arg(arena->mem, *offset, cur, &ret);
@@ -72,6 +79,7 @@ bool	preload_args(t_arena *arena_s, t_cursor *cursor)
 	t_error		ret;
 	int			offset;
 
+	ft_bzero(&cursor->args[0], sizeof(t_argument) * 3);
 	offset = 1 + (get_opinfo(cursor->opcode)->has_enbyte ? 1 : 0); // one for skip opcode + 1 for enbyte
 	ret = arg_for_idx(arena_s, cursor, &offset, 1);
 	if (ret == kOk)
