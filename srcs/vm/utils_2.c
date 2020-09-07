@@ -111,7 +111,7 @@ int		get_pos(int cursor_pos, int offset)
 **	Reads 4 bytes of memory, using get_pos to keep reading within memory field
 */
 
-int		read_4_bytes(char *mem, int pos)
+int		read_4_bytes(uint8_t *mem, int pos)
 {
 	int	sum;
 
@@ -122,7 +122,7 @@ int		read_4_bytes(char *mem, int pos)
 	return (sum);
 }
 
-void	write_4_bytes(unsigned char *mem, int pos, int value)
+void	write_4_bytes(uint8_t *mem, int pos, int value)
 {
 	int temp;
 
@@ -136,7 +136,7 @@ void	write_4_bytes(unsigned char *mem, int pos, int value)
 	mem[get_pos(pos, 3)] = temp;
 }
 
-int		read_2_bytes(char *mem, int pos)
+int		read_2_bytes(uint8_t *mem, int pos)
 {
 	int	sum;
 	sum = mem[get_pos(pos, 0)] << 8;
@@ -144,7 +144,7 @@ int		read_2_bytes(char *mem, int pos)
 	return (sum);
 }
 
-void	write_2_bytes(unsigned char *mem, int pos, int value)
+void	write_2_bytes(uint8_t *mem, int pos, int value)
 {
 	int temp;
 

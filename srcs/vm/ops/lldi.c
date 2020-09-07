@@ -6,23 +6,11 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/17 22:54:16 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/08/19 18:21:20 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/07 12:00:00 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-static int	check_lldi_argument_types(t_argument *args)
-{
-	if (args[0].type != ARG_TYPE_DIR && args[0].type != ARG_TYPE_IND &&
-	args[0].type != ARG_TYPE_REG)
-		return (kError);
-	if (args[1].type != ARG_TYPE_REG && args[1].type != ARG_TYPE_DIR)
-		return (kError);
-	if (args[2].type != ARG_TYPE_REG)
-		return (kError);
-	return (kOk);
-}
 
 /*
 **	GET_LDI_ARGUMENT_VALUES
@@ -106,11 +94,6 @@ void		inst_lldi(t_arena *arena, t_cursor *cursor)
 {
 	int value;
 
-	get_argument_types(arena->mem, cursor);
-	if (check_lldi_argument_types(cursor->args) == kError)
-		return ;
-	if (get_lldi_argument_values(arena->mem, cursor) == kError)
-		return ;
 	value = read_4_bytes(arena->mem, cursor->pos + cursor->args[0].value +
 	cursor->args[1].value);
 	cursor->registries[cursor->args[2].value - 1] = value;

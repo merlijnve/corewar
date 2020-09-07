@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/03 20:53:59 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/07 12:00:00 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ typedef struct		s_arena
 	t_cell			cells[MEM_SIZE];
 
 	/** Raw memory array of arena **/
-	char			mem[MEM_SIZE];
+	uint8_t			mem[MEM_SIZE];
 
 	/** Current winner player id */
 	int				winner_id;
@@ -184,7 +184,7 @@ void				debug_print_map(t_arena *arena);
 
 #pragma mark - Get arguments
 
-void				get_argument_types(char *mem, t_cursor *cursor);
+void				get_argument_types(uint8_t *mem, t_cursor *cursor);
 int					get_direct_argument(char *mem, int t_dir_size, int pos);
 int					get_indirect_argument(char *mem, int cursor_pos, int arg_pos, bool idx);
 
@@ -200,10 +200,10 @@ uint32_t			rev_bytes_32(uint32_t value);
 bool				is_opcode(t_inst inst);
 int					get_timeout(t_inst inst);
 int					get_pos(int cursor_pos, int pos);
-int					read_4_bytes(char *mem, int pos);
-void				write_4_bytes(unsigned char *mem, int pos, int value);
-int					read_2_bytes(char *mem, int pos);
-void				write_2_bytes(unsigned char *mem, int pos, int value);
+int					read_4_bytes(uint8_t *mem, int pos);
+void				write_4_bytes(uint8_t *mem, int pos, int value);
+int					read_2_bytes(uint8_t *mem, int pos);
+void				write_2_bytes(uint8_t *mem, int pos, int value);
 int					is_registry(int arg);
 t_args_type 		get_arg(t_enbyte byte, t_inst inst, int argnr);
 int					arg_length(t_args_type type, t_inst inst);

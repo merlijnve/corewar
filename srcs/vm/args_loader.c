@@ -1,13 +1,17 @@
-//
-//  args_loader.c
-//  cw-vm
-//
-//  Created by Floris Fredrikze on 06/09/2020.
-//
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   args_loader.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: floris <ffredrik@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
+/*   Updated: 2020/09/07 12:00:00 by floris        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 #include "vm.h"
 
-int		ind_arg(char *mem, int idx)
+static int		ind_arg(uint8_t *mem, int idx)
 {
 	int value;
 
@@ -15,7 +19,7 @@ int		ind_arg(char *mem, int idx)
 	return (value);
 }
 
-int		dir_arg(char *mem, int idx, int t_dir_size)
+static int		dir_arg(uint8_t *mem, int idx, int t_dir_size)
 {
 	int value;
 
@@ -27,7 +31,7 @@ int		dir_arg(char *mem, int idx, int t_dir_size)
 	return (value);
 }
 
-int		reg_arg(char *mem, int idx, t_cursor *cursor, t_error *ret)
+static int		reg_arg(uint8_t *mem, int idx, t_cursor *cursor, t_error *ret)
 {
 	int reg;
 
