@@ -86,10 +86,10 @@ static void vm_cursor_alive(t_arena *arena_s)
 
 
 
-void     vm_run_cursors(t_arena *arena_s)
+static void     vm_run_cursors(t_arena *arena_s)
 {
     t_cursor *current;
-
+	t_enbyte enbyte;
     current = arena_s->cursors;
 
     while (current)
@@ -115,18 +115,29 @@ void     vm_run_cursors(t_arena *arena_s)
 			{
 				if (get_opinfo(current->opcode)->has_enbyte)
 				{
-					if (is_valid_enbyte(current->opcode, (t_enbyte *)&arena_s->mem[get_pos(current->pos, 1)]))
+					ft_memcpy(&enbyte, &arena_s->mem[get_pos(current->pos, 1)], sizeof(t_enbyte));
+					reverse_eb(&enbyte);
+					if (is_valid_enbyte(current->opcode, enbyte))
 					{
 						if (preload_args(arena_s, current))
+						{
+							debug_printf("new: arg1:%d: %.5d arg2:%d: %.5d arg3:%d: %.5d\n", current->args[0].type, current->args[0].value, current->args[1].type, current->args[1].value, current->args[2].type, current->args[2].value);
 							get_op_func(current->opcode)(arena_s, current);
+							debug_printf("old: arg1:%d: %.5d arg2:%d: %.5d arg3:%d: %.5d\n", current->args[0].type, current->args[0].value, current->args[1].type, current->args[1].value, current->args[2].type, current->args[2].value);
+
+							current->pos += args_lenght(enbyte, current->opcode);
+						}
 					}
-					current->pos += args_lenght((t_enbyte *)&arena_s->mem[get_pos(current->pos, 1)], current->opcode);
 				}
 				else
 				{
 					if (preload_args(arena_s, current))
+					{
+						debug_printf("new: arg1:%d: %.5d arg2:%d: %.5d arg3:%d: %.5d\n", current->args[0].type, current->args[0].value, current->args[1].type, current->args[1].value, current->args[2].type, current->args[2].value);
 						get_op_func(current->opcode)(arena_s, current);
-					current->pos += args_lenght(NULL, current->opcode);
+						debug_printf("old: arg1:%d: %.5d arg2:%d: %.5d arg3:%d: %.5d\n", current->args[0].type, current->args[0].value, current->args[1].type, current->args[1].value, current->args[2].type, current->args[2].value);
+					}
+					current->pos += args_lenght((t_enbyte){}, current->opcode);
 				}
 			}
 			else
@@ -134,7 +145,7 @@ void     vm_run_cursors(t_arena *arena_s)
 			current->timeout = -1; // after moving always -1
         }
         current = current->next;
-        update_window(arena_s, current);
+//        update_window(arena_s, current);
     }
 }
 
@@ -186,8 +197,8 @@ void        start_arena(t_arena *arena_s)
     introduce_champions(arena_s);
     debug_printf("\nStarting game processes / game loop?...\n");
 
-    if (DEBUG_VISUAL)
-	    visual_main(arena_s);
+//    if (DEBUG_VISUAL)
+//	    visual_main(arena_s);
     while (vm_cycle(arena_s))
     {
         debug_printf(" -- Running cycle '%d' (%d/%d)\n", arena_s->cycle_count, \

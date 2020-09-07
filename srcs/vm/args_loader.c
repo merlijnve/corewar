@@ -11,7 +11,7 @@ int		ind_arg(char *mem, int idx)
 {
 	int value;
 
-	value = read_4_bytes(mem, idx);
+	value = read_2_bytes(mem, idx);
 	return (value);
 }
 
@@ -27,18 +27,18 @@ int		dir_arg(char *mem, int idx, int t_dir_size)
 	return (value);
 }
 
-int		reg_arg(char *mem, int idx, t_cursor *cursor, t_error ret)
+int		reg_arg(char *mem, int idx, t_cursor *cursor, t_error *ret)
 {
 	int reg;
 
 	reg = mem[get_pos(idx, 0)];
 	if (is_registry(reg))
 	{
-		ret = kOk;
+		*ret = kOk;
 		return (cursor->registries[reg]);
 	}
-	reg = kError;
-	return (ret);
+	*ret = kError;
+	return (reg);
 }
 
 static bool	arg_for_idx(t_arena *arena, t_cursor *cur, int *offset, int nr)
@@ -46,10 +46,13 @@ static bool	arg_for_idx(t_arena *arena, t_cursor *cur, int *offset, int nr)
 	t_error		ret;
 	int			arg_len;
 	t_args_type	type;
+	t_enbyte	eb;
 
-	type = get_arg(get_enbyte(arena, cur->pos), cur->opcode, nr);
-	ret = true;
-	if (type != kTNone)
+	eb = *get_enbyte(arena, cur->pos);
+	reverse_eb(&eb);
+	type = get_arg(eb, cur->opcode, nr);
+	ret = kOk;
+	if (type != kTNone && ret == kOk)
 	{
 		cur->args[nr - 1].type = type;
 		arg_len = arg_length(type, cur->opcode);
@@ -58,22 +61,22 @@ static bool	arg_for_idx(t_arena *arena, t_cursor *cur, int *offset, int nr)
 		if (type == kTInd)
 			cur->args[nr - 1].value = dir_arg(arena->mem, cur->pos + *offset, get_opinfo(cur->opcode)->dir_size);
 		if (type == kTReg)
-			cur->args[nr - 1].value = reg_arg(arena->mem, *offset, cur, ret);
-		offset += arg_len;
+			cur->args[nr - 1].value = reg_arg(arena->mem, *offset, cur, &ret);
+		*offset += arg_len;
 	}
 	return (ret);
 }
 
 bool	preload_args(t_arena *arena_s, t_cursor *cursor)
 {
-	bool		ret;
+	t_error		ret;
 	int			offset;
 
-	offset = 0;
+	offset = 1 + (get_opinfo(cursor->opcode)->has_enbyte ? 1 : 0); // one for skip opcode + 1 for enbyte
 	ret = arg_for_idx(arena_s, cursor, &offset, 1);
-	if (ret)
+	if (ret == kOk)
 		ret = arg_for_idx(arena_s, cursor, &offset, 2);
-	if (ret)
+	if (ret == kOk)
 		ret = arg_for_idx(arena_s, cursor, &offset, 3);
-	return (ret);
+	return (ret == kOk ? true : false);
 }
