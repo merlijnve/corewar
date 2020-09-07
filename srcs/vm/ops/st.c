@@ -29,28 +29,28 @@ static int	check_st_argument_types(t_argument *args)
 **	Argument 2: registry or address to write value to
 */
 
-void		st(char *mem, t_cursor *cursor)
+void		inst_st(t_arena *arena, t_cursor *cursor)
 {
 	int	arg1;
 	int	arg2;
 
-	get_argument_types(mem, cursor);
+	get_argument_types(arena->mem, cursor);
 	if (check_st_argument_types(cursor->args) == kError)
 		return ;
-	arg1 = mem[get_pos(cursor->pos, 2)];
+	arg1 = arena->mem[get_pos(cursor->pos, 2)];
 	if (!is_registry(arg1))
 		return ;
 	if (cursor->args[1].type == ARG_TYPE_REG)
 	{
-		arg2 = mem[get_pos(cursor->pos, 3)];
+		arg2 = arena->mem[get_pos(cursor->pos, 3)];
 		if (is_registry(arg2))
 			cursor->registries[arg2 - 1] = cursor->registries[arg1 - 1];
 	}
 	else
 	{
-		arg2 = mem[get_pos(cursor->pos, 3)] << 8;
-		arg2 += mem[get_pos(cursor->pos, 4)];
-		write_4_bytes((unsigned char *)mem, cursor->pos + (arg2 % IDX_MOD),
+		arg2 = arena->mem[get_pos(cursor->pos, 3)] << 8;
+		arg2 += arena->mem[get_pos(cursor->pos, 4)];
+		write_4_bytes((unsigned char *)arena->mem, cursor->pos + (arg2 % IDX_MOD),
 		cursor->registries[arg1 - 1]);
 	}
 }

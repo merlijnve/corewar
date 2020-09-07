@@ -55,12 +55,12 @@ static void	get_lld_argument_values(char *mem, t_cursor *cursor)
 **	t_dir size of LLD = 4
 */
 
-void		lld(char *mem, t_cursor *cursor)
+void		inst_lld(t_arena *arena, t_cursor *cursor)
 {
-	get_argument_types(mem, cursor);
+	get_argument_types(arena->mem, cursor);
 	if (check_lld_argument_types(cursor->args) == kError)
 		return ;
-	get_lld_argument_values(mem, cursor);
+	get_lld_argument_values(arena->mem, cursor);
 	if (is_registry(cursor->args[1].value))
 	{
 		cursor->registries[cursor->args[1].value - 1] = cursor->args[0].value;

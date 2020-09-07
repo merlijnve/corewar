@@ -221,6 +221,26 @@ void				and(char *mem, t_cursor *cursor);
 void				or(char *mem, t_cursor *cursor);
 void				xor(char *mem, t_cursor *cursor);
 void				aff(char *mem, t_cursor *cursor);
+typedef void		(*t_op_func)(t_arena *, t_cursor *);
+
+t_op_func 			get_op_func(t_inst inst);
+void				inst_live(t_arena *arena, t_cursor *cursor);
+void				inst_ld(t_arena *arena, t_cursor *cursor);
+void				inst_st(t_arena *arena, t_cursor *cursor);
+void				inst_add(t_arena *arena, t_cursor *cursor);
+void				inst_sub(t_arena *arena, t_cursor *cursor);
+void				inst_and(t_arena *arena, t_cursor *cursor);
+void				inst_or(t_arena *arena, t_cursor *cursor);
+void				inst_xor(t_arena *arena, t_cursor *cursor);
+void				inst_zjmp(t_arena *arena, t_cursor *cursor);
+void				inst_ldi(t_arena *arena, t_cursor *cursor);
+void				inst_sti(t_arena *arena, t_cursor *cursor);
+void				inst_fork(t_arena *arena, t_cursor *cursor);
+void				inst_lld(t_arena *arena, t_cursor *cursor);
+void				inst_lldi(t_arena *arena, t_cursor *cursor);
+void				inst_lfork(t_arena *arena, t_cursor *cursor);
+void				inst_aff(t_arena *arena, t_cursor *cursor);
+
 
 #pragma mark - Visualizer
 

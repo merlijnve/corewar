@@ -21,19 +21,19 @@ static int	check_add_argument_types(t_argument *args)
 	return (kOk);
 }
 
-void		add(char *mem, t_cursor *cursor)
+void		inst_add(t_arena *arena, t_cursor *cursor)
 {
 	int		arg1;
 	int		arg2;
 	int		arg3;
 	int		sum;
 
-	get_argument_types(mem, cursor);
+	get_argument_types(arena->mem, cursor);
 	if (check_add_argument_types(cursor->args) == kError)
 		return ;
-	arg1 = mem[get_pos(cursor->pos, 2)];
-	arg2 = mem[get_pos(cursor->pos, 3)];
-	arg3 = mem[get_pos(cursor->pos, 4)];
+	arg1 = arena->mem[get_pos(cursor->pos, 2)];
+	arg2 = arena->mem[get_pos(cursor->pos, 3)];
+	arg3 = arena->mem[get_pos(cursor->pos, 4)];
 	if (is_registry(arg1) && is_registry(arg2) && is_registry(arg3))
 	{
 		sum = cursor->registries[arg1 - 1] + cursor->registries[arg2 - 1];

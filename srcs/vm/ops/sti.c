@@ -92,17 +92,17 @@ int			get_sti_argument_values(char *mem, t_cursor *cursor)
 **	idx
 */
 
-void		sti(char *mem, t_cursor *cursor)
+void		inst_sti(t_arena *arena, t_cursor *cursor)
 {
 	int	write_pos;
 
-	get_argument_types(mem, cursor);
+	get_argument_types(arena->mem, cursor);
 	if (check_sti_argument_types(cursor->args) == kError)
 		return ;
-	if (get_sti_argument_values(mem, cursor))
+	if (get_sti_argument_values(arena->mem, cursor))
 		return ;
 	write_pos = cursor->pos + (cursor->args[1].value + cursor->args[2].value) %
 	IDX_MOD;
-	write_4_bytes((unsigned char *)mem, write_pos,
+	write_4_bytes((unsigned char *)arena->mem, write_pos,
 	cursor->registries[cursor->args[0].value - 1]);
 }

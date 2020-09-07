@@ -74,14 +74,14 @@ static int	get_xor_argument_values(char *mem, t_cursor *cursor)
 **	Saves result in registry from argument 3
 */
 
-void		xor(char *mem, t_cursor *cursor)
+void		inst_xor(t_arena *arena, t_cursor *cursor)
 {
 	int	result;
 
-	get_argument_types(mem, cursor);
+	get_argument_types(arena->mem, cursor);
 	if (check_xor_argument_types(cursor->args) == kError)
 		return ;
-	if (get_xor_argument_values(mem, cursor) == kError)
+	if (get_xor_argument_values(arena->mem, cursor) == kError)
 		return ;
 	result = cursor->args[0].value ^ cursor->args[1].value;
 	cursor->registries[cursor->args[2].value - 1] = result;

@@ -21,14 +21,14 @@ int		check_aff_argument_types(t_argument *args)
 	return (kOk);
 }
 
-void	aff(char *mem, t_cursor *cursor)
+void	inst_aff(t_arena *arena, t_cursor *cursor)
 {
 	int arg1;
 
-	get_argument_types(mem, cursor);
+	get_argument_types(arena->mem, cursor);
 	if (check_aff_argument_types(cursor->args) == kError)
 		return ;
-	arg1 = mem[get_pos(cursor->pos, 2)];
+	arg1 = arena->mem[get_pos(cursor->pos, 2)];
 	if (is_registry(arg1))
 		ft_putchar((char)cursor->registries[arg1 - 1]);
 }

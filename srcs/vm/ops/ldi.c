@@ -101,16 +101,16 @@ static int	get_ldi_argument_values(char *mem, t_cursor *cursor)
 **	registry given in argument 3
 */
 
-void		ldi(char *mem, t_cursor *cursor)
+void		inst_ldi(t_arena *arena, t_cursor *cursor)
 {
 	int value;
 
-	get_argument_types(mem, cursor);
+	get_argument_types(arena->mem, cursor);
 	if (check_ldi_argument_types(cursor->args) == kError)
 		return ;
-	if (get_ldi_argument_values(mem, cursor) == kError)
+	if (get_ldi_argument_values(arena->mem, cursor) == kError)
 		return ;
-	value = read_4_bytes(mem, cursor->pos + ((cursor->args[0].value +
+	value = read_4_bytes(arena->mem, cursor->pos + ((cursor->args[0].value +
 	cursor->args[1].value) % IDX_MOD));
 	cursor->registries[cursor->args[2].value - 1] = value;
 }
