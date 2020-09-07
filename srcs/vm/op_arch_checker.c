@@ -16,7 +16,7 @@ static bool is_valid_arg(t_inst inst, t_args_type type, int argnr)
 {
 	t_enbyte byte;
 
-	byte = get_opinfo(inst)->v_args[argnr];
+	byte = get_opinfo(inst)->v_args[argnr - 1];
 
 	// kTNone is used as padding, arg can only be validly kTNone if first
 	// item is kTNone
