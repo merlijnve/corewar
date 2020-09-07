@@ -181,8 +181,12 @@ void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);
 void				debug_print_champion(t_champion *champion);
 void				debug_print_map(t_arena *arena);
+
+#pragma mark - Get arguments
+
 void				get_argument_types(char *mem, t_cursor *cursor);
 int					get_direct_argument(char *mem, int t_dir_size, int pos);
+int					get_indirect_argument(char *mem, int cursor_pos, int arg_pos, bool idx);
 
 #pragma mark - Utils
 
@@ -198,29 +202,18 @@ int					get_timeout(t_inst inst);
 int					get_pos(int cursor_pos, int pos);
 int					read_4_bytes(char *mem, int pos);
 void				write_4_bytes(unsigned char *mem, int pos, int value);
+int					read_2_bytes(char *mem, int pos);
+void				write_2_bytes(unsigned char *mem, int pos, int value);
 int					is_registry(int arg);
+t_args_type 		get_arg(t_enbyte *byte, t_inst inst, int argnr);
+int					arg_length(t_args_type type, t_inst inst);
 int					args_lenght(t_enbyte *byte, t_inst inst);
+t_enbyte 			*get_enbyte(t_arena *arena, t_index pos);
 
 bool 				is_valid_enbyte(t_inst inst, t_enbyte *enbyte);
 
 #pragma mark - Operations
 
-int					get_indirect_argument
-	(char *mem, int cursor_pos, int arg_pos, bool idx);
-
-void				add(char *mem, t_cursor *cursor);
-void				sub(char *mem, t_cursor *cursor);
-void				ld(char *mem, t_cursor *cursor);
-void				ldi(char *mem, t_cursor *cursor);
-void				lld(char *mem, t_cursor *cursor);
-void				lldi(char *mem, t_cursor *cursor);
-void				lldi(char *mem, t_cursor *cursor);
-void				st(char *mem, t_cursor *cursor);
-void				sti(char *mem, t_cursor *cursor);
-void				and(char *mem, t_cursor *cursor);
-void				or(char *mem, t_cursor *cursor);
-void				xor(char *mem, t_cursor *cursor);
-void				aff(char *mem, t_cursor *cursor);
 typedef void		(*t_op_func)(t_arena *, t_cursor *);
 
 t_op_func 			get_op_func(t_inst inst);
@@ -241,6 +234,9 @@ void				inst_lldi(t_arena *arena, t_cursor *cursor);
 void				inst_lfork(t_arena *arena, t_cursor *cursor);
 void				inst_aff(t_arena *arena, t_cursor *cursor);
 
+#pragma mark - args loader
+
+bool				preload_args(t_arena *arena_s, t_cursor *cursor);
 
 #pragma mark - Visualizer
 

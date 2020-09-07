@@ -12,6 +12,20 @@
 
 #include "vm.h"
 
+t_args_type get_arg(t_enbyte *byte, t_inst inst, int argnr)
+{
+	if (get_opinfo(inst)->has_enbyte)
+	{
+		if (argnr == 1)
+			return (byte->arg1);
+		if (argnr == 2)
+			return (byte->arg2);
+		if (argnr == 3)
+			return (byte->arg3);
+	}
+	return (get_opinfo(inst)->v_args[argnr - 1].arg1);
+}
+
 int		arg_length(t_args_type type, t_inst inst)
 {
 	if (type == kTReg)
@@ -32,20 +46,16 @@ int		args_lenght(t_enbyte *byte, t_inst inst)
 	len = 0;
 	if (is_opcode(inst))
 	{
-		if (get_opinfo(inst)->has_enbyte)
-		{
-			len += arg_length(byte->arg1, inst);
-			len += arg_length(byte->arg2, inst);
-			len += arg_length(byte->arg3, inst);
-		}
-		else
-		{
-			len += arg_length(get_opinfo(inst)->v_args[0].arg1, inst);
-			len += arg_length(get_opinfo(inst)->v_args[1].arg1, inst);
-			len += arg_length(get_opinfo(inst)->v_args[2].arg1, inst);
-		}
+		len += arg_length(get_arg(byte, inst, 1), inst);
+		len += arg_length(get_arg(byte, inst, 2), inst);
+		len += arg_length(get_arg(byte, inst, 3), inst);
 	}
 	return (len);
+}
+
+t_enbyte *get_enbyte(t_arena *arena, t_index pos)
+{
+	return ((t_enbyte *)&arena->mem[get_pos(pos, 1)]);
 }
 
 bool	is_opcode(t_inst inst)
@@ -111,6 +121,24 @@ void	write_4_bytes(unsigned char *mem, int pos, int value)
 	mem[get_pos(pos, 2)] = temp;
 	temp = value & 0xff;
 	mem[get_pos(pos, 3)] = temp;
+}
+
+int		read_2_bytes(char *mem, int pos)
+{
+	int	sum;
+	sum = mem[get_pos(pos, 0)] << 8;
+	sum += mem[get_pos(pos, 1)];
+	return (sum);
+}
+
+void	write_2_bytes(unsigned char *mem, int pos, int value)
+{
+	int temp;
+
+	temp = value >> 8 & 0xff;
+	mem[get_pos(pos, 0)] = temp;
+	temp = value & 0xff;
+	mem[get_pos(pos, 1)] = temp;
 }
 
 /*

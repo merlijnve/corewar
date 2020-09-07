@@ -84,6 +84,8 @@ static void vm_cursor_alive(t_arena *arena_s)
     arena_s->check_count++;
 }
 
+
+
 void     vm_run_cursors(t_arena *arena_s)
 {
     t_cursor *current;
@@ -107,22 +109,23 @@ void     vm_run_cursors(t_arena *arena_s)
 		if (current->timeout == 0)
         {
             debug_printf("Reading cursor op code: %d...\n", current->opcode);
-			// TODO: validate opcode (jump 1 if error)
+
+			// TODO: check if this can be mergered
 			if (is_opcode(current->opcode))
 			{
 				if (get_opinfo(current->opcode)->has_enbyte)
 				{
 					if (is_valid_enbyte(current->opcode, (t_enbyte *)&arena_s->mem[get_pos(current->pos, 1)]))
 					{
-						// TODO: read and validate arguments
-						// TODO: EXECUTE
+						if (preload_args(arena_s, current))
+							get_op_func(current->opcode)(arena_s, current);
 					}
 					current->pos += args_lenght((t_enbyte *)&arena_s->mem[get_pos(current->pos, 1)], current->opcode);
 				}
 				else
 				{
-					// TODO: read and validate arguments
-					// TODO: EXECUTE
+					if (preload_args(arena_s, current))
+						get_op_func(current->opcode)(arena_s, current);
 					current->pos += args_lenght(NULL, current->opcode);
 				}
 			}
