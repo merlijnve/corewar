@@ -37,7 +37,7 @@
 # define DEBUG_ENABLED		1
 # define DEBUG_PRINT		1
 # define DEBUG_FILE			"debug.log"
-# define DEBUG_MAX_CYCLES	100000
+# define DEBUG_MAX_CYCLES	500000
 # define DEBUG_VISUAL		0
 
 # define ARG_TYPE_REG		1
@@ -145,7 +145,7 @@ typedef struct		s_arena
 	/** Current count of cycles past */
 	int				cycle_count;
 
-	int				cycles_till_check;
+	int				cycles_since_check;
 
 	int				live_count;
 

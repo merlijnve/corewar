@@ -63,7 +63,7 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 	mvwprintw(win, 11, 3, "STATS:");
 	wattrset(win, COLOR_PAIR(6));
 	box(win, 0, 0);
-	mvwprintw(win, 13, 3, "Current cycle:\t%d", arena->cycles_till_check);
+	mvwprintw(win, 13, 3, "Current cycle:\t%d", arena->cycle_count);
 	mvwprintw(win, 14, 3, "Cycles to die:\t%d", arena->cycles_to_die);
 	mvwprintw(win, 15, 3, "winner_id:\t%d\tlast_alive:\t%d", arena->winner->id, arena->last_alive);
 	if (cursor != NULL) {

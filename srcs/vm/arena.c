@@ -79,7 +79,7 @@ static void vm_cursor_alive(t_arena *arena_s)
     debug_printf("Running cursor alive check...\n");
     while (current)
     {
-		last_cycle = arena_s->cycles_till_check - current->last_alive;
+		last_cycle = arena_s->cycle_count - current->last_alive;
 		if (last_cycle >= arena_s->cycles_to_die)
 		{
 			tmp = current->next;
@@ -153,7 +153,7 @@ static void     vm_run_cursors(t_arena *arena_s)
 			current->timeout = -1; // after moving always -1
 			current->pos += current->jump;
 			current->jump = 0;
-			debug_print_mem(arena_s->mem, 64);
+//			debug_print_mem(arena_s->mem, 64);
 		}
 		current = current->next;
 		if (DEBUG_VISUAL)
@@ -166,29 +166,36 @@ bool     vm_cycle(t_arena *arena_s)
 	// STOP IF ALL CURSORS ARE GONE.
 	if (arena_s->cursors == NULL)
 		return (false);
-	// CHECK IF WE NEED TO REMOVE DEAD CURSORS
-	if (arena_s->cycles_till_check >= arena_s->cycles_to_die)
+
+	// THE CHECK
+	if (arena_s->cycles_since_check >= arena_s->cycles_to_die)
 	{
 		vm_cursor_alive(arena_s);
-		arena_s->cycles_till_check = 0;
-		// -- HIER?
-           // CHECK IF WE NEED TO DECREASE CYCLES TO DIE
-    if (arena_s->live_count >= NBR_LIVE)
-    {
-        decrease_cycles(arena_s);
-        arena_s->live_count = 0;
-    }
-    }
- 
-    if (arena_s->live_count == 0 && arena_s->check_count > MAX_CHECKS)
-        decrease_cycles(arena_s);
-    vm_run_cursors(arena_s);
-    arena_s->cycles_till_check++;
-    return (true);
+		if (arena_s->live_count >= NBR_LIVE)
+		{
+			decrease_cycles(arena_s);
+			arena_s->check_count = 1;
+			arena_s->live_count = 0;
+		}
+		else
+		{
+			arena_s->check_count += 1;
+		}
+		if (arena_s->check_count >= MAX_CHECKS)
+		{
+			decrease_cycles(arena_s);
+			arena_s->check_count = 1;
+		}
+		arena_s->cycles_since_check = 0;
+	}
+	vm_run_cursors(arena_s);
+	arena_s->cycles_since_check++;
+	return (true);
 }
 
 void        init_arena(t_arena *arena_s)
 {
+	arena_s->cycle_count = 1;
     arena_s->last_alive = arena_s->champion_count - 1;
     arena_s->cycles_to_die = CYCLE_TO_DIE;
 
@@ -214,7 +221,7 @@ void        start_arena(t_arena *arena_s)
     while (vm_cycle(arena_s))
     {
         debug_printf(" -- Running cycle '%d' (%d/%d)\n", arena_s->cycle_count, \
-            arena_s->cycles_till_check, arena_s->cycles_to_die);
+            arena_s->cycles_since_check, arena_s->cycles_to_die);
         arena_s->cycle_count++;
         if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
         {
