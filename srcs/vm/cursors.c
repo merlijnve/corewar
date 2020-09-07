@@ -98,8 +98,10 @@ void    init_cursors(t_arena *arena_s)
     {
         if (arena_s->champions[i].id != -1)
         {
+			// TODO: NULL check?
             current = cursor_add(arena_s, NULL);
             cursor_setpos(arena_s, current, arena_s->champions[i].mem_index);
+			current->timeout = -1;
         }
         ++i;
     }
