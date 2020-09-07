@@ -39,7 +39,7 @@ int		arg_length(t_args_type type, t_inst inst)
 	return (0);
 }
 
-int		args_lenght(t_enbyte byte, t_inst inst)
+int		args_length(t_enbyte byte, t_inst inst)
 {
 	int len;
 
@@ -65,7 +65,7 @@ void	reverse_eb(t_enbyte *eb)
 	eb->arg4 = bc.arg1;
 }
 
-t_enbyte *get_enbyte(t_arena *arena, t_index pos)
+t_enbyte *get_enbyte(t_arena *arena, int pos)
 {
 	t_enbyte *eb;
 	eb = (t_enbyte *)&arena->mem[get_pos(pos, 1)];

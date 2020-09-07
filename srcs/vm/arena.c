@@ -132,8 +132,6 @@ static void     vm_run_cursors(t_arena *arena_s)
 							debug_printf("args\n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x\n", current->args[0].type, current->args[0].value, current->args[0].value, current->args[1].type, current->args[1].value, current->args[1].value, current->args[2].type, current->args[2].value, current->args[2].value);
 							get_op_func(current->opcode)(arena_s, current);
 						}
-						if (current->jump == 0)
-							current->jump = args_lenght(enbyte, current->opcode);
 					}
 					if (current->jump == 0)
 						current->jump = args_length(enbyte, current->opcode);
@@ -146,7 +144,7 @@ static void     vm_run_cursors(t_arena *arena_s)
 						get_op_func(current->opcode)(arena_s, current);
 					}
 					if (current->jump == 0)
-						current->jump = args_lenght((t_enbyte){}, current->opcode);
+						current->jump = args_length((t_enbyte){}, current->opcode);
 				}
 			}
 			else

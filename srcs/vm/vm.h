@@ -207,8 +207,8 @@ void				write_2_bytes(uint8_t *mem, int pos, int value);
 int					is_registry(int arg);
 t_args_type 		get_arg(t_enbyte byte, t_inst inst, int argnr);
 int					arg_length(t_args_type type, t_inst inst);
-int					args_lenght(t_enbyte byte, t_inst inst);
-t_enbyte 			*get_enbyte(t_arena *arena, t_index pos);
+int					args_length(t_enbyte byte, t_inst inst);
+t_enbyte 			*get_enbyte(t_arena *arena, int pos);
 void				reverse_eb(t_enbyte *eb);
 
 bool 				is_valid_enbyte(t_inst inst, t_enbyte enbyte);
