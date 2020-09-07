@@ -49,6 +49,7 @@ int		args_lenght(t_enbyte byte, t_inst inst)
 		len += arg_length(get_arg(byte, inst, 1), inst);
 		len += arg_length(get_arg(byte, inst, 2), inst);
 		len += arg_length(get_arg(byte, inst, 3), inst);
+		len += get_opinfo(inst)->has_enbyte ? 1 : 0;
 	}
 	return (len);
 }
@@ -113,34 +114,44 @@ int		get_pos(int cursor_pos, int offset)
 
 int		read_4_bytes(uint8_t *mem, int pos)
 {
-	int	sum;
+	uint32_t	sum;
+	uint8_t		parts[4];
 
-	sum = mem[get_pos(pos, 0)] << 24;
-	sum += mem[get_pos(pos, 1)] << 16;
-	sum += mem[get_pos(pos, 2)] << 8;
-	sum += mem[get_pos(pos, 3)];
+	parts[0] = mem[get_pos(pos, 0)];
+	parts[1] = mem[get_pos(pos, 1)];
+	parts[2] = mem[get_pos(pos, 2)];
+	parts[3] = mem[get_pos(pos, 3)];
+	sum =  parts[0] << 24;
+	sum += parts[1] << 16;
+	sum += parts[2] << 8;
+	sum += parts[3];
 	return (sum);
 }
 
 void	write_4_bytes(uint8_t *mem, int pos, int value)
 {
-	int temp;
+	uint8_t parts[4];
 
-	temp = value >> 24 & 0xff;
-	mem[get_pos(pos, 0)] = temp;
-	temp = value >> 16 & 0xff;
-	mem[get_pos(pos, 1)] = temp;
-	temp = value >> 8 & 0xff;
-	mem[get_pos(pos, 2)] = temp;
-	temp = value & 0xff;
-	mem[get_pos(pos, 3)] = temp;
+	parts[0] = ((0xFF << 24) & value) >> 24;
+	parts[1] = ((0xFF << 16) & value) >> 16;
+	parts[2] = ((0xFF <<  8) & value) >>  8;
+	parts[3] = ((0xFF <<  0) & value) >>  0;
+
+	mem[get_pos(pos, 0)] =  parts[0];
+	mem[get_pos(pos, 1)] =  parts[1];
+	mem[get_pos(pos, 2)] =  parts[2];
+	mem[get_pos(pos, 3)] =  parts[3];
 }
 
 int		read_2_bytes(uint8_t *mem, int pos)
 {
-	int	sum;
-	sum = mem[get_pos(pos, 0)] << 8;
-	sum += mem[get_pos(pos, 1)];
+	uint32_t	sum;
+	uint8_t		parts[2];
+
+	parts[0] = mem[get_pos(pos, 0)];
+	parts[1] = mem[get_pos(pos, 1)];
+	sum = parts[0] << 8;
+	sum += parts[1];
 	return (sum);
 }
 

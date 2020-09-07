@@ -37,7 +37,7 @@
 # define DEBUG_ENABLED		1
 # define DEBUG_PRINT		1
 # define DEBUG_FILE			"debug.log"
-# define DEBUG_MAX_CYCLES	42
+# define DEBUG_MAX_CYCLES	100000
 # define DEBUG_VISUAL		0
 
 # define ARG_TYPE_REG		1
@@ -91,7 +91,7 @@ typedef struct		s_cell
 typedef struct		s_argument
 {
 	t_args_type		type;
-	int				value;
+	int32_t			value;
 }					t_argument;
 
 
@@ -137,7 +137,7 @@ typedef struct		s_arena
 	uint8_t			mem[MEM_SIZE];
 
 	/** Current winner player id */
-	int				winner_id;
+	t_champion		*winner;
 
 	/** Cycles before we die */
 	int				cycles_to_die;

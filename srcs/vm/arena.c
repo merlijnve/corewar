@@ -51,6 +51,9 @@ static void        place_champions(t_arena *arena_s)
     while (i < arena_s->champion_count)
     {
         arena_s->champions[i].mem_index = i * offset;
+		// TODO: write champ id in chack args according to -n flag
+		// line below is temp fix to get it running
+		arena_s->champions[i].id = i + 1;
         ft_memcpy(
             arena_s->mem + arena_s->champions[i].mem_index,
             ((const void *)(arena_s->champions[i].champ.exec_code)),
@@ -69,17 +72,22 @@ static void        place_champions(t_arena *arena_s)
 static void vm_cursor_alive(t_arena *arena_s)
 {
     t_cursor	*current;
-    t_cursor	*tmp;
     int      	last_cycle;
 
     current = arena_s->cursors;
-    tmp = NULL;
     debug_printf("Running cursor alive check...\n");
     while (current)
     {
 		last_cycle = arena_s->cycles_till_check - current->last_alive;
 		if (last_cycle >= arena_s->cycles_to_die)
-            cursor_del(&arena_s->cursors, current->id);
+		{
+			debug_printf("Deleting cursor: %d\n", current->id);
+			cursor_del(&arena_s->cursors, current->id);
+			current = current->next;
+			free(current);
+		}
+		else
+			current = current->next;
     }
     arena_s->check_count++;
 }
@@ -94,7 +102,7 @@ static void     vm_run_cursors(t_arena *arena_s)
 
     while (current)
     {
-        debug_printf("Running cursor id: %d...\n", current->id);
+//        debug_printf("Running cursor id: %d...\n", current->id);
 
 		// If -1 or smaller, this is a marker that last cycle there was a move
 		// so we now have to write new instruction
@@ -108,7 +116,7 @@ static void     vm_run_cursors(t_arena *arena_s)
 		// read information and validate
 		if (current->timeout == 0)
         {
-            debug_printf("Reading cursor op code: %d...\n", current->opcode);
+            debug_printf("Reading cursor [%d] op code: %d...\n", current->opcode, get_pos(current->pos, 0));
 
 			// TODO: check if this can be mergered
 			if (is_opcode(current->opcode))
@@ -121,28 +129,31 @@ static void     vm_run_cursors(t_arena *arena_s)
 					{
 						if (preload_args(arena_s, current))
 						{
-							debug_printf("new: arg1:%d: %.5d arg2:%d: %.5d arg3:%d: %.5d\n", current->args[0].type, current->args[0].value, current->args[1].type, current->args[1].value, current->args[2].type, current->args[2].value);
+							debug_printf("args\n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x\n", current->args[0].type, current->args[0].value, current->args[0].value, current->args[1].type, current->args[1].value, current->args[1].value, current->args[2].type, current->args[2].value, current->args[2].value);
 							get_op_func(current->opcode)(arena_s, current);
-							debug_printf("old: arg1:%d: %.5d arg2:%d: %.5d arg3:%d: %.5d\n", current->args[0].type, current->args[0].value, current->args[1].type, current->args[1].value, current->args[2].type, current->args[2].value);
-
-							current->pos += args_lenght(enbyte, current->opcode);
 						}
+						if (current->jump == 0)
+							current->jump = args_lenght(enbyte, current->opcode);
 					}
+					if (current->jump == 0)
+						current->jump = args_length(enbyte, current->opcode);
 				}
 				else
 				{
 					if (preload_args(arena_s, current))
 					{
-						debug_printf("new: arg1:%d: %.5d arg2:%d: %.5d arg3:%d: %.5d\n", current->args[0].type, current->args[0].value, current->args[1].type, current->args[1].value, current->args[2].type, current->args[2].value);
+						debug_printf("args\n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x\n", current->args[0].type, current->args[0].value, current->args[0].value, current->args[1].type, current->args[1].value, current->args[1].value, current->args[2].type, current->args[2].value, current->args[2].value);
 						get_op_func(current->opcode)(arena_s, current);
-						debug_printf("old: arg1:%d: %.5d arg2:%d: %.5d arg3:%d: %.5d\n", current->args[0].type, current->args[0].value, current->args[1].type, current->args[1].value, current->args[2].type, current->args[2].value);
 					}
-					current->pos += args_lenght((t_enbyte){}, current->opcode);
+					if (current->jump == 0)
+						current->jump = args_lenght((t_enbyte){}, current->opcode);
 				}
 			}
 			else
-				current->pos += 1;
+				current->jump = 1;
 			current->timeout = -1; // after moving always -1
+			current->pos += current->jump;
+			current->jump = 0;
         }
         current = current->next;
 //        update_window(arena_s, current);

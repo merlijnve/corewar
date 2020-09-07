@@ -15,7 +15,7 @@ static int		ind_arg(uint8_t *mem, int idx)
 {
 	int value;
 
-	value = read_2_bytes(mem, idx);
+	value = (int16_t)read_2_bytes(mem, idx);
 	return (value);
 }
 
@@ -25,9 +25,9 @@ static int		dir_arg(uint8_t *mem, int idx, int t_dir_size)
 
 	value = 0;
 	if (t_dir_size == 2)
-		value = read_2_bytes(mem, idx);
+		value = (int16_t)read_2_bytes(mem, idx);
 	else if (t_dir_size == 4)
-		value = read_4_bytes(mem, idx);
+		value = (int32_t)read_4_bytes(mem, idx);
 	return (value);
 }
 
@@ -36,12 +36,8 @@ static int		reg_arg(uint8_t *mem, int idx, t_cursor *cursor, t_error *ret)
 	int reg;
 
 	reg = mem[get_pos(idx, 0)];
-	if (is_registry(reg))
-	{
-		*ret = kOk;
-		return (cursor->registries[reg]);
-	}
-	*ret = kError;
+	if (!is_registry(reg))
+		*ret = kError;
 	return (reg);
 }
 

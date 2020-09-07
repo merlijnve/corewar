@@ -20,12 +20,11 @@
 
 void		inst_st(t_arena *arena, t_cursor *cursor)
 {
-
 	if (cursor->args[1].type == kTReg)
-		cursor->registries[cursor->args[1].value] = cursor->registries[cursor->args[0].value];
+		cursor->registries[cursor->args[1].value] = cursor->registries[cursor->args[0].value - 1];
 	else
 	{
-		// TODO: calc offset
-		write_4_bytes(&arena->mem[0], cursor->pos, cursor->registries[cursor->args[0].value]);
+		// TODO: Check if adress is correct
+		write_4_bytes(&arena->mem[0], get_pos(cursor->pos, cursor->args[1].value), cursor->registries[cursor->args[0].value - 1]);
 	}
 }

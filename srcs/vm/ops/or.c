@@ -22,6 +22,10 @@ void		inst_or(t_arena *arena, t_cursor *cursor)
 {
 	int	result;
 
+	if (cursor->args[0].type == kTReg)
+		cursor->args[0].value = cursor->registries[cursor->args[0].value - 1];
+	if (cursor->args[1].type == kTReg)
+		cursor->args[1].value = cursor->registries[cursor->args[1].value - 1];
 	result = cursor->args[0].value | cursor->args[1].value;
 	cursor->registries[cursor->args[2].value - 1] = result;
 	if (result == 0)

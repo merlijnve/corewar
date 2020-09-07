@@ -55,29 +55,27 @@ t_cursor *cursor_add(t_arena *arena, t_cursor *clone)
 
 void    cursor_del(t_cursor **head, int id)
 {
-	t_cursor	*temp;
-	t_cursor	*prev;
+	t_cursor *temp;
+	t_cursor *prev;
+	t_cursor *found;
 
-    temp = *head;
-
-	if (temp != NULL && temp->id == id)
+	temp = *head;
+	prev = NULL;
+	found = NULL;
+	while (temp != NULL)
 	{
-		*head = temp->next;
-		free(temp);
+		if (temp->id == id)
+		{
+			found = temp;
+			break ;
+		}
+		prev = temp;
+		temp = temp->next;
 	}
-
-    while (temp != NULL && temp->id != id) 
-    {
-        prev = temp;
-        temp = temp->next;
-    }
-
-    if (temp == NULL || prev == NULL)
-		return;
-
-    prev->next = temp->next;
-
-    free(temp);
+	if (*head == found)
+		*head = found->next;
+	else
+		prev->next = found->next;
 }
 
 /*
@@ -102,6 +100,7 @@ void    init_cursors(t_arena *arena_s)
             current = cursor_add(arena_s, NULL);
             cursor_setpos(arena_s, current, arena_s->champions[i].mem_index);
 			current->timeout = -1;
+			current->registries[0] = - arena_s->champions[i].id;
         }
         ++i;
     }
