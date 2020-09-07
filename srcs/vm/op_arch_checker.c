@@ -32,15 +32,15 @@ static bool is_valid_arg(t_inst inst, t_args_type type, int argnr)
 }
 
 // TODO: does it matter if ther is no 0b00 in 4th unused part of enbyte?
-bool is_valid_enbyte(t_inst inst, t_enbyte *enbyte)
+bool is_valid_enbyte(t_inst inst, t_enbyte enbyte)
 {
 	bool ret;
 
-	ret = is_valid_arg(inst, enbyte->arg1, 1);
+	ret = is_valid_arg(inst, enbyte.arg1, 1);
 	if (ret)
-		ret = is_valid_arg(inst, enbyte->arg2, 2);
+		ret = is_valid_arg(inst, enbyte.arg2, 2);
 	if (ret)
-		ret = is_valid_arg(inst, enbyte->arg3, 3);
+		ret = is_valid_arg(inst, enbyte.arg3, 3);
 	return (ret);
 }
 

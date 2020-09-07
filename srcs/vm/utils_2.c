@@ -12,16 +12,16 @@
 
 #include "vm.h"
 
-t_args_type get_arg(t_enbyte *byte, t_inst inst, int argnr)
+t_args_type get_arg(t_enbyte byte, t_inst inst, int argnr)
 {
 	if (get_opinfo(inst)->has_enbyte)
 	{
 		if (argnr == 1)
-			return (byte->arg1);
+			return (byte.arg1);
 		if (argnr == 2)
-			return (byte->arg2);
+			return (byte.arg2);
 		if (argnr == 3)
-			return (byte->arg3);
+			return (byte.arg3);
 	}
 	return (get_opinfo(inst)->v_args[argnr - 1].arg1);
 }
@@ -39,7 +39,7 @@ int		arg_length(t_args_type type, t_inst inst)
 	return (0);
 }
 
-int		args_lenght(t_enbyte *byte, t_inst inst)
+int		args_lenght(t_enbyte byte, t_inst inst)
 {
 	int len;
 
@@ -53,9 +53,22 @@ int		args_lenght(t_enbyte *byte, t_inst inst)
 	return (len);
 }
 
+void	reverse_eb(t_enbyte *eb)
+{
+	t_enbyte bc;
+
+	bc = *eb;
+	eb->arg1 = bc.arg4;
+	eb->arg2 = bc.arg3;
+	eb->arg3 = bc.arg2;
+	eb->arg4 = bc.arg1;
+}
+
 t_enbyte *get_enbyte(t_arena *arena, t_index pos)
 {
-	return ((t_enbyte *)&arena->mem[get_pos(pos, 1)]);
+	t_enbyte *eb;
+	eb = (t_enbyte *)&arena->mem[get_pos(pos, 1)];
+	return (eb);
 }
 
 bool	is_opcode(t_inst inst)
