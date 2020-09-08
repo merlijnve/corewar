@@ -56,7 +56,7 @@
 **
 */
 
-typedef char	t_arg_type;
+// TODO: remove this
 
 #define T_REG					1
 #define T_DIR					2
@@ -71,6 +71,8 @@ typedef char	t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0x00ea83f3
 # define COREWAR_EXEC_MAGICR	0xf383ea00
+
+#include <stdbool.h>
 
 typedef struct		header_s
 {
@@ -124,3 +126,26 @@ struct	s_enbyte
 	t_args_type	arg3 : 2;
 	t_args_type	arg4 : 2;
 };
+
+/*
+** Info struct for operations
+*/
+
+typedef struct s_opinfo t_opinfo;
+
+struct s_opinfo
+{
+	char		*name;
+	int			argc;
+	int			dir_size;
+	int			timeout;
+	bool		has_enbyte;
+	bool		needs_address;
+	bool		mod_trunc;
+	t_enbyte	v_args[3]; // valid args
+};
+
+
+#pragma mark - Shared
+
+const t_opinfo *get_opinfo(t_inst intst);

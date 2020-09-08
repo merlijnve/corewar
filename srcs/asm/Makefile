@@ -40,6 +40,7 @@ C_INCLUDES = \
 	-I ./translator/
 
 C_SRCS = \
+	../lib/shared/shared.c \
 	./debugging.c \
 	./check_args.c \
 	./linker/linker.c \

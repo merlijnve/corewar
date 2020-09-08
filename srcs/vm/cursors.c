@@ -6,36 +6,20 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/03 14:14:12 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/03 20:27:43 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
 
-t_cursor    *cursor_create()
+void        cursor_setpos(t_arena *arena, t_cursor *cursor, int pos)
 {
-    t_cursor *cursor;
-
-    cursor = ft_memalloc(sizeof(t_cursor));
-    if (cursor == NULL)
-        return NULL;
-    return cursor;
-}
-
-t_cursor    *cursor_clone(t_cursor *origin)
-{
-    t_cursor *cursor;
-
-    if (origin == NULL)
-        return (NULL);
-    cursor = ft_memalloc(sizeof(t_cursor));
-    if (cursor == NULL)
-        return (NULL);
-    ft_memcpy(cursor, origin, sizeof(t_cursor));
-    
-	// TODO: Assign new ID / position / position in list for cursor?
-	return (cursor);
+    if (cursor->pos != -1) {
+        arena->cells[get_pos(cursor->pos, 0)].taken = 0;
+    }
+    cursor->pos = get_pos(pos, 0);
+    arena->cells[get_pos(cursor->pos, 0)].taken = 1;
 }
 
 // TODO: Should place cursor in the beginning of the list
@@ -45,52 +29,49 @@ t_cursor *cursor_add(t_arena *arena, t_cursor *clone)
 
     cursor = (t_cursor *)ft_memalloc(sizeof(t_cursor));
 
+    cursor->pos = -1;
+
     if (cursor == NULL)
-    {
         ;// ERROR MEMORY
-    }
     else
     {
         if (clone != NULL)
-            ft_memcpy(cursor, clone, sizeof(t_cursor));
-        cursor->id = arena->cursor_count;
-        cursor->next = NULL;
+		{
+			ft_memcpy(cursor, clone, sizeof(t_cursor));
+			cursor->pos = clone->pos + get_pos(clone->args[0].value % IDX_MOD, 0);
+		}
+        cursor->next = arena->cursors;
         arena->cursor_count++;
-        if (arena->cursors == NULL)
-            arena->cursors = cursor;
-        else
-        {
-            cursor->next = arena->cursors;
-            arena->cursors = cursor;
-        }
+		arena->cursors = cursor;
+		cursor->id = arena->cursor_count;
     }
     return (arena->cursors);
 }
 
 void    cursor_del(t_cursor **head, int id)
 {
-	t_cursor	*temp;
-	t_cursor	*prev;
+	t_cursor *temp;
+	t_cursor *prev;
+	t_cursor *found;
 
-    temp = *head;
-
-	if (temp != NULL && temp->id != id)
+	temp = *head;
+	prev = NULL;
+	found = NULL;
+	while (temp != NULL)
 	{
-		*head = temp->next;
-		free(temp);
+		if (temp->id == id)
+		{
+			found = temp;
+			break ;
+		}
+		prev = temp;
+		temp = temp->next;
 	}
-
-    while (temp != NULL && temp->id != id) 
-    {
-        prev = temp;
-        temp = temp->next;
-    }
-
-    if (temp == NULL) return;
-
-    prev->next = temp->next;
-
-    free(temp);
+	if (*head == found && found != NULL)
+		*head = found->next;
+	else if (prev != NULL && found != NULL)
+		prev->next = found->next;
+	free(found);
 }
 
 /*
@@ -111,8 +92,11 @@ void    init_cursors(t_arena *arena_s)
     {
         if (arena_s->champions[i].id != -1)
         {
+			// TODO: NULL check?
             current = cursor_add(arena_s, NULL);
-            current->pos = arena_s->champions[i].mem_index;
+            cursor_setpos(arena_s, current, arena_s->champions[i].mem_index);
+			current->timeout = -1;
+			current->registries[0] = - arena_s->champions[i].id;
         }
         ++i;
     }

@@ -6,17 +6,13 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/03 16:27:00 by jboer         ########   odam.nl         */
+/*   Updated: 2020/09/07 12:00:00 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
-# include "op.h"
-# include "ft_printf.h"
-# include "libft.h"
-# include "errors.h"
 # include <ncurses.h>
 
 # include <stdbool.h>
@@ -25,6 +21,11 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdint.h>
+
+# include "op.h"
+# include "ft_printf.h"
+# include "libft.h"
+# include "errors.h"
 
 # define MAGIC_NUMBER_LEN	4
 # define ARGS_MAX			3
@@ -36,7 +37,8 @@
 # define DEBUG_ENABLED		1
 # define DEBUG_PRINT		1
 # define DEBUG_FILE			"debug.log"
-# define DEBUG_MAX_CYCLES	42
+# define DEBUG_MAX_CYCLES	500000
+# define DEBUG_VISUAL		0
 
 # define ARG_TYPE_REG		1
 # define ARG_TYPE_DIR		2
@@ -89,7 +91,7 @@ typedef struct		s_cell
 typedef struct		s_argument
 {
 	t_args_type		type;
-	int				value;
+	int32_t			value;
 }					t_argument;
 
 
@@ -132,10 +134,10 @@ typedef struct		s_arena
 	t_cell			cells[MEM_SIZE];
 
 	/** Raw memory array of arena **/
-	char			mem[MEM_SIZE];
+	uint8_t			mem[MEM_SIZE];
 
 	/** Current winner player id */
-	int				winner_id;
+	t_champion		*winner;
 
 	/** Cycles before we die */
 	int				cycles_to_die;
@@ -143,7 +145,7 @@ typedef struct		s_arena
 	/** Current count of cycles past */
 	int				cycle_count;
 
-	int				current_cycle;
+	int				cycles_since_check;
 
 	int				live_count;
 
@@ -161,11 +163,9 @@ typedef struct		s_arena
 
 void				print_usage(void);
 void				check_args(int argc, char **argv, t_arena *arena);
+
 void				start_arena(t_arena *arena_s);
 int					check_champions(t_champion *champions, int champion_count);
-
-int					ft_strntoi(unsigned char *str, int n);
-uint32_t			rev_bytes_32(uint32_t value);
 
 void				init_cursors(t_arena *arena_s);
 
@@ -176,35 +176,73 @@ void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);
 void				debug_print_champion(t_champion *champion);
 void				debug_print_cursors(t_cursor *cursors);
-int					ft_strntoi(unsigned char *str, int n);
-uint32_t			rev_bytes_32(uint32_t value);
 
 void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);
 void				debug_print_champion(t_champion *champion);
+void				debug_print_mem(const void *addr, size_t size);
 void				debug_print_map(t_arena *arena);
-int					is_registry(int arg);
-void				add(char *mem, t_cursor *cursor);
-void				get_argument_types(char *mem, t_cursor *cursor);
+
+#pragma mark - Get arguments
+
+void				get_argument_types(uint8_t *mem, t_cursor *cursor);
 int					get_direct_argument(char *mem, int t_dir_size, int pos);
+int					get_indirect_argument(char *mem, int cursor_pos, int arg_pos, bool idx);
+
+#pragma mark - Utils
+
+// TODO: check if can be removed?
+int					ft_strntoi(unsigned char *str, int n);
+// TODO: check if can be removed?
+uint32_t			rev_bytes_32(uint32_t value);
+
+#pragma mark - Utils 2
+
+bool				is_opcode(t_inst inst);
+int					get_timeout(t_inst inst);
 int					get_pos(int cursor_pos, int pos);
-int					read_4_bytes(char *mem, int pos);
-void				write_4_bytes(unsigned char *mem, int pos, int value);
-int					get_indirect_argument(char *mem, int cursor_pos,
-	int arg_pos, bool idx);
-void				sub(char *mem, t_cursor *cursor);
-void				ld(char *mem, t_cursor *cursor);
-void				ldi(char *mem, t_cursor *cursor);
-void				lld(char *mem, t_cursor *cursor);
-void				lldi(char *mem, t_cursor *cursor);
-void				lldi(char *mem, t_cursor *cursor);
-void				st(char *mem, t_cursor *cursor);
-void				sti(char *mem, t_cursor *cursor);
-void				and(char *mem, t_cursor *cursor);
-void				or(char *mem, t_cursor *cursor);
-void				xor(char *mem, t_cursor *cursor);
-void				aff(char *mem, t_cursor *cursor);
+int					read_4_bytes(uint8_t *mem, int pos);
+void				write_4_bytes(uint8_t *mem, int pos, int value);
+int					read_2_bytes(uint8_t *mem, int pos);
+void				write_2_bytes(uint8_t *mem, int pos, int value);
+int					is_registry(int arg);
+t_args_type 		get_arg(t_enbyte byte, t_inst inst, int argnr);
+int					arg_length(t_args_type type, t_inst inst);
+int					args_length(t_enbyte byte, t_inst inst);
+t_enbyte 			*get_enbyte(t_arena *arena, int pos);
+void				reverse_eb(t_enbyte *eb);
+
+bool 				is_valid_enbyte(t_inst inst, t_enbyte enbyte);
+
+#pragma mark - Operations
+
+typedef void		(*t_op_func)(t_arena *, t_cursor *);
+
+t_op_func 			get_op_func(t_inst inst);
+void				inst_live(t_arena *arena, t_cursor *cursor);
+void				inst_ld(t_arena *arena, t_cursor *cursor);
+void				inst_st(t_arena *arena, t_cursor *cursor);
+void				inst_add(t_arena *arena, t_cursor *cursor);
+void				inst_sub(t_arena *arena, t_cursor *cursor);
+void				inst_and(t_arena *arena, t_cursor *cursor);
+void				inst_or(t_arena *arena, t_cursor *cursor);
+void				inst_xor(t_arena *arena, t_cursor *cursor);
+void				inst_zjmp(t_arena *arena, t_cursor *cursor);
+void				inst_ldi(t_arena *arena, t_cursor *cursor);
+void				inst_sti(t_arena *arena, t_cursor *cursor);
+void				inst_fork(t_arena *arena, t_cursor *cursor);
+void				inst_lld(t_arena *arena, t_cursor *cursor);
+void				inst_lldi(t_arena *arena, t_cursor *cursor);
+void				inst_lfork(t_arena *arena, t_cursor *cursor);
+void				inst_aff(t_arena *arena, t_cursor *cursor);
+
+#pragma mark - args loader
+
+bool				preload_args(t_arena *arena_s, t_cursor *cursor);
+
+#pragma mark - Visualizer
+
 void				visual_main(t_arena *arena);
-void				update_window(t_arena *arena);
+void				update_window(t_arena *arena, t_cursor *cursor);
 
 #endif

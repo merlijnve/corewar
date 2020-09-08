@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/09/03 14:16:09 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/05 17:12:06 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ static void        place_champions(t_arena *arena_s)
     while (i < arena_s->champion_count)
     {
         arena_s->champions[i].mem_index = i * offset;
+		// TODO: write champ id in chack args according to -n flag
+		// line below is temp fix to get it running
+		arena_s->champions[i].id = i + 1;
         ft_memcpy(
             arena_s->mem + arena_s->champions[i].mem_index,
             ((const void *)(arena_s->champions[i].champ.exec_code)),
@@ -69,70 +72,131 @@ static void        place_champions(t_arena *arena_s)
 static void vm_cursor_alive(t_arena *arena_s)
 {
     t_cursor	*current;
-    t_cursor	*tmp;
+	t_cursor	*tmp;
     int      	last_cycle;
 
     current = arena_s->cursors;
-    tmp = NULL;
+    debug_printf("Running cursor alive check...\n");
     while (current)
     {
-		last_cycle = arena_s->current_cycle - current->last_alive;
+		last_cycle = arena_s->cycle_count - current->last_alive;
 		if (last_cycle >= arena_s->cycles_to_die)
-            cursor_del(&arena_s->cursors, current->id);
+		{
+			tmp = current->next;
+			debug_printf("Deleting cursor: %d\n", current->id);
+			cursor_del(&arena_s->cursors, current->id);
+			current = tmp;
+		}
+		else
+			current = current->next;
     }
     arena_s->check_count++;
 }
 
-void     vm_run_cursors(t_arena *arena_s)
+
+
+static void     vm_run_cursors(t_arena *arena_s)
 {
     t_cursor *current;
-
+	t_enbyte enbyte;
     current = arena_s->cursors;
 
     while (current)
     {
-        if (current->timeout == 0)
-            ; // TODO: Fetch current op code, set in cursor.
-        if (current->timeout > 0)
-            --current->timeout;
-        else
+//        debug_printf("Running cursor id: %d...\n", current->id);
+
+		// If -1 or smaller, this is a marker that last cycle there was a move
+		// so we now have to write new instruction
+		if (current->timeout < 0)
+		{
+			current->opcode = arena_s->mem[get_pos(current->pos, 0)];
+			current->timeout = get_timeout(current->opcode);
+		}
+		if (current->timeout > 0)
+			current->timeout -= 1;
+		// read information and validate
+		if (current->timeout == 0)
         {
-            // TODO: Execute operation.
-            // TODO: Move cursor.
-            // TODO: Maybe remove operation from cursor.
-        }
-        current = current->next;
-    }
+			debug_printf("Reading cursor [%d] @ [%d] op code: %.2d (%s)\n", current->id, get_pos(current->pos, 0), current->opcode, is_opcode(current->opcode) ? get_opinfo(current->opcode)->name : "Invalid Inst");
+
+			// TODO: check if this can be mergered
+			if (is_opcode(current->opcode))
+			{
+				if (get_opinfo(current->opcode)->has_enbyte)
+				{
+					ft_memcpy(&enbyte, &arena_s->mem[get_pos(current->pos, 1)], sizeof(t_enbyte));
+					reverse_eb(&enbyte);
+					if (is_valid_enbyte(current->opcode, enbyte))
+					{
+						if (preload_args(arena_s, current))
+						{
+							debug_printf("args\n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x\n", current->args[0].type, current->args[0].value, current->args[0].value, current->args[1].type, current->args[1].value, current->args[1].value, current->args[2].type, current->args[2].value, current->args[2].value);
+							get_op_func(current->opcode)(arena_s, current);
+						}
+					}
+					if (current->jump == 0)
+						current->jump = args_length(enbyte, current->opcode);
+				}
+				else
+				{
+					if (preload_args(arena_s, current))
+					{
+						debug_printf("args\n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x\n", current->args[0].type, current->args[0].value, current->args[0].value, current->args[1].type, current->args[1].value, current->args[1].value, current->args[2].type, current->args[2].value, current->args[2].value);
+						get_op_func(current->opcode)(arena_s, current);
+					}
+					if (current->jump == 0)
+						current->jump = args_length((t_enbyte){}, current->opcode);
+				}
+			}
+			else
+				current->jump = 1;
+			current->timeout = -1; // after moving always -1
+			current->pos += current->jump;
+			current->jump = 0;
+//			debug_print_mem(arena_s->mem, 64);
+		}
+		current = current->next;
+		if (DEBUG_VISUAL)
+			update_window(arena_s, current);
+	}
 }
 
-int     vm_cycle(t_arena *arena_s)
+bool     vm_cycle(t_arena *arena_s)
 {
-    // STOP IF ALL CURSORS ARE GONE.
-    if (arena_s->cursors == NULL)
-        return (0);
-    // CHECK IF WE NEED TO REMOVE DEAD CURSORS
-    if (arena_s->current_cycle >= arena_s->cycles_to_die)
-    {
-        vm_cursor_alive(arena_s);
-        arena_s->current_cycle = 0;
-    }
-    // CHECK IF WE NEED TO DECREASE CYCLES TO DIE
-    if (arena_s->live_count >= NBR_LIVE)
-    {
-        decrease_cycles(arena_s);
-        arena_s->live_count = 0;
-    }
-    if (arena_s->live_count == 0 && arena_s->check_count > MAX_CHECKS)
-        decrease_cycles(arena_s);
-    vm_run_cursors(arena_s);
-    arena_s->current_cycle++;
-	update_window(arena_s);
-    return (1);
+	// STOP IF ALL CURSORS ARE GONE.
+	if (arena_s->cursors == NULL)
+		return (false);
+
+	// THE CHECK
+	if (arena_s->cycles_since_check >= arena_s->cycles_to_die)
+	{
+		vm_cursor_alive(arena_s);
+		if (arena_s->live_count >= NBR_LIVE)
+		{
+			decrease_cycles(arena_s);
+			arena_s->check_count = 1;
+			arena_s->live_count = 0;
+		}
+		else
+		{
+			arena_s->check_count += 1;
+		}
+		if (arena_s->check_count >= MAX_CHECKS)
+		{
+			decrease_cycles(arena_s);
+			arena_s->check_count = 1;
+		}
+		arena_s->cycles_since_check = 0;
+	}
+	vm_run_cursors(arena_s);
+	arena_s->cycles_since_check++;
+	return (true);
 }
 
 void        init_arena(t_arena *arena_s)
 {
-    arena_s->last_alive = 0; // TODO: Highest player id.
+	arena_s->cycle_count = 1;
+    arena_s->last_alive = arena_s->champion_count - 1;
     arena_s->cycles_to_die = CYCLE_TO_DIE;
 
     place_champions(arena_s); 
@@ -151,11 +215,13 @@ void        start_arena(t_arena *arena_s)
 
     introduce_champions(arena_s);
     debug_printf("\nStarting game processes / game loop?...\n");
-	visual_main(arena_s);
+
+    if (DEBUG_VISUAL)
+	    visual_main(arena_s);
     while (vm_cycle(arena_s))
     {
         debug_printf(" -- Running cycle '%d' (%d/%d)\n", arena_s->cycle_count, \
-            arena_s->current_cycle, arena_s->cycles_to_die);
+            arena_s->cycles_since_check, arena_s->cycles_to_die);
         arena_s->cycle_count++;
         if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
         {

@@ -26,7 +26,7 @@ void        debug_print_hex(unsigned char *str, int n)
     ft_printf("\n");
 }
 
-void	print_memory(const void *addr, size_t size)
+void	debug_print_mem(const void *addr, size_t size)
 {
 	size_t			i;
 	size_t 			j;
@@ -87,7 +87,7 @@ void		debug_print_cursors(t_cursor *cursors)
 
 void        debug_print_map(t_arena *arena)
 {
-    print_memory(arena->mem, MEM_SIZE);
+    debug_print_mem(arena->mem, MEM_SIZE);
 }
 
 int		debug_printf(const char *format, ...)

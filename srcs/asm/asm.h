@@ -29,7 +29,7 @@ typedef enum e_line_type	t_line_type;
 typedef enum e_asm_token	t_asm_token;
 
 
-void	print_memory(const void *addr, size_t size); // TODO: remove
+void	debug_print_mem(const void *addr, size_t size); // TODO: remove
 
 // Errors
 //  0 -  9 Standart errors

@@ -1,13 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_arguments.c                                    :+:    :+:            */
+/*   zjmp.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
+/*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/12 14:41:11 by merlijn       #+#    #+#                 */
+/*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
 /*   Updated: 2020/09/07 12:00:00 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+void	inst_zjmp(t_arena *arena, t_cursor *cursor)
+{
+	if (cursor->carry == 1)
+		cursor->jump = cursor->args[0].value % IDX_MOD;
+	return;
+}

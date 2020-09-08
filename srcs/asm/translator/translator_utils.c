@@ -12,10 +12,7 @@
 
 #include "translator.h"
 
-static int inst_ret_size[17] =
-{
-	0,4,4,4,4,4,4,4,4,2,2,2,2,4,2,2,4
-};
+// TODO: fix check op
 
 static int 	ret_size(t_inst type)
 {

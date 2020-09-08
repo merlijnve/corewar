@@ -32,7 +32,9 @@ C_INCLUDES = \
 	-I ../includes/ \
 
 C_SRCS = \
+	../lib/shared/shared.c \
 	./arena.c \
+	./args_loader.c \
 	./check_args.c \
 	./check_champions.c \
 	./cursors.c \
@@ -41,21 +43,28 @@ C_SRCS = \
 	./get_arguments.c \
 	./main.c \
 	./op.c \
+	./op_arch_checker.c \
 	./ops/add.c \
 	./ops/aff.c \
 	./ops/and.c \
+	./ops/fork.c \
 	./ops/ld.c \
 	./ops/ldi.c \
+	./ops/lfork.c \
+	./ops/live.c \
 	./ops/lld.c \
 	./ops/lldi.c \
+	./ops/ops.c \
 	./ops/or.c \
 	./ops/st.c \
 	./ops/sti.c \
 	./ops/sub.c \
 	./ops/xor.c \
+	./ops/zjmp.c \
 	./utils.c \
 	./utils_2.c \
 	./visual/visual_main.c
+
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 
