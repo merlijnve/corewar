@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/03 20:27:43 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/08 14:16:31 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void        cursor_setpos(t_arena *arena, t_cursor *cursor, int pos)
         arena->cells[get_pos(cursor->pos, 0)].taken = 0;
     }
     cursor->pos = get_pos(pos, 0);
-    arena->cells[get_pos(cursor->pos, 0)].taken = 1;
+    arena->cells[get_pos(pos, 0)].taken = 1;
 }
 
 // TODO: Should place cursor in the beginning of the list
@@ -38,7 +38,7 @@ t_cursor *cursor_add(t_arena *arena, t_cursor *clone)
         if (clone != NULL)
 		{
 			ft_memcpy(cursor, clone, sizeof(t_cursor));
-			cursor->pos = clone->pos + get_pos(clone->args[0].value % IDX_MOD, 0);
+            cursor_setpos(arena, cursor, clone->pos + get_pos(clone->args[0].value % IDX_MOD, 0));
 		}
         cursor->next = arena->cursors;
         arena->cursor_count++;

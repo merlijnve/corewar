@@ -10,8 +10,8 @@
       "request": "launch",
       "program": "${workspaceFolder}/srcs/vm/corewar",
       "args": [
-        "${workspaceFolder}/resources/intra_src/champs/Gagnant.cor",
-        "${workspaceFolder}/resources/intra_src/champs/Gagnant.cor"
+        "${workspaceFolder}/resources/champs/tests/reg-test.cor",
+        "${workspaceFolder}/resources/champs/tests/reg-test.cor"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

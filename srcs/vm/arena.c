@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/09/08 13:39:56 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/08 15:27:57 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,13 +151,13 @@ static void     vm_run_cursors(t_arena *arena_s)
 			else
 				current->jump = 1;
 			current->timeout = -1; // after moving always -1
-			current->pos += current->jump;
+            cursor_setpos(arena_s, current, current->pos + current->jump);
 			current->jump = 0;
 //			debug_print_mem(arena_s->mem, 64);
 		}
-		current = current->next;
-		if (DEBUG_VISUAL)
+        if (DEBUG_VISUAL)
 			update_window(arena_s, current);
+        current = current->next;
 	}
 }
 
