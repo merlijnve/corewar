@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/08 15:26:46 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/08 15:33:04 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 		mvwprintw(win, 22, 3, "opcode:\t%d", cursor->opcode);
 		mvwprintw(win, 23, 3, "timeout:\t%d", cursor->timeout);
 		mvwprintw(win, 24, 3, "pos:\t%d", get_pos(cursor->pos, 0));
-		print_registeries(win, cursor, 22, 3);
+		print_registeries(win, cursor, 27, 3);
 		show_players(arena->stats, arena->champions, arena->champion_count);
 	}
 }

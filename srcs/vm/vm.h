@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/08 15:19:22 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/08 15:35:11 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define DEBUG_FILE			"debug.log"
 # define DEBUG_MAX_CYCLES	500000
 # define DEBUG_VISUAL		1
-# define VISUAL_TIMEOUT_MS  10
+# define VISUAL_TIMEOUT_MS  500
 
 # define ARG_TYPE_REG		1
 # define ARG_TYPE_DIR		2
