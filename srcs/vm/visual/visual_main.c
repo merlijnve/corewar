@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/08 13:50:07 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/08 14:07:50 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 		mvwprintw(win, 19, 3, "opcode:\t%d", cursor->opcode);
 		mvwprintw(win, 20, 3, "timeout:\t%d", cursor->timeout);
 		mvwprintw(win, 21, 3, "POS:\t%d", get_pos(cursor->pos, 0));
-		show_players(arena->stats, arena->champions, arena->champion_count);
 	}
-	wrefresh(win);
+	wrefresh(arena->stats);
+	wrefresh(arena->win);
 }
 
 static void	show_color(void)
@@ -91,10 +91,13 @@ static void	show_color(void)
 
 void		update_window(t_arena *arena, t_cursor *cursor)
 {
-	arena->win = newwin(64, 256, 1, 2);
-	arena->stats = newwin(62, 95, 2, 159);
-	show_arena(arena->win, arena);
+	if (!arena->win && !arena->stats) {
+		arena->win = newwin(64, 256, 1, 2);
+		arena->stats = newwin(62, 95, 2, 159);
+	}
+	show_players(arena->stats, arena->champions, arena->champion_count);
 	show_stats(arena->stats, arena, cursor);
+	show_arena(arena->win, arena);
 	sleep(1);
 }
 
