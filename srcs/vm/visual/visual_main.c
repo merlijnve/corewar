@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/03 20:46:15 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/08 13:50:07 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,14 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 	box(win, 0, 0);
 	mvwprintw(win, 13, 3, "Current cycle:\t%d", arena->cycle_count);
 	mvwprintw(win, 14, 3, "Cycles to die:\t%d", arena->cycles_to_die);
-	mvwprintw(win, 15, 3, "winner_id:\t%d\tlast_alive:\t%d", arena->winner->id, arena->last_alive);
+	if (arena->winner != NULL)
+		mvwprintw(win, 15, 3, "winner_id:\t%d\tlast_alive:\t%d", arena->winner->id, arena->last_alive);
 	if (cursor != NULL) {
 		mvwprintw(win, 17, 3, " -- cursor (%d) -- ", cursor->id);
 		mvwprintw(win, 18, 3, "ID:\t%d", cursor->id);
 		mvwprintw(win, 19, 3, "opcode:\t%d", cursor->opcode);
 		mvwprintw(win, 20, 3, "timeout:\t%d", cursor->timeout);
+		mvwprintw(win, 21, 3, "POS:\t%d", get_pos(cursor->pos, 0));
 		show_players(arena->stats, arena->champions, arena->champion_count);
 	}
 	wrefresh(win);
