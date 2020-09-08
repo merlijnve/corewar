@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/09/08 15:27:57 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/08 17:19:36 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,10 +193,27 @@ bool     vm_cycle(t_arena *arena_s)
 	return (true);
 }
 
+t_champion *highest_player_id(t_arena *arena_s)
+{
+    int i;
+    t_champion *winner;
+
+    winner = &arena_s->champions[0];
+    i = 1;
+    while (i < arena_s->champion_count) 
+    {
+        if (arena_s->champions[i].id != 0 && arena_s->champions[i].id > winner->id)
+            winner = &arena_s->champions[i];
+        i++;
+    }
+
+    return winner;
+}
+
 void        init_arena(t_arena *arena_s)
 {
 	arena_s->cycle_count = 1;
-    arena_s->last_alive = arena_s->champion_count - 1;
+    arena_s->winner = highest_player_id(arena_s);
     arena_s->cycles_to_die = CYCLE_TO_DIE;
 
     place_champions(arena_s); 

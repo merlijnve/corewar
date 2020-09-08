@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/08 15:35:11 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/08 17:33:56 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@
 # define DEBUG_FILE			"debug.log"
 # define DEBUG_MAX_CYCLES	500000
 # define DEBUG_VISUAL		1
-# define VISUAL_TIMEOUT_MS  500
+# define VISUAL_TIMEOUT_MS  5
+
+# define VISUAL_WIDTH		204
 
 # define ARG_TYPE_REG		1
 # define ARG_TYPE_DIR		2
@@ -149,8 +151,6 @@ typedef struct		s_arena
 	int				cycles_since_check;
 
 	int				live_count;
-
-	int				last_alive;
 
 	/** Check counter */
 	int				check_count;
