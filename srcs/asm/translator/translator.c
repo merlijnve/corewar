@@ -16,7 +16,7 @@
 
 #include "input_parser.h" // for is_inst, maybe move to general location?
 
-static t_tr_func tr_funcs[17] =
+static const t_tr_func tr_funcs[17] =
 {
 	NULL,
 	translate_live,
@@ -105,7 +105,7 @@ t_ret translate(t_list *tokens, t_asm *asmblr, t_error *error)
 		{
 			type = is_inst(tk_arr[idx].str);
 			ret = tr_funcs[type](asmblr, &tk_arr[idx + 1], error);
-			idx += tr_argc[type] + 1;
+			idx += get_opinfo(type)->argc + 1;
 		}
 		else if (tk_arr[idx].token == kTokenLabel)
 		{

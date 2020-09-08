@@ -14,9 +14,9 @@
 
 // TODO: fix check op
 
-static int 	ret_size(t_inst type)
+static int 	dir_size(t_inst type)
 {
-	return ((type <= 16 && type >= 1) ? inst_ret_size[type] : 0);
+	return ((type <= 16 && type >= 1) ? get_opinfo(type)->dir_size : 0);
 }
 
 t_ret asm_regtoint(char *str)
@@ -52,7 +52,7 @@ t_ret	put_part(t_asm *asmblr, t_tksave *part, t_inst inst, t_error *error)
 	if (tft(part->token) == kTReg)
 		ret = put_registry(&asmblr->bytecode, asm_regtoint(part->str));
 	else if (tft(part->token) == kTDir)
-		ret = put_direct(asmblr, part, ret_size(inst));
+		ret = put_direct(asmblr, part, dir_size(inst));
 	else if (tft(part->token) == kTInd)
 		ret = put_indirect(asmblr, part, 2);
 	if (ret != kSuccess)
