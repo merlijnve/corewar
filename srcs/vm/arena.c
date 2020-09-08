@@ -117,7 +117,7 @@ static void     vm_run_cursors(t_arena *arena_s)
 		// read information and validate
 		if (current->timeout == 0)
         {
-            debug_printf("Reading cursor [%d] op code: %d...\n", get_pos(current->pos, 0), current->opcode);
+			debug_printf("Reading cursor [%d] @ [%d] op code: %.2d (%s)\n", current->id, get_pos(current->pos, 0), current->opcode, is_opcode(current->opcode) ? get_opinfo(current->opcode)->name : "Invalid Inst");
 
 			// TODO: check if this can be mergered
 			if (is_opcode(current->opcode))

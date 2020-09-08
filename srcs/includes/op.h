@@ -135,6 +135,7 @@ typedef struct s_opinfo t_opinfo;
 
 struct s_opinfo
 {
+	char		*name;
 	int			argc;
 	int			dir_size;
 	int			timeout;

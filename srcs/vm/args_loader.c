@@ -42,7 +42,7 @@ static int		reg_arg(uint8_t *mem, int idx, t_cursor *cursor, t_error *ret)
 {
 	int reg;
 
-	reg = mem[get_pos(idx, 0)];
+	reg = mem[get_pos(cursor->pos + idx, 0)];
 	if (!is_registry(reg))
 		*ret = kError;
 	return (reg);

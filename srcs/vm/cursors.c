@@ -32,23 +32,18 @@ t_cursor *cursor_add(t_arena *arena, t_cursor *clone)
     cursor->pos = -1;
 
     if (cursor == NULL)
-    {
         ;// ERROR MEMORY
-    }
     else
     {
         if (clone != NULL)
-            ft_memcpy(cursor, clone, sizeof(t_cursor));
-        cursor->id = arena->cursor_count;
-        cursor->next = NULL;
+		{
+			ft_memcpy(cursor, clone, sizeof(t_cursor));
+			cursor->pos = clone->pos + get_pos(clone->args[0].value % IDX_MOD, 0);
+		}
+        cursor->next = arena->cursors;
         arena->cursor_count++;
-        if (arena->cursors == NULL)
-            arena->cursors = cursor;
-        else
-        {
-            cursor->next = arena->cursors;
-            arena->cursors = cursor;
-        }
+		arena->cursors = cursor;
+		cursor->id = arena->cursor_count;
     }
     return (arena->cursors);
 }

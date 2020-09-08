@@ -20,6 +20,7 @@
 static const t_opinfo	g_opinfo[16] =
 {
 	{ // live
+		.name = "live",
 		.argc = 1, .dir_size = 4, .timeout = 10,
 		.has_enbyte = false,
 		.needs_address = false,
@@ -32,6 +33,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // ld
+		.name = "ld",
 		.argc = 2, .dir_size = 4, .timeout = 5,
 		.has_enbyte = true,
 		.needs_address = false,
@@ -44,6 +46,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // st
+		.name = "st",
 		.argc = 2, .dir_size = 4, .timeout = 5,
 		.has_enbyte = true,
 		.needs_address = true,
@@ -56,6 +59,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // add
+		.name = "add",
 		.argc = 3, .dir_size = 4, .timeout = 10,
 		.has_enbyte = true,
 		.needs_address = false,
@@ -68,6 +72,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // sub
+		.name = "sub",
 		.argc = 3, .dir_size = 4, .timeout = 10,
 		.has_enbyte = true,
 		.needs_address = false,
@@ -80,6 +85,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // and
+		.name = "add",
 		.argc = 3, .dir_size = 4, .timeout = 6,
 		.has_enbyte = true,
 		.needs_address = false,
@@ -92,6 +98,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // or
+		.name = "or",
 		.argc = 3, .dir_size = 4, .timeout = 6,
 		.has_enbyte = true,
 		.needs_address = false,
@@ -104,6 +111,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // xor
+		.name = "xor",
 		.argc = 3, .dir_size = 4, .timeout = 6,
 		.has_enbyte = true,
 		.needs_address = false,
@@ -116,6 +124,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // zjmp
+		.name = "zjmp",
 		.argc = 1, .dir_size = 2, .timeout = 20,
 		.has_enbyte = false,
 		.needs_address = false,
@@ -128,6 +137,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // ldi
+		.name = "ldi",
 		.argc = 3, .dir_size = 2, .timeout = 25,
 		.has_enbyte = true,
 		.needs_address = false,
@@ -140,6 +150,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // sti
+		.name = "sti",
 		.argc = 3, .dir_size = 2, .timeout = 25,
 		.has_enbyte = true,
 		.needs_address = true,
@@ -152,6 +163,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // fork
+		.name = "fork",
 		.argc = 1, .dir_size = 2, .timeout = 800,
 		.has_enbyte = false,
 		.needs_address = false,
@@ -164,6 +176,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // lld
+		.name = "lld",
 		.argc = 2, .dir_size = 4, .timeout = 10,
 		.has_enbyte = true,
 		.needs_address = false,
@@ -176,6 +189,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // lldi
+		.name = "lldi",
 		.argc = 3, .dir_size = 2, .timeout = 50,
 		.has_enbyte = true,
 		.needs_address = false,
@@ -188,6 +202,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // lfork
+		.name = "lfork",
 		.argc = 1, .dir_size = 2, .timeout = 1000,
 		.has_enbyte = false,
 		.needs_address = false,
@@ -200,6 +215,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // aff
+		.name = "aff",
 		.argc = 1, .dir_size = 4, .timeout = 2,
 		.has_enbyte = true,
 		.needs_address = false,

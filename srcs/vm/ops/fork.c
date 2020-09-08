@@ -14,5 +14,6 @@
 
 void	inst_fork(t_arena *arena, t_cursor *cursor)
 {
+	cursor_add(arena, cursor);
 	return;
 }
