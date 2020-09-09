@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/08 15:39:12 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/09 12:49:17 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 20:51:11 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		change_speed(int key, t_arena *arena)
 void		handle_key(t_arena *arena)
 {
 	int	c;
-	
+
 	keypad(arena->win, true);
 	nodelay(arena->win, true);
 	c = wgetch(arena->win);
