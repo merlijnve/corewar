@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/08 17:33:56 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/09 11:18:10 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct		s_arena
 	/* Visual Window thingys */
 	WINDOW			*win;
 	WINDOW			*stats;
+	int				speed;
 }					t_arena;
 
 void				print_usage(void);
@@ -247,5 +248,6 @@ bool				preload_args(t_arena *arena_s, t_cursor *cursor);
 
 void				visual_main(t_arena *arena);
 void				update_window(t_arena *arena, t_cursor *cursor);
+void				handle_key(t_arena *arena);
 
 #endif

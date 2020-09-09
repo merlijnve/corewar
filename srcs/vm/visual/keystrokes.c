@@ -1,0 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   keystrokes.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/09/08 15:39:12 by merlijn       #+#    #+#                 */
+/*   Updated: 2020/09/09 11:56:47 by merlijn       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "vm.h"
+
+void		change_speed(int key, t_arena *arena)
+{
+	if (key == 119 && arena->speed < 1000)
+		arena->speed += 50;
+	if (key == 115 && arena->speed > 50)
+		arena->speed -= 50;
+	if (key == 32)
+	{
+		while (1)
+		{
+			key = wgetch(arena->win);
+			if (key == 32)
+				break ;
+		}
+	}
+}
+
+void		handle_key(t_arena *arena)
+{
+	int	c;
+	
+	keypad(arena->win, true);
+	nodelay(arena->win, true);
+	c = wgetch(arena->win);
+	change_speed(c, arena);
+	if (c == 27)
+		exit(0);
+}
