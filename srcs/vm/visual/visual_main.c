@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/09 15:34:54 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 15:42:32 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,10 @@ void		update_window(t_arena *arena, t_cursor *cursor)
 {
 	if (arena->visu_flag == true)
 	{
+		if (arena->win != NULL)
+			delwin(arena->win);
+		if (arena->stats != NULL)
+			delwin(arena->stats);
 		arena->win = newwin(64, VISUAL_WIDTH, 0, 0);
 		arena->stats = newwin(64, 32, 0, VISUAL_WIDTH);
 		show_arena(arena->win, arena);
