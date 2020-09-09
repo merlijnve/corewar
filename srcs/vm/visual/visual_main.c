@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/09 15:29:14 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 15:34:54 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	show_arena(WINDOW *win, t_arena *arena)
 	{
 		while (j < VISUAL_WIDTH && (i + j) < MEM_SIZE)
 		{
-			wattrset(win, COLOR_PAIR(3));
+			wattrset(win, COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
 			wprintw(win, "%02X", (unsigned char)(arena->mem)[i + j]);
 			attroff(COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
 			wprintw(win, " ");
