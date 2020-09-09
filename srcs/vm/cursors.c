@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/08 14:16:31 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/09 22:51:57 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ t_cursor *cursor_add(t_arena *arena, t_cursor *clone)
     t_cursor *cursor;
 
     cursor = (t_cursor *)ft_memalloc(sizeof(t_cursor));
-
     cursor->pos = -1;
-
     if (cursor == NULL)
-        ;// ERROR MEMORY
+        return (NULL);
     else
     {
         if (clone != NULL)
@@ -79,7 +77,7 @@ void    cursor_del(t_cursor **head, int id)
 **
 */
 
-void    init_cursors(t_arena *arena_s)
+int    init_cursors(t_arena *arena_s)
 {
     int i;
     t_cursor *start;
@@ -92,12 +90,14 @@ void    init_cursors(t_arena *arena_s)
     {
         if (arena_s->champions[i].id != -1)
         {
-			// TODO: NULL check?
             current = cursor_add(arena_s, NULL);
+            if (current == NULL)
+                return (kErrOther);
             cursor_setpos(arena_s, current, arena_s->champions[i].mem_index);
 			current->timeout = -1;
-			current->registries[0] = - arena_s->champions[i].id;
+			current->registries[0] = -arena_s->champions[i].id;
         }
         ++i;
     }
+    return (kOk);
 }

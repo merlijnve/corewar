@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:37:52 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/09 15:06:55 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 22:56:12 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ void		print_usage(void)
 
 int			main(int argc, char **argv)
 {
-	//t_champion	champions[MAX_PLAYERS];
 	t_arena		arena;
 
 	ft_bzero(&arena, sizeof(arena));
-	arena.visu_flag = false;
+	arena.visu_flag = false; // TODO: Is this nessesary here?
 	check_args(argc, argv, &arena);
 	check_champions(arena.champions, arena.champion_count);
 	start_arena(&arena);

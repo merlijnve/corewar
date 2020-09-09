@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/09 20:56:12 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 22:52:23 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ void				check_args(int argc, char **argv, t_arena *arena);
 void				start_arena(t_arena *arena_s);
 int					check_champions(t_champion *champions, int champion_count);
 
-void				init_cursors(t_arena *arena_s);
+int					init_cursors(t_arena *arena_s);
 
 t_cursor 			*cursor_add(t_arena *arena, t_cursor *clone);
 void    			cursor_del(t_cursor **head, int id);

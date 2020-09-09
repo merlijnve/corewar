@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/09/09 20:42:37 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 22:58:48 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ static void     vm_run_cursors(t_arena *arena_s)
 		if (current->timeout == 0)
         {
 			debug_printf("Reading cursor [%d] @ [%d] op code: %.2d (%s)\n", current->id, get_pos(current->pos, 0), current->opcode, is_opcode(current->opcode) ? get_opinfo(current->opcode)->name : "Invalid Inst");
-
 			// TODO: check if this can be mergered
 			if (is_opcode(current->opcode))
 			{
@@ -167,7 +166,6 @@ bool     vm_cycle(t_arena *arena_s)
 	// STOP IF ALL CURSORS ARE GONE.
 	if (arena_s->cursors == NULL)
 		return (false);
-
 	// THE CHECK
 	if (arena_s->cycles_since_check >= arena_s->cycles_to_die)
 	{
@@ -179,9 +177,7 @@ bool     vm_cycle(t_arena *arena_s)
 			arena_s->live_count = 0;
 		}
 		else
-		{
 			arena_s->check_count += 1;
-		}
 		if (arena_s->check_count >= MAX_CHECKS)
 		{
 			decrease_cycles(arena_s);
@@ -228,7 +224,8 @@ void        start_arena(t_arena *arena_s)
     init_arena(arena_s);
     debug_print_map(arena_s);
 
-    init_cursors(arena_s);
+    if (init_cursors(arena_s) != kOk)
+		; // TODO: Error message?
     debug_print_cursors(arena_s->cursors);
 
     introduce_champions(arena_s);
