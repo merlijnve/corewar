@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/09 15:42:32 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 20:41:21 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 	box(win, 0, 0);
 	mvwprintw(win, 13, 3, "Total cycles:\t%d", arena->cycle_count);
 	mvwprintw(win, 14, 3, "Total cursors:\t%d", arena->cursor_count);
-	mvwprintw(win, 15, 3, "Cycles to die:\t%d/%d", arena->cycles_since_check, arena->cycles_to_die);
+	mvwprintw(win, 15, 3, "Cycles to die:\t%d", CYCLE_TO_DIE - arena->cycles_since_check);
 	mvwprintw(win, 16, 3, "Checks:\t%d/%d", arena->check_count, MAX_CHECKS);
 	mvwprintw(win, 17, 3, "Live:\t%d", arena->live_count);
 	mvwprintw(win, 18, 3, "Speed:\t%d", arena->speed);
