@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/09/09 11:56:42 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 15:51:56 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void        start_arena(t_arena *arena_s)
     introduce_champions(arena_s);
     debug_printf("\nStarting game processes / game loop?...\n");
 
-    if (DEBUG_VISUAL)
+    if (arena_s->visu_flag == true)
 	    visual_main(arena_s);
     while (vm_cycle(arena_s))
     {
@@ -247,4 +247,5 @@ void        start_arena(t_arena *arena_s)
             break;
         }
     }
+	printf("Contestant %d, \"%s\", has won !\n", arena_s->winner->id, arena_s->winner->champ.name);
 }

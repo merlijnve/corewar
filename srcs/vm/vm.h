@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/09 12:49:24 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 15:05:41 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct		s_arena
 	/** Operations */
 	// op_t op_tab[17];
 	/* Visual Window thingys */
+	bool			visu_flag;
 	WINDOW			*win;
 	WINDOW			*stats;
 	int				speed;
