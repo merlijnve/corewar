@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/09 11:30:20 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 15:29:14 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	show_arena(WINDOW *win, t_arena *arena)
 	{
 		while (j < VISUAL_WIDTH && (i + j) < MEM_SIZE)
 		{
-			wattrset(win, COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
+			wattrset(win, COLOR_PAIR(3));
 			wprintw(win, "%02X", (unsigned char)(arena->mem)[i + j]);
 			attroff(COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
 			wprintw(win, " ");
@@ -103,13 +103,16 @@ static void	show_color(void)
 
 void		update_window(t_arena *arena, t_cursor *cursor)
 {
-	arena->win = newwin(64, VISUAL_WIDTH, 0, 0);
-	arena->stats = newwin(64, 32, 0, VISUAL_WIDTH);
-	show_arena(arena->win, arena);
-	show_stats(arena->stats, arena, cursor);
-	wrefresh(arena->win);
-	wrefresh(arena->stats);
-	usleep(1000000 / arena->speed);
+	if (arena->visu_flag == true)
+	{
+		arena->win = newwin(64, VISUAL_WIDTH, 0, 0);
+		arena->stats = newwin(64, 32, 0, VISUAL_WIDTH);
+		show_arena(arena->win, arena);
+		show_stats(arena->stats, arena, cursor);
+		wrefresh(arena->win);
+		wrefresh(arena->stats);
+		usleep(1000000 / arena->speed);
+	}
 }
 
 void		open_stats()
