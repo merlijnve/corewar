@@ -6,7 +6,7 @@
 /*   By: wmisiedjan <wmisiedjan@student.codam.nl      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 16:16:33 by wmisiedjan    #+#    #+#                 */
-/*   Updated: 2020/09/08 17:19:36 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/09 11:56:42 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ static void     vm_run_cursors(t_arena *arena_s)
 
 		// If -1 or smaller, this is a marker that last cycle there was a move
 		// so we now have to write new instruction
+		handle_key(arena_s);
 		if (current->timeout < 0)
 		{
 			current->opcode = arena_s->mem[get_pos(current->pos, 0)];
@@ -215,7 +216,7 @@ void        init_arena(t_arena *arena_s)
 	arena_s->cycle_count = 1;
     arena_s->winner = highest_player_id(arena_s);
     arena_s->cycles_to_die = CYCLE_TO_DIE;
-
+	arena_s->speed = 50;
     place_champions(arena_s); 
 }
 

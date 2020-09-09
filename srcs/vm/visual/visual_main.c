@@ -6,12 +6,11 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/08 17:35:37 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/09 11:30:20 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
-#include <pty.h>
 #include <utmp.h>
 #include <ncurses.h>
 
@@ -78,6 +77,7 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 	mvwprintw(win, 15, 3, "Cycles to die:\t%d/%d", arena->cycles_since_check, arena->cycles_to_die);
 	mvwprintw(win, 16, 3, "Checks:\t%d/%d", arena->check_count, MAX_CHECKS);
 	mvwprintw(win, 17, 3, "Live:\t%d", arena->live_count);
+	mvwprintw(win, 18, 3, "Speed:\t%d", arena->speed);
 	if (arena->winner != NULL)
 		mvwprintw(win, 19, 3, "winner_id:\t%d", arena->winner->id);
 	if (cursor != NULL) {
@@ -109,7 +109,7 @@ void		update_window(t_arena *arena, t_cursor *cursor)
 	show_stats(arena->stats, arena, cursor);
 	wrefresh(arena->win);
 	wrefresh(arena->stats);
-	usleep(VISUAL_TIMEOUT_MS * 1000);
+	usleep(1000000 / arena->speed);
 }
 
 void		open_stats()
