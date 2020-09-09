@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/08 15:39:12 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/09 11:56:47 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 12:49:17 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void		change_speed(int key, t_arena *arena)
 {
-	if (key == 119 && arena->speed < 1000)
+	if (key == KEY_UP && arena->speed < 1000)
 		arena->speed += 50;
-	if (key == 115 && arena->speed > 50)
+	if (key == KEY_DOWN && arena->speed > 50)
 		arena->speed -= 50;
-	if (key == 32)
+	if (key == KEY_SPACE)
 	{
 		while (1)
 		{
 			key = wgetch(arena->win);
-			if (key == 32)
+			if (key == KEY_SPACE)
 				break ;
 		}
 	}

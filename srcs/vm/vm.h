@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/09 11:18:10 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/09 12:49:24 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 # define ARG_TYPE_DIR		2
 # define ARG_TYPE_IND		3
 # define ARG_TYPE_NONE		0
+
+# define KEY_SPACE			32
 
 /*
 ** Player struct
