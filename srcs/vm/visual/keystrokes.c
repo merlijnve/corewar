@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/08 15:39:12 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 14:34:28 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/10 17:10:22 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void		handle_key(t_arena *arena)
 	c = wgetch(arena->win);
 	change_speed(c, arena);
 	if (c == KEY_ESC)
-		exit(0);
+		exit(EXIT_SUCCESS);
 }
