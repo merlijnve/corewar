@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/17 20:58:31 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/07 12:00:00 by floris        ########   odam.nl         */
+/*   Updated: 2020/09/10 14:30:26 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void		inst_ldi(t_arena *arena, t_cursor *cursor)
 {
 	int value;
 
+	if (arena == NULL || cursor == NULL)
+		return; 
 	if (cursor->args[0].type == kTReg)
 		cursor->args[0].value = cursor->registries[cursor->args[0].value - 1];
 	if (cursor->args[1].type == kTReg)
