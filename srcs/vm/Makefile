@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/09/09 20:56:26 by merlijn       ########   odam.nl          #
+#    Updated: 2020/09/10 13:56:48 by wmisiedj      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ C_INCLUDES = \
 
 C_SRCS = \
 	../lib/shared/shared.c \
-	./arena.c \
+	./cycle.c \
+	./vm.c \
 	./args_loader.c \
 	./check_args.c \
 	./check_champions.c \

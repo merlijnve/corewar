@@ -23,9 +23,8 @@ int			main(int argc, char **argv)
 	t_arena		arena;
 
 	ft_bzero(&arena, sizeof(arena));
-	arena.visu_flag = false; // TODO: Is this nessesary here?
 	check_args(argc, argv, &arena);
 	check_champions(arena.champions, arena.champion_count);
-	start_arena(&arena);
+	vm_start(&arena);
 	return (EXIT_SUCCESS);
 }

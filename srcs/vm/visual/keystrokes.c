@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void		change_speed(int key, t_arena *arena)
+static void	change_speed(int key, t_arena *arena)
 {
 	if (key == KEY_UP && arena->speed < 1000)
 		arena->speed += 50;
@@ -29,7 +29,7 @@ void		change_speed(int key, t_arena *arena)
 	}
 }
 
-void		handle_key(t_arena *arena)
+void		visual_readkey(t_arena *arena)
 {
 	int	c;
 

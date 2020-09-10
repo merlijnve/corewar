@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/09 20:57:50 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/10 16:23:36 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,20 @@ static void	show_arena(WINDOW *win, t_arena *arena)
 	}
 }
 
-static void	show_players(WINDOW *win, t_champion *champion, int n_champs)
+static void	show_players(WINDOW *win, t_arena *arena)
 {
 	int i;
 
 	i = 0;
 	wattrset(win, COLOR_PAIR(5));
 	mvwprintw(win, 2, 3, "PLAYERS:");
-	while (i < n_champs)
+	while (i < MAX_PLAYERS)
 	{
-		wattrset(win, COLOR_PAIR(i + 1));
-		mvwprintw(win, i + 4, 3, "[%d] %s", i + 1, champion->champ.name);
+		if (arena->champions[i].id > 0) {
+			wattrset(win, COLOR_PAIR(i + 1));
+			mvwprintw(win, i + 4, 3, "[%d] %s", arena->champions[i].id, arena->champions[i].champ.name);
+		}
+
 		i++;
 	}
 	attroff(COLOR_PAIR(i + 1));
@@ -68,6 +71,7 @@ static void	print_registries(WINDOW *win, t_cursor *cursor, int y, int x)
 
 static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 {
+	show_players(arena->stats, arena);
 	wattrset(win, COLOR_PAIR(5));
 	mvwprintw(win, 11, 3, "STATS:");
 	wattrset(win, COLOR_PAIR(6));
@@ -80,19 +84,24 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 	mvwprintw(win, 17, 3, "Live:\t%d", arena->live_count);
 	mvwprintw(win, 18, 3, "Speed:\t%d", arena->speed);
 	if (arena->winner != NULL)
-		mvwprintw(win, 19, 3, "winner_id:\t%d", arena->winner->id);
+	{
+		mvwprintw(win, 20, 3, "Winner:");
+		mvwprintw(win, 21, 3, "[%d] %s", arena->winner->id, arena->winner->champ.name);
+
+	}
 	if (cursor != NULL)
 	{
-		mvwprintw(win, 21, 3, " -- cursor (ID: %d) -- ", cursor->id);
-		mvwprintw(win, 22, 3, "opcode:\t%d", cursor->opcode);
-		mvwprintw(win, 23, 3, "timeout:\t%d", cursor->timeout);
-		mvwprintw(win, 24, 3, "pos:\t%d", get_pos(cursor->pos, 0));
-		print_registries(win, cursor, 27, 3);
-		show_players(arena->stats, arena->champions, arena->champion_count);
+		mvwprintw(win, 23, 3, " -- cursor (ID: %d) -- ", cursor->id);
+		mvwprintw(win, 24, 3, "opcode:\t%d", cursor->opcode);
+		mvwprintw(win, 25, 3, "timeout:\t%d", cursor->timeout);
+		mvwprintw(win, 26, 3, "pos:\t%d", get_pos(cursor->pos, 0));
+		print_registries(win, cursor, 28, 3);
 	}
+
+
 }
 
-void		update_window(t_arena *arena, t_cursor *cursor)
+void		visual_update(t_arena *arena, t_cursor *cursor)
 {
 	if (arena->visu_flag == true)
 	{
