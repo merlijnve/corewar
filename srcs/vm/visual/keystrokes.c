@@ -6,13 +6,13 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/08 15:39:12 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/09 20:51:11 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/10 14:09:33 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		change_speed(int key, t_arena *arena)
+static void	change_speed(int key, t_arena *arena)
 {
 	if (key == KEY_UP && arena->speed < 1000)
 		arena->speed += 50;
@@ -29,7 +29,7 @@ void		change_speed(int key, t_arena *arena)
 	}
 }
 
-void		handle_key(t_arena *arena)
+void		visual_readkey(t_arena *arena)
 {
 	int	c;
 
@@ -37,6 +37,6 @@ void		handle_key(t_arena *arena)
 	nodelay(arena->win, true);
 	c = wgetch(arena->win);
 	change_speed(c, arena);
-	if (c == 27)
+	if (c == 27) // NOTE: Are there defines we can use instead of 27?
 		exit(0);
 }

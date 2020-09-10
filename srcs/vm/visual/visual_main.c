@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/09 20:56:51 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/10 14:02:42 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,19 @@ static void	show_color(void)
 	init_pair(6, COLOR_WHITE, COLOR_BLACK);
 }
 
-void		visual_main(t_arena *arena)
+void		visual_clear(t_arena *arena_s)
+{
+	wclear(arena_s->win);
+	wclear(arena_s->stats);
+	refresh();
+}
+
+void		visual_start(t_arena *arena)
 {
 	initscr();
 	noecho();
 	cbreak();
 	curs_set(FALSE);
 	show_color();
-	update_window(arena, NULL);
+	visual_update(arena, NULL);
 }

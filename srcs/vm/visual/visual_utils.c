@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/09 20:57:50 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/10 14:03:56 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 	}
 }
 
-void		update_window(t_arena *arena, t_cursor *cursor)
+void		visual_update(t_arena *arena, t_cursor *cursor)
 {
 	if (arena->visu_flag == true)
 	{
