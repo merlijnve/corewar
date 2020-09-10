@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/10 17:08:17 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/10 18:18:06 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void        vm_start(t_arena *arena_s)
 			exit(EXIT_SUCCESS);
 		}
     }
+    if (arena_s->visu_flag)
+		visual_clear(arena_s);
 	ft_printf("Contestant %d, \"%s\", has won !\n",
 	arena_s->winner->id, arena_s->winner->champ.name);
 }
