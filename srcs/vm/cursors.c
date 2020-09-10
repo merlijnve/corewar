@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/10 13:58:24 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 14:47:55 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ t_cursor    *cursor_add(t_arena *arena, t_cursor *clone)
     else
     {
         if (clone != NULL)
-		{
 			ft_memcpy(cursor, clone, sizeof(t_cursor));
-            cursor_setpos(arena, cursor, clone->pos + get_pos(clone->args[0].value % IDX_MOD, 0));
-		}
         cursor->next = arena->cursors;
         arena->cursor_count++;
 		arena->cursors = cursor;

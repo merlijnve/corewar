@@ -11,7 +11,7 @@
       "program": "${workspaceFolder}/srcs/vm/corewar",
       "args": [
         "${workspaceFolder}/resources/champs/tests/reg-test.cor",
-        "${workspaceFolder}/resources/champs/tests/reg-test.cor",
+        "${workspaceFolder}/srcs/champion/5g_covid_vaccination.cor",
         "-v"
       ],
       "stopAtEntry": false,
