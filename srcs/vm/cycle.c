@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/10 14:05:07 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 15:17:19 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void		vm_run_cursor(t_arena *arena_s, t_cursor *current)
 {
 	t_enbyte enbyte;
 
-	enbyte = (t_enbyte){};
+	enbyte = (t_enbyte){kTNone, kTNone, kTNone, kTNone};
 	if (is_opcode(current->opcode)) 
 	{
 		if (get_opinfo(current->opcode)->has_enbyte)
@@ -52,7 +52,7 @@ static void		vm_run_cursor(t_arena *arena_s, t_cursor *current)
 			ft_memcpy(&enbyte, &arena_s->mem[get_pos(current->pos, 1)], sizeof(t_enbyte));
 			reverse_eb(&enbyte);
 		}
-		if (preload_args(arena_s, current))
+		if (is_valid_enbyte(current->opcode, enbyte) && preload_args(arena_s, current))
 		{
 			debug_printf("args\n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x \n\t%d: %.5d %#.4x\n", current->args[0].type, current->args[0].value, current->args[0].value, current->args[1].type, current->args[1].value, current->args[1].value, current->args[2].type, current->args[2].value, current->args[2].value);
 			get_op_func(current->opcode)(arena_s, current);

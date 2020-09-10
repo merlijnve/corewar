@@ -132,10 +132,10 @@ void	write_4_bytes(uint8_t *mem, int pos, int value)
 {
 	uint8_t parts[4];
 
-	parts[0] = ((0xFF << 24) & value) >> 24;
-	parts[1] = ((0xFF << 16) & value) >> 16;
-	parts[2] = ((0xFF <<  8) & value) >>  8;
-	parts[3] = ((0xFF <<  0) & value) >>  0;
+	parts[0] = ((0xFFL << 24) & value) >> 24;
+	parts[1] = ((0xFFL << 16) & value) >> 16;
+	parts[2] = ((0xFFL <<  8) & value) >>  8;
+	parts[3] = ((0xFFL <<  0) & value) >>  0;
 
 	mem[get_pos(pos, 0)] =  parts[0];
 	mem[get_pos(pos, 1)] =  parts[1];
