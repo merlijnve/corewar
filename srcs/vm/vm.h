@@ -48,6 +48,7 @@
 # define ARG_TYPE_NONE		0
 
 # define KEY_SPACE			32
+# define KEY_ESC			27
 
 /*
 ** Player struct
