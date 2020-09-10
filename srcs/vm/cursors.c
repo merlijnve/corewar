@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/10 22:28:41 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 00:26:38 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void        cursor_del(t_arena *arena, int id)
 	}
 	if (found == NULL)
 		return;
-	if (arena->cursors == found && found != NULL)
+	if (arena->cursors == found)
 		arena->cursors = found->next;
-	else if (prev != NULL && found != NULL)
+	else if (prev != NULL)
 		prev->next = found->next;
 	free(found);
 	arena->cursors_active--;

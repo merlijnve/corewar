@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/09 20:48:30 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/03 20:35:39 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 00:31:51 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int		read_4_bytes(uint8_t *mem, int pos)
 	parts[1] = mem[get_pos(pos, 1)];
 	parts[2] = mem[get_pos(pos, 2)];
 	parts[3] = mem[get_pos(pos, 3)];
-	sum =  parts[0] << 24;
+	sum =  (0X0F + parts[0]) << 24;
 	sum += parts[1] << 16;
 	sum += parts[2] << 8;
 	sum += parts[3];

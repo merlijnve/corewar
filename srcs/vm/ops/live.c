@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/10 20:22:43 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 23:47:33 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@ static t_champion	*find_player_id(t_arena *arena, int id)
 
 void	inst_live(t_arena *arena, t_cursor *cursor)
 {
+	t_champion *champ;
+
 	arena->live_count += 1;
-	if (cursor->args[0].value == cursor->registries[0])
+	champ = NULL;
+	if (cursor->args[0].value == cursor->registries[0]) // -2 == -2 == TRUE
 	{
-		arena->winner = find_player_id(arena, cursor->registries[0] * -1);
-		if (!arena->visu_flag)
+		champ = find_player_id(arena, cursor->registries[0] * -1);
+		if (champ != NULL)
+			arena->winner = champ;
+		if (champ != NULL && !arena->visu_flag)
 			ft_printf("A process shows that player %d (%s) is alive\n", arena->winner->id, arena->winner->champ.name);
 	}
 	cursor->last_alive = arena->cycle_count;
