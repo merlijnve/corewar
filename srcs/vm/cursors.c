@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/10 21:53:14 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 22:28:41 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int			cursor_get_pid(t_cursor *cursor)
 {
 	if (cursor == NULL)
 		return (0);
-	if (cursor->registries[0] <= -1 && cursor->registries[0] >= -MAX_PLAYERS)
-		return (cursor->registries[0] * -1);
+	if (cursor->registries[0] < 0 && cursor->registries[0] >= (-MAX_PLAYERS))
+		return ((cursor->registries[0] * (-1)));
 	return (0);
 }
 

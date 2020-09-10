@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 22:10:25 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 23:21:38 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,24 @@ static void	show_arena(WINDOW *win, t_arena *arena)
 	int i;
 	int j;
 	t_champion *champion;
-	int color;
 
 	i = 0;
 	j = 0;
 	champion = NULL;
-	color = 6;
 	while (i < MEM_SIZE)
 	{
 		while (j < VISUAL_WIDTH && (i + j) < MEM_SIZE)
 		{
-			champion = champion_find_id(arena,\
-				cursor_get_pid(arena->cells[i + j].cursor));
-			if (arena->cells[i + j].cursor != NULL && champion == NULL)
-				color = 5;
-			else if (champion != NULL)
-				color = champion->id;
-			wattrset(win, COLOR_PAIR(color));
+			if (arena->cells[i + j].cursor == NULL)
+				wattrset(win, COLOR_PAIR(6));
+			else
+			{
+				champion = champion_find_id(arena, arena->cells[i + j].cursor->registries[0] * -1);
+				if (champion != NULL)
+					wattrset(win, COLOR_PAIR(champion->id));
+				else
+					wattrset(win, COLOR_PAIR(5));
+			}
 			wprintw(win, "%02X", (unsigned char)(arena->mem)[i + j]);
 			wattrset(win, COLOR_PAIR(6));
 			wprintw(win, " ");

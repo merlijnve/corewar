@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/10 22:09:09 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 23:07:26 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define DEBUG_FILE			"debug.log"
 # define DEBUG_MAX_CYCLES	0
 
-# define VISUAL_TIMEOUT		25000
+# define VISUAL_TIMEOUT		2000
 # define VISUAL_WIDTH		204
 
 # define ARG_TYPE_REG		1
@@ -140,10 +140,10 @@ typedef struct		s_arena
 	int				n_flag;
 
 	/** Individual cell structs **/
-	t_cell			cells[MEM_SIZE];
+	t_cell			cells[MEM_SIZE + 1];
 
 	/** Raw memory array of arena **/
-	uint8_t			mem[MEM_SIZE];
+	uint8_t			mem[MEM_SIZE + 1];
 
 	/** Current winner player id */
 	t_champion		*winner;
