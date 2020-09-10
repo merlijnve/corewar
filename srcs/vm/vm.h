@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/10 18:17:35 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 22:16:34 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ typedef struct		s_arena
 
 	int				dump_flag;
 
-	int				n_flag;
+	int				champ_index[MAX_PLAYERS];
 
 	/** Individual cell structs **/
 	t_cell			cells[MEM_SIZE];
