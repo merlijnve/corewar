@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/10 20:00:42 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 20:36:43 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void 	vm_cursor_alive(t_arena *arena_s)
 		if (last_cycle >= arena_s->cycles_to_die)
 		{
 			tmp = current->next;
-			cursor_del(&arena_s->cursors, current->id);
+			cursor_del(arena_s, current->id);
 			current = tmp;
 		}
 		else

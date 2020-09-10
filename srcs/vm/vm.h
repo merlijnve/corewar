@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/10 18:17:35 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 22:09:09 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define DEBUG_FILE			"debug.log"
 # define DEBUG_MAX_CYCLES	0
 
-# define VISUAL_TIMEOUT_MS  50
+# define VISUAL_TIMEOUT		25000
 # define VISUAL_WIDTH		204
 
 # define ARG_TYPE_REG		1
@@ -79,11 +79,7 @@ typedef struct		s_champion
 }					t_champion;
 
 /** Additional cell information */
-typedef struct		s_cell
-{
-	char			hex;
-	bool			taken;
-}					t_cell;
+
 
 /*
 **	Argument type can be value of
@@ -118,6 +114,13 @@ struct		s_cursor
 	t_argument		args[3];
 };
 
+typedef struct		s_cell
+{
+	t_cursor		*cursor;
+	char			hex;
+	bool			taken;
+}					t_cell;
+
 /** Arena environment */
 typedef struct		s_arena
 {
@@ -130,6 +133,7 @@ typedef struct		s_arena
 	int				champion_count;
 
 	int				cursor_count;
+	int				cursors_active;
 
 	int				dump_flag;
 
@@ -163,7 +167,7 @@ typedef struct		s_arena
 	bool			visu_flag;
 	WINDOW			*win;
 	WINDOW			*stats;
-	int				speed;
+	int				sleep;
 }					t_arena;
 
 void				print_usage(void);
@@ -174,14 +178,15 @@ void				vm_start(t_arena *arena_s);
 bool				vm_run_cycle(t_arena *arena_s);
 
 int					check_champions(t_champion *champions, int champion_count);
+t_champion			*champion_find_id(t_arena *arena, int id);
 
 int					init_cursors(t_arena *arena_s);
 
 t_cursor 			*cursor_add(t_arena *arena, t_cursor *clone);
-void    			cursor_del(t_cursor **head, int id);
+void        		cursor_del(t_arena *arena, int id);
 void        		cursor_setpos(t_arena *arena, t_cursor *cursor, int pos);
-
-
+int					cursor_get_pid(t_cursor *cursor);
+	
 void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);
 void				debug_print_champion(t_champion *champion);

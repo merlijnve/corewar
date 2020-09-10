@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/10 18:18:06 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 22:04:25 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void        vm_start(t_arena *arena_s)
 	arena_s->cycle_count = 1;
     arena_s->winner = highest_player_id(arena_s);
     arena_s->cycles_to_die = CYCLE_TO_DIE;
-	arena_s->speed = VISUAL_TIMEOUT_MS;
+	arena_s->sleep = VISUAL_TIMEOUT;
 
 	vm_place_champions(arena_s);
     if (vm_init_cursors(arena_s) != kOk)

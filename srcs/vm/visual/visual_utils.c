@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 18:29:12 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 22:10:25 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,32 @@
 
 #include "vm.h"
 
+
+
 static void	show_arena(WINDOW *win, t_arena *arena)
 {
 	int i;
 	int j;
+	t_champion *champion;
+	int color;
 
 	i = 0;
 	j = 0;
+	champion = NULL;
+	color = 6;
 	while (i < MEM_SIZE)
 	{
 		while (j < VISUAL_WIDTH && (i + j) < MEM_SIZE)
 		{
-			wattrset(win, COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
+			champion = champion_find_id(arena,\
+				cursor_get_pid(arena->cells[i + j].cursor));
+			if (arena->cells[i + j].cursor != NULL && champion == NULL)
+				color = 5;
+			else if (champion != NULL)
+				color = champion->id;
+			wattrset(win, COLOR_PAIR(color));
 			wprintw(win, "%02X", (unsigned char)(arena->mem)[i + j]);
-			attroff(COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
+			wattrset(win, COLOR_PAIR(6));
 			wprintw(win, " ");
 			j++;
 		}
@@ -76,13 +88,13 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 	mvwprintw(win, 11, 3, "STATS:");
 	wattrset(win, COLOR_PAIR(6));
 	box(win, 0, 0);
-	mvwprintw(win, 13, 3, "Total cycles:\t%d", arena->cycle_count);
-	mvwprintw(win, 14, 3, "Total cursors:\t%d", arena->cursor_count);
-	mvwprintw(win, 15, 3, "Cycles to die:\t%d",
-		CYCLE_TO_DIE - arena->cycles_since_check);
+	mvwprintw(win, 13, 3, "Cycles:\t%d", arena->cycle_count);
+	mvwprintw(win, 14, 3, "Cursors:\t%d/%d", arena->cursors_active, arena->cursor_count);
+	mvwprintw(win, 15, 3, "Death:\t%d/%d",
+		arena->cycles_since_check, arena->cycles_to_die);
 	mvwprintw(win, 16, 3, "Checks:\t%d/%d", arena->check_count, MAX_CHECKS);
 	mvwprintw(win, 17, 3, "Live:\t%d", arena->live_count);
-	mvwprintw(win, 18, 3, "Speed:\t%d", arena->speed);
+	mvwprintw(win, 18, 3, "Sleep:\t%dµs", arena->sleep);
 	if (arena->winner != NULL)
 	{
 		mvwprintw(win, 20, 3, "Winner:");
@@ -97,8 +109,6 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 		mvwprintw(win, 26, 3, "pos:\t%d", get_pos(cursor->pos, 0));
 		print_registries(win, cursor, 28, 3);
 	}
-
-
 }
 
 void		visual_update(t_arena *arena, t_cursor *cursor)
@@ -115,6 +125,8 @@ void		visual_update(t_arena *arena, t_cursor *cursor)
 		show_stats(arena->stats, arena, cursor);
 		wrefresh(arena->win);
 		wrefresh(arena->stats);
-		usleep(10000000 / arena->speed);
+		if (arena->sleep > 0) {
+			usleep(arena->sleep);
+		}
 	}
 }
