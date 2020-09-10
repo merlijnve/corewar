@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/09 15:04:36 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/10 15:09:22 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	number_champ(int index, int argc, char **argv, t_arena *arena)
 {
 	int		player_n;
 
-	if (index > argc - 1)
+	if (index >= argc - 1)
 		vm_error(kErrParams);
 	player_n = ft_atoi(argv[index]);
 	if (player_n > MAX_PLAYERS || player_n <= 0 ||
