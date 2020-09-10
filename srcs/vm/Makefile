@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/09/10 13:56:48 by wmisiedj      ########   odam.nl          #
+#    Updated: 2020/09/10 16:49:29 by merlijn       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,8 @@ C_SRCS = \
 	./utils_2.c \
 	./visual/visual_main.c \
 	./visual/keystrokes.c \
-	./visual/visual_utils.c
+	./visual/visual_utils.c \
+	./dump.c
 
 
 C_OBJS = $(C_SRCS:%.c=%.o)
