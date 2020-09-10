@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 13:01:20 by floris        #+#    #+#                 */
-/*   Created: 2020/09/06 13:01:20 by floris        ########   odam.nl         */
+/*   Updated: 2020/09/09 21:12:48 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,4 @@ bool is_valid_enbyte(t_inst inst, t_enbyte enbyte)
 	if (ret)
 		ret = is_valid_arg(inst, enbyte.arg3, 3);
 	return (ret);
-}
-
-// TODO: check if this is correct range (make defines?)
-bool is_valid_reg(uint8_t reg)
-{
-	return (reg >= 0 && reg < 16);
 }

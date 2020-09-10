@@ -11,12 +11,13 @@
       "program": "${workspaceFolder}/srcs/vm/corewar",
       "args": [
         "${workspaceFolder}/resources/champs/tests/reg-test.cor",
-        "${workspaceFolder}/resources/champs/tests/reg-test.cor"
+        "${workspaceFolder}/resources/champs/tests/reg-test.cor",
+        "-v"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
-      "externalConsole": false,
+      "externalConsole": true,
       "MIMode": "gdb",
       "setupCommands": [
         {
