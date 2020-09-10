@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/09 22:52:23 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 14:02:26 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@
 # define DEBUG_ENABLED		0
 # define DEBUG_PRINT		0
 # define DEBUG_FILE			"debug.log"
-# define DEBUG_MAX_CYCLES	500000
-# define DEBUG_VISUAL		1
-# define VISUAL_TIMEOUT_MS  5
+# define DEBUG_MAX_CYCLES	0
 
+# define VISUAL_TIMEOUT_MS  50
 # define VISUAL_WIDTH		204
 
 # define ARG_TYPE_REG		1
@@ -169,7 +168,9 @@ typedef struct		s_arena
 void				print_usage(void);
 void				check_args(int argc, char **argv, t_arena *arena);
 
-void				start_arena(t_arena *arena_s);
+void				vm_start(t_arena *arena_s);
+bool				vm_run_cycle(t_arena *arena_s);
+
 int					check_champions(t_champion *champions, int champion_count);
 
 int					init_cursors(t_arena *arena_s);
@@ -249,9 +250,8 @@ bool				preload_args(t_arena *arena_s, t_cursor *cursor);
 
 #pragma mark - Visualizer
 
-void				visual_main(t_arena *arena);
-void				update_window(t_arena *arena, t_cursor *cursor);
-void				handle_key(t_arena *arena);
-void				update_window(t_arena *arena, t_cursor *cursor);
+void				visual_start(t_arena *arena);
+void				visual_update(t_arena *arena, t_cursor *cursor);
+void				visual_readkey(t_arena *arena);
 
 #endif
