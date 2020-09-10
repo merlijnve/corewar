@@ -10,7 +10,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/srcs/vm/corewar",
       "args": [
-        "${workspaceFolder}/resources/champs/tests/reg-test.cor",
+        "${workspaceFolder}/srcs/champion/5g_covid_vaccination.cor",
         "${workspaceFolder}/resources/champs/tests/reg-test.cor",
         "-v"
       ],
