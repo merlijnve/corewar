@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/10 15:09:22 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/10 16:38:05 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void		check_args(int argc, char **argv, t_arena *arena)
 
 	index_fd = 0;
 	c = 0;
+	arena->dump_flag = -1;
 	loop_args(argc, argv, arena);
 	if (arena->champion_count == 0 || arena->n_flag > arena->champion_count)
 		vm_error(kErrParams, NULL);

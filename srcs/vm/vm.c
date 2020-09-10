@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/10 14:03:06 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 17:08:17 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,13 @@ void        vm_start(t_arena *arena_s)
         arena_s->cycle_count++;
         if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
             break;
+		if (arena_s->dump_flag != -1 &&
+		arena_s->dump_flag == arena_s->cycle_count)
+		{
+			dump(arena_s->mem);
+			exit(EXIT_SUCCESS);
+		}
     }
-	ft_printf("Contestant %d, \"%s\", has won !\n", arena_s->winner->id, arena_s->winner->champ.name);
+	ft_printf("Contestant %d, \"%s\", has won !\n",
+	arena_s->winner->id, arena_s->winner->champ.name);
 }
