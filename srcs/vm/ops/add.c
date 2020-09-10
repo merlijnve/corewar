@@ -19,8 +19,16 @@ void		inst_add(t_arena *arena, t_cursor *cursor)
 
 	if (arena == NULL || cursor == NULL)
 		return;
-	args[0] = cursor->registries[cursor->args[0].value - 1];
-	args[1] = cursor->registries[cursor->args[1].value - 1];
+
+	if (cursor->args[0].type == kTReg)
+		args[0] = cursor->registries[cursor->args[0].value - 1];
+	else
+		args[0] = cursor->args[0].value;
+	if (cursor->args[1].type == kTReg)
+		args[1] = cursor->registries[cursor->args[1].value - 1];
+	else
+		args[1] = cursor->args[1].value;
+
 	sum = args[0] + args[1];
 	cursor->registries[cursor->args[2].value - 1] = sum;
 	if (sum == 0)
