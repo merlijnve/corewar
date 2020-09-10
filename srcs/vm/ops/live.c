@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/10 16:00:44 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/10 16:06:54 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_champion	*find_player_id(t_arena *arena, int id)
 	int		i;
 
 	i = 0;
-	while (i < MAX_CHAMPS)
+	while (i < MAX_PLAYERS)
 	{
 		if (arena->champions[i].id == id)
 			return (&arena->champions[i]);
