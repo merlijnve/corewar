@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 14:37:52 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/09 22:56:12 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 13:24:15 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		print_usage(void)
 {
 	ft_printf("Usage: ./corewar [-dump N | -n (1-MAX_PLAYERS)] "
-		"<champion1.cor> <...>");
+		"<champion1.cor> <...>\n");
 }
 
 int			main(int argc, char **argv)
