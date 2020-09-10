@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/10 14:02:26 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 15:21:20 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,8 @@ bool				preload_args(t_arena *arena_s, t_cursor *cursor);
 
 void				visual_start(t_arena *arena);
 void				visual_update(t_arena *arena, t_cursor *cursor);
+void				visual_clear(t_arena *arena_s);
+
 void				visual_readkey(t_arena *arena);
 
 #endif
