@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/10 15:21:20 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/10 18:17:35 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define ARG_TYPE_NONE		0
 
 # define KEY_SPACE			32
+# define KEY_ESC			27
 
 /*
 ** Player struct
@@ -167,6 +168,7 @@ typedef struct		s_arena
 
 void				print_usage(void);
 void				check_args(int argc, char **argv, t_arena *arena);
+void				dump(uint8_t *mem);
 
 void				vm_start(t_arena *arena_s);
 bool				vm_run_cycle(t_arena *arena_s);

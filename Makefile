@@ -6,12 +6,12 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/07/14 16:29:56 by mvan-eng      ########   odam.nl          #
+#    Updated: 2020/09/10 12:43:56 by merlijn       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 VM_LOC = ./srcs/vm
-VM_NAME = $(VM_LOC)/vm
+VM_NAME = $(VM_LOC)/corewar
 
 ASM_LOC = ./srcs/asm
 ASM_NAME = $(ASM_LOC)/asm
