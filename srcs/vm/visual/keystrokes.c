@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/08 15:39:12 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 17:10:22 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/10 18:34:44 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	change_speed(int key, t_arena *arena)
 {
-	if (key == KEY_UP && arena->speed < 1000)
+	if (key == KEY_UP && arena->speed < 10000)
 		arena->speed += 50;
 	if (key == KEY_DOWN && arena->speed > 50)
 		arena->speed -= 50;
