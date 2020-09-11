@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/11 14:55:09 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/11 22:32:37 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int          vm_init_cursors(t_arena *arena_s)
 
 void        vm_start(t_arena *arena_s)
 {
-	arena_s->cycle_count = 1;
+	arena_s->cycle_count = 0;
     arena_s->winner = highest_player_id(arena_s);
     arena_s->cycles_to_die = CYCLE_TO_DIE;
 	arena_s->visualizer.sleep = VISUAL_TIMEOUT;
@@ -114,7 +114,7 @@ void        vm_start(t_arena *arena_s)
         if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
             break;
 		if (arena_s->dump_flag != -1 &&
-		arena_s->dump_flag == arena_s->cycle_count)
+		arena_s->dump_flag <= arena_s->cycle_count)
 		{
 			dump(arena_s->mem);
 			exit(EXIT_SUCCESS);

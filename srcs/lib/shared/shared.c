@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 13:01:20 by floris        #+#    #+#                 */
-/*   Created: 2020/09/06 13:01:20 by floris        ########   odam.nl         */
+/*   Updated: 2020/09/11 23:25:56 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ static const t_opinfo	g_opinfo[16] =
 		{
 			{kTReg, kTDir, kTInd, kTNone},
 			{kTReg, kTInd, kTNone, kTNone},
-			{kTNone, kTNone, kTNone, kTNone},
+			{kTReg, kTNone, kTNone, kTNone},
 		}
 	},
 	{ // sti
