@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "vm.h"
 
-static int		ind_arg(uint8_t *mem, t_cursor *cursor, int idx)
+static int		ind_arg(uint8_t *mem, t_cursor *cursor, long idx)
 {
 	int adress;
 	int value;
@@ -26,7 +26,7 @@ static int		ind_arg(uint8_t *mem, t_cursor *cursor, int idx)
 	return (value);
 }
 
-static int		dir_arg(uint8_t *mem, int idx, int t_dir_size)
+static int		dir_arg(uint8_t *mem, long idx, int t_dir_size)
 {
 	int value;
 
@@ -38,7 +38,7 @@ static int		dir_arg(uint8_t *mem, int idx, int t_dir_size)
 	return (value);
 }
 
-static int		reg_arg(uint8_t *mem, int idx, t_cursor *cursor, t_error *ret)
+static int		reg_arg(uint8_t *mem, long idx, t_cursor *cursor, t_error *ret)
 {
 	int reg;
 
@@ -48,7 +48,7 @@ static int		reg_arg(uint8_t *mem, int idx, t_cursor *cursor, t_error *ret)
 	return (reg);
 }
 
-static bool	arg_for_idx(t_arena *arena, t_cursor *cur, int *offset, int nr)
+static bool	arg_for_idx(t_arena *arena, t_cursor *cur, long *offset, int nr)
 {
 	t_error		ret;
 	int			arg_len;
@@ -77,7 +77,7 @@ static bool	arg_for_idx(t_arena *arena, t_cursor *cur, int *offset, int nr)
 bool	preload_args(t_arena *arena_s, t_cursor *cursor)
 {
 	t_error		ret;
-	int			offset;
+	long			offset;
 
 	ft_bzero(&cursor->args[0], sizeof(t_argument) * 3);
 	offset = 1 + (get_opinfo(cursor->opcode)->has_enbyte ? 1 : 0); // one for skip opcode + 1 for enbyte

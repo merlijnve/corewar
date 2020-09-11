@@ -92,7 +92,7 @@ static void	loop_args(int argc, char **argv, t_arena *arena)
 		if (ft_strcmp(argv[index], "-n") == 0)
 			index = number_champ(index, argc, argv, arena);
 		if (ft_strcmp(argv[index], "-v") == 0)
-			arena->visu_flag = true;
+			arena->visualizer.enabled = true;
 		if (ft_strcmp(argv[index], "-dump") == 0)
 			index = dump_flag(index, argc, argv, arena);
 		index++;

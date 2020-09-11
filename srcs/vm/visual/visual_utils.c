@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   visual_utils.c                                     :+:    :+:            */
+/*   visual_main.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
+/*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 16:23:36 by wmisiedj      ########   odam.nl         */
+/*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
+/*   Updated: 2020/09/11 13:16:17 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,105 +16,49 @@
 
 #include "vm.h"
 
-static void	show_arena(WINDOW *win, t_arena *arena)
+static void	show_color(void)
 {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (i < MEM_SIZE)
-	{
-		while (j < VISUAL_WIDTH && (i + j) < MEM_SIZE)
-		{
-			wattrset(win, COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
-			wprintw(win, "%02X", (unsigned char)(arena->mem)[i + j]);
-			attroff(COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
-			wprintw(win, " ");
-			j++;
-		}
-		j = 0;
-		i += VISUAL_WIDTH;
-	}
+	start_color();
+	init_pair(1, COLOR_WHITE, COLOR_CYAN);
+	init_pair(2, COLOR_WHITE, COLOR_GREEN);
+	init_pair(3, COLOR_WHITE, COLOR_RED);
+	init_pair(4, COLOR_WHITE, COLOR_MAGENTA);
+	init_pair(5, COLOR_BLACK, COLOR_WHITE);
+	init_pair(6, COLOR_WHITE, COLOR_BLACK);
 }
 
-static void	show_players(WINDOW *win, t_arena *arena)
+void		visual_clear(t_arena *arena_s)
 {
-	int i;
-
-	i = 0;
-	wattrset(win, COLOR_PAIR(5));
-	mvwprintw(win, 2, 3, "PLAYERS:");
-	while (i < MAX_PLAYERS)
-	{
-		if (arena->champions[i].id > 0) {
-			wattrset(win, COLOR_PAIR(i + 1));
-			mvwprintw(win, i + 4, 3, "[%d] %s", arena->champions[i].id, arena->champions[i].champ.name);
-		}
-
-		i++;
-	}
-	attroff(COLOR_PAIR(i + 1));
+	wclear(arena_s->visualizer.arena);
+	wclear(arena_s->visualizer.stats);
+	refresh();
 }
 
-static void	print_registries(WINDOW *win, t_cursor *cursor, int y, int x)
+bool		visual_should_update(t_arena *arena)
 {
-	int i;
+	struct timeval  tv;
+	double time_ms;
 
-	i = 0;
-	while (i < 16)
+	if (!arena->visualizer.enabled)
+		return (false);
+
+	gettimeofday(&tv, NULL);
+	time_ms = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+
+	if (time_ms - arena->visualizer.updated_ms > 1000 / VISUAL_FPS)
 	{
-		mvwprintw(win, y + i, x, "REG [%d]: %d", i + 1, cursor->registries[i]);
-		i++;
+		arena->visualizer.updated_ms = time_ms;
+		return (true);
 	}
+	return (false);
 }
 
-static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
+void		visual_start(t_arena *arena)
 {
-	show_players(arena->stats, arena);
-	wattrset(win, COLOR_PAIR(5));
-	mvwprintw(win, 11, 3, "STATS:");
-	wattrset(win, COLOR_PAIR(6));
-	box(win, 0, 0);
-	mvwprintw(win, 13, 3, "Total cycles:\t%d", arena->cycle_count);
-	mvwprintw(win, 14, 3, "Total cursors:\t%d", arena->cursor_count);
-	mvwprintw(win, 15, 3, "Cycles to die:\t%d",
-		CYCLE_TO_DIE - arena->cycles_since_check);
-	mvwprintw(win, 16, 3, "Checks:\t%d/%d", arena->check_count, MAX_CHECKS);
-	mvwprintw(win, 17, 3, "Live:\t%d", arena->live_count);
-	mvwprintw(win, 18, 3, "Speed:\t%d", arena->speed);
-	if (arena->winner != NULL)
-	{
-		mvwprintw(win, 20, 3, "Winner:");
-		mvwprintw(win, 21, 3, "[%d] %s", arena->winner->id, arena->winner->champ.name);
-
-	}
-	if (cursor != NULL)
-	{
-		mvwprintw(win, 23, 3, " -- cursor (ID: %d) -- ", cursor->id);
-		mvwprintw(win, 24, 3, "opcode:\t%d", cursor->opcode);
-		mvwprintw(win, 25, 3, "timeout:\t%d", cursor->timeout);
-		mvwprintw(win, 26, 3, "pos:\t%d", get_pos(cursor->pos, 0));
-		print_registries(win, cursor, 28, 3);
-	}
-
-
-}
-
-void		visual_update(t_arena *arena, t_cursor *cursor)
-{
-	if (arena->visu_flag == true)
-	{
-		if (arena->win != NULL)
-			delwin(arena->win);
-		if (arena->stats != NULL)
-			delwin(arena->stats);
-		arena->win = newwin(64, VISUAL_WIDTH, 0, 0);
-		arena->stats = newwin(64, 32, 0, VISUAL_WIDTH);
-		show_arena(arena->win, arena);
-		show_stats(arena->stats, arena, cursor);
-		wrefresh(arena->win);
-		wrefresh(arena->stats);
-		usleep(1000000 / arena->speed);
-	}
+	initscr();
+	noecho();
+	cbreak();
+	curs_set(FALSE);
+	show_color();
+	visual_update(arena, NULL);
 }
