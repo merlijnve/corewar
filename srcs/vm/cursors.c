@@ -22,9 +22,12 @@ int			cursor_get_pid(t_cursor *cursor)
 	return (0);
 }
 
-void        cursor_setpos(t_arena *arena, t_cursor *cursor, int pos)
+void        cursor_setpos(t_arena *arena, t_cursor *cursor, long pos)
 {
     if (cursor->pos != -1) {
+		if (get_pos(cursor->pos, 0) < 0) {
+			ft_printf("I'm too small too!");
+		}
         arena->cells[get_pos(cursor->pos, 0)].cursor = NULL;
     }
     cursor->pos = get_pos(pos, 0);
