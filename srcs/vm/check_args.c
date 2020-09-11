@@ -6,15 +6,15 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/11 19:37:49 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/11 22:10:24 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
+**	DUMP_FLAG
 **	Simple check and add of the -dump flag
-**	
 */
 
 static int	dump_flag(int index, int argc, char **argv, t_arena *arena)
@@ -108,19 +108,15 @@ static void	set_champions(t_arena *arena, char **argv)
 	i = 0;
 	set = 0;
 	count = 0;
-	while (i < MAX_PLAYERS)
-	{
-		if (arena->champions[i].argv_index > 0)
-			arena->champions[i].file_name = argv[arena->champions[i].argv_index];
+	set_champ_name(arena, argv);
+	while (arena->champions[i].id != 0 && i < MAX_PLAYERS)
 		i++;
-	}
-	i = 0;
 	while (count < arena->champion_count)
 	{
-		while (arena->champions[i].id == 0)
+		while (arena->champions[i].id == 0 && i < MAX_PLAYERS)
 			i++;
 		if (i < arena->champion_count - i)
-			break;
+			break ;
 		while (arena->champions[set].id != 0)
 			set++;
 		arena->champions[set] = arena->champions[i];
@@ -142,7 +138,6 @@ void		check_args(int argc, char **argv, t_arena *arena)
 
 	index_fd = 0;
 	c = 0;
-	arena->dump_flag = -1;
 	loop_args(argc, argv, arena);
 	if (arena->champion_count == 0 || arena->champion_count > MAX_PLAYERS)
 		vm_error(kErrParams, NULL);
@@ -163,5 +158,6 @@ void		check_args(int argc, char **argv, t_arena *arena)
 		index_fd++;
 	}
 	set_champions(arena, argv);
-	debug_check_args(arena);
+	// debug_check_args(arena);
+	// exit(0);
 }

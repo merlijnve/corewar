@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/11 19:17:10 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/11 22:07:13 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ int					args_length(t_enbyte byte, t_inst inst);
 t_enbyte 			*get_enbyte(t_arena *arena, long pos);
 void				reverse_eb(t_enbyte *eb);
 void				set_champ_zero(t_arena *arena, int i);
+void				set_champ_name(t_arena *arena, char **argv);
 
 bool 				is_valid_enbyte(t_inst inst, t_enbyte enbyte);
 

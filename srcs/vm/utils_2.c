@@ -6,11 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/09 20:48:30 by mvan-eng      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/09/11 19:16:44 by joris         ########   odam.nl         */
-=======
-/*   Updated: 2020/09/11 00:31:51 by wmisiedj      ########   odam.nl         */
->>>>>>> eaa431f1e01d1160e38a7aaccf2814ce1f94b33b
+/*   Updated: 2020/09/11 22:07:59 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,4 +184,17 @@ void		set_champ_zero(t_arena *arena, int i)
 	arena->champions[i].fd = 0;
 	arena->champions[i].argv_index = 0;
 	arena->champions[i].file_name = NULL;
+}
+
+void		set_champ_name(t_arena *arena, char **argv)
+{
+	int		i;
+
+	i = 0;
+	while (i < MAX_PLAYERS)
+	{
+		if (arena->champions[i].argv_index > 0)
+			arena->champions[i].file_name = argv[arena->champions[i].argv_index];
+		i++;
+	}
 }
