@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/11 13:20:58 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 13:34:09 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static void	print_registries(WINDOW *win, t_cursor *cursor, int y, int x)
 
 static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 {
+	werase(win);
 	show_players(arena->visualizer.stats, arena);
 	wattrset(win, COLOR_PAIR(5));
 	mvwprintw(win, 11, 3, "STATS:");
@@ -115,10 +116,8 @@ void		visual_update(t_arena *arena, t_cursor *cursor)
 {
 	if (arena->visualizer.arena == NULL)
 		arena->visualizer.arena = newwin(64, VISUAL_WIDTH, 0, 0);
-	if (arena->visualizer.stats != NULL)
-		delwin(arena->visualizer.stats);
-	
-	arena->visualizer.stats = newwin(64, 32, 0, VISUAL_WIDTH);
+	if (arena->visualizer.stats == NULL)
+		arena->visualizer.stats = newwin(64, 32, 0, VISUAL_WIDTH);
 
 	show_arena(arena->visualizer.arena, arena);
 	show_stats(arena->visualizer.stats, arena, cursor);
