@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <signal.h>
-#include <utmp.h>
+#include <sys/time.h>
 #include <ncurses.h>
 
 #include "vm.h"

@@ -115,13 +115,13 @@ long		get_pos(long cursor_pos, long offset)
 int		read_4_bytes(uint8_t *mem, long pos)
 {
 	uint32_t	sum;
-	uint8_t		parts[4];
+	uint32_t	parts[4];
 
 	parts[0] = mem[get_pos(pos, 0)];
 	parts[1] = mem[get_pos(pos, 1)];
 	parts[2] = mem[get_pos(pos, 2)];
 	parts[3] = mem[get_pos(pos, 3)];
-	sum =  (0X0F + parts[0]) << 24;
+	sum =  parts[0] << 24;
 	sum += parts[1] << 16;
 	sum += parts[2] << 8;
 	sum += parts[3];
@@ -130,7 +130,7 @@ int		read_4_bytes(uint8_t *mem, long pos)
 
 void	write_4_bytes(uint8_t *mem, long pos, int value)
 {
-	uint8_t parts[4];
+	uint32_t parts[4];
 
 	parts[0] = ((0xFFL << 24) & value) >> 24;
 	parts[1] = ((0xFFL << 16) & value) >> 16;
@@ -146,7 +146,7 @@ void	write_4_bytes(uint8_t *mem, long pos, int value)
 int		read_2_bytes(uint8_t *mem, long pos)
 {
 	uint32_t	sum;
-	uint8_t		parts[2];
+	uint32_t		parts[2];
 
 	parts[0] = mem[get_pos(pos, 0)];
 	parts[1] = mem[get_pos(pos, 1)];
@@ -157,12 +157,13 @@ int		read_2_bytes(uint8_t *mem, long pos)
 
 void	write_2_bytes(uint8_t *mem, long pos, int value)
 {
-	int temp;
+	uint32_t parts[2];
 
-	temp = value >> 8 & 0xff;
-	mem[get_pos(pos, 0)] = temp;
-	temp = value & 0xff;
-	mem[get_pos(pos, 1)] = temp;
+	parts[0] = ((0xFFL <<  8) & value) >>  8;
+	parts[1] = ((0xFFL <<  0) & value) >>  0;
+
+	mem[get_pos(pos, 0)] =  parts[0];
+	mem[get_pos(pos, 1)] =  parts[1];
 }
 
 /*
