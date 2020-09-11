@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/09/10 16:49:29 by merlijn       ########   odam.nl          #
+#    Updated: 2020/09/10 21:46:27 by wmisiedj      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ C_SRCS = \
 	../lib/shared/shared.c \
 	./cycle.c \
 	./vm.c \
+	./champions.c \
 	./args_loader.c \
 	./check_args.c \
 	./check_champions.c \
