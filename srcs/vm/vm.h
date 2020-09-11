@@ -6,13 +6,14 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/10 18:17:35 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 12:07:33 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
+# include <time.h>
 # include <ncurses.h>
 
 # include <stdbool.h>
@@ -39,7 +40,7 @@
 # define DEBUG_FILE			"debug.log"
 # define DEBUG_MAX_CYCLES	0
 
-# define VISUAL_TIMEOUT_MS  50
+# define VISUAL_TIMEOUT		2000
 # define VISUAL_WIDTH		204
 
 # define ARG_TYPE_REG		1
@@ -79,11 +80,7 @@ typedef struct		s_champion
 }					t_champion;
 
 /** Additional cell information */
-typedef struct		s_cell
-{
-	char			hex;
-	bool			taken;
-}					t_cell;
+
 
 /*
 **	Argument type can be value of
@@ -108,7 +105,7 @@ struct		s_cursor
 {
 	t_cursor 		*next;
 	int				id;
-	int				pos;
+	long			pos;
 	int				jump;
 	bool			carry;
 	t_inst			opcode;
@@ -117,6 +114,22 @@ struct		s_cursor
 	int				timeout;
 	t_argument		args[3];
 };
+
+typedef struct		s_cell
+{
+	t_cursor		*cursor;
+	char			hex;
+	bool			taken;
+}					t_cell;
+
+typedef struct		s_visualizer
+{
+	bool			enabled;
+	WINDOW			*arena;
+	WINDOW			*stats;
+	int				sleep;
+	double			updated_ms;
+}					t_visualizer;
 
 /** Arena environment */
 typedef struct		s_arena
@@ -130,16 +143,17 @@ typedef struct		s_arena
 	int				champion_count;
 
 	int				cursor_count;
+	int				cursors_active;
 
 	int				dump_flag;
 
 	int				n_flag;
 
 	/** Individual cell structs **/
-	t_cell			cells[MEM_SIZE];
+	t_cell			cells[MEM_SIZE + 1];
 
 	/** Raw memory array of arena **/
-	uint8_t			mem[MEM_SIZE];
+	uint8_t			mem[MEM_SIZE + 1];
 
 	/** Current winner player id */
 	t_champion		*winner;
@@ -157,13 +171,9 @@ typedef struct		s_arena
 	/** Check counter */
 	int				check_count;
 
+	t_visualizer	visualizer;
 	/** Operations */
 	// op_t op_tab[17];
-	/* Visual Window thingys */
-	bool			visu_flag;
-	WINDOW			*win;
-	WINDOW			*stats;
-	int				speed;
 }					t_arena;
 
 void				print_usage(void);
@@ -174,14 +184,15 @@ void				vm_start(t_arena *arena_s);
 bool				vm_run_cycle(t_arena *arena_s);
 
 int					check_champions(t_champion *champions, int champion_count);
+t_champion			*champion_find_id(t_arena *arena, int id);
 
 int					init_cursors(t_arena *arena_s);
 
 t_cursor 			*cursor_add(t_arena *arena, t_cursor *clone);
-void    			cursor_del(t_cursor **head, int id);
-void        		cursor_setpos(t_arena *arena, t_cursor *cursor, int pos);
-
-
+void        		cursor_del(t_arena *arena, int id);
+void        		cursor_setpos(t_arena *arena, t_cursor *cursor, long pos);
+int					cursor_get_pid(t_cursor *cursor);
+	
 void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);
 void				debug_print_champion(t_champion *champion);
@@ -196,7 +207,7 @@ void				debug_print_map(t_arena *arena);
 #pragma mark - Get arguments
 
 void				get_argument_types(uint8_t *mem, t_cursor *cursor);
-int					get_direct_argument(char *mem, int t_dir_size, int pos);
+int					get_direct_argument(char *mem, int t_dir_size, long pos);
 int					get_indirect_argument(char *mem, int cursor_pos, int arg_pos, bool idx);
 
 #pragma mark - Utils
@@ -210,16 +221,16 @@ uint32_t			rev_bytes_32(uint32_t value);
 
 bool				is_opcode(t_inst inst);
 int					get_timeout(t_inst inst);
-int					get_pos(int cursor_pos, int pos);
-int					read_4_bytes(uint8_t *mem, int pos);
-void				write_4_bytes(uint8_t *mem, int pos, int value);
-int					read_2_bytes(uint8_t *mem, int pos);
-void				write_2_bytes(uint8_t *mem, int pos, int value);
+long				get_pos(long cursor_pos, long offset);
+int					read_4_bytes(uint8_t *mem, long pos);
+void				write_4_bytes(uint8_t *mem, long pos, int value);
+int					read_2_bytes(uint8_t *mem, long pos);
+void				write_2_bytes(uint8_t *mem, long pos, int value);
 int					is_registry(int arg);
 t_args_type 		get_arg(t_enbyte byte, t_inst inst, int argnr);
 int					arg_length(t_args_type type, t_inst inst);
 int					args_length(t_enbyte byte, t_inst inst);
-t_enbyte 			*get_enbyte(t_arena *arena, int pos);
+t_enbyte 			*get_enbyte(t_arena *arena, long pos);
 void				reverse_eb(t_enbyte *eb);
 
 bool 				is_valid_enbyte(t_inst inst, t_enbyte enbyte);
@@ -255,6 +266,7 @@ bool				preload_args(t_arena *arena_s, t_cursor *cursor);
 void				visual_start(t_arena *arena);
 void				visual_update(t_arena *arena, t_cursor *cursor);
 void				visual_clear(t_arena *arena_s);
+bool				visual_should_update(t_arena *arena);
 
 void				visual_readkey(t_arena *arena);
 

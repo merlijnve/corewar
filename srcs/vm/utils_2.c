@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/09 20:48:30 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/03 20:35:39 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 00:31:51 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	reverse_eb(t_enbyte *eb)
 	eb->arg4 = bc.arg1;
 }
 
-t_enbyte *get_enbyte(t_arena *arena, int pos)
+t_enbyte *get_enbyte(t_arena *arena, long pos)
 {
 	t_enbyte *eb;
 	eb = (t_enbyte *)&arena->mem[get_pos(pos, 1)];
@@ -102,9 +102,9 @@ int			get_timeout(t_inst inst)
 **	Gets new position in arena with modulo calculation
 */
 
-int		get_pos(int cursor_pos, int offset)
+long		get_pos(long cursor_pos, long offset)
 {
-	return ((cursor_pos + offset) % MEM_SIZE);
+	return (ft_mod((cursor_pos + offset), MEM_SIZE));
 }
 
 /*
@@ -112,7 +112,7 @@ int		get_pos(int cursor_pos, int offset)
 **	Reads 4 bytes of memory, using get_pos to keep reading within memory field
 */
 
-int		read_4_bytes(uint8_t *mem, int pos)
+int		read_4_bytes(uint8_t *mem, long pos)
 {
 	uint32_t	sum;
 	uint8_t		parts[4];
@@ -121,14 +121,14 @@ int		read_4_bytes(uint8_t *mem, int pos)
 	parts[1] = mem[get_pos(pos, 1)];
 	parts[2] = mem[get_pos(pos, 2)];
 	parts[3] = mem[get_pos(pos, 3)];
-	sum =  parts[0] << 24;
+	sum =  (0X0F + parts[0]) << 24;
 	sum += parts[1] << 16;
 	sum += parts[2] << 8;
 	sum += parts[3];
 	return (sum);
 }
 
-void	write_4_bytes(uint8_t *mem, int pos, int value)
+void	write_4_bytes(uint8_t *mem, long pos, int value)
 {
 	uint8_t parts[4];
 
@@ -143,7 +143,7 @@ void	write_4_bytes(uint8_t *mem, int pos, int value)
 	mem[get_pos(pos, 3)] =  parts[3];
 }
 
-int		read_2_bytes(uint8_t *mem, int pos)
+int		read_2_bytes(uint8_t *mem, long pos)
 {
 	uint32_t	sum;
 	uint8_t		parts[2];
@@ -155,7 +155,7 @@ int		read_2_bytes(uint8_t *mem, int pos)
 	return (sum);
 }
 
-void	write_2_bytes(uint8_t *mem, int pos, int value)
+void	write_2_bytes(uint8_t *mem, long pos, int value)
 {
 	int temp;
 

@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 18:29:12 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 12:06:58 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,27 @@ static void	show_arena(WINDOW *win, t_arena *arena)
 {
 	int i;
 	int j;
+	t_champion *champion;
 
 	i = 0;
 	j = 0;
+	champion = NULL;
 	while (i < MEM_SIZE)
 	{
 		while (j < VISUAL_WIDTH && (i + j) < MEM_SIZE)
 		{
-			wattrset(win, COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
+			if (arena->cells[i + j].cursor == NULL)
+				wattrset(win, COLOR_PAIR(6));
+			else
+			{
+				champion = champion_find_id(arena, arena->cells[i + j].cursor->registries[0] * -1);
+				if (champion != NULL)
+					wattrset(win, COLOR_PAIR(champion->id));
+				else
+					wattrset(win, COLOR_PAIR(5));
+			}
 			wprintw(win, "%02X", (unsigned char)(arena->mem)[i + j]);
-			attroff(COLOR_PAIR(arena->cells[i + j].taken ? 3 : 6));
+			wattrset(win, COLOR_PAIR(6));
 			wprintw(win, " ");
 			j++;
 		}
@@ -71,18 +82,18 @@ static void	print_registries(WINDOW *win, t_cursor *cursor, int y, int x)
 
 static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 {
-	show_players(arena->stats, arena);
+	show_players(arena->visualizer.stats, arena);
 	wattrset(win, COLOR_PAIR(5));
 	mvwprintw(win, 11, 3, "STATS:");
 	wattrset(win, COLOR_PAIR(6));
 	box(win, 0, 0);
-	mvwprintw(win, 13, 3, "Total cycles:\t%d", arena->cycle_count);
-	mvwprintw(win, 14, 3, "Total cursors:\t%d", arena->cursor_count);
-	mvwprintw(win, 15, 3, "Cycles to die:\t%d",
-		CYCLE_TO_DIE - arena->cycles_since_check);
+	mvwprintw(win, 13, 3, "Cycles:\t%d", arena->cycle_count);
+	mvwprintw(win, 14, 3, "Cursors:\t%d/%d", arena->cursors_active, arena->cursor_count);
+	mvwprintw(win, 15, 3, "Death:\t%d/%d",
+		arena->cycles_since_check, arena->cycles_to_die);
 	mvwprintw(win, 16, 3, "Checks:\t%d/%d", arena->check_count, MAX_CHECKS);
 	mvwprintw(win, 17, 3, "Live:\t%d", arena->live_count);
-	mvwprintw(win, 18, 3, "Speed:\t%d", arena->speed);
+	mvwprintw(win, 18, 3, "Sleep:\t%dµs", arena->visualizer.sleep);
 	if (arena->winner != NULL)
 	{
 		mvwprintw(win, 20, 3, "Winner:");
@@ -97,24 +108,44 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 		mvwprintw(win, 26, 3, "pos:\t%d", get_pos(cursor->pos, 0));
 		print_registries(win, cursor, 28, 3);
 	}
+}
 
+bool		visual_should_update(t_arena *arena)
+{
+	struct timeval  tv;
+	double time_ms;
 
+	if (!arena->visualizer.enabled)
+		return (false);
+
+	gettimeofday(&tv, NULL);
+	time_ms = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+
+	if (time_ms - arena->visualizer.updated_ms > 1000 / 60)
+	{
+		arena->visualizer.updated_ms = time_ms;
+		return (true);
+	}
+	return (false);
 }
 
 void		visual_update(t_arena *arena, t_cursor *cursor)
 {
-	if (arena->visu_flag == true)
-	{
-		if (arena->win != NULL)
-			delwin(arena->win);
-		if (arena->stats != NULL)
-			delwin(arena->stats);
-		arena->win = newwin(64, VISUAL_WIDTH, 0, 0);
-		arena->stats = newwin(64, 32, 0, VISUAL_WIDTH);
-		show_arena(arena->win, arena);
-		show_stats(arena->stats, arena, cursor);
-		wrefresh(arena->win);
-		wrefresh(arena->stats);
-		usleep(10000000 / arena->speed);
+	if (arena->visualizer.arena != NULL)
+		delwin(arena->visualizer.arena);
+	if (arena->visualizer.stats != NULL)
+		delwin(arena->visualizer.stats);
+	
+	arena->visualizer.arena = newwin(64, VISUAL_WIDTH, 0, 0);
+	arena->visualizer.stats = newwin(64, 32, 0, VISUAL_WIDTH);
+
+	show_arena(arena->visualizer.arena, arena);
+	show_stats(arena->visualizer.stats, arena, cursor);
+
+	wrefresh(arena->visualizer.arena);
+	wrefresh(arena->visualizer.stats);
+
+	if (arena->visualizer.sleep > 0) {
+		usleep(arena->visualizer.sleep);
 	}
 }
