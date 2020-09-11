@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/11 14:55:09 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/11 23:01:44 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void         vm_place_champions(t_arena *arena_s)
         arena_s->champions[i].mem_index = i * offset;
 		// TODO: write champ id in chack args according to -n flag
 		// line below is temp fix to get it running
-		arena_s->champions[i].id = i + 1;
         ft_memcpy(
             arena_s->mem + arena_s->champions[i].mem_index,
             ((const void *)(arena_s->champions[i].champ.exec_code)),
