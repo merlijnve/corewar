@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/11 11:54:21 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 14:55:09 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void         vm_introduce_champions(t_arena *arena_s)
     {
         champion = &(arena_s->champions[i]);
         if (arena_s->champions[i].id != -1)
-            ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\")\n",
+            ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
             champion->id, champion->champ.size, champion->champ.name, champion->champ.comment);
         i++;
     }

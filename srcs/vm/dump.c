@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 16:17:34 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 16:58:42 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/11 14:53:03 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	dump(uint8_t *mem)
 	j = 0;
 	while (i < MEM_SIZE)
 	{
-		ft_printf("%3d] ", i / 64);
+		ft_printf("0x%04x : ", i);
 		while (j < 64)
 		{
-			ft_printf("%02X ", mem[i + j]);
+			ft_printf("%02x ", mem[i + j]);
 			j++;
 		}
-		ft_printf("[%3d\n", i / 64);
+		ft_printf("\n");
 		j = 0;
 		i += 64;
 	}
