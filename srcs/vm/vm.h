@@ -6,13 +6,14 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/10 23:07:26 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 12:07:33 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
+# include <time.h>
 # include <ncurses.h>
 
 # include <stdbool.h>
@@ -121,6 +122,15 @@ typedef struct		s_cell
 	bool			taken;
 }					t_cell;
 
+typedef struct		s_visualizer
+{
+	bool			enabled;
+	WINDOW			*arena;
+	WINDOW			*stats;
+	int				sleep;
+	double			updated_ms;
+}					t_visualizer;
+
 /** Arena environment */
 typedef struct		s_arena
 {
@@ -161,13 +171,9 @@ typedef struct		s_arena
 	/** Check counter */
 	int				check_count;
 
+	t_visualizer	visualizer;
 	/** Operations */
 	// op_t op_tab[17];
-	/* Visual Window thingys */
-	bool			visu_flag;
-	WINDOW			*win;
-	WINDOW			*stats;
-	int				sleep;
 }					t_arena;
 
 void				print_usage(void);
@@ -260,6 +266,7 @@ bool				preload_args(t_arena *arena_s, t_cursor *cursor);
 void				visual_start(t_arena *arena);
 void				visual_update(t_arena *arena, t_cursor *cursor);
 void				visual_clear(t_arena *arena_s);
+bool				visual_should_update(t_arena *arena);
 
 void				visual_readkey(t_arena *arena);
 

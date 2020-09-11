@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/10 21:26:05 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 11:55:05 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	show_color(void)
 
 void		visual_clear(t_arena *arena_s)
 {
-	wclear(arena_s->win);
-	wclear(arena_s->stats);
+	wclear(arena_s->visualizer.arena);
+	wclear(arena_s->visualizer.stats);
 	refresh();
 }
 
