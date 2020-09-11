@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/11 12:06:58 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 12:54:00 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ bool		visual_should_update(t_arena *arena)
 	gettimeofday(&tv, NULL);
 	time_ms = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
 
-	if (time_ms - arena->visualizer.updated_ms > 1000 / 60)
+	if (time_ms - arena->visualizer.updated_ms > 1000 / VISUAL_FPS)
 	{
 		arena->visualizer.updated_ms = time_ms;
 		return (true);

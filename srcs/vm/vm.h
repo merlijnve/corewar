@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/11 12:20:44 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 12:55:35 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define DEBUG_MAX_CYCLES	0
 
 # define VISUAL_TIMEOUT		20000
+# define VISUAL_FPS			30
 # define VISUAL_WIDTH		204
 
 # define ARG_TYPE_REG		1

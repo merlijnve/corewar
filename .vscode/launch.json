@@ -10,15 +10,16 @@
       "request": "launch",
       "program": "${workspaceFolder}/srcs/vm/corewar",
       "args": [
-        "${workspaceFolder}/srcs/champion/5g_covid_vaccination.cor",
+        "${workspaceFolder}/resources/42-AI/champions/skynet.cor",
         "${workspaceFolder}/resources/42-AI/champions/_.cor",
         "${workspaceFolder}/resources/42-AI/champions/fluttershy.cor",
+        "${workspaceFolder}/resources/42-AI/champions/skynet.cor",
         "-v"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
-      "externalConsole": true,
+      "externalConsole": false,
       "MIMode": "gdb",
       "setupCommands": [
         {
