@@ -76,13 +76,13 @@ function test_suite
 export inf_loop="02 D0 00 64 10 09 00 00"
 
 test_suite "Basic instructions" "$(cat tests/basic.sh)"
-# test_suite "Carry flag" "$(cat tests/carry.sh)"
-# test_suite "Live" "$(cat tests/live.sh)"
-# test_suite "CYCLE_TO_DIE" "$(cat tests/cycle_to_die.sh)"
-# test_suite "Process order" "$(cat tests/order.sh)"
-# test_suite "Invalid instruction" "$(cat tests/bad_instruction.sh)"
-# test_suite "Concurrent modification" "$(cat tests/overwrite.sh)"
-# test_suite "Full programs" "$(cat tests/program.sh)"
+test_suite "Carry flag" "$(cat tests/carry.sh)"
+test_suite "Live" "$(cat tests/live.sh)"
+test_suite "CYCLE_TO_DIE" "$(cat tests/cycle_to_die.sh)"
+test_suite "Process order" "$(cat tests/order.sh)"
+test_suite "Invalid instruction" "$(cat tests/bad_instruction.sh)"
+test_suite "Concurrent modification" "$(cat tests/overwrite.sh)"
+test_suite "Full programs" "$(cat tests/program.sh)"
 # TODO Randomly generated tests
 # test_suite "" "$(cat tests/.sh)"
 # TODO -n flag tests

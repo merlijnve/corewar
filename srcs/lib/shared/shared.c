@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 13:01:20 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/11 23:25:56 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/12 00:51:07 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ static const t_opinfo	g_opinfo[16] =
 		.v_args =
 		{
 			{kTReg, kTDir, kTInd, kTNone},
-			{kTReg, kTInd, kTNone, kTNone},
+			{kTReg, kTDir, kTNone, kTNone},
 			{kTReg, kTNone, kTNone, kTNone},
 		}
 	},
@@ -197,8 +197,8 @@ static const t_opinfo	g_opinfo[16] =
 		.v_args =
 		{
 			{kTReg, kTDir, kTInd, kTNone},
-			{kTReg, kTInd, kTNone, kTNone},
-			{kTNone, kTNone, kTNone, kTNone},
+			{kTReg, kTDir, kTNone, kTNone},
+			{kTReg, kTNone, kTNone, kTNone},
 		}
 	},
 	{ // lfork
