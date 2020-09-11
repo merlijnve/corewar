@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/11 22:10:24 by jboer         ########   odam.nl         */
+/*   Updated: 2020/09/11 22:50:18 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ static void	set_champions(t_arena *arena, char **argv)
 		while (arena->champions[set].id != 0)
 			set++;
 		arena->champions[set] = arena->champions[i];
+		arena->champions[set].id = set + 1;
 		set_champ_zero(arena, i);
 		count++;
 	}
