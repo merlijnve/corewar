@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/11 16:11:37 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/11 19:17:10 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ typedef struct		s_arena
 
 	int				dump_flag;
 
+	int				n_flag;
+
 	int				champ_index[MAX_PLAYERS];
 
 	/** Individual cell structs **/
@@ -221,6 +223,7 @@ int					arg_length(t_args_type type, t_inst inst);
 int					args_length(t_enbyte byte, t_inst inst);
 t_enbyte 			*get_enbyte(t_arena *arena, int pos);
 void				reverse_eb(t_enbyte *eb);
+void				set_champ_zero(t_arena *arena, int i);
 
 bool 				is_valid_enbyte(t_inst inst, t_enbyte enbyte);
 

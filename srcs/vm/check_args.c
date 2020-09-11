@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/11 16:22:41 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/11 19:37:49 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	number_champ(int index, int argc, char **argv, t_arena *arena)
 	}
 	else
 		vm_error(kErrParams);
+	arena->n_flag++;
 	return (index);
 }
 
@@ -98,15 +99,33 @@ static void	loop_args(int argc, char **argv, t_arena *arena)
 	}
 }
 
-static void	add_file_name(t_arena *arena, char **argv)
+static void	set_champions(t_arena *arena, char **argv)
 {
 	int	i;
+	int	set;
+	int	count;
 
 	i = 0;
-	while (i < arena->champion_count)
+	set = 0;
+	count = 0;
+	while (i < MAX_PLAYERS)
 	{
-		arena->champions[i].file_name = argv[arena->champions[i].argv_index];
+		if (arena->champions[i].argv_index > 0)
+			arena->champions[i].file_name = argv[arena->champions[i].argv_index];
 		i++;
+	}
+	i = 0;
+	while (count < arena->champion_count)
+	{
+		while (arena->champions[i].id == 0)
+			i++;
+		if (i < arena->champion_count - i)
+			break;
+		while (arena->champions[set].id != 0)
+			set++;
+		arena->champions[set] = arena->champions[i];
+		set_champ_zero(arena, i);
+		count++;
 	}
 }
 
@@ -127,7 +146,7 @@ void		check_args(int argc, char **argv, t_arena *arena)
 	loop_args(argc, argv, arena);
 	if (arena->champion_count == 0 || arena->champion_count > MAX_PLAYERS)
 		vm_error(kErrParams, NULL);
-	while (arena->champion_count > index_fd)
+	while (arena->champion_count - arena->n_flag > index_fd)
 	{
 		if (arena->champions[index_fd].fd == 0)
 		{
@@ -139,8 +158,10 @@ void		check_args(int argc, char **argv, t_arena *arena)
 				vm_error(kErrFile, argv[arena->champions[index_fd].argv_index]);
 			c++;
 		}
+		else
+			arena->n_flag--;
 		index_fd++;
 	}
-	add_file_name(arena, argv);
-	//debug_check_args(arena);
+	set_champions(arena, argv);
+	debug_check_args(arena);
 }
