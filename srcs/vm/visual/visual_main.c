@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   visual_utils.c                                     :+:    :+:            */
+/*   visual_main.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/11 13:16:23 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 13:20:58 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	show_arena(WINDOW *win, t_arena *arena)
 	i = 0;
 	j = 0;
 	champion = NULL;
+	wmove(win, 0, 0);
 	while (i < MEM_SIZE)
 	{
 		while (j < VISUAL_WIDTH && (i + j) < MEM_SIZE)
@@ -112,12 +113,11 @@ static void	show_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 
 void		visual_update(t_arena *arena, t_cursor *cursor)
 {
-	if (arena->visualizer.arena != NULL)
-		delwin(arena->visualizer.arena);
+	if (arena->visualizer.arena == NULL)
+		arena->visualizer.arena = newwin(64, VISUAL_WIDTH, 0, 0);
 	if (arena->visualizer.stats != NULL)
 		delwin(arena->visualizer.stats);
 	
-	arena->visualizer.arena = newwin(64, VISUAL_WIDTH, 0, 0);
 	arena->visualizer.stats = newwin(64, 32, 0, VISUAL_WIDTH);
 
 	show_arena(arena->visualizer.arena, arena);
