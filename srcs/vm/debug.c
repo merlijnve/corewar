@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/29 20:58:11 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/08/31 20:26:21 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/11 16:10:13 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,19 @@ void	debug_print_mem(const void *addr, size_t size)
 		debug_printf("\n");
 		i += width;
 	}
+}
+
+void		debug_check_args(t_arena *arena)
+{
+	int		i = 0;
+
+	ft_printf("champ 1:\nchamp->id: %i\nchamp->fd: %i\nchamp->argv_index: %i\nchamp->file_name: %s\n", arena->champions[i].id, arena->champions[i].fd, arena->champions[i].argv_index, arena->champions[i].file_name);
+	i++;
+	ft_printf("champ 2:\nchamp->id: %i\nchamp->fd: %i\nchamp->argv_index: %i\nchamp->file_name: %s\n", arena->champions[i].id, arena->champions[i].fd, arena->champions[i].argv_index, arena->champions[i].file_name);
+	i++;
+	ft_printf("champ 1:\nchamp->id: %i\nchamp->fd: %i\nchamp->argv_index: %i\nchamp->file_name: %s\n", arena->champions[i].id, arena->champions[i].fd, arena->champions[i].argv_index, arena->champions[i].file_name);
+	i++;
+	ft_printf("champ 1:\nchamp->id: %i\nchamp->fd: %i\nchamp->argv_index: %i\nchamp->file_name: %s\n", arena->champions[i].id, arena->champions[i].fd, arena->champions[i].argv_index, arena->champions[i].file_name);
 }
 
 void		debug_print_cursor(t_cursor *cursor)

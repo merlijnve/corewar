@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/10 22:16:34 by jboer         ########   odam.nl         */
+/*   Updated: 2020/09/11 16:11:37 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,5 +257,7 @@ void				visual_update(t_arena *arena, t_cursor *cursor);
 void				visual_clear(t_arena *arena_s);
 
 void				visual_readkey(t_arena *arena);
+
+void				debug_check_args(t_arena *arena); //remove
 
 #endif
