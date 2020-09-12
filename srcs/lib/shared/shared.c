@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 13:01:20 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/12 00:51:07 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/12 10:26:17 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static const t_opinfo	g_opinfo[16] =
 		}
 	},
 	{ // and
-		.name = "add",
+		.name = "and",
 		.argc = 3, .dir_size = 4, .timeout = 6,
 		.has_enbyte = true,
 		.needs_address = false,
