@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/15 15:39:40 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/01 18:21:47 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/12 12:41:21 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,13 @@ int		check_champions(t_champion *champions, int champion_count)
 	i = 0;
 	while (i < champion_count)
 	{
-		ret = check_file(champions[i].fd, &champions[i]);
-		if (ret < 0)
-		{
-			vm_error(ret, champions[i].file_name);
-			exit(ret);
+		if (champions[i].id > 0) {
+			ret = check_file(champions[i].fd, &champions[i]);
+			if (ret < 0)
+			{
+				vm_error(ret, champions[i].file_name);
+				exit(ret);
+			}
 		}
 		i++;
 	}
