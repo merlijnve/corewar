@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   visual_main.c                                      :+:    :+:            */
+/*   visual_utils.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/11 13:16:17 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/12 12:16:41 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <utmp.h>
 #include <ncurses.h>
+#include <locale.h>
 
 #include "vm.h"
 
@@ -51,6 +52,23 @@ bool		visual_should_update(t_arena *arena)
 		return (true);
 	}
 	return (false);
+}
+
+void		visual_set_cursor_color(WINDOW *win, t_arena *arena, t_cursor *cursor)
+{
+	t_champion *champion;
+
+	champion = NULL;
+	if (cursor == NULL)
+		wattrset(win, COLOR_PAIR(6));
+	else
+	{
+		champion = champion_find_id(arena, cursor->registries[0] * -1);
+		if (champion != NULL)
+			wattrset(win, COLOR_PAIR(champion->id));
+		else
+			wattrset(win, COLOR_PAIR(5));
+	}
 }
 
 void		visual_start(t_arena *arena)
