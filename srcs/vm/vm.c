@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/12 14:05:20 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/12 14:19:41 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void        vm_start(t_arena *arena_s)
     if (vm_init_cursors(arena_s) != kOk)
 		; // TODO: Error message?
     vm_introduce_champions(arena_s);
-    printf("Visualzier enabled %d\n",arena_s->visualizer.enabled);
     if (arena_s->visualizer.enabled == true) 
 	    visual_start(arena_s);
     while (vm_run_cycle(arena_s))
