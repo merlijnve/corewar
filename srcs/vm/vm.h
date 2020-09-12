@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/11 22:07:13 by jboer         ########   odam.nl         */
+/*   Updated: 2020/09/12 13:50:55 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ typedef struct		s_arena
 	t_cursor		*cursors;
 
 	/** Individual player structs */
-	t_champion		champions[MAX_PLAYERS + 1];
+	t_champion		champions[MAX_PLAYERS];
 
 	/** Amount of champions **/
 	int				champion_count;
@@ -186,7 +186,7 @@ void				dump(uint8_t *mem);
 void				vm_start(t_arena *arena_s);
 bool				vm_run_cycle(t_arena *arena_s);
 
-int					check_champions(t_champion *champions, int champion_count);
+int					check_champions(t_champion *champions);
 t_champion			*champion_find_id(t_arena *arena, int id);
 
 int					init_cursors(t_arena *arena_s);

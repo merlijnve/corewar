@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/15 15:39:40 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/12 12:41:21 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/12 13:32:45 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ int		check_file(int fd, t_champion *champion)
 **	loops through array of champions to get checked
 */
 
-int		check_champions(t_champion *champions, int champion_count)
+int		check_champions(t_champion *champions)
 {
 	int			i;
 	int			ret;
 
 	i = 0;
-	while (i < champion_count)
+	while (i < MAX_PLAYERS)
 	{
 		if (champions[i].id > 0) {
 			ret = check_file(champions[i].fd, &champions[i]);

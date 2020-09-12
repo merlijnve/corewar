@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/11 23:04:17 by jboer         ########   odam.nl         */
+/*   Updated: 2020/09/12 14:10:31 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static void	loop_args(int argc, char **argv, t_arena *arena)
 
 static void	set_champions(t_arena *arena, char **argv)
 {
+	return; // NOTE: WHAT DOES THIS DO AND WHY DOES IT WORK WITHOUT?
 	int	i;
 	int	set;
 	int	count;
@@ -117,7 +118,7 @@ static void	set_champions(t_arena *arena, char **argv)
 			i++;
 		if (i < arena->champion_count - i)
 			break ;
-		while (arena->champions[set].id != 0)
+		while (arena->champions[set].id > 0)
 			set++;
 		arena->champions[set] = arena->champions[i];
 		set_champ_zero(arena, i);
@@ -146,7 +147,7 @@ void		check_args(int argc, char **argv, t_arena *arena)
 		if (arena->champions[index_fd].fd == 0)
 		{
 			arena->champions[index_fd].fd =
-			open(argv[arena->champ_index[c]], O_RDONLY);
+				open(argv[arena->champ_index[c]], O_RDONLY);
 			arena->champions[index_fd].argv_index = arena->champ_index[c];
 			arena->champions[index_fd].id = index_fd + 1;
 			if (arena->champions[index_fd].fd < 0)
@@ -158,6 +159,6 @@ void		check_args(int argc, char **argv, t_arena *arena)
 		index_fd++;
 	}
 	set_champions(arena, argv);
-	// debug_check_args(arena);
+	 //debug_check_args(arena);
 	// exit(0);
 }
