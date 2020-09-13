@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		ft_chrcnt(char *str, int chr, size_t len)
+int		ft_chrcnt(const char *str, int chr, size_t len)
 {
 	t_index		idx;
 	int			cnt;
@@ -23,6 +23,7 @@ int		ft_chrcnt(char *str, int chr, size_t len)
 	{
 		if (str[idx] == chr)
 			cnt++;
+		idx++;
 	}
 	return (cnt);
 }

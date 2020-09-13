@@ -122,7 +122,7 @@ size_t			ft_log(unsigned int base, unsigned long long n);
 char			*ft_itoa_base(long long n, unsigned int base);
 char			*ft_utoa_base(unsigned long long n, unsigned int base);
 
-int				ft_chrcnt(char *str, int chr, size_t len);
+int				ft_chrcnt(const char *str, int chr, size_t len);
 
 # pragma mark - Lists
 
