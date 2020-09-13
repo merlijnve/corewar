@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/17 22:54:16 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 14:29:11 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 19:53:56 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,8 @@ void		inst_lldi(t_arena *arena, t_cursor *cursor)
 	value = read_4_bytes(arena->mem,
 		get_pos(cursor->pos, cursor->args[0].value + cursor->args[1].value));
 	cursor->registries[cursor->args[2].value - 1] = value;
+	if (value == 0)
+		cursor->carry = 1;
+	else
+		cursor->carry = 0;
 }
