@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/09/10 21:46:27 by wmisiedj      ########   odam.nl          #
+#    Updated: 2020/09/13 14:00:43 by wmisiedj      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,8 +63,9 @@ C_SRCS = \
 	./ops/sub.c \
 	./ops/xor.c \
 	./ops/zjmp.c \
-	./utils.c \
-	./utils_2.c \
+	./bytes.c \
+	./enbytes.c \
+	./args.c \
 	./visual/visual_main.c \
 	./visual/keystrokes.c \
 	./visual/visual_utils.c \

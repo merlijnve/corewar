@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/11 00:26:38 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 13:56:40 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,14 @@ void        cursor_del(t_arena *arena, int id)
 		prev->next = found->next;
 	free(found);
 	arena->cursors_active--;
+}
+
+/*
+**	GET_POS
+**	Gets new position in arena with modulo calculation
+*/
+
+long		get_pos(long cursor_pos, long offset)
+{
+	return (ft_mod((cursor_pos + offset), MEM_SIZE));
 }

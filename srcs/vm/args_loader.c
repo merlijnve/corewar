@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/11 22:37:56 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/13 14:06:49 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int		reg_arg(uint8_t *mem, long idx, t_cursor *cursor, t_error *ret)
 	return (reg);
 }
 
-static bool	arg_for_idx(t_arena *arena, t_cursor *cur, long *offset, int nr)
+static bool		arg_for_idx(t_arena *arena, t_cursor *cur, long *offset, int nr)
 {
 	t_error		ret;
 	int			arg_len;
@@ -75,13 +75,13 @@ static bool	arg_for_idx(t_arena *arena, t_cursor *cur, long *offset, int nr)
 	return (ret);
 }
 
-bool	preload_args(t_arena *arena_s, t_cursor *cursor)
+bool			preload_args(t_arena *arena_s, t_cursor *cursor)
 {
 	t_error		ret;
 	long			offset;
 
 	ft_bzero(&cursor->args[0], sizeof(t_argument) * 3);
-	offset = 1 + (get_opinfo(cursor->opcode)->has_enbyte ? 1 : 0); // one for skip opcode + 1 for enbyte
+	offset = 1 + (get_opinfo(cursor->opcode)->has_enbyte ? 1 : 0);
 	ret = arg_for_idx(arena_s, cursor, &offset, 1);
 	if (ret == kOk)
 		ret = arg_for_idx(arena_s, cursor, &offset, 2);

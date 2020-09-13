@@ -6,7 +6,7 @@
 /*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 09:26:33 by ffredrik      #+#    #+#                 */
-/*   Updated: 2020/06/24 09:26:35 by ffredrik      ########   odam.nl         */
+/*   Updated: 2020/09/13 14:12:52 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_hdictremove(t_hdict *dict, t_hash key, void(*del)(void*))
 		head = &((*head)->next);
 
 	if (*head == NULL)
-		return ; // error
+		return ;
 	else
 	{
 		bc = (*head)->next;
