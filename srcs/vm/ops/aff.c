@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 18:05:23 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/12 01:14:44 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/12 19:45:29 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	inst_aff(t_arena *arena, t_cursor *cursor)
 {
 	if (arena == NULL || cursor == NULL)
 		return;
-	ft_printf("%c", (char)cursor->args[0].value);
+	if (arena->dump_flag == -1)
+		ft_printf("%c", (char)cursor->args[0].value);
 }
