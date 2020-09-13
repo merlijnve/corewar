@@ -6,17 +6,11 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 21:30:07 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 21:32:54 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-static int		vm_decrease_cycles(t_arena *arena_s)
-{
-    arena_s->cycles_to_die -= CYCLE_DELTA;
-    return (arena_s->cycles_to_die >= 0);
-}
 
 static int		vm_cursor_alive(t_arena *arena_s)
 {
