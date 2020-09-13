@@ -44,6 +44,7 @@ enum	e_ret
 	kSuccess = 0,
 	kError = -1,
 	kErrorAlloc = -2,
+	kErrorOpeningFile = -3,
 
 	kInputError = -10,
 	kParseError = -11,
@@ -111,6 +112,9 @@ struct	s_asm
 	char		name[PROG_NAME_LENGTH + 2];
 	char		comment[COMMENT_LENGTH + 2];
 	t_bytecode	bytecode;
+	char 		*file;
+	t_list 		*lines;
+	t_list 		*tokens;
 };
 
 struct	s_jump

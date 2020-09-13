@@ -153,5 +153,6 @@ t_ret	get_tk_for_label(char *line, t_tksave *token, t_place *loc)
 	token->str = str;
 	token->token = kTokenLabel;
 	loc->chr += idx;
+	token->loc = *loc;
 	return (kSuccess);
 }

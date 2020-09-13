@@ -20,17 +20,9 @@
 #include "tokenizer.h"
 #include "translator.h"
 #include "linker.h"
-
 #include "write_file.h"
 
 #include "debugging.h" // TODO: Remove
-
-/*
-**  TODO
-**  - lexical analysis
-**	- calculate zjmps and stuff
-**  - write to .cor file
-*/
 
 static int open_file(char *str)
 {
@@ -69,45 +61,36 @@ static t_ret setup_asmblr(t_asm **asmblr)
 
 int		main(int argc, char **argv)
 {
-	int		fd[2];
 	t_asm	*asmblr;
-	char 	*file;
-	t_list 	*lines;
-	t_list 	*tokens;
-	t_error error = {};
-
-	lines = NULL;
-	tokens = NULL;
-	file = NULL;
+	t_index	skipln;
+	int		fd[2];
+	t_error error;
 
 	error.code = setup_asmblr(&asmblr);
-
+	error.token = &error.rtoken;
 	if (error.code != kSuccess)
 		return 0;
 
 	fd[0] = check_args(argc, argv, asmblr);
-
-	read_file(fd[0], &file);
-	print_file(file);
-
-	read_lines(file, &lines);
-	print_lines(lines);
-
-	t_index linecnt;
-	linecnt = 0;
+	skipln = 0;
 	if (error.code == kSuccess)
-		error.code = get_meta_from_file(file, asmblr, &error, &linecnt);
+		error.code = read_file(fd[0], &asmblr->file);
 	if (error.code == kSuccess)
-		error.code = tokens_from_lines(lines, &tokens, linecnt);
-	print_tokens(tokens)
+		error.code = read_lines(asmblr->file, &asmblr->lines);
 	if (error.code == kSuccess)
-		error.code = translate(tokens, asmblr, &error);
+		error.code = get_meta_from_file(asmblr->file, asmblr, &error, &skipln);
+	if (error.code == kSuccess)
+		error.code = tokens_from_lines(asmblr->lines, &asmblr->tokens, skipln);
+	if (error.code == kSuccess)
+		error.code = translate(asmblr->tokens, asmblr, &error);
 	if (error.code == kSuccess)
 		error.code = asm_link(asmblr, &error);
 	if (error.code == kSuccess)
 		error.code = write_file(asmblr, open_file(argv[1]), &error);
 	if (error.code != kSuccess)
 		ft_printf("Error: %.3d Line: %.4d:%.4d [%s]\n", error.code, error.token->loc.ln, error.token->loc.chr, error.token->str);
+
+	print_tokens(asmblr->tokens);
 
 	close(fd[0]);
 	return (0);

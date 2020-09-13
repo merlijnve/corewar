@@ -37,13 +37,13 @@ void		print_tokens(t_list *tokens)
 {
 	t_tksave *part;
 
-	ft_printf("LINES:\n ++++ START ++++\n");
-	while (lines != NULL)
+	ft_printf("TOKENS:\n ++++ START ++++\n");
+	while (tokens != NULL)
 	{
-		part = lines->content;
+		part = tokens->content;
 		ft_printf("token: %.3d:%.3d %d | %s\n",
 					part->loc.ln, part->loc.chr, part->token, part->str);
-		lines = lines->next;
+		tokens = tokens->next;
 	}
 	ft_printf("++++ END ++++\n\n");
 }
