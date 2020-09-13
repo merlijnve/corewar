@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 13:56:40 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 17:22:46 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void        cursor_setpos(t_arena *arena, t_cursor *cursor, long pos)
     }
     cursor->pos = get_pos(pos, 0);
     arena->cells[get_pos(pos, 0)].cursor = cursor;
+	cursor->timeout = -1;
 }
 
 t_cursor    *cursor_add(t_arena *arena, t_cursor *clone)

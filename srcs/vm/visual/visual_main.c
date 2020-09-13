@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/12 12:16:06 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 17:43:56 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	visual_print_cursor(WINDOW *win, t_cursor *cursor)
 		get_opinfo(cursor->opcode)->name : "?", cursor->opcode);
 	mvwprintw(win, 27, 3, "timeout:\t%d", cursor->timeout);
 	mvwprintw(win, 28, 3, "pos:\t\t%d", get_pos(cursor->pos, 0));
+	mvwprintw(win, 28, 3, "last alive:\t%d", cursor->last_alive);
 	while (i < 16)
 	{
 		mvwprintw(win, 30 + i, 3, "REG [%d]:\t%d", i + 1, cursor->registries[i]);
