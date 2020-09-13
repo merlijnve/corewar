@@ -15,7 +15,7 @@
 
 # include "asm.h"
 
-t_ret tokens_from_lines(t_list *lines, t_list **tokens);
+t_ret tokens_from_lines(t_list *lines, t_list **tokens, t_index skiplines);
 t_ret add_token(t_list **tokens, t_tksave *token);
 
 # pragma mark - tokenizers
