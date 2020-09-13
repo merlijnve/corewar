@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/11 23:26:27 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/13 17:12:35 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int		vm_decrease_cycles(t_arena *arena_s)
     return (arena_s->cycles_to_die >= 0);
 }
 
-static void 	vm_cursor_alive(t_arena *arena_s)
+static int		vm_cursor_alive(t_arena *arena_s)
 {
     t_cursor	*current;
 	t_cursor	*tmp;
@@ -28,7 +28,7 @@ static void 	vm_cursor_alive(t_arena *arena_s)
     while (current)
     {
 		last_cycle = arena_s->cycle_count - current->last_alive;
-		if (last_cycle >= arena_s->cycles_to_die)
+		if (arena_s->cycles_to_die <= 0 || last_cycle >= arena_s->cycles_to_die)
 		{
 			tmp = current->next;
 			cursor_del(arena_s, current->id);
@@ -37,7 +37,7 @@ static void 	vm_cursor_alive(t_arena *arena_s)
 		else
 			current = current->next;
     }
-    arena_s->check_count++;
+	return (arena_s->cursors != NULL);
 }
 
 static void		vm_run_cursor(t_arena *arena_s, t_cursor *current)
@@ -97,25 +97,22 @@ bool			vm_run_cycle(t_arena *arena_s)
 {
 	if (arena_s->cursors == NULL)
 		return (false);
-	if (arena_s->cycles_since_check >= arena_s->cycles_to_die)
+	if (arena_s->cycles_since_check >= arena_s->cycles_to_die ||
+		arena_s->cycles_to_die <= 0)
 	{
-		vm_cursor_alive(arena_s);
+		arena_s->cycles_since_check = 0;
+		if (!vm_cursor_alive(arena_s))
+			return (false);
+		if (arena_s->live_count >= NBR_LIVE || arena_s->check_count >= MAX_CHECKS)
+			arena_s->cycles_to_die -= CYCLE_DELTA;
 		if (arena_s->live_count >= NBR_LIVE)
-		{
-			vm_decrease_cycles(arena_s);
-			arena_s->check_count = 1;
 			arena_s->live_count = 0;
-		}
 		else
 			arena_s->check_count += 1;
 		if (arena_s->check_count >= MAX_CHECKS)
-		{
-			vm_decrease_cycles(arena_s);
-			arena_s->check_count = 1;
-		}
-		arena_s->cycles_since_check = 0;
+			arena_s->check_count = 0;
 	}
-	vm_run_cursors(arena_s);
 	arena_s->cycles_since_check++;
+	vm_run_cursors(arena_s);
 	return (true);
 }
