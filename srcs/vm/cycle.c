@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 17:58:05 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 21:30:07 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		vm_cursor_alive(t_arena *arena_s)
     int      	last_cycle;
 
     current = arena_s->cursors;
-    while (current)
+    while (current != NULL)
     {
 		last_cycle = arena_s->cycle_count - current->last_alive;
 		if (arena_s->cycles_to_die <= 0 || last_cycle >= arena_s->cycles_to_die)
@@ -35,7 +35,9 @@ static int		vm_cursor_alive(t_arena *arena_s)
 			current = tmp;
 		}
 		else
+		{
 			current = current->next;
+		}
     }
 	return (arena_s->cursors != NULL);
 }
@@ -109,12 +111,12 @@ bool			vm_run_cycle(t_arena *arena_s)
 			arena_s->cycles_to_die -= CYCLE_DELTA;
 		if (arena_s->cycles_to_die < 0)
 			arena_s->cycles_to_die = 0;
+		if (arena_s->check_count >= MAX_CHECKS)
+			arena_s->check_count = 1;
 		if (arena_s->live_count >= NBR_LIVE)
 			arena_s->live_count = 1;
 		else
-			arena_s->check_count += 1;
-		if (arena_s->check_count >= MAX_CHECKS)
-			arena_s->check_count = 1;
+			arena_s->check_count++;
 		vm_cursor_alive(arena_s);
 		arena_s->cycles_since_check = 0;
 	}

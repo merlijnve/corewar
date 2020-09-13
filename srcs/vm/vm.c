@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 17:30:37 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 21:27:44 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void        vm_start(t_arena *arena_s)
         if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
             break;
 		if (arena_s->dump_flag != -1 &&
-		arena_s->dump_flag == arena_s->cycle_count)
+		arena_s->dump_flag <= arena_s->cycle_count)
 		{
 			dump(arena_s->mem);
 			exit(EXIT_SUCCESS);
