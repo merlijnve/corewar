@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 21:32:54 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 22:03:56 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,10 @@ bool			vm_run_cycle(t_arena *arena_s)
 	{
 		if (arena_s->live_count >= NBR_LIVE || arena_s->check_count >= MAX_CHECKS)
 			arena_s->cycles_to_die -= CYCLE_DELTA;
-		if (arena_s->cycles_to_die < 0)
-			arena_s->cycles_to_die = 0;
 		if (arena_s->check_count >= MAX_CHECKS)
-			arena_s->check_count = 1;
+			arena_s->check_count = 0;
 		if (arena_s->live_count >= NBR_LIVE)
-			arena_s->live_count = 1;
+			arena_s->live_count = 0;
 		else
 			arena_s->check_count++;
 		vm_cursor_alive(arena_s);
