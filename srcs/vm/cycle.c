@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 17:37:00 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 17:58:05 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ static void		vm_run_cursor(t_arena *arena_s, t_cursor *current)
 			get_op_func(current->opcode)(arena_s, current);
 		}
 		if (current->jump == 0)
+		{
 			current->jump = args_length(enbyte, current->opcode);
+			if (current->opcode == kInstAff && !is_valid_enbyte(current->opcode, enbyte) && (enbyte.arg1 + enbyte.arg2 + enbyte.arg3 + enbyte.arg4) != 0)
+				current->jump -= 8;
+		}
 	}
 	else
 		current->jump = 1;
