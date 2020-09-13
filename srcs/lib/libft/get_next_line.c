@@ -6,7 +6,7 @@
 /*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/06 16:39:38 by ffredrik      #+#    #+#                 */
-/*   Updated: 2019/02/11 20:48:31 by ffredrik      ########   odam.nl         */
+/*   Updated: 2020/09/13 14:12:03 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			read_from_file(const int fd, t_dict *cache)
 	buff = (char *)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1));
 	last_read = read(fd, buff, BUFF_SIZE);
 	if (last_read < 0)
-		rc = kError; // TODO: correct error
+		rc = kError;
 	if (last_read == 0 && rc != kError)
 		rc = kEndLine;
 	curd = ft_dictget(cache, fd);

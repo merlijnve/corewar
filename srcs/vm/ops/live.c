@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/11 14:50:06 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/13 14:07:01 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	inst_live(t_arena *arena, t_cursor *cursor)
 
 	arena->live_count += 1;
 	champ = NULL;
-	if (cursor->args[0].value == cursor->registries[0]) // -2 == -2 == TRUE
+	if (cursor->args[0].value == cursor->registries[0])
 	{
 		champ = find_player_id(arena, cursor->registries[0] * -1);
 		if (champ != NULL)

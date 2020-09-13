@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   live.c                                             :+:    :+:            */
+/*   ops.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/06 10:00:00 by floris        ########   odam.nl         */
+/*   Updated: 2020/09/13 13:55:03 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,30 @@ static const t_op_func g_op_funcs[17] =
 	inst_aff
 };
 
-t_op_func get_op_func(t_inst inst)
+t_op_func	get_op_func(t_inst inst)
 {
 	if (is_opcode(inst))
 		return (g_op_funcs[inst]);
 	return (NULL);
 };
+
+bool		is_opcode(t_inst inst)
+{
+	if (inst >= kInstLive && inst <= kInstAff)
+		return (true);
+	else
+		return (false);
+}
+
+/*
+**	GET_TIMEOUT
+**	Get timeout per instruction
+*/
+
+int			get_timeout(t_inst inst)
+{
+	if (is_opcode(inst))
+		return (get_opinfo(inst)->timeout);
+	else
+		return (0);
+}

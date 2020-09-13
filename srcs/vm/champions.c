@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 21:39:36 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/10 22:57:27 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 14:32:03 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,25 @@ t_champion	*champion_find_id(t_arena *arena, int id)
 		i++;
 	}
 	return (NULL);
+}
+
+void		set_champ_zero(t_arena *arena, int i)
+{
+	arena->champions[i].id = 0;
+	arena->champions[i].fd = 0;
+	arena->champions[i].argv_index = 0;
+	arena->champions[i].file_name = NULL;
+}
+
+void		set_champ_name(t_arena *arena, char **argv)
+{
+	int		i;
+
+	i = 0;
+	while (i < MAX_PLAYERS)
+	{
+		if (arena->champions[i].argv_index > 0)
+			arena->champions[i].file_name = argv[arena->champions[i].argv_index];
+		i++;
+	}
 }
