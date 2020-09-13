@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/09 20:48:30 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/12 00:04:40 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/13 13:15:23 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,4 +176,25 @@ int		is_registry(int arg)
 	if (arg > 0 && arg <= REG_NUMBER)
 		return (true);
 	return (false);
+}
+
+void		set_champ_zero(t_arena *arena, int i)
+{
+	arena->champions[i].id = 0;
+	arena->champions[i].fd = 0;
+	arena->champions[i].argv_index = 0;
+	arena->champions[i].file_name = NULL;
+}
+
+void		set_champ_name(t_arena *arena, char **argv)
+{
+	int		i;
+
+	i = 0;
+	while (i < MAX_PLAYERS)
+	{
+		if (arena->champions[i].argv_index > 0)
+			arena->champions[i].file_name = argv[arena->champions[i].argv_index];
+		i++;
+	}
 }
