@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/13 13:15:15 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 14:02:39 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,28 +213,29 @@ void				get_argument_types(uint8_t *mem, t_cursor *cursor);
 int					get_direct_argument(char *mem, int t_dir_size, long pos);
 int					get_indirect_argument(char *mem, int cursor_pos, int arg_pos, bool idx);
 
-#pragma mark - Utils
+#pragma mark - Bytes
 
-// TODO: check if can be removed?
-int					ft_strntoi(unsigned char *str, int n);
-// TODO: check if can be removed?
 uint32_t			rev_bytes_32(uint32_t value);
-
-#pragma mark - Utils 2
-
-bool				is_opcode(t_inst inst);
-int					get_timeout(t_inst inst);
-long				get_pos(long cursor_pos, long offset);
 int					read_4_bytes(uint8_t *mem, long pos);
 void				write_4_bytes(uint8_t *mem, long pos, int value);
 int					read_2_bytes(uint8_t *mem, long pos);
 void				write_2_bytes(uint8_t *mem, long pos, int value);
+
+#pragma mark - Utils 2
+
+t_enbyte 			*get_enbyte(t_arena *arena, long pos);
+void				reverse_eb(t_enbyte *eb);
+
+bool				is_opcode(t_inst inst);
+int					get_timeout(t_inst inst);
+
+long				get_pos(long cursor_pos, long offset);
 int					is_registry(int arg);
+
 t_args_type 		get_arg(t_enbyte byte, t_inst inst, int argnr);
 int					arg_length(t_args_type type, t_inst inst);
 int					args_length(t_enbyte byte, t_inst inst);
-t_enbyte 			*get_enbyte(t_arena *arena, long pos);
-void				reverse_eb(t_enbyte *eb);
+
 void				set_champ_zero(t_arena *arena, int i);
 void				set_champ_name(t_arena *arena, char **argv);
 

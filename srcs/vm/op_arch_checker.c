@@ -6,13 +6,13 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 13:01:20 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/09 21:12:48 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/13 13:59:18 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static bool is_valid_arg(t_inst inst, t_args_type type, int argnr)
+static bool	is_valid_arg(t_inst inst, t_args_type type, int argnr)
 {
 	t_enbyte byte;
 
@@ -32,7 +32,7 @@ static bool is_valid_arg(t_inst inst, t_args_type type, int argnr)
 }
 
 // TODO: does it matter if ther is no 0b00 in 4th unused part of enbyte?
-bool is_valid_enbyte(t_inst inst, t_enbyte enbyte)
+bool		is_valid_enbyte(t_inst inst, t_enbyte enbyte)
 {
 	bool ret;
 
