@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isspace.c                                       :+:    :+:            */
+/*   ft_atoi.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/19 19:30:31 by ffredrik      #+#    #+#                 */
-/*   Updated: 2019/02/07 15:40:25 by ffredrik      ########   odam.nl         */
+/*   Created: 2020/09/13 13:00:00 by ffredrik      #+#    #+#                 */
+/*   Updated: 2020/09/13 13:00:00 by ffredrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isspace_h(int c)
+int		ft_chrcnt(char *str, int chr, size_t len)
 {
-	if (c == '\t' || c == ' ')
-		return (1);
-	else
-		return (0);
-}
+	t_index		idx;
+	int			cnt;
 
-int		ft_isspace_v(int c)
-{
-	if (c == '\n' || c == '\v' || c == '\f' || c == '\r')
-		return (1);
-	else
-		return (0);
-}
-
-int		ft_isspace(int c)
-{
-	if (ft_isspace_h(c) || ft_isspace_v(c) )
-		return (1);
-	else
-		return (0);
+	idx = 0;
+	cnt = 0;
+	while (str[idx] != '\0' && (len >= idx || len == 0))
+	{
+		if (str[idx] == chr)
+			cnt++;
+	}
+	return (cnt);
 }
