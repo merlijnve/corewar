@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 17:54:26 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/13 21:28:44 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ static void		vm_run_cursors(t_arena *arena_s)
 
 bool			vm_run_cycle(t_arena *arena_s)
 {
+	//FILE *file;
 	if (arena_s->cursors == NULL)
 		return (false);
 	if (arena_s->cycles_since_check >= arena_s->cycles_to_die)
@@ -121,5 +122,7 @@ bool			vm_run_cycle(t_arena *arena_s)
 	}
 	vm_run_cursors(arena_s);
 	arena_s->cycles_since_check++;
+	//file = fopen("~/Desktop/test.txt", "w");
+	//fprintf(file, "r: %i\n", arena_s->cursors->registries[0]);
 	return (true);
 }
