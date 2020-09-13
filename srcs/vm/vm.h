@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/13 14:02:39 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 14:06:14 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,16 @@
 # define KEY_SPACE			32
 # define KEY_ESC			27
 
-/*
-** Player struct
-*/
-
 typedef struct		s_cw_champ_file
 {
-	uint32_t		magic; // 4
-	char			name[PROG_NAME_LENGTH]; // 128
-	uint32_t		nt_name; // 4
-	uint32_t		size; // 4
-	char			comment[COMMENT_LENGTH]; // 2048
-	uint32_t		nt_comment; // 4
-	// SUB TOTAL: 2192
-	char			exec_code[CHAMP_MAX_SIZE]; // 682 % 4 = 2
-	// SUB TOTAL: 2874
-}					t_cw_champ_file; // TOTAL: 1850 ?
-// 2874 % 4 = 2
+	uint32_t		magic;
+	char			name[PROG_NAME_LENGTH];
+	uint32_t		nt_name;
+	uint32_t		size;
+	char			comment[COMMENT_LENGTH];
+	uint32_t		nt_comment;
+	char			exec_code[CHAMP_MAX_SIZE];
+}					t_cw_champ_file;
 
 typedef struct		s_champion
 {
@@ -80,25 +73,11 @@ typedef struct		s_champion
 	char			*file_name;
 }					t_champion;
 
-/** Additional cell information */
-
-
-/*
-**	Argument type can be value of
-**	- T_REG = 0x01 = 1
-**	- T_DIR = 0x10 = 2
-**	- T_IND = 0x11 = 3
-**	- empty = 0x00 = 0
-*/
-
 typedef struct		s_argument
 {
 	t_args_type		type;
 	int32_t			value;
 }					t_argument;
-
-
-/** Individual cursor */
 
 typedef struct s_cursor	t_cursor;
 
@@ -119,8 +98,6 @@ struct		s_cursor
 typedef struct		s_cell
 {
 	t_cursor		*cursor;
-	char			hex;
-	bool			taken;
 }					t_cell;
 
 typedef struct		s_visualizer
@@ -132,51 +109,32 @@ typedef struct		s_visualizer
 	double			updated_ms;
 }					t_visualizer;
 
-/** Arena environment */
 typedef struct		s_arena
 {
-	t_cursor		*cursors;
-
-	/** Individual player structs */
 	t_champion		champions[MAX_PLAYERS];
-
-	/** Amount of champions **/
+	int				champ_index[MAX_PLAYERS];
 	int				champion_count;
-
+	
+	t_cursor		*cursors;
 	int				cursor_count;
 	int				cursors_active;
 
 	int				dump_flag;
-
 	int				n_flag;
 
-	int				champ_index[MAX_PLAYERS];
-
-	/** Individual cell structs **/
 	t_cell			cells[MEM_SIZE + 1];
-
-	/** Raw memory array of arena **/
 	uint8_t			mem[MEM_SIZE + 1];
 
-	/** Current winner player id */
 	t_champion		*winner;
 
-	/** Cycles before we die */
 	int				cycles_to_die;
-
-	/** Current count of cycles past */
-	int				cycle_count;
-
 	int				cycles_since_check;
 
+	int				cycle_count;
 	int				live_count;
-
-	/** Check counter */
 	int				check_count;
 
 	t_visualizer	visualizer;
-	/** Operations */
-	// op_t op_tab[17];
 }					t_arena;
 
 void				print_usage(void);

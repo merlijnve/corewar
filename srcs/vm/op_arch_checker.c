@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 13:01:20 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/13 13:59:18 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 14:25:53 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ bool		is_valid_enbyte(t_inst inst, t_enbyte enbyte)
 		ret = is_valid_arg(inst, enbyte.arg2, 2);
 	if (ret)
 		ret = is_valid_arg(inst, enbyte.arg3, 3);
+	if (ret)
+		ret = (enbyte.arg4 == kTNone);
 	return (ret);
 }

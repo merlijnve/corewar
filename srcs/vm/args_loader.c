@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/13 13:57:16 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 14:06:49 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ bool			preload_args(t_arena *arena_s, t_cursor *cursor)
 	long			offset;
 
 	ft_bzero(&cursor->args[0], sizeof(t_argument) * 3);
-	offset = 1 + (get_opinfo(cursor->opcode)->has_enbyte ? 1 : 0); // one for skip opcode + 1 for enbyte
+	offset = 1 + (get_opinfo(cursor->opcode)->has_enbyte ? 1 : 0);
 	ret = arg_for_idx(arena_s, cursor, &offset, 1);
 	if (ret == kOk)
 		ret = arg_for_idx(arena_s, cursor, &offset, 2);
