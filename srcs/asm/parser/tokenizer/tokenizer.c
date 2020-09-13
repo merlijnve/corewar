@@ -35,19 +35,15 @@ t_ret add_token(t_list **tokens, t_tksave *token)
 	return (kSuccess);
 }
 
-t_ret tokens_from_lines(t_list *lines, t_list **tokens)
+t_ret tokens_from_lines(t_list *lines, t_list **tokens, t_index skiplines)
 {
 	t_ret		ret;
 	t_line_type	type;
 	ret = kSuccess;
 
 	// TODO: Replace this with metaparser
-	while (lines != NULL) {
-		type = line_type(lines->content);
-		if (type == kInstLine || type == kInstLabelLine || type == kLabelLine)
-			break ;
+	while (lines != NULL && lines->content_size < skiplines)
 		lines = lines->next;
-	}
 
 	while (lines != NULL)
 	{

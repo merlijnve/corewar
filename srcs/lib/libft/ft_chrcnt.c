@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   dump.c                                             :+:    :+:            */
+/*   ft_atoi.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
+/*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/10 16:17:34 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/13 19:03:15 by mvan-eng      ########   odam.nl         */
+/*   Created: 2020/09/13 13:00:00 by ffredrik      #+#    #+#                 */
+/*   Updated: 2020/09/13 13:00:00 by ffredrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "libft.h"
 
-void	dump(uint8_t *mem)
+int		ft_chrcnt(const char *str, int chr, size_t len)
 {
-	int i;
-	int j;
+	t_index		idx;
+	int			cnt;
 
-	i = 0;
-	j = 0;
-	while (i < MEM_SIZE)
+	idx = 0;
+	cnt = 0;
+	while (str[idx] != '\0' && (len >= idx || len == 0))
 	{
-		ft_printf("0x%04x : ", i);
-		while (j < 64)
-		{
-			ft_printf("%02x ", mem[i + j]);
-			j++;
-		}
-		ft_printf("\n");
-		j = 0;
-		i += 64;
+		if (str[idx] == chr)
+			cnt++;
+		idx++;
 	}
-	exit(EXIT_SUCCESS);
+	return (cnt);
 }

@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   metaparse.h                                        :+:    :+:            */
+/*   write_file.h                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/27 13:01:20 by floris        #+#    #+#                 */
-/*   Created: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
+/*   Created: 2020/09/08 14:41:00 by floris        #+#    #+#                 */
+/*   Updated: 2020/09/08 14:41:00 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef METAPARSE_H
-# define METAPARSE_H
+#ifndef WRITE_FILE_H
+#define WRITE_FILE_H
 
-# include "asm.h"
+#include "asm.h"
 
-t_ret	get_meta_from_file
-	(const char *file, t_asm *asmblr, t_error *error, t_index *lines);
+t_ret	write_file(t_asm *asmblr, int fd, t_error *error);
 
 #endif

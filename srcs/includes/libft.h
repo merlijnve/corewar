@@ -114,11 +114,15 @@ char			*ft_strichr(const char *s, int c);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strctrim(char const *s, char c);
 int				ft_islower(int c);
-int				ft_isspace(int c);
 int				ft_isupper(int c);
+int				ft_isspace(int c);
+int				ft_isspace_h(int c);
+int				ft_isspace_v(int c);
 size_t			ft_log(unsigned int base, unsigned long long n);
 char			*ft_itoa_base(long long n, unsigned int base);
 char			*ft_utoa_base(unsigned long long n, unsigned int base);
+
+int				ft_chrcnt(const char *str, int chr, size_t len);
 
 # pragma mark - Lists
 
