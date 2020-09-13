@@ -53,7 +53,7 @@ do
 		champs="$champs $champ"
 	else
 		# Champion from bytecode
-		./makeChampion.sh "$champ" "test_champ_$i" > /tmp/champ$i.cor
+		bash ./makeChampion.sh "$champ" "test_champ_$i" > /tmp/champ$i.cor
 		if [ $? -ne 0 ]
 		then
 			printerr "Champion creation failed."
@@ -73,13 +73,13 @@ function cycle_dump_test
 		printf " $cycle"
 
 		# Generate dump files
-		sh dump.sh zaz.info $cycle "$champs" > /tmp/cor_expected_dump
+		./dump.sh zaz.info $cycle "$champs" > /tmp/cor_expected_dump
 		if [ $? -ne 0 ]
 		then
 			printerr "Failed to dump zaz's corewar."
 			exit 1
 		fi
-		sh dump.sh user.info $cycle "$champs" > /tmp/cor_actual_dump
+		./dump.sh user.info $cycle "$champs" > /tmp/cor_actual_dump
 		if [ $? -ne 0 ]
 		then
 			printerr "Failed to dump user's corewar."

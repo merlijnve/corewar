@@ -29,7 +29,7 @@ corewar=$1/corewar
 
 echo "Extracting information..."
 # Extract victory message
-sh makeChampion.sh "" __NAME__ > /tmp/empty.cor
+bash ./makeChampion.sh "" __NAME__ > /tmp/empty.cor
 if [ ! -f /tmp/empty.cor ]
 then
 	printerr "makeChampion.sh failed to create champion."
@@ -53,7 +53,7 @@ fi
 victory_format=$(echo "$victory_message" | sed 's/1/__NUM__/1')
 
 # Extract dump format
-sh makeChampion.sh "11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF" > /tmp/alphabet.cor
+./makeChampion.sh "11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF" > /tmp/alphabet.cor
 output=$($corewar -dump 1 /tmp/alphabet.cor)
 status=$?
 if [ $status != 0 ]
