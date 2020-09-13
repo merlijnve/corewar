@@ -16,23 +16,16 @@
 #include "input_parser.h"
 #include "tokenizer.h"
 
-static char *inst_strs[16] =
-{
-	"live", "ld", "st", "add", "sub", "and", "or", "xor", "zjmp",
-	"ldi", "sti", "fork", "lld", "lldi", "lfork", "aff"
-};
-
-
 t_inst	is_inst(char *line)
 {
-	t_index idx;
+	int		idx;
 	t_inst	inst;
 
 	idx = 0;
 	inst = kInstNone;
 	while (idx < 16 && inst == kInstNone)
 	{
-		if (ft_strcmp(line, inst_strs[idx]) == 0)
+		if (ft_strcmp(line, get_opinfo(idx + 1)->name) == 0)
 			inst = (t_inst)(idx + 1);
 		idx++;
 	}

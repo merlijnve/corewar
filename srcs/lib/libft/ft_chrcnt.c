@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   metaparse.h                                        :+:    :+:            */
+/*   ft_atoi.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: floris <ffredrik@student.codam.nl>           +#+                     */
+/*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/27 13:01:20 by floris        #+#    #+#                 */
-/*   Created: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
+/*   Created: 2020/09/13 13:00:00 by ffredrik      #+#    #+#                 */
+/*   Updated: 2020/09/13 13:00:00 by ffredrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef METAPARSE_H
-# define METAPARSE_H
+#include "libft.h"
 
-# include "asm.h"
+int		ft_chrcnt(const char *str, int chr, size_t len)
+{
+	t_index		idx;
+	int			cnt;
 
-t_ret	get_meta_from_file
-	(const char *file, t_asm *asmblr, t_error *error, t_index *lines);
-
-#endif
+	idx = 0;
+	cnt = 0;
+	while (str[idx] != '\0' && (len >= idx || len == 0))
+	{
+		if (str[idx] == chr)
+			cnt++;
+		idx++;
+	}
+	return (cnt);
+}

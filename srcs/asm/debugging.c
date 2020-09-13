@@ -33,7 +33,7 @@ void		print_lines(t_list *lines)
 	ft_printf("++++ END ++++\n\n");
 }
 
-void		print_tokens(t_list *lines)
+void		print_tokens(t_list *tokens)
 {
 	t_tksave *part;
 
