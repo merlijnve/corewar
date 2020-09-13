@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 16:17:34 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/11 14:53:03 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/13 19:03:15 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void	dump(uint8_t *mem)
 		j = 0;
 		i += 64;
 	}
+	exit(EXIT_SUCCESS);
 }
