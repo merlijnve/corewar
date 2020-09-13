@@ -55,6 +55,10 @@ enum	e_ret
 	kLinkNotFoundError = -41,
 
 	kTokenError = -50,
+
+	kMetaParseError = -60,
+	kMPNameTooLong = -61,
+	kMPCommentTooLong = -62,
 };
 
 enum    e_line_type
@@ -104,7 +108,7 @@ struct	s_bytecode
 struct	s_asm
 {
 	int			n_flags;
-	char		name[COMMENT_LENGTH + 2];
+	char		name[PROG_NAME_LENGTH + 2];
 	char		comment[COMMENT_LENGTH + 2];
 	t_bytecode	bytecode;
 };
