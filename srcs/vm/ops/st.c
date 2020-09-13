@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/18 20:13:20 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 14:29:24 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/11 22:51:07 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ void		inst_st(t_arena *arena, t_cursor *cursor)
 	if (arena == NULL || cursor == NULL)
 		return;
 	if (cursor->args[1].type == kTReg)
-		cursor->registries[cursor->args[1].value] = cursor->registries[cursor->args[0].value - 1];
+		cursor->registries[cursor->args[1].value - 1] = cursor->registries[cursor->args[0].value - 1];
 	else
 	{
-		// TODO: Check if adress is correct
 		write_4_bytes(&arena->mem[0], get_pos(cursor->pos, cursor->args[1].value), cursor->registries[cursor->args[0].value - 1]);
 	}
 }

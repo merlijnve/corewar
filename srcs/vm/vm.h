@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/12 13:50:55 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/13 13:15:15 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,6 +270,7 @@ bool				preload_args(t_arena *arena_s, t_cursor *cursor);
 
 void				visual_start(t_arena *arena);
 void				visual_update(t_arena *arena, t_cursor *cursor);
+void				visual_set_cursor_color(WINDOW *win, t_arena *arena, t_cursor *cursor);
 void				visual_clear(t_arena *arena_s);
 bool				visual_should_update(t_arena *arena);
 

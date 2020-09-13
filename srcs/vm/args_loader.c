@@ -6,9 +6,10 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/07 12:00:00 by floris        ########   odam.nl         */
+/*   Updated: 2020/09/11 22:37:56 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "vm.h"
 
 static int		ind_arg(uint8_t *mem, t_cursor *cursor, long idx)
