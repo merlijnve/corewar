@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/13 14:06:49 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 15:39:44 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,11 @@ static bool		arg_for_idx(t_arena *arena, t_cursor *cur, long *offset, int nr)
 		cur->args[nr - 1].type = type;
 		arg_len = arg_length(type, cur->opcode);
 		if (type == kTInd)
-			cur->args[nr - 1].value = ind_arg(arena->mem, cur ,cur->pos + *offset);
+			cur->args[nr - 1].value = ind_arg(arena->mem, cur,
+			cur->pos + *offset);
 		if (type == kTDir)
-			cur->args[nr - 1].value = dir_arg(arena->mem, cur->pos + *offset, get_opinfo(cur->opcode)->dir_size);
+			cur->args[nr - 1].value = dir_arg(arena->mem,
+			cur->pos + *offset, get_opinfo(cur->opcode)->dir_size);
 		if (type == kTReg)
 			cur->args[nr - 1].value = reg_arg(arena->mem, *offset, cur, &ret);
 		*offset += arg_len;
@@ -78,7 +80,7 @@ static bool		arg_for_idx(t_arena *arena, t_cursor *cur, long *offset, int nr)
 bool			preload_args(t_arena *arena_s, t_cursor *cursor)
 {
 	t_error		ret;
-	long			offset;
+	long		offset;
 
 	ft_bzero(&cursor->args[0], sizeof(t_argument) * 3);
 	offset = 1 + (get_opinfo(cursor->opcode)->has_enbyte ? 1 : 0);

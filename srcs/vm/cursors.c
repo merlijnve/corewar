@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/01 17:08:19 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 17:22:46 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 15:08:56 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,41 +22,41 @@ int			cursor_get_pid(t_cursor *cursor)
 	return (0);
 }
 
-void        cursor_setpos(t_arena *arena, t_cursor *cursor, long pos)
+void		cursor_setpos(t_arena *arena, t_cursor *cursor, long pos)
 {
-    if (cursor->pos != -1) {
-		if (get_pos(cursor->pos, 0) < 0) {
+	if (cursor->pos != -1)
+	{
+		if (get_pos(cursor->pos, 0) < 0)
 			ft_printf("I'm too small too!");
-		}
-        arena->cells[get_pos(cursor->pos, 0)].cursor = NULL;
-    }
-    cursor->pos = get_pos(pos, 0);
-    arena->cells[get_pos(pos, 0)].cursor = cursor;
+		arena->cells[get_pos(cursor->pos, 0)].cursor = NULL;
+	}
+	cursor->pos = get_pos(pos, 0);
+	arena->cells[get_pos(pos, 0)].cursor = cursor;
 	cursor->timeout = -1;
 }
 
-t_cursor    *cursor_add(t_arena *arena, t_cursor *clone)
+t_cursor	*cursor_add(t_arena *arena, t_cursor *clone)
 {
-    t_cursor *cursor;
+	t_cursor *cursor;
 
-    cursor = (t_cursor *)ft_memalloc(sizeof(t_cursor));
-    cursor->pos = -1;
-    if (cursor == NULL)
-        return (NULL);
-    else
-    {
-        if (clone != NULL)
+	cursor = (t_cursor *)ft_memalloc(sizeof(t_cursor));
+	cursor->pos = -1;
+	if (cursor == NULL)
+		return (NULL);
+	else
+	{
+		if (clone != NULL)
 			ft_memcpy(cursor, clone, sizeof(t_cursor));
-        cursor->next = arena->cursors;
-        arena->cursor_count++;
+		cursor->next = arena->cursors;
+		arena->cursor_count++;
 		arena->cursors_active++;
 		arena->cursors = cursor;
 		cursor->id = arena->cursor_count;
-    }
-    return (arena->cursors);
+	}
+	return (arena->cursors);
 }
 
-void        cursor_del(t_arena *arena, int id)
+void		cursor_del(t_arena *arena, int id)
 {
 	t_cursor *temp;
 	t_cursor *prev;
@@ -76,7 +76,7 @@ void        cursor_del(t_arena *arena, int id)
 		temp = temp->next;
 	}
 	if (found == NULL)
-		return;
+		return ;
 	if (arena->cursors == found)
 		arena->cursors = found->next;
 	else if (prev != NULL)

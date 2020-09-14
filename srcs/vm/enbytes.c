@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_2.c                                          :+:    :+:            */
+/*   enbytes.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/09 20:48:30 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/13 13:56:31 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 15:52:05 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		reverse_eb(t_enbyte *eb)
 t_enbyte	*get_enbyte(t_arena *arena, long pos)
 {
 	t_enbyte *eb;
+	
 	eb = (t_enbyte *)&arena->mem[get_pos(pos, 1)];
 	return (eb);
 }

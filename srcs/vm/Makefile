@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/09/13 14:00:43 by wmisiedj      ########   odam.nl          #
+#    Updated: 2020/09/14 16:18:22 by joris         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,9 @@ C_SRCS = \
 	./debug.c \
 	./errors/errors.c \
 	./get_arguments.c \
+	./cursor_util.c \
 	./main.c \
-	./op.c \
-	./op_arch_checker.c \
+	./op_arg_checker.c \
 	./ops/add.c \
 	./ops/aff.c \
 	./ops/and.c \
