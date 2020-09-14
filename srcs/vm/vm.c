@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 21:32:33 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 13:20:27 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,16 +106,17 @@ void				vm_start(t_arena *arena_s)
 	if (vm_init_cursors(arena_s) != kOk)
 		; // TODO: Error message?
 	vm_introduce_champions(arena_s);
+    if (arena_s->dump_flag == 0)
+			dump(arena_s->mem);
 	if (arena_s->visualizer.enabled == true)
 		visual_start(arena_s);
 	while (vm_run_cycle(arena_s))
 	{
-		arena_s->cycle_count++;
-		if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
-			break ;
-		if (arena_s->dump_flag != -1 &&
-		arena_s->dump_flag <= arena_s->cycle_count)
+        arena_s->cycle_count++;
+		if (arena_s->dump_flag == arena_s->cycle_count)
 			dump(arena_s->mem);
+        if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
+			break ;
 	}
 	if (arena_s->visualizer.enabled)
 		visual_clear(arena_s);
