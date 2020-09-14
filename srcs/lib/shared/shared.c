@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 13:01:20 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/13 14:08:20 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 23:45:30 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ static const t_opinfo	g_opinfo[16] =
 		.name = "sti",
 		.argc = 3, .dir_size = 2, .timeout = 25,
 		.has_enbyte = true,
-		.needs_address = true,
+		.needs_address = false,
 		.mod_trunc = true,
 		.v_args =
 		{
