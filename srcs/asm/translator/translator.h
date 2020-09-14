@@ -44,7 +44,8 @@ t_ret 		translate_aff(t_asm *asmblr, t_tksave parts[], t_error *error);
 void		put_instruction(t_bytecode *bytecode, t_inst inst);
 void		put_encode(t_bytecode *bc, t_enbyte enbyte);
 t_ret		put_registry(t_bytecode *bc, unsigned int reg);
-t_ret		put_direct(t_asm *asmblr, t_tksave *token, size_t dsize);
+t_ret		put_direct
+	(t_asm *asmblr, t_tksave *token, size_t dsize, t_error *error);
 t_ret		put_indirect(t_asm *asmblr, t_tksave *token, size_t dsize);
 
 #pragma mark - utils

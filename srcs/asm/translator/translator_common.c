@@ -61,7 +61,7 @@ t_ret put_indirect(t_asm *asmblr, t_tksave *token, size_t dsize)
 	return (kSuccess);
 }
 
-t_ret put_direct(t_asm *asmblr, t_tksave *token, size_t dsize)
+t_ret put_direct(t_asm *asmblr, t_tksave *token, size_t dsize, t_error *error)
 {
 	t_list *item;
 	t_jump *jump;

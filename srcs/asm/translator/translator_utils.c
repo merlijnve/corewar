@@ -52,7 +52,7 @@ t_ret	put_part(t_asm *asmblr, t_tksave *part, t_inst inst, t_error *error)
 	if (tft(part->token) == kTReg)
 		ret = put_registry(&asmblr->bytecode, asm_regtoint(part->str));
 	else if (tft(part->token) == kTDir)
-		ret = put_direct(asmblr, part, dir_size(inst));
+		ret = put_direct(asmblr, part, dir_size(inst), error);
 	else if (tft(part->token) == kTInd)
 		ret = put_indirect(asmblr, part, 2);
 	if (ret != kSuccess)

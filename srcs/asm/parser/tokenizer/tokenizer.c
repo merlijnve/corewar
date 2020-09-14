@@ -42,7 +42,7 @@ t_ret tokens_from_lines(t_list *lines, t_list **tokens, t_index skiplines, t_err
 	ret = kSuccess;
 
 	// TODO: Replace this with metaparser
-	while (lines != NULL && lines->content_size < skiplines)
+	while (lines != NULL && lines->content_size < skiplines + 1)
 		lines = lines->next;
 
 	while (lines != NULL && ret == kSuccess)
