@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/13 14:06:14 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 12:53:16 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct		s_visualizer
 	WINDOW			*stats;
 	int				sleep;
 	double			updated_ms;
+	bool			framemode;
 }					t_visualizer;
 
 typedef struct		s_arena
