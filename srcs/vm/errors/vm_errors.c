@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   errors.c                                           :+:    :+:            */
+/*   vm_errors.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/29 15:25:41 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/14 16:35:40 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/14 20:45:46 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			print_error(const char *format, va_list ap)
 	return (ft_vdprintf(STDERR_FILENO, format, ap));
 }
 
-static int	error_message(int e, va_list ap)
+static void	error_message(int e, va_list ap)
 {
 	if (e == kErrParams)
 		print_usage();
