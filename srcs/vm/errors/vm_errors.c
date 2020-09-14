@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/29 15:25:41 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/14 20:45:46 by jboer         ########   odam.nl         */
+/*   Updated: 2020/09/14 22:22:54 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		vm_error(int e, ...)
 
 	msg = NULL;
 	va_start(ap, e);
-	if (e > 0 && e < 100)
+	if (e < 0 && e > -100)
 		error_message(e, ap);
 	else
 	{
