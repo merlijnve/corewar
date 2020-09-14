@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/08 15:39:12 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/15 00:14:58 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/15 01:34:25 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	change_speed(int key, t_arena *arena)
 				exit(EXIT_SUCCESS);
 			usleep(10000);
 		}
-		return;
+		return ;
 	}
 	if (key == KEY_UP && arena->visualizer.sleep < INT32_MAX)
 		arena->visualizer.sleep += 100;
