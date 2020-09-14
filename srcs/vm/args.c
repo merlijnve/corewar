@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/13 13:48:52 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 14:30:32 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 15:38:14 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int				args_length(t_enbyte byte, t_inst inst)
 **	Checks if given argument is a valid registry
 */
 
-int			is_registry(int arg)
+int				is_registry(int arg)
 {
 	if (arg > 0 && arg <= REG_NUMBER)
 		return (true);

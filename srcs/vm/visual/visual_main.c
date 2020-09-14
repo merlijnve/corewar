@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/12 12:16:06 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 13:06:47 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,16 @@ static void	visual_print_cursor(WINDOW *win, t_cursor *cursor)
 
 	i = 0;
 	wattrset(win, COLOR_PAIR(5));
-	mvwprintw(win, 24, 3, "CURSOR:");
+	mvwprintw(win, 26, 3, "CURSOR:");
 	wattrset(win, COLOR_PAIR(6));
-	mvwprintw(win, 26, 3, "operation:\t%s (%d)", is_opcode(cursor->opcode) ?
+	mvwprintw(win, 28, 3, "operation:\t%s (%d)", is_opcode(cursor->opcode) ?
 		get_opinfo(cursor->opcode)->name : "?", cursor->opcode);
-	mvwprintw(win, 27, 3, "timeout:\t%d", cursor->timeout);
-	mvwprintw(win, 28, 3, "pos:\t\t%d", get_pos(cursor->pos, 0));
+	mvwprintw(win, 29, 3, "timeout:\t%d", cursor->timeout);
+	mvwprintw(win, 30, 3, "pos:\t\t%d", get_pos(cursor->pos, 0));
+	mvwprintw(win, 31, 3, "last alive:\t%d", cursor->last_alive);
 	while (i < 16)
 	{
-		mvwprintw(win, 30 + i, 3, "REG [%d]:\t%d", i + 1, cursor->registries[i]);
+		mvwprintw(win, 33 + i, 3, "REG [%d]:\t%d", i + 1, cursor->registries[i]);
 		i++;
 	}
 }
@@ -95,7 +96,8 @@ void		visual_print_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 		arena->cycles_since_check, arena->cycles_to_die);
 	mvwprintw(win, 20, 3, "Checks:\t%d/%d", arena->check_count, MAX_CHECKS);
 	mvwprintw(win, 21, 3, "Live:\t%d", arena->live_count);
-	mvwprintw(win, 22, 3, "Sleep:\t%dµs", arena->visualizer.sleep);
+	mvwprintw(win, 23, 3, "Framemode:\t%s", arena->visualizer.framemode ? "true": "false");
+	mvwprintw(win, 24, 3, "Sleep:\t%dµs", arena->visualizer.sleep);
 	if (cursor != NULL)
 		visual_print_cursor(win, cursor);
 }
@@ -112,7 +114,7 @@ void		visual_update(t_arena *arena, t_cursor *cursor)
 	visual_print_stats(arena->visualizer.stats, arena, cursor);
 	wrefresh(arena->visualizer.arena);
 	wrefresh(arena->visualizer.stats);
-	if (arena->visualizer.sleep > 0) {
+	if (!arena->visualizer.framemode && arena->visualizer.sleep > 0) {
 		usleep(arena->visualizer.sleep);
 	}
 }

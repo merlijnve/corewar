@@ -15,6 +15,7 @@
 
 # include "asm.h"
 
-t_ret	get_meta_from_file(t_list *lines, t_asm *asmblr, t_error *error);
+t_ret	get_meta_from_file
+	(const char *file, t_asm *asmblr, t_error *error, t_index *lines);
 
 #endif

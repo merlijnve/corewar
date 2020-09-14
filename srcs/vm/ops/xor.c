@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/19 17:52:43 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 14:29:39 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 15:59:55 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		inst_xor(t_arena *arena, t_cursor *cursor)
 	int	result;
 
 	if (arena == NULL || cursor == NULL)
-		return;
+		return ;
 	if (cursor->args[0].type == kTReg)
 		cursor->args[0].value = cursor->registries[cursor->args[0].value - 1];
 	if (cursor->args[1].type == kTReg)

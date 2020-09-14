@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/08 15:39:12 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/11 11:55:53 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 13:03:02 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 
 static void	change_speed(int key, t_arena *arena)
 {
+	if (arena->visualizer.framemode)
+	{
+		while (arena->visualizer.framemode)
+		{
+			key = wgetch(arena->visualizer.arena);
+			if (key == KEY_RIGHT)
+				return ;
+			if (key == KEY_SPACE)
+				arena->visualizer.framemode = !arena->visualizer.framemode;
+		}
+		return;
+	}
 	if (key == KEY_UP && arena->visualizer.sleep < INT32_MAX)
 		arena->visualizer.sleep += 100;
 	if (key == KEY_DOWN && arena->visualizer.sleep >= 100)
@@ -23,14 +35,7 @@ static void	change_speed(int key, t_arena *arena)
 	if (key == KEY_LEFT && arena->visualizer.sleep >= 1)
 		arena->visualizer.sleep -= 1;
 	if (key == KEY_SPACE)
-	{
-		while (1)
-		{
-			key = wgetch(arena->visualizer.arena);
-			if (key == KEY_SPACE)
-				break ;
-		}
-	}
+		arena->visualizer.framemode = !arena->visualizer.framemode;
 }
 
 void		visual_readkey(t_arena *arena)

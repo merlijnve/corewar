@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/09/13 14:00:43 by wmisiedj      ########   odam.nl          #
+#    Updated: 2020/09/14 20:39:13 by jboer         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME_LIBFT_PRINTF = $(LIBFT_PRINTF_LOC)/libftprintf.a
 LINK_FLAGS = -lftprintf -lft -lncurses
 
 C_HEADERS = \
-	./errors/errors.h \
+	./errors/vm_errors.h \
 	./vm.h
 
 C_INCLUDES = \
@@ -41,11 +41,11 @@ C_SRCS = \
 	./check_champions.c \
 	./cursors.c \
 	./debug.c \
-	./errors/errors.c \
+	./errors/vm_errors.c \
 	./get_arguments.c \
+	./cursor_util.c \
 	./main.c \
-	./op.c \
-	./op_arch_checker.c \
+	./op_arg_checker.c \
 	./ops/add.c \
 	./ops/aff.c \
 	./ops/and.c \

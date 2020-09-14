@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/13 14:06:14 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 20:47:57 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "op.h"
 # include "ft_printf.h"
 # include "libft.h"
-# include "errors.h"
+# include "vm_errors.h"
 
 # define MAGIC_NUMBER_LEN	4
 # define ARGS_MAX			3
@@ -107,6 +107,7 @@ typedef struct		s_visualizer
 	WINDOW			*stats;
 	int				sleep;
 	double			updated_ms;
+	bool			framemode;
 }					t_visualizer;
 
 typedef struct		s_arena
@@ -153,6 +154,7 @@ t_cursor 			*cursor_add(t_arena *arena, t_cursor *clone);
 void        		cursor_del(t_arena *arena, int id);
 void        		cursor_setpos(t_arena *arena, t_cursor *cursor, long pos);
 int					cursor_get_pid(t_cursor *cursor);
+void				cursor_jump(t_cursor *current, t_enbyte enbyte);
 	
 void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);

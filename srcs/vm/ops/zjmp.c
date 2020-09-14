@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/10 14:26:34 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 16:03:50 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	inst_zjmp(t_arena *arena, t_cursor *cursor)
 {
 	if (arena == NULL || cursor == NULL)
-		return; 
+		return ;
 	if (cursor->carry == 1)
 		cursor->jump = cursor->args[0].value % IDX_MOD;
-	return;
+	return ;
 }
