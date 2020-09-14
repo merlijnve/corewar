@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/14 20:47:57 by jboer         ########   odam.nl         */
+/*   Updated: 2020/09/14 21:00:42 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ struct		s_cursor
 	int				last_alive;
 	int				timeout;
 	t_argument		args[3];
+	t_enbyte		enbyte;
 };
 
 typedef struct		s_cell
@@ -123,8 +124,8 @@ typedef struct		s_arena
 	int				dump_flag;
 	int				n_flag;
 
-	t_cell			cells[MEM_SIZE + 1];
-	uint8_t			mem[MEM_SIZE + 1];
+	t_cell			cells[MEM_SIZE];
+	uint8_t			mem[MEM_SIZE];
 
 	t_champion		*winner;
 
