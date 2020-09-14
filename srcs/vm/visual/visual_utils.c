@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/12 12:16:41 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 13:53:29 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ bool		visual_should_update(t_arena *arena)
 
 	if (!arena->visualizer.enabled)
 		return (false);
+
+	if (arena->visualizer.framemode)
+		return (true);
 
 	gettimeofday(&tv, NULL);
 	time_ms = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;

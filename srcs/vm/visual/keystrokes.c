@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/08 15:39:12 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/14 13:03:02 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 13:52:23 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	change_speed(int key, t_arena *arena)
 			if (key == KEY_SPACE)
 				arena->visualizer.framemode = !arena->visualizer.framemode;
 		}
-		return;
+		return ;
 	}
 	if (key == KEY_UP && arena->visualizer.sleep < INT32_MAX)
 		arena->visualizer.sleep += 100;
