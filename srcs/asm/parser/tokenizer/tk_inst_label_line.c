@@ -12,7 +12,7 @@
 
 #include "tokenizer.h"
 
-t_ret tk_inst_label_line(char *line, t_place loc, t_list **tokens)
+t_ret tk_inst_label_line(char *line, t_place loc, t_list **tokens, t_error *error)
 {
 	t_ret		ret;
 	t_tksave	*token;
@@ -22,10 +22,10 @@ t_ret tk_inst_label_line(char *line, t_place loc, t_list **tokens)
 		return (kErrorAlloc);
 	while (line[loc.chr] != '\0' && ft_isspace(line[loc.chr]))
 		loc.chr++;
-	ret = get_tk_for_label(line, token, &loc);
+	ret = get_tk_for_label(line, token, &loc, error);
 	add_token(tokens, token);
 	if (ret == kSuccess)
-		ret = tk_inst_line(line, loc, tokens);
-
+		ret = tk_inst_line(line, loc, tokens, error);
+	error->code = ret;
 	return (ret);
 }

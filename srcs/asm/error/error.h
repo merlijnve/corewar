@@ -70,5 +70,7 @@ struct		s_errinfo
 };
 
 void	print_error(t_error *error);
+t_ret	set_error(const char *file, t_index idx, t_ret ret, t_error *error);
+t_ret	set_err_loc(t_place loc, t_ret ret, t_error *error);
 
 #endif

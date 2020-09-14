@@ -213,3 +213,20 @@ void	print_error(t_error *err)
 	if (err->code <= 0 && err->code >= -70)
 		ft_printf(g_errinfo[-err->code].format, "file.s", err->token->loc.ln, err->token->loc.chr, err->token->str);
 }
+
+t_ret	set_error(const char *file, t_index idx, t_ret ret, t_error *error)
+{
+	error->code = ret;
+	error->token = &error->rtoken;
+	error->rtoken.loc.ln = ft_chrcnt(file, '\n', idx + 1);
+	error->rtoken.loc.chr = 0;
+	return (ret);
+}
+
+t_ret	set_err_loc(t_place loc, t_ret ret, t_error *error)
+{
+	error->code = ret;
+	error->token = &error->rtoken;
+	error->rtoken.loc = loc;
+	return (ret);
+}

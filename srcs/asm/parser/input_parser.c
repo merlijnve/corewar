@@ -84,10 +84,6 @@ t_line_type	line_type(char *line)
 		return (kSourceCommentLine);
 	if (*line == '\0')
 		return (kEmptyLine);
-	if (ft_strncmp(line, NAME_CMD_STRING, 5) == 0)
-		return (kNameLine);
-	if (ft_strncmp(line, COMMENT_CMD_STRING, 8) == 0)
-		return (kCommentLine);
 	type = has_label(line);
 	if (type != kUndefinedLine)
 		return (type);

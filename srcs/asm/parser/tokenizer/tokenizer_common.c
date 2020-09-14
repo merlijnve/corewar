@@ -8,7 +8,7 @@
 #include <op.h>
 #include "tokenizer.h"
 
-t_ret	get_tk_for_sep(char *line, t_tksave *token, t_place *loc)
+t_ret	get_tk_for_sep(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
 	t_index idx;
 	char 	*str;
@@ -34,7 +34,7 @@ t_ret	get_tk_for_sep(char *line, t_tksave *token, t_place *loc)
 	return (kSuccess);
 }
 
-t_ret	get_tk_for_ind(char *line, t_tksave *token, t_place *loc)
+t_ret	get_tk_for_ind(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
 	t_index idx;
 	char	*str;
@@ -60,7 +60,7 @@ t_ret	get_tk_for_ind(char *line, t_tksave *token, t_place *loc)
 	return (kSuccess);
 }
 
-t_ret	get_tk_for_dir(char *line, t_tksave *token, t_place *loc)
+t_ret	get_tk_for_dir(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
 	t_index idx;
 	char	*str;
@@ -87,7 +87,7 @@ t_ret	get_tk_for_dir(char *line, t_tksave *token, t_place *loc)
 }
 
 
-t_ret	get_tk_for_reg(char *line, t_tksave *token, t_place *loc)
+t_ret	get_tk_for_reg(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
 	t_index idx;
 	char	*str;
@@ -111,7 +111,7 @@ t_ret	get_tk_for_reg(char *line, t_tksave *token, t_place *loc)
 	return (kSuccess);
 }
 
-t_ret	get_tk_for_inst(char *line, t_tksave *token, t_place *loc)
+t_ret	get_tk_for_inst(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
 	t_index idx;
 	char	*str;
@@ -134,7 +134,7 @@ t_ret	get_tk_for_inst(char *line, t_tksave *token, t_place *loc)
 	return (kSuccess);
 }
 
-t_ret	get_tk_for_label(char *line, t_tksave *token, t_place *loc)
+t_ret	get_tk_for_label(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
 	t_index idx;
 	char 	*str;

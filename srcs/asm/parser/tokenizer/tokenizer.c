@@ -35,7 +35,7 @@ t_ret add_token(t_list **tokens, t_tksave *token)
 	return (kSuccess);
 }
 
-t_ret tokens_from_lines(t_list *lines, t_list **tokens, t_index skiplines)
+t_ret tokens_from_lines(t_list *lines, t_list **tokens, t_index skiplines, t_error *error)
 {
 	t_ret		ret;
 	t_line_type	type;
@@ -45,18 +45,18 @@ t_ret tokens_from_lines(t_list *lines, t_list **tokens, t_index skiplines)
 	while (lines != NULL && lines->content_size < skiplines)
 		lines = lines->next;
 
-	while (lines != NULL)
+	while (lines != NULL && ret == kSuccess)
 	{
 		type = line_type(lines->content);
 		if (type == kInstLine)
 			ret = tk_inst_line(lines->content,
-				(t_place){lines->content_size, 0}, tokens);
+				(t_place){lines->content_size, 0}, tokens, error);
 		else if (type == kInstLabelLine)
 			ret = tk_inst_label_line(lines->content,
-				(t_place){lines->content_size, 0}, tokens);
+				(t_place){lines->content_size, 0}, tokens, error);
 		else if (type == kLabelLine)
 			ret = tk_label_line(lines->content,
-				(t_place){lines->content_size, 0}, tokens);
+				(t_place){lines->content_size, 0}, tokens, error);
 		lines = lines->next;
 	}
 	ft_lstrev(tokens);
