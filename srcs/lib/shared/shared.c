@@ -6,10 +6,9 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 13:01:20 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/14 23:45:30 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/15 01:23:14 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <op.h>
 
@@ -225,7 +224,7 @@ static const t_opinfo	g_opinfo[16] =
 	},
 };
 
-const t_opinfo *get_opinfo(t_inst intst)
+const t_opinfo	*get_opinfo(t_inst intst)
 {
 	return (&g_opinfo[intst - 1]);
 }

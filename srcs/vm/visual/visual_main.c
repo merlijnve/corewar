@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/15 00:14:03 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/15 00:30:26 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ static void	visual_print_cursor(WINDOW *win, t_cursor *cursor)
 	mvwprintw(win, 29, 3, "timeout:\t%d", cursor->timeout);
 	mvwprintw(win, 30, 3, "pos:\t\t%d", get_pos(cursor->pos, 0));
 	mvwprintw(win, 31, 3, "last alive:\t%d", cursor->last_alive);
-	mvwprintw(win, 32, 3, "args[0]:\t%d (%d)", cursor->args[0].value, cursor->args[0].type);
-	mvwprintw(win, 33, 3, "args[1]:\t%d (%d)", cursor->args[1].value, cursor->args[1].type);
-	mvwprintw(win, 34, 3, "args[2]:\t%d (%d)", cursor->args[2].value, cursor->args[2].type);
+	mvwprintw(win, 32, 3, "args[0]:\t%#04x (%d)", cursor->args[0].value, cursor->args[0].type);
+	mvwprintw(win, 33, 3, "args[1]:\t%#04x (%d)", cursor->args[1].value, cursor->args[1].type);
+	mvwprintw(win, 34, 3, "args[2]:\t%#04x (%d)", cursor->args[2].value, cursor->args[2].type);
 
 	while (i < 16)
 	{
