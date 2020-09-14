@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/09/14 18:23:17 by joris         ########   odam.nl          #
+#    Updated: 2020/09/14 20:39:13 by jboer         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME_LIBFT_PRINTF = $(LIBFT_PRINTF_LOC)/libftprintf.a
 LINK_FLAGS = -lftprintf -lft -lncurses
 
 C_HEADERS = \
-	./vm_errors/vm_errors.h \
+	./errors/vm_errors.h \
 	./vm.h
 
 C_INCLUDES = \
