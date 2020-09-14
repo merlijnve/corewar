@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/14 16:17:38 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/14 16:37:09 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "op.h"
 # include "ft_printf.h"
 # include "libft.h"
-# include "errors.h"
+# include "vm_errors.h"
 
 # define MAGIC_NUMBER_LEN	4
 # define ARGS_MAX			3

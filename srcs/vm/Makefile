@@ -6,7 +6,7 @@
 #    By: floris <marvin@42.fr>                        +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/06/11 12:44:37 by floris        #+#    #+#                  #
-#    Updated: 2020/09/14 16:18:22 by joris         ########   odam.nl          #
+#    Updated: 2020/09/14 16:37:50 by joris         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ C_SRCS = \
 	./check_champions.c \
 	./cursors.c \
 	./debug.c \
-	./errors/errors.c \
+	./errors/vm_errors.c \
 	./get_arguments.c \
 	./cursor_util.c \
 	./main.c \
