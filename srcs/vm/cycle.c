@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/14 21:08:32 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/15 00:18:48 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int		vm_cursor_alive(t_arena *arena_s)
 static void		vm_run_cursor(t_arena *arena_s, t_cursor *current)
 {
 	current->enbyte = (t_enbyte){kTNone, kTNone, kTNone, kTNone};
+	ft_bzero(&current->args[0], sizeof(t_argument) * 3);
 	if (is_opcode(current->opcode))
 	{
 		if (get_opinfo(current->opcode)->has_enbyte)
