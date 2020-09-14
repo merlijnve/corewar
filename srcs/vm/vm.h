@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/14 16:37:09 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/14 20:37:09 by jboer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <unistd.h>
 # include <stdint.h>
 
-# include "op.h"
+# include "../includes/op.h"
 # include "ft_printf.h"
 # include "libft.h"
 # include "vm_errors.h"
