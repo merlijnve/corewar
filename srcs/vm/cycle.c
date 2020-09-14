@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 22:03:56 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 14:21:33 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,22 +94,22 @@ static void		vm_run_cursors(t_arena *arena_s)
 
 bool			vm_run_cycle(t_arena *arena_s)
 {
-	if (arena_s->cursors == NULL)
-		return (false);
-	arena_s->cycles_since_check++;
 	vm_run_cursors(arena_s);
+	arena_s->cycles_since_check++;
 	if (arena_s->cycles_since_check >= arena_s->cycles_to_die ||
-		arena_s->cycles_to_die <= 0)
+		arena_s->cycles_to_die < 0)
 	{
-		if (arena_s->live_count >= NBR_LIVE || arena_s->check_count >= MAX_CHECKS)
+		if (arena_s->live_count > NBR_LIVE || arena_s->check_count > MAX_CHECKS)
 			arena_s->cycles_to_die -= CYCLE_DELTA;
+		if (arena_s->live_count < NBR_LIVE)
+			arena_s->check_count++;
 		if (arena_s->check_count >= MAX_CHECKS)
 			arena_s->check_count = 0;
 		if (arena_s->live_count >= NBR_LIVE)
 			arena_s->live_count = 0;
-		else
-			arena_s->check_count++;
 		vm_cursor_alive(arena_s);
+		if (arena_s->cursors == NULL)
+			return (false);
 		arena_s->cycles_since_check = 0;
 	}
 	return (true);

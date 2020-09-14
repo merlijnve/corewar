@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/14 13:06:47 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 13:55:37 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,15 @@ static void	visual_print_cursor(WINDOW *win, t_cursor *cursor)
 	wattrset(win, COLOR_PAIR(5));
 	mvwprintw(win, 26, 3, "CURSOR:");
 	wattrset(win, COLOR_PAIR(6));
-	mvwprintw(win, 28, 3, "operation:\t%s (%d)", is_opcode(cursor->opcode) ?
+	mvwprintw(win, 28, 3, "id:\t\t%d", cursor->id);
+	mvwprintw(win, 29, 3, "operation:\t%s (%d)", is_opcode(cursor->opcode) ?
 		get_opinfo(cursor->opcode)->name : "?", cursor->opcode);
-	mvwprintw(win, 29, 3, "timeout:\t%d", cursor->timeout);
-	mvwprintw(win, 30, 3, "pos:\t\t%d", get_pos(cursor->pos, 0));
-	mvwprintw(win, 31, 3, "last alive:\t%d", cursor->last_alive);
+	mvwprintw(win, 30, 3, "timeout:\t%d", cursor->timeout);
+	mvwprintw(win, 31, 3, "pos:\t\t%d", get_pos(cursor->pos, 0));
+	mvwprintw(win, 32, 3, "last alive:\t%d", cursor->last_alive);
 	while (i < 16)
 	{
-		mvwprintw(win, 33 + i, 3, "REG [%d]:\t%d", i + 1, cursor->registries[i]);
+		mvwprintw(win, 34 + i, 3, "REG [%d]:\t%d", i + 1, cursor->registries[i]);
 		i++;
 	}
 }
