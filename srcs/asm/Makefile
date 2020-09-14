@@ -23,26 +23,34 @@ NAME_LIBFT_PRINTF = $(LIBFT_PRINTF_LOC)/libftprintf.a
 LINK_FLAGS = -lftprintf -lft
 
 C_HEADERS = \
-	./asm.h \
-	./linker/linker.h \
-	./parser/input_parser.h \
-	./parser/metaparse.h \
-	./parser/tokenizer/tokenizer.h \
-	./translator/translator.h
+	asm.h \
+	check_args.h \
+	debugging.h \
+	error/error.h \
+	linker/linker.h \
+	parser/input_parser.h \
+	parser/metaparse.h \
+	parser/tokenizer/token_types.h \
+	parser/tokenizer/tokenizer.h \
+	translator/translator.h \
+	validator/validator.h \
+	write_file.h
 
 C_INCLUDES = \
 	-I ../includes/ \
 	-I ./ \
+	-I ./error/ \
 	-I ./linker/ \
+	-I ./parser/ \
 	-I ./parser/tokenizer/ \
-	-I ./parser/ \
-	-I ./parser/ \
-	-I ./translator/
+	-I ./translator/ \
+	-I ./validator/
 
 C_SRCS = \
 	../lib/shared/shared.c \
 	./debugging.c \
 	./check_args.c \
+	./error/error.c \
 	./linker/linker.c \
 	./main.c \
 	./parser/input_parser.c \
@@ -73,7 +81,9 @@ C_SRCS = \
 	./translator/instructions/tr_zjmp.c \
 	./translator/translator.c \
 	./translator/translator_common.c \
-	./translator/translator_utils.c
+	./translator/translator_utils.c \
+	./validator/validator.c \
+	./write_file.c
 
 C_OBJS = $(C_SRCS:%.c=%.o)
 
