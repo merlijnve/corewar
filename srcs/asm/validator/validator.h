@@ -16,6 +16,6 @@
 
 #include "asm.h"
 
-//t_ret	
+t_ret	validate_tokens(t_list *tokens, t_asm *asmblr, t_error *error);
 
 #endif

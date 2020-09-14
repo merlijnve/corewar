@@ -21,6 +21,7 @@
 #include "translator.h"
 #include "linker.h"
 #include "write_file.h"
+#include "validator.h"
 
 #include "error.h"
 
@@ -48,7 +49,7 @@ static t_ret setup_asmblr(t_asm **asmblr, t_error *error)
 	asmblr_loc = ft_memalloc(sizeof(t_asm));
 	if (asmblr_loc != NULL)
 	{
-		asmblr_loc->bytecode.bytecode = ft_memalloc(CHAMP_MAX_SIZE + 16);
+		asmblr_loc->bytecode.bytecode = ft_memalloc(MEM_SIZE + 16);
 		if (asmblr_loc->bytecode.bytecode == NULL)
 		{
 			free(asmblr_loc);
@@ -88,6 +89,8 @@ int		main(int argc, char **argv)
 	if (error.code == kSuccess)
 		error.code = tokens_from_lines(asmblr->lines, &asmblr->tokens, skipln, &error);
 	if (error.code == kSuccess)
+		error.code = validate_tokens(asmblr->tokens, asmblr, &error);
+	if (error.code == kSuccess)
 		error.code = translate(asmblr->tokens, asmblr, &error);
 	if (error.code == kSuccess)
 		error.code = asm_link(asmblr, &error);
@@ -96,7 +99,7 @@ int		main(int argc, char **argv)
 	if (error.code != kSuccess)
 		print_error(&error);
 
-//	print_tokens(asmblr->tokens);
+	print_tokens(asmblr->tokens);
 
 	close(fd[0]);
 	return (0);
