@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/17 19:45:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/10 14:26:26 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 15:56:25 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		inst_sub(t_arena *arena, t_cursor *cursor)
 	int sum;
 
 	if (arena == NULL || cursor == NULL)
-		return; 
+		return ;
 	if (cursor->args[0].type == kTReg)
 		args[0] = cursor->registries[cursor->args[0].value - 1];
 	else

@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/13 13:55:03 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 16:01:06 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_op_func	get_op_func(t_inst inst)
 	if (is_opcode(inst))
 		return (g_op_funcs[inst]);
 	return (NULL);
-};
+}
 
 bool		is_opcode(t_inst inst)
 {

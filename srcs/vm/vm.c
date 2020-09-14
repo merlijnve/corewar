@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/14 13:20:27 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 15:04:38 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int			vm_init_cursors(t_arena *arena_s)
 		{
 			current = cursor_add(arena_s, NULL);
 			if (current == NULL)
-				return (kErrOther);
+				return (kErrCursor);
 			cursor_setpos(arena_s, current, arena_s->champions[i].mem_index);
 			current->registries[0] = -arena_s->champions[i].id;
 		}
@@ -104,18 +104,18 @@ void				vm_start(t_arena *arena_s)
 	arena_s->visualizer.sleep = VISUAL_TIMEOUT;
 	vm_place_champions(arena_s);
 	if (vm_init_cursors(arena_s) != kOk)
-		; // TODO: Error message?
+		vm_error(kErrCursor);
 	vm_introduce_champions(arena_s);
-    if (arena_s->dump_flag == 0)
-			dump(arena_s->mem);
+	if (arena_s->dump_flag == 0)
+		dump(arena_s->mem);
 	if (arena_s->visualizer.enabled == true)
 		visual_start(arena_s);
 	while (vm_run_cycle(arena_s))
 	{
-        arena_s->cycle_count++;
+		arena_s->cycle_count++;
 		if (arena_s->dump_flag == arena_s->cycle_count)
 			dump(arena_s->mem);
-        if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
+		if (DEBUG_MAX_CYCLES && arena_s->cycle_count > DEBUG_MAX_CYCLES)
 			break ;
 	}
 	if (arena_s->visualizer.enabled)

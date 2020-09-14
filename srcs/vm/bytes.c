@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/30 19:22:32 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/13 13:46:37 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/14 15:44:49 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			read_4_bytes(uint8_t *mem, long pos)
 	parts[1] = mem[get_pos(pos, 1)];
 	parts[2] = mem[get_pos(pos, 2)];
 	parts[3] = mem[get_pos(pos, 3)];
-	sum =  parts[0] << 24;
+	sum = parts[0] << 24;
 	sum += parts[1] << 16;
 	sum += parts[2] << 8;
 	sum += parts[3];
@@ -45,19 +45,18 @@ void		write_4_bytes(uint8_t *mem, long pos, int value)
 
 	parts[0] = ((0xFFL << 24) & value) >> 24;
 	parts[1] = ((0xFFL << 16) & value) >> 16;
-	parts[2] = ((0xFFL <<  8) & value) >>  8;
-	parts[3] = ((0xFFL <<  0) & value) >>  0;
-
-	mem[get_pos(pos, 0)] =  parts[0];
-	mem[get_pos(pos, 1)] =  parts[1];
-	mem[get_pos(pos, 2)] =  parts[2];
-	mem[get_pos(pos, 3)] =  parts[3];
+	parts[2] = ((0xFFL << 8) & value) >> 8;
+	parts[3] = ((0xFFL << 0) & value) >> 0;
+	mem[get_pos(pos, 0)] = parts[0];
+	mem[get_pos(pos, 1)] = parts[1];
+	mem[get_pos(pos, 2)] = parts[2];
+	mem[get_pos(pos, 3)] = parts[3];
 }
 
 int			read_2_bytes(uint8_t *mem, long pos)
 {
 	uint32_t	sum;
-	uint32_t		parts[2];
+	uint32_t	parts[2];
 
 	parts[0] = mem[get_pos(pos, 0)];
 	parts[1] = mem[get_pos(pos, 1)];
@@ -70,9 +69,8 @@ void		write_2_bytes(uint8_t *mem, long pos, int value)
 {
 	uint32_t parts[2];
 
-	parts[0] = ((0xFFL <<  8) & value) >>  8;
-	parts[1] = ((0xFFL <<  0) & value) >>  0;
-
-	mem[get_pos(pos, 0)] =  parts[0];
-	mem[get_pos(pos, 1)] =  parts[1];
+	parts[0] = ((0xFFL << 8) & value) >> 8;
+	parts[1] = ((0xFFL << 0) & value) >> 0;
+	mem[get_pos(pos, 0)] = parts[0];
+	mem[get_pos(pos, 1)] = parts[1];
 }
