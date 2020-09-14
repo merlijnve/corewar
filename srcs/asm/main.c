@@ -22,6 +22,8 @@
 #include "linker.h"
 #include "write_file.h"
 
+#include "error.h"
+
 #include "debugging.h" // TODO: Remove
 
 static int open_file(char *str)

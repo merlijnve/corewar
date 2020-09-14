@@ -5,6 +5,7 @@
 //  Created by Floris Fredrikze on 31/08/2020.
 //
 
+#include <op.h>
 #include "tokenizer.h"
 
 t_ret	get_tk_for_sep(char *line, t_tksave *token, t_place *loc)

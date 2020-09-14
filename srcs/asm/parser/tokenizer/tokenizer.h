@@ -13,7 +13,8 @@
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
-# include "asm.h"
+# include "error.h"
+# include "token_types.h"
 
 t_ret tokens_from_lines(t_list *lines, t_list **tokens, t_index skiplines);
 t_ret add_token(t_list **tokens, t_tksave *token);

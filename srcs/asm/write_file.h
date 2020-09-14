@@ -14,6 +14,7 @@
 #define WRITE_FILE_H
 
 #include "asm.h"
+#include "error.h"
 
 t_ret	write_file(t_asm *asmblr, int fd, t_error *error);
 
