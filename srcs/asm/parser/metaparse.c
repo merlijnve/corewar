@@ -164,5 +164,5 @@ t_ret	get_meta_from_file
 			return (set_error(file, idx, kMetaParseError, error));
 	}
 	*lines = ft_chrcnt(file, '\n', idx + 1);
-	return (kSuccess);
+	return (ret);
 }

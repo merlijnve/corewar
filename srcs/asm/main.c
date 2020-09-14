@@ -90,9 +90,9 @@ int		main(int argc, char **argv)
 	if (error.code == kSuccess)
 		error.code = write_file(asmblr, open_file(argv[1]), &error);
 	if (error.code != kSuccess)
-		ft_printf("Error: %.3d Line: %.4d:%.4d [%s]\n", error.code, error.token->loc.ln, error.token->loc.chr, error.token->str);
+		print_error(&error);
 
-	print_tokens(asmblr->tokens);
+//	print_tokens(asmblr->tokens);
 
 	close(fd[0]);
 	return (0);
