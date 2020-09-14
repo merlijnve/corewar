@@ -42,6 +42,7 @@ enum	e_ret
 
 	kTranslationError = -30,
 	kInvalidArgumentCount = -31,
+	kUndefineInstructionError = -32,
 
 	kLinkingError = -40,
 	kLinkNotFoundError = -41,

@@ -109,10 +109,10 @@ static const t_errinfo	g_errinfo[70] =
 		.format = ERR_PFX_FL"%d:%d: -- kTranslationError (30) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kInvalidArgumentCount (30) TOKEN:[%s]\n",
+		.format = ERR_PFX_FL"%d:%d: -- kInvalidArgumentCount (31) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		.format = ERR_PFX_FL"%d:%d: -- kUndefineInstructionError (32) TOKEN:[%s]\n",
 	},
 	{
 		.format = ERR_PFX"\n",
@@ -230,3 +230,11 @@ t_ret	set_err_loc(t_place loc, t_ret ret, t_error *error)
 	error->rtoken.loc = loc;
 	return (ret);
 }
+
+t_ret	set_err_token(t_tksave *token, t_ret ret, t_error *error)
+{
+	error->code = ret;
+	error->token = token;
+	return (ret);
+}
+
