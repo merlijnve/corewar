@@ -33,6 +33,7 @@ enum e_lft_ret
 
 void			ft_putmembe(void *mem, uint64_t num, size_t size);
 long 			ft_mod(long a, long b);
+const char		*ft_find_chr(const char *line, char chr, int (skip)(int chr));
 
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);

@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                       ::::::::: :::::::::    #
-#    Makefile                                          :+:       :+:           #
-#                                                     +:+       +:+            #
-#    By: ffredrik <ffredrik@student.codam.nl>        :#::+::#  :#::+::#        #
-#                                                   +#+       +#+              #
-#    Created: 2019/01/08 16:32:51 by ffredrik      #+#       #+#               #
-#    Updated: 2019/02/11 20:48:31 by ffredrik     ###       ###                #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: ffredrik <ffredrik@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2019/01/08 16:32:51 by ffredrik      #+#    #+#                  #
+#    Updated: 2020/09/14 17:25:00 by ffredrik      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ ARFLAGS = rcs
 HEADERS = libft.h
 
 SRCS =	ft_putmembe.c \
+		ft_find_chr.c \
 		ft_chrcnt.c \
 		ft_mod.c \
 		ft_atoi.c \

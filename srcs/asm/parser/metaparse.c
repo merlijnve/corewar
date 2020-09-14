@@ -13,33 +13,15 @@
 #include "metaparse.h"
 #include "input_parser.h"
 
-// maybe use more
-const char	*find_chr(const char *line, char chr, int (skip)(int chr))
-{
-	t_index idx;
-
-	idx = 0;
-	if (skip != NULL)
-		while (line[idx] != '\0' && skip(line[idx]) && line[idx] != chr)
-			idx++;
-	else
-		while (line[idx] != '\0' && line[idx] != chr)
-			idx++;
-
-	if (line[idx] == chr)
-		return (&line[idx]);
-	return (NULL);
-}
-
 t_line_type		fline_type(const char *str)
 {
 	const char *detect;
 
-	if (find_chr(str, '\n', ft_isspace_h))
+	if (ft_find_chr(str, '\n', ft_isspace_h))
 		return (kEmptyLine);
-	if (find_chr(str, '#', ft_isspace_h))
+	if (ft_find_chr(str, '#', ft_isspace_h))
 		return (kSourceCommentLine);
-	detect = find_chr(str, '.', ft_isspace_h);
+	detect = ft_find_chr(str, '.', ft_isspace_h);
 	if (detect != NULL)
 	{
 		if (ft_strncmp(detect,
@@ -58,20 +40,11 @@ t_ret			go_next_line(t_index *idx, const char *file)
 {
 	const char *new_line;
 
-	new_line = find_chr(&file[*idx], '\n', NULL);
+	new_line = ft_find_chr(&file[*idx], '\n', NULL);
 	if (new_line == NULL)
 		return (kMetaParseError);
 	*idx = (new_line - file) + 1;
 	return (kSuccess);
-}
-
-t_ret	set_error(const char *file, t_index idx, t_ret ret, t_error *error)
-{
-	error->code = ret;
-	error->token = &error->rtoken;
-	error->rtoken.loc.ln = ft_chrcnt(file, '\n', idx + 1);
-	error->rtoken.loc.chr = 0;
-	return (ret);
 }
 
 // COMMENT_CMD_STRING COMMENT_LENGTH
@@ -85,10 +58,10 @@ t_ret	get_comment(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 	if (start)
 	{
 		start = &file[*idx + ft_strlen(COMMENT_CMD_STRING)];
-		start = find_chr(start, '\"', ft_isspace_h);
+		start = ft_find_chr(start, '\"', ft_isspace_h);
 	}
 	if (start)
-		end = find_chr(&start[1], '\"', NULL);
+		end = ft_find_chr(&start[1], '\"', NULL);
 	if (end && *end == '\"')
 	{
 		// TODO: check correct length
@@ -98,7 +71,7 @@ t_ret	get_comment(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 			*idx = (end - file) + 1;
 		}
 		else
-			return (set_error(file, start - file, kMPNameTooLong, error));
+			return (set_error(file, start - file, kMPCommentTooLong, error));
 	}
 	else
 		return (set_error(file, *idx, kMetaParseError, error));
@@ -115,10 +88,10 @@ t_ret	get_name(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 	if (start)
 	{
 		start = &file[*idx + ft_strlen(NAME_CMD_STRING)];
-		start = find_chr(start, '\"', ft_isspace_h);
+		start = ft_find_chr(start, '\"', ft_isspace_h);
 	}
 	if (start)
-		end = find_chr(&start[1], '\"', NULL);
+		end = ft_find_chr(&start[1], '\"', NULL);
 	if (end && *end == '\"')
 	{
 		// TODO: check correct length
