@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/14 22:14:03 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/15 02:10:10 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,7 @@ static void	loop_args(int argc, char **argv, t_arena *arena)
 		}
 		if (ft_strcmp(argv[index], "-n") == 0)
 			index = number_champ(index, argc, argv, arena);
-		if (ft_strcmp(argv[index], "-v") == 0)
-			arena->visualizer.enabled = true;
-		if (ft_strcmp(argv[index], "-f"))
-			arena->visualizer.framemode = true;
+		check_visual_flags(arena, argv[index]);
 		if (ft_strcmp(argv[index], "-dump") == 0 ||
 		ft_strcmp(argv[index], "-d") == 0)
 			index = dump_flag(index, argc, argv, arena);
