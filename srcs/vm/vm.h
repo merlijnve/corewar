@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/15 02:33:13 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/15 13:40:21 by mvan-eng      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,6 @@ void				debug_print_cursors(t_cursor *cursors);
 void				debug_print_hex(unsigned char *str, int n);
 int					debug_printf(const char *format, ...);
 void				debug_print_champion(t_champion *champion);
-void				debug_print_mem(const void *addr, size_t size);
-void				debug_print_map(t_arena *arena);
 
 # pragma mark - Get arguments
 
@@ -239,7 +237,5 @@ void				visual_set_cursor_color(WINDOW *win, t_arena *arena,\
 void				visual_clear(t_arena *arena_s);
 bool				visual_should_update(t_arena *arena);
 void				visual_readkey(t_arena *arena);
-
-void				debug_check_args(t_arena *arena); //remove
 
 #endif
