@@ -6,10 +6,9 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/15 00:18:48 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/15 02:34:19 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "vm.h"
 
@@ -44,8 +43,8 @@ static void		vm_run_cursor(t_arena *arena_s, t_cursor *current)
 	{
 		if (get_opinfo(current->opcode)->has_enbyte)
 		{
-			ft_memcpy(&(current->enbyte), &arena_s->mem[get_pos(current->pos, 1)],
-			sizeof(t_enbyte));
+			ft_memcpy(&(current->enbyte),
+			&arena_s->mem[get_pos(current->pos, 1)], sizeof(t_enbyte));
 			reverse_eb(&(current->enbyte));
 		}
 		if ((!get_opinfo(current->opcode)->has_enbyte ||

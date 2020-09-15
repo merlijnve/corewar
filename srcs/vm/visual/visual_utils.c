@@ -6,7 +6,7 @@
 /*   By: mvan-eng <mvan-eng@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/31 20:12:03 by mvan-eng      #+#    #+#                 */
-/*   Updated: 2020/09/12 12:16:41 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/15 01:44:34 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,13 @@ void		visual_clear(t_arena *arena_s)
 
 bool		visual_should_update(t_arena *arena)
 {
-	struct timeval  tv;
-	double time_ms;
+	struct timeval	tv;
+	double			time_ms;
 
 	if (!arena->visualizer.enabled)
 		return (false);
-
 	gettimeofday(&tv, NULL);
 	time_ms = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
-
 	if (time_ms - arena->visualizer.updated_ms > 1000 / VISUAL_FPS)
 	{
 		arena->visualizer.updated_ms = time_ms;
@@ -54,7 +52,8 @@ bool		visual_should_update(t_arena *arena)
 	return (false);
 }
 
-void		visual_set_cursor_color(WINDOW *win, t_arena *arena, t_cursor *cursor)
+void		visual_set_cursor_color(WINDOW *win, t_arena *arena,
+t_cursor *cursor)
 {
 	t_champion *champion;
 
