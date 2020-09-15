@@ -36,6 +36,7 @@ enum	e_ret
 	kError = -1,
 	kErrorAlloc = -2,
 	kErrorOpeningFile = -3,
+	kErrorEmptyFile = -4,
 
 	kInputError = -10,
 	kParseError = -11,

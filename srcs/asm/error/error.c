@@ -16,16 +16,19 @@
 static const t_errinfo	g_errinfo[70] =
 {
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kSuccsess (0)\n",
+		.format = ERR_PFX_FL"%d:%d -- kSuccsess (0)\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kError (1) TOKEN:[%s]\n",
+		.format = ERR_PFX_FL"%d:%d -- kError (1) TOKEN:[%s]\n",
 	},
 	{
 		.format = ERR_PFX"kAllocError (2)\n",
 	},
 	{
-		.format = ERR_PFX_FL"kErrorOpeningFile = (3)\n",
+		.format = ERR_PFX_FL" -- kErrorOpeningFile (3)\n",
+	},
+	{
+		.format = ERR_PFX_FL" -- kErrorEmptyFile (4)\n",
 	},
 	{
 		.format = ERR_PFX"\n",
@@ -43,34 +46,10 @@ static const t_errinfo	g_errinfo[70] =
 		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		.format = ERR_PFX_FL"%d:%d -- kInputError (10) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kInputError (10) TOKEN:[%s]\n",
-	},
-	{
-		.format = ERR_PFX_FL"%d:%d: -- kParseError (11) TOKEN:[%s]\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
+		.format = ERR_PFX_FL"%d:%d -- kParseError (11) TOKEN:[%s]\n",
 	},
 	{
 		.format = ERR_PFX"\n",
@@ -106,13 +85,34 @@ static const t_errinfo	g_errinfo[70] =
 		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kTranslationError (30) TOKEN:[%s]\n",
+		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kInvalidArgumentCount (31) TOKEN:[%s]\n",
+		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kUndefineInstructionError (32) TOKEN:[%s]\n",
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kTranslationError (30) TOKEN:[%s]\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kInvalidArgumentCount (31) TOKEN:[%s]\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kUndefineInstructionError (32) TOKEN:[%s]\n",
 	},
 	{
 		.format = ERR_PFX"\n",
@@ -136,37 +136,10 @@ static const t_errinfo	g_errinfo[70] =
 		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kLinkingError (40) TOKEN:[%s]\n",
+		.format = ERR_PFX_FL"%d:%d -- kLinkingError (40) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kLinkNotFound (41) TOKEN:[%s]\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX_FL"%d:%d: -- kTokenError (50) TOKEN:[%s]\n",
+		.format = ERR_PFX_FL"%d:%d -- kLinkNotFoundError (41) TOKEN:[%s]\n",
 	},
 	{
 		.format = ERR_PFX"\n",
@@ -193,16 +166,43 @@ static const t_errinfo	g_errinfo[70] =
 		.format = ERR_PFX"\n",
 	},
 	{
+		.format = ERR_PFX_FL"%d:%d -- kTokenError (50) TOKEN:[%s]\n",
+	},
+	{
 		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kMetaParseError (60) TOKEN:[%s]\n",
+		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kMPNameTooLong (61)\n",
+		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d: -- kMPCommentTooLong (62)\n",
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kMetaParseError (60) TOKEN:[%s]\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kMPNameTooLong (61)\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kMPCommentTooLong (62)\n",
 	},
 };
 

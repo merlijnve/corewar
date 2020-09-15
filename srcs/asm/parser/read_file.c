@@ -46,8 +46,12 @@ t_ret	read_file(int fd, char **buffer)
 		if (rret > 0)
 		{
 			*buffer = ft_realloc(*buffer, part, bsize, rret);
+			if (*buffer == NULL)
+				return (kErrorAlloc);
 			bsize += rret;
 		}
 	}
+	if (*buffer == NULL)
+		return (kErrorEmptyFile);
 	return (ret);
 }
