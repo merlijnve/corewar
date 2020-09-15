@@ -14,6 +14,7 @@ t_ret	get_tk_for_sep(char *line, t_tksave *token, t_place *loc, t_error *error)
 	char 	*str;
 
 	idx = 0;
+	// TODO: Should be looking for anouter seperator? // TEST: sub r1, r2, # r3 Some comment
 	while (line[idx + loc->chr] != '\0'
 			&& line[idx + loc->chr] != SEPARATOR_CHAR)
 		idx++;
@@ -41,8 +42,7 @@ t_ret	get_tk_for_ind(char *line, t_tksave *token, t_place *loc, t_error *error)
 
 	idx = 0;
 	while (line[idx + loc->chr] != '\0'
-			&& (ft_isspace(line[idx + loc->chr])
-				|| line[idx + loc->chr] != SEPARATOR_CHAR))
+			&& (ft_isspace(line[idx + loc->chr]) || (line[idx + loc->chr] != SEPARATOR_CHAR && !ft_strchr(COMMENT_CHARS, line[idx + loc->chr]))))
 		idx++;
 	if (line[idx + loc->chr] == '\0' && idx == 0)
 		return (kError); // TODO: Set correct Error Code
@@ -67,8 +67,7 @@ t_ret	get_tk_for_dir(char *line, t_tksave *token, t_place *loc, t_error *error)
 
 	idx = 0;
 	while (line[idx + loc->chr] != '\0'
-			&& (ft_isspace(line[idx + loc->chr])
-				|| line[idx + loc->chr] != SEPARATOR_CHAR))
+			&& (ft_isspace(line[idx + loc->chr]) || (line[idx + loc->chr] != SEPARATOR_CHAR && !ft_strchr(COMMENT_CHARS, line[idx + loc->chr]))))
 		idx++;
 	if (line[idx + loc->chr] == '\0' && idx == 0)
 		return (kError); // TODO: Set correct Error Code
@@ -94,7 +93,7 @@ t_ret	get_tk_for_reg(char *line, t_tksave *token, t_place *loc, t_error *error)
 
 	idx = 0;
 	while (line[idx + loc->chr] != '\0'
-			&& line[idx + loc->chr] != SEPARATOR_CHAR)
+			&& (ft_isspace(line[idx + loc->chr]) || (line[idx + loc->chr] != SEPARATOR_CHAR && !ft_strchr(COMMENT_CHARS, line[idx + loc->chr]))))
 		idx++;
 	if (line[idx + loc->chr] == '\0' && idx == 0)
 		return (kError); // TODO: Set correct Error Code
