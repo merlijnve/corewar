@@ -62,6 +62,7 @@ struct s_error
 	t_ret		code;
 	t_tksave	*token;
 	t_tksave	rtoken;
+	const char	*file_name;
 };
 
 typedef struct s_errinfo	t_errinfo;
@@ -71,8 +72,9 @@ struct		s_errinfo
 	const char	*format;
 };
 
-void	print_error(t_error *error);
+void	print_error(t_error *err, t_list *lines);
 t_ret	set_error(const char *file, t_index idx, t_ret ret, t_error *error);
 t_ret	set_err_loc(t_place loc, t_ret ret, t_error *error);
+t_ret	set_err_token(t_tksave *token, t_ret ret, t_error *error);
 
 #endif

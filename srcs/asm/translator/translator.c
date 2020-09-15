@@ -113,7 +113,8 @@ t_ret translate(t_list *tokens, t_asm *asmblr, t_error *error)
 			idx++;
 		}
 		else
-			ret = kTranslationError; // TODO: find correct error
+			// TODO: is this always the correct error?
+			ret = set_err_token(&tk_arr[idx], kTranslationError, error);
 	}
 	return (ret);
 }

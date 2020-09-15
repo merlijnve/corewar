@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shared_utils.h"
 #include "metaparse.h"
 #include "input_parser.h"
 
@@ -19,7 +20,7 @@ t_line_type		fline_type(const char *str)
 
 	if (ft_find_chr(str, '\n', ft_isspace_h))
 		return (kEmptyLine);
-	if (ft_find_chr(str, '#', ft_isspace_h))
+	if (ft_find_set(str, is_comment_chr, ft_isspace_h))
 		return (kSourceCommentLine);
 	detect = ft_find_chr(str, '.', ft_isspace_h);
 	if (detect != NULL)
@@ -136,6 +137,6 @@ t_ret	get_meta_from_file
 		else
 			return (set_error(file, idx, kMetaParseError, error));
 	}
-	*lines = ft_chrcnt(file, '\n', idx + 1);
+	*lines = ft_chrcnt(file, '\n', idx + 1) + 1;
 	return (ret);
 }

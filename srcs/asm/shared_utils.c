@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   input_parser.c                                     :+:    :+:            */
+/*   shared_utils.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/11 15:29:33 by floris        #+#    #+#                 */
-/*   Updated: 2020/06/11 15:29:35 by floris        ########   odam.nl         */
+/*   Created: 2020/09/08 14:41:00 by floris        #+#    #+#                 */
+/*   Updated: 2020/09/08 14:41:00 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECK_ARGS_H
-# define CHECK_ARGS_H
+#include <libft.h>
+#include <op.h>
+#include "shared_utils.h"
 
-#include "asm.h"
+int is_label_chr(int chr)
+{
+	if (ft_strchr(LABEL_CHARS, chr))
+		return (1);
+	return (0);
+}
 
-int		check_args(int argc, char *argv[], t_asm *asmblr);
-
-#endif
+int	is_comment_chr(int chr)
+{
+	if (ft_strchr(COMMENT_CHARS, chr))
+		return (1);
+	return (0);
+}

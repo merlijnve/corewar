@@ -49,7 +49,8 @@ static t_ret setup_asmblr(t_asm **asmblr, t_error *error)
 	asmblr_loc = ft_memalloc(sizeof(t_asm));
 	if (asmblr_loc != NULL)
 	{
-		asmblr_loc->bytecode.bytecode = ft_memalloc(MEM_SIZE + 16);
+		asmblr_loc->bytecode.bytecode = ft_memalloc(100 + 16);
+		asmblr_loc->bytecode.length = (100 + 16);
 		if (asmblr_loc->bytecode.bytecode == NULL)
 		{
 			free(asmblr_loc);
@@ -67,19 +68,29 @@ static t_ret setup_asmblr(t_asm **asmblr, t_error *error)
 	return (kErrorAlloc);
 }
 
+// TODO: Error for no champ code
+// TODO: Handle negative numbers
+// TODO: Support _ in link names
+// TODO: Support empty comment (with 2 quotes)
+// TODO: Handle:	/Users/floris/Documents/GitHub/test_asm/assets/file_parsing/multiline_name_and_comment.s (Tab before .name)
+// TODO:			/Users/floris/Documents/GitHub/test_asm/assets/file_parsing/Wall.s (Tab before .name)
+
 int		main(int argc, char **argv)
 {
-	t_asm	*asmblr;
-	t_index	skipln;
-	int		fd[2];
-	t_error error;
+	t_asm		*asmblr;
+	t_index		skipln;
+	int			fd[2];
+	t_error 	error;
 
 	skipln = 0;
 
 	error.code = setup_asmblr(&asmblr, &error);
 
 	if (error.code == kSuccess)
+	{
 		fd[0] = check_args(argc, argv, asmblr);
+		error.file_name = asmblr->file_name;
+	}
 	if (error.code == kSuccess)
 		error.code = read_file(fd[0], &asmblr->file);
 	if (error.code == kSuccess)
@@ -97,10 +108,15 @@ int		main(int argc, char **argv)
 	if (error.code == kSuccess)
 		error.code = write_file(asmblr, open_file(argv[1]), &error);
 	if (error.code != kSuccess)
-		print_error(&error);
+		print_error(&error, asmblr->lines);
 
-	print_tokens(asmblr->tokens);
+	if (error.code != kSuccess)
+		print_tokens(asmblr->tokens);
+	if (error.code == kSuccess)
+		printf("Succesfully Assembled: %s\n", asmblr->file_name);
 
 	close(fd[0]);
+	if (error.code != kSuccess)
+		return (1);
 	return (0);
 }

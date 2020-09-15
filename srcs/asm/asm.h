@@ -40,8 +40,6 @@ enum    e_line_type
 	kEmptyLine,
 };
 
-
-
 typedef struct s_bytecode	t_bytecode;
 typedef struct s_asm		t_asm;
 typedef struct s_jump		t_jump;
@@ -66,6 +64,7 @@ struct	s_asm
 	char 		*file;
 	t_list 		*lines;
 	t_list 		*tokens;
+	const char	*file_name;
 };
 
 struct	s_jump

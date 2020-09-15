@@ -42,7 +42,7 @@ t_ret tokens_from_lines(t_list *lines, t_list **tokens, t_index skiplines, t_err
 	ret = kSuccess;
 
 	// TODO: Replace this with metaparser
-	while (lines != NULL && lines->content_size < skiplines + 1)
+	while (lines != NULL && lines->content_size < skiplines)
 		lines = lines->next;
 
 	while (lines != NULL && ret == kSuccess)
@@ -57,6 +57,8 @@ t_ret tokens_from_lines(t_list *lines, t_list **tokens, t_index skiplines, t_err
 		else if (type == kLabelLine)
 			ret = tk_label_line(lines->content,
 				(t_place){lines->content_size, 0}, tokens, error);
+		else if (type == kUndefinedLine)
+			ret = set_err_loc((t_place){lines->content_size, 0}, kInputError, error);
 		lines = lines->next;
 	}
 	ft_lstrev(tokens);

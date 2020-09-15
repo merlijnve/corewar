@@ -208,17 +208,45 @@ static const t_errinfo	g_errinfo[70] =
 
 // 	ft_printf("Error: %.3d Line: %.4d:%.4d [%s]\n\n", error.code, error.token->loc.ln, error.token->loc.chr, error.token->str);
 
-void	print_error(t_error *err)
+static size_t	line_width(const char *str, size_t num)
+{
+	t_index	idx;
+	size_t	len;
+
+	idx = 0;
+	len = 0;
+	while (idx < num && str[idx] != '\0')
+	{
+		if (str[idx] == '\t')
+			len += 4 - (len % 4);
+		else
+			len += 1;
+		idx++;
+	}
+	return (len);
+}
+
+void	print_error(t_error *err, t_list *lines)
 {
 	if (err->code <= 0 && err->code >= -70)
-		ft_printf(g_errinfo[-err->code].format, "file.s", err->token->loc.ln, err->token->loc.chr, err->token->str);
+		ft_printf(g_errinfo[-err->code].format, err->file_name, err->token->loc.ln, err->token->loc.chr, err->token->str);
+	while (lines != NULL)
+	{
+		if (lines->content_size == err->token->loc.ln)
+		{
+			ft_printf("%s\n", lines->content);
+			if (err->token->str != NULL || err->token->loc.chr != 0)
+				ft_printf("%*.c\n", line_width(lines->content, err->token->loc.chr + 1), '^');
+		}
+		lines = lines->next;
+	}
 }
 
 t_ret	set_error(const char *file, t_index idx, t_ret ret, t_error *error)
 {
 	error->code = ret;
 	error->token = &error->rtoken;
-	error->rtoken.loc.ln = ft_chrcnt(file, '\n', idx + 1);
+	error->rtoken.loc.ln = ft_chrcnt(file, '\n', idx + 1) + 1;
 	error->rtoken.loc.chr = 0;
 	return (ret);
 }
