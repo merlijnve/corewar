@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "translator.h"
 
 // TODO: fix check op
@@ -17,6 +18,32 @@
 static int 	dir_size(t_inst type)
 {
 	return ((type <= 16 && type >= 1) ? get_opinfo(type)->dir_size : 0);
+}
+
+static t_ret check_and_resize(t_asm *asmblr)
+{
+	t_byte *bc;
+	t_byte *bcp;
+	size_t len;
+
+	bc = asmblr->bytecode.bytecode;
+	bcp = asmblr->bytecode.bcpoint;
+
+	len = bcp - bc;
+
+	if (len >= (asmblr->bytecode.length - 32) )
+	{
+		asmblr->bytecode.length += 512;
+		asmblr->bytecode.bytecode = ft_memalloc(asmblr->bytecode.length);
+		if (asmblr->bytecode.bytecode == NULL)
+		{
+			free(bc);
+			return (kErrorAlloc);
+		}
+		asmblr->bytecode.bcpoint = asmblr->bytecode.bytecode + (bcp - bc);
+		free(bc);
+	}
+	return (kSuccess);
 }
 
 t_ret asm_regtoint(char *str)
@@ -47,6 +74,8 @@ void	reverse_eb(t_enbyte *eb)
 t_ret	put_part(t_asm *asmblr, t_tksave *part, t_inst inst, t_error *error)
 {
 	t_ret ret;
+
+	check_and_resize(asmblr);
 
 	ret = kSuccess;
 	if (tft(part->token) == kTReg)
