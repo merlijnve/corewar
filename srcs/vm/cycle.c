@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/15 13:34:03 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/15 23:29:12 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,26 +84,51 @@ static void		vm_run_cursors(t_arena *arena_s)
 	}
 }
 
+// bool			vm_run_cycle(t_arena *arena_s)
+// {
+// 	if (arena_s->cursors == NULL)
+// 		return (false);
+// 	arena_s->cycle_count++;
+// 	vm_run_cursors(arena_s);
+// 	if (arena_s->cycle_count >= arena_s->cycles_to_die ||
+// 		arena_s->cycles_to_die <= 0)
+// 	{
+// 		arena_s->check_count++;
+// 		vm_cursor_alive(arena_s);
+// 		if (arena_s->live_count >= NBR_LIVE ||
+// 		arena_s->check_count == MAX_CHECKS) 
+// 			arena_s->cycles_to_die -= CYCLE_DELTA;
+// 		if (arena_s->check_count >= MAX_CHECKS)
+// 			arena_s->check_count = 0;
+// 		if (arena_s->live_count >= NBR_LIVE)
+// 			arena_s->live_count = 0;
+// 		else
+// 			arena_s->check_count++;
+// 		arena_s->cycle_count = 0;
+// 	}
+// 	return (true);
+// }
+
 bool			vm_run_cycle(t_arena *arena_s)
 {
 	if (arena_s->cursors == NULL)
 		return (false);
-	arena_s->cycles_since_check++;
+	arena_s->cycle_count++;
 	vm_run_cursors(arena_s);
-	if (arena_s->cycles_since_check >= arena_s->cycles_to_die ||
+	if (arena_s->cycle_count >= arena_s->cycles_to_die ||
 		arena_s->cycles_to_die <= 0)
 	{
-		if (arena_s->live_count >= NBR_LIVE ||
-		arena_s->check_count >= MAX_CHECKS)
-			arena_s->cycles_to_die -= CYCLE_DELTA;
-		if (arena_s->check_count >= MAX_CHECKS)
-			arena_s->check_count = 0;
-		if (arena_s->live_count >= NBR_LIVE)
-			arena_s->live_count = 0;
-		else
-			arena_s->check_count++;
+		arena_s->check_count++;
 		vm_cursor_alive(arena_s);
-		arena_s->cycles_since_check = 0;
+		if (arena_s->live_count >= NBR_LIVE || arena_s->check_count >= MAX_CHECKS) 
+		{
+			arena_s->cycles_to_die -= CYCLE_DELTA;
+			arena_s->check_count = 0;
+		}
+		arena_s->live_count = 0;
+		
+		arena_s->cycle_count = 0;
 	}
 	return (true);
 }
+

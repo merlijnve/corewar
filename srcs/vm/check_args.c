@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/15 02:10:10 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/15 22:30:48 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	loop_args(int argc, char **argv, t_arena *arena)
 		}
 		if (ft_strcmp(argv[index], "-n") == 0)
 			index = number_champ(index, argc, argv, arena);
-		check_visual_flags(arena, argv[index]);
+		index = check_visual_flags(arena, index, argc, argv);
 		if (ft_strcmp(argv[index], "-dump") == 0 ||
 		ft_strcmp(argv[index], "-d") == 0)
 			index = dump_flag(index, argc, argv, arena);
@@ -140,7 +140,10 @@ void		check_args(int argc, char **argv, t_arena *arena)
 	c = 0;
 	loop_args(argc, argv, arena);
 	if (arena->champion_count == 0 || arena->champion_count > MAX_PLAYERS)
+	{
+		printf("HELLO WORLD\n");
 		vm_error(kErrParams, NULL);
+	}
 	while (arena->champion_count - arena->n_flag > index_fd)
 	{
 		if (arena->champions[index_fd].fd == 0)

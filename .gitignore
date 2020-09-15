@@ -1,6 +1,7 @@
 # Objects / Libraries
 *.o
 *.a
+*.dump
 
 # Binaries
 srcs/asm/asm

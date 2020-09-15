@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/15 01:42:51 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/15 21:40:44 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void		visual_print_players(WINDOW *win, t_arena *arena)
 static void	visual_print_cursor(WINDOW *win, t_cursor *cursor)
 {
 	int i;
+	static const char *types[] = { "N/a", "TReg", "TDir", "TInd" };
 
 	i = 0;
 	wattrset(win, COLOR_PAIR(5));
@@ -72,15 +73,19 @@ static void	visual_print_cursor(WINDOW *win, t_cursor *cursor)
 	mvwprintw(win, 29, 3, "timeout:\t%d", cursor->timeout);
 	mvwprintw(win, 30, 3, "pos:\t\t%d", get_pos(cursor->pos, 0));
 	mvwprintw(win, 31, 3, "last alive:\t%d", cursor->last_alive);
-	mvwprintw(win, 32, 3, "args[0]:\t%#04x (%d)", cursor->args[0].value,
-	cursor->args[0].type);
-	mvwprintw(win, 33, 3, "args[1]:\t%#04x (%d)", cursor->args[1].value,
-	cursor->args[1].type);
-	mvwprintw(win, 34, 3, "args[2]:\t%#04x (%d)", cursor->args[2].value,
-	cursor->args[2].type);
+	mvwprintw(win, 33, 3, "Aguments:");
+	mvwprintw(win, 34, 3, "[0] %s: %#04x (%d)", types[cursor->args[0].type],
+		cursor->args[0].value, cursor->args[0].value
+	);
+	mvwprintw(win, 35, 3, "[1] %s: %#04x (%d)", types[cursor->args[1].type],
+		cursor->args[1].value, cursor->args[1].value
+	);
+	mvwprintw(win, 36, 3, "[2] %s: %#04x (%d)", types[cursor->args[2].type],
+		cursor->args[2].value, cursor->args[2].value
+	);
 	while (i < 16)
 	{
-		mvwprintw(win, 36 + i, 3, "REG [%d]:\t%d", i + 1,
+		mvwprintw(win, 38 + i, 3, "REG [%d]:\t%d", i + 1,
 		cursor->registries[i]);
 		i++;
 	}
@@ -100,11 +105,11 @@ void		visual_print_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 	mvwprintw(win, 15, 3, "STATS:");
 	wattrset(win, COLOR_PAIR(6));
 	box(win, 0, 0);
-	mvwprintw(win, 17, 3, "Cycles:\t%d", arena->cycle_count);
+	mvwprintw(win, 17, 3, "Cycles:\t%d", arena->cycles_total);
 	mvwprintw(win, 18, 3, "Cursors:\t%d/%d", arena->cursors_active,
 	arena->cursor_count);
 	mvwprintw(win, 19, 3, "Death:\t%d/%d",
-		arena->cycles_since_check, arena->cycles_to_die);
+		arena->cycle_count, arena->cycles_to_die);
 	mvwprintw(win, 20, 3, "Checks:\t%d/%d", arena->check_count, MAX_CHECKS);
 	mvwprintw(win, 21, 3, "Live:\t%d", arena->live_count);
 	mvwprintw(win, 23, 3, "Framemode:\t%s",

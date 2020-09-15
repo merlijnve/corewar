@@ -10,11 +10,17 @@
       "request": "launch",
       "program": "${workspaceFolder}/srcs/vm/corewar",
       "args": [
-        "${workspaceFolder}/resources/42-AI/champions/skynet.cor",
-        "${workspaceFolder}/resources/42-AI/champions/_.cor",
-        "${workspaceFolder}/resources/42-AI/champions/fluttershy.cor",
-        "${workspaceFolder}/resources/42-AI/champions/skynet.cor",
-        "-v"
+        // /valid_asm/valid_cor/enc_invalid1.cor
+        "${workspaceFolder}/resources/testers/valid_asm/valid_cor/enc_invalid1.cor",
+        // "${workspaceFolder}/42-Corewar-Checker/broken.cor",
+        // "${workspaceFolder}/resources/aff_reg.cor",
+        // "${workspaceFolder}/42-Corewar-Checker/broken-2.cor",
+        // "${workspaceFolder}/resources/42-AI/champions/skynet.cor",
+        // "${workspaceFolder}/resources/42-AI/champions/_.cor",
+        // "${workspaceFolder}/resources/42-AI/champions/fluttershy.cor",
+        // "${workspaceFolder}/resources/42-AI/champions/skynet.cor",
+        "-v",
+        "-f"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

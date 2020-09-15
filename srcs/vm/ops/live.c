@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/14 16:01:35 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/15 21:40:37 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void				inst_live(t_arena *arena, t_cursor *cursor)
 			ft_printf("A process shows that player %d (%s) is alive\n",
 			arena->winner->id, arena->winner->champ.name);
 	}
-	cursor->last_alive = arena->cycle_count;
+	cursor->last_alive = arena->cycles_total;
 	return ;
 }
