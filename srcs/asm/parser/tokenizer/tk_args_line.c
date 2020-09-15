@@ -28,8 +28,10 @@ t_ret tk_args_line(char *line, t_place loc, t_list **tokens, t_error *error)
 			ret = get_tk_for_dir(line, &token, &loc, error);
 		else if (line[loc.chr] == REGISTER_CHAR)
 			ret = get_tk_for_reg(line, &token, &loc, error);
-		else if (ft_isalnum(line[loc.chr]) || line[loc.chr] == LABEL_CHAR)
+		else if (ft_isalnum(line[loc.chr]) || line[loc.chr] == '-' || line[loc.chr] == LABEL_CHAR)
 			ret = get_tk_for_ind(line, &token, &loc, error);
+		else if (ft_strchr(COMMENT_CHARS, line[loc.chr]))
+			break ;
 		else
 			return (set_err_loc(loc, kTokenError, error));
 		add_token(tokens, &token);
