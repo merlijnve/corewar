@@ -25,10 +25,12 @@ t_ret	write_file(t_asm *asmblr, int fd, t_error *error)
 		bzero(box, 16);
 		magic = COREWAR_EXEC_MAGICR;
 		write(fd, &magic , sizeof(magic));
-		write(fd, asmblr->name, PROG_NAME_LENGTH + 4);
+		write(fd, asmblr->name, PROG_NAME_LENGTH);
+		write(fd, &box[4], 4);
 		ft_putmembe(box, code_len, 4);
 		write(fd, box, 4);
-		write(fd, asmblr->comment, COMMENT_LENGTH + 4);
+		write(fd, asmblr->comment, COMMENT_LENGTH);
+		write(fd, &box[4], 4);
 		write(fd, asmblr->bytecode.bytecode, code_len);
 		close(fd);
 		return (kSuccess);
