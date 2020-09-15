@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <ft_printf.h>
 
+#include "shared_utils.h"
+
 #include "input_parser.h"
 #include "tokenizer.h"
 
@@ -34,7 +36,7 @@ t_inst	is_inst(const char *line)
 			inst = (t_inst)(idx + 1);
 		idx++;
 	}
-	if (inst == kInstNone)
+	if (inst == kInstNone && start != NULL)
 		return (kInstUndef);
 	return (inst);
 }
@@ -62,7 +64,7 @@ static t_line_type	has_label(const char *line)
 
 	sym = ft_find_set(line, ft_isalnum, ft_isspace_h);
 	if (sym)
-		sym = ft_find_chr(line, LABEL_CHAR, ft_isalnum);
+		sym = ft_find_chr(line, LABEL_CHAR, is_label_chr);
 	space = find_space(line);
 	if (sym != NULL && (space == NULL || (space != NULL && sym < space)))
 	{
@@ -87,7 +89,7 @@ t_line_type	line_type(const char *line)
 
 	if (line == NULL)
 		return (kUndefinedLine);
-	if (ft_find_chr(line, COMMENT_CHAR, ft_isspace_h))
+	if (ft_find_set(line, is_comment_chr, ft_isspace_h))
 		return (kSourceCommentLine);
 	if (ft_find_chr(line, '\0', ft_isspace_h))
 		return (kEmptyLine);
