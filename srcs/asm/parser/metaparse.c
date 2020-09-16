@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 13:01:20 by floris        #+#    #+#                 */
-/*   Created: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
+/*   Updated: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ t_ret			go_next_line(t_index *idx, const char *file)
 	return (kSuccess);
 }
 
-// COMMENT_CMD_STRING COMMENT_LENGTH
-t_ret	get_comment(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
+t_ret			get_comment
+	(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 {
 	const char	*start;
 	const char	*end;
@@ -57,15 +57,12 @@ t_ret	get_comment(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 	start = ft_strstr(&file[*idx], COMMENT_CMD_STRING);
 	end = NULL;
 	if (start)
-	{
-		start = &start[ft_strlen(COMMENT_CMD_STRING)];
-		start = ft_find_chr(start, '\"', ft_isspace_h);
-	}
+		start = ft_find_chr(
+			&start[ft_strlen(COMMENT_CMD_STRING)], '\"', ft_isspace_h);
 	if (start)
 		end = ft_find_chr(&start[1], '\"', NULL);
 	if (end && *end == '\"')
 	{
-		// TODO: check correct length
 		if (end - start <= COMMENT_LENGTH)
 		{
 			ft_memcpy(asmblr->comment, &start[1], end - start - 1);
@@ -78,10 +75,11 @@ t_ret	get_comment(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 	}
 	else
 		return (set_error(file, *idx, kErrotMetaParse, error));
-	return kSuccess;
+	return (kSuccess);
 }
 
-t_ret	get_name(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
+t_ret			get_name
+	(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 {
 	const char	*start;
 	const char	*end;
@@ -89,15 +87,12 @@ t_ret	get_name(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 	start = ft_strstr(&file[*idx], NAME_CMD_STRING);
 	end = NULL;
 	if (start)
-	{
-		start = &start[ft_strlen(NAME_CMD_STRING)];
-		start = ft_find_chr(start, '\"', ft_isspace_h);
-	}
+		start = ft_find_chr(
+			&start[ft_strlen(NAME_CMD_STRING)], '\"', ft_isspace_h);
 	if (start)
 		end = ft_find_chr(&start[1], '\"', NULL);
 	if (end && *end == '\"')
 	{
-		// TODO: check correct length
 		if (end - start <= PROG_NAME_LENGTH)
 		{
 			ft_memcpy(asmblr->name, &start[1], end - start - 1);
@@ -110,23 +105,20 @@ t_ret	get_name(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 	}
 	else
 		return (set_error(file, *idx, kErrotMetaParse, error));
-	return kSuccess;
+	return (kSuccess);
 }
 
-
-t_ret	get_meta_from_file
+t_ret			get_meta_from_file
 	(const char *file, t_asm *asmblr, t_error *error, t_index *lines)
 {
 	t_ret		ret;
 	t_index		idx;
 	t_line_type	type;
-	int			state;
 
-	state = 0;
 	ret = kSuccess;
 	idx = 0;
 	while (file[idx] != '\0' && ret == kSuccess
-		   && (asmblr->comment[0] == '\0' || asmblr->name[0] == '\0'))
+			&& (asmblr->comment[0] == '\0' || asmblr->name[0] == '\0'))
 	{
 		type = fline_type(&file[idx]);
 		if (type == kSourceCommentLine || type == kEmptyLine)

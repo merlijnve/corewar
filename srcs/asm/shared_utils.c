@@ -14,21 +14,22 @@
 #include <op.h>
 #include "shared_utils.h"
 
-int is_readable(int chr)
+int		is_readable(int chr)
 {
-	if (ft_strchr("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_", chr))
+	if (ft_strchr("0123456789abcdefghijklmnopqrstuvwxyz"
+					"ABCDEFGHIJKLMNOPQRSTUVWXYZ-_", chr))
 		return (1);
 	return (0);
 }
 
-int is_label_chr(int chr)
+int		is_label_chr(int chr)
 {
 	if (ft_strchr(LABEL_CHARS, chr))
 		return (1);
 	return (0);
 }
 
-int	is_comment_chr(int chr)
+int		is_comment_chr(int chr)
 {
 	if (ft_strchr(COMMENT_CHARS, chr))
 		return (1);

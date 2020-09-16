@@ -11,26 +11,27 @@
 /* ************************************************************************** */
 
 #ifndef ERROR_H
-#define ERROR_H
+# define ERROR_H
 
-#include <libft.h>
+# include <libft.h>
 
-#include "token_types.h"
+# include "token_types.h"
 
-#define ERR_PFX_FL "ERROR: %s:"
-#define ERR_PFX "ERROR:"
+# define ERR_PFX_FL "ERROR: %s:"
+# define ERR_PFX "ERROR:"
 
 typedef enum e_ret			t_ret;
 
-// Errors
-//  0 -  9 Standart errors
-// 10 - 29 Input Erros
-// 30 - 39 Translation Errors
-// 40 - 49 Linking errors
-// 50 - 59 Token errors
-// 60 - 69 MetaParse errors
-// 70 - 79 Validation errors
-//
+/*
+** Errors
+**  0 -  9 Standart errors
+** 10 - 29 Input Erros
+** 30 - 39 Translation Errors
+** 40 - 49 Linking errors
+** 50 - 59 Token errors
+** 60 - 69 MetaParse errors
+** 70 - 79 Validation errors
+*/
 
 enum	e_ret
 {
@@ -63,7 +64,7 @@ enum	e_ret
 
 typedef struct s_error		t_error;
 
-struct s_error
+struct	s_error
 {
 	t_ret		code;
 	t_tksave	*token;
@@ -73,7 +74,7 @@ struct s_error
 
 typedef struct s_errinfo	t_errinfo;
 
-struct		s_errinfo
+struct	s_errinfo
 {
 	const char	*format;
 };

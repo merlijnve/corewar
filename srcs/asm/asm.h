@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#ifndef ASM_H
+# define ASM_H
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -22,13 +22,13 @@
 # include <ft_printf.h>
 # include <op.h>
 
-#include "tokenizer.h"
+# include "tokenizer.h"
 
-typedef uint8_t 			t_byte;
+typedef uint8_t				t_byte;
 
 typedef enum e_line_type	t_line_type;
 
-enum    e_line_type
+enum	e_line_type
 {
 	kUndefinedLine,
 	kSourceCommentLine,
@@ -48,11 +48,11 @@ typedef struct s_jump		t_marker;
 struct	s_bytecode
 {
 	size_t	length;
-	t_byte	*bcpoint;
-	t_byte	*bytecode;
+	t_byte	*bcp;
+	t_byte	*bcdata;
 	t_index	last_inst;
-	t_list	*jump; // adresses from where a jump needs to be done
-	t_list	*marker; // markers to jump to
+	t_list	*jump;
+	t_list	*marker;
 };
 
 struct	s_asm
@@ -60,10 +60,10 @@ struct	s_asm
 	int			n_flags;
 	char		name[PROG_NAME_LENGTH + 2];
 	char		comment[COMMENT_LENGTH + 2];
-	t_bytecode	bytecode;
-	char 		*file;
-	t_list 		*lines;
-	t_list 		*tokens;
+	t_bytecode	bc;
+	char		*file;
+	t_list		*lines;
+	t_list		*tokens;
 	const char	*file_name;
 };
 
@@ -74,6 +74,5 @@ struct	s_jump
 	t_index		ins_idx;
 	t_args_type	type;
 };
-
 
 #endif

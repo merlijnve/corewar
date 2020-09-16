@@ -1,31 +1,40 @@
-//
-//  tokenizer_common.c
-//  cw-asm
-//
-//  Created by Floris Fredrikze on 31/08/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   tokenizer_common.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: floris <ffredrik@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/09/16 16:11:16 by floris        #+#    #+#                 */
+/*   Updated: 2020/09/16 16:29:20 by floris        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <op.h>
 #include "tokenizer.h"
 
-t_ret	get_tk_for_sep(char *line, t_tksave *token, t_place *loc, t_error *error)
+/*
+** TODO: Should be looking for anouter seperator?
+** TEST: sub r1, r2, # r3 Some comment
+** TODO: Set correct Error Code
+*/
+
+t_ret	get_tk_for_sep
+	(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
-	t_index idx;
-	char 	*str;
+	t_index	idx;
+	char	*str;
 
 	idx = 0;
-	// TODO: Should be looking for anouter seperator? // TEST: sub r1, r2, # r3 Some comment
 	while (line[idx + loc->chr] != '\0'
 			&& line[idx + loc->chr] != SEPARATOR_CHAR)
 		idx++;
-
 	if (line[idx + loc->chr] == '\0')
-		return (kError); // TODO: Set correct Error Code
+		return (kError);
 	idx++;
 	str = ft_strndup(&line[loc->chr], idx);
 	if (str == NULL)
 		return (kErrorAlloc);
-	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
 		return (kErrorToken);
 	ft_memcpy(&token->loc, loc, sizeof(t_place));
@@ -35,22 +44,27 @@ t_ret	get_tk_for_sep(char *line, t_tksave *token, t_place *loc, t_error *error)
 	return (kSuccess);
 }
 
-t_ret	get_tk_for_ind(char *line, t_tksave *token, t_place *loc, t_error *error)
+/*
+** TODO: Set correct Error Code
+*/
+
+t_ret	get_tk_for_ind
+	(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
 	t_index idx;
 	char	*str;
 
 	idx = 0;
-	while (line[idx + loc->chr] != '\0'
-			&& (ft_isspace(line[idx + loc->chr]) || (line[idx + loc->chr] != SEPARATOR_CHAR && !ft_strchr(COMMENT_CHARS, line[idx + loc->chr]))))
+	while (line[idx + loc->chr] != '\0' && (ft_isspace(line[idx + loc->chr])
+			|| (line[idx + loc->chr] != SEPARATOR_CHAR
+			&& !ft_strchr(COMMENT_CHARS, line[idx + loc->chr]))))
 		idx++;
 	if (line[idx + loc->chr] == '\0' && idx == 0)
-		return (kError); // TODO: Set correct Error Code
+		return (kError);
 	ft_memcpy(&token->loc, loc, sizeof(t_place));
 	str = ft_strndup(&line[loc->chr], idx);
 	if (str == NULL)
 		return (kErrorAlloc);
-	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
 		return (kErrorToken);
 	token->str = str;
@@ -60,22 +74,27 @@ t_ret	get_tk_for_ind(char *line, t_tksave *token, t_place *loc, t_error *error)
 	return (kSuccess);
 }
 
-t_ret	get_tk_for_dir(char *line, t_tksave *token, t_place *loc, t_error *error)
+/*
+** TODO: Set correct Error Code
+*/
+
+t_ret	get_tk_for_dir
+	(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
 	t_index idx;
 	char	*str;
 
 	idx = 0;
-	while (line[idx + loc->chr] != '\0'
-			&& (ft_isspace(line[idx + loc->chr]) || (line[idx + loc->chr] != SEPARATOR_CHAR && !ft_strchr(COMMENT_CHARS, line[idx + loc->chr]))))
+	while (line[idx + loc->chr] != '\0' && (ft_isspace(line[idx + loc->chr])
+			|| (line[idx + loc->chr] != SEPARATOR_CHAR
+			&& !ft_strchr(COMMENT_CHARS, line[idx + loc->chr]))))
 		idx++;
 	if (line[idx + loc->chr] == '\0' && idx == 0)
-		return (kError); // TODO: Set correct Error Code
+		return (kError);
 	ft_memcpy(&token->loc, loc, sizeof(t_place));
 	str = ft_strndup(&line[loc->chr], idx);
 	if (str == NULL)
 		return (kErrorAlloc);
-	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
 		return (kErrorToken);
 	token->str = str;
@@ -85,23 +104,27 @@ t_ret	get_tk_for_dir(char *line, t_tksave *token, t_place *loc, t_error *error)
 	return (kSuccess);
 }
 
+/*
+** TODO: Set correct Error Code
+*/
 
-t_ret	get_tk_for_reg(char *line, t_tksave *token, t_place *loc, t_error *error)
+t_ret	get_tk_for_reg
+	(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
 	t_index idx;
 	char	*str;
 
 	idx = 0;
-	while (line[idx + loc->chr] != '\0'
-			&& (ft_isspace(line[idx + loc->chr]) || (line[idx + loc->chr] != SEPARATOR_CHAR && !ft_strchr(COMMENT_CHARS, line[idx + loc->chr]))))
+	while (line[idx + loc->chr] != '\0' && (ft_isspace(line[idx + loc->chr])
+			|| (line[idx + loc->chr] != SEPARATOR_CHAR
+			&& !ft_strchr(COMMENT_CHARS, line[idx + loc->chr]))))
 		idx++;
 	if (line[idx + loc->chr] == '\0' && idx == 0)
-		return (kError); // TODO: Set correct Error Code
+		return (kError);
 	ft_memcpy(&token->loc, loc, sizeof(t_place));
 	str = ft_strndup(&line[loc->chr], idx);
 	if (str == NULL)
 		return (kErrorAlloc);
-	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
 		return (kErrorToken);
 	token->str = str;
@@ -110,7 +133,12 @@ t_ret	get_tk_for_reg(char *line, t_tksave *token, t_place *loc, t_error *error)
 	return (kSuccess);
 }
 
-t_ret	get_tk_for_inst(char *line, t_tksave *token, t_place *loc, t_error *error)
+/*
+** TODO: Set correct Error Code
+*/
+
+t_ret	get_tk_for_inst
+	(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
 	t_index idx;
 	char	*str;
@@ -119,12 +147,11 @@ t_ret	get_tk_for_inst(char *line, t_tksave *token, t_place *loc, t_error *error)
 	while (line[idx + loc->chr] != '\0' && ft_isalnum(line[idx + loc->chr]))
 		idx++;
 	if (line[idx + loc->chr] == '\0')
-		return (kError); // TODO: Set correct Error Code
+		return (kError);
 	ft_memcpy(&token->loc, loc, sizeof(t_place));
 	str = ft_strndup(&line[loc->chr], idx);
 	if (str == NULL)
 		return (kErrorAlloc);
-	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
 		return (kErrorToken);
 	token->str = str;
@@ -133,21 +160,25 @@ t_ret	get_tk_for_inst(char *line, t_tksave *token, t_place *loc, t_error *error)
 	return (kSuccess);
 }
 
-t_ret	get_tk_for_label(char *line, t_tksave *token, t_place *loc, t_error *error)
+/*
+** TODO: Set correct Error Code
+*/
+
+t_ret	get_tk_for_label
+	(char *line, t_tksave *token, t_place *loc, t_error *error)
 {
-	t_index idx;
-	char 	*str;
+	t_index	idx;
+	char	*str;
 
 	idx = 0;
 	while (line[idx + loc->chr] != '\0' && line[idx + loc->chr] != LABEL_CHAR)
 		idx++;
 	idx++;
 	if (line[idx + loc->chr] == '\0' && idx == 0)
-		return (kError); // TODO: Set correct Error Code
+		return (kError);
 	str = ft_strndup(&line[loc->chr], idx);
 	if (str == NULL)
 		return (kErrorAlloc);
-	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
 		return (kErrorToken);
 	token->str = str;

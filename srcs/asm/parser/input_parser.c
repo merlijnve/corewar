@@ -18,7 +18,7 @@
 #include "input_parser.h"
 #include "tokenizer.h"
 
-t_inst	is_inst(const char *line)
+t_inst				is_inst(const char *line)
 {
 	int			idx;
 	t_inst		inst;
@@ -38,7 +38,7 @@ t_inst	is_inst(const char *line)
 	}
 	if (inst == kInstNone && start != NULL)
 	{
-		if (!ft_isvisible(start[0]) )
+		if (!ft_isvisible(start[0]))
 			return (kInstNone);
 		return (kInstUndef);
 	}
@@ -63,7 +63,6 @@ static t_line_type	has_label(const char *line)
 {
 	const char	*sym;
 	const char	*space;
-//	char		*poten; // potential
 	t_inst		type;
 
 	space = NULL;
@@ -74,7 +73,8 @@ static t_line_type	has_label(const char *line)
 		space = find_space(sym);
 	if (sym != NULL && (space == NULL || (space != NULL && sym < space)))
 	{
-		if (ft_find_set(&sym[1], ft_isalpha, ft_isspace_h) && !ft_find_set(&sym[1], is_comment_chr, ft_isspace_h))
+		if (ft_find_set(&sym[1], ft_isalpha, ft_isspace_h)
+			&& !ft_find_set(&sym[1], is_comment_chr, ft_isspace_h))
 		{
 			type = is_inst(&sym[1]);
 			if (type != kInstNone)
@@ -84,10 +84,9 @@ static t_line_type	has_label(const char *line)
 			return (kLabelLine);
 	}
 	return (kUndefinedLine);
-
 }
 
-t_line_type	line_type(const char *line)
+t_line_type			line_type(const char *line)
 {
 	t_line_type type;
 

@@ -16,248 +16,246 @@
 static const t_errinfo	g_errinfo[80] =
 {
 	{
-		.format = ERR_PFX_FL"%d:%d -- kSuccsess (0)\n",
+		ERR_PFX_FL"%d:%d -- kSuccsess (0)\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kError (1) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kError (1) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX"kErrorAlloc (2)\n",
+		ERR_PFX"kErrorAlloc (2)\n",
 	},
 	{
-		.format = ERR_PFX_FL" -- kErrorOpeningFile (3)\n",
+		ERR_PFX_FL" -- kErrorOpeningFile (3)\n",
 	},
 	{
-		.format = ERR_PFX_FL" -- kErrorEmptyFile (4)\n",
+		ERR_PFX_FL" -- kErrorEmptyFile (4)\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorInput (10) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorInput (10) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorParse (11) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorParse (11) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorGarbageFound (12) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorGarbageFound (12) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorTranslation (30) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorTranslation (30) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorInvalidArgumentCount (31) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorInvalidArgumentCount (31) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorUndefineInstruction (32) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorUndefineInstruction (32) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorLinking (40) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorLinking (40) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorLinkNotFound (41) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorLinkNotFound (41) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorToken (50) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorToken (50) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorMetaParse (60) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorMetaParse (60) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorNameTooLong (61)\n",
+		ERR_PFX_FL"%d:%d -- kErrorNameTooLong (61)\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorCommentTooLong (62)\n",
+		ERR_PFX_FL"%d:%d -- kErrorCommentTooLong (62)\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorValidation (70) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorValidation (70) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kErrorBadCharInLabel (70) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorBadCharInLabel (70) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX"\n",
+		ERR_PFX"\n",
 	},
 };
-
-// 	ft_printf("Error: %.3d Line: %.4d:%.4d [%s]\n\n", error.code, error.token->loc.ln, error.token->loc.chr, error.token->str);
 
 static size_t	line_width(const char *str, size_t num)
 {
@@ -277,23 +275,26 @@ static size_t	line_width(const char *str, size_t num)
 	return (len);
 }
 
-void	print_error(t_error *err, t_list *lines)
+void			print_error(t_error *err, t_list *lines)
 {
 	if (err->code <= 0 && err->code >= -80)
-		ft_printf(g_errinfo[-err->code].format, err->file_name, err->token->loc.ln, err->token->loc.chr, err->token->str);
+		ft_printf(g_errinfo[-err->code].format, err->file_name,
+					err->token->loc.ln, err->token->loc.chr, err->token->str);
 	while (lines != NULL)
 	{
 		if (lines->content_size == err->token->loc.ln)
 		{
 			ft_printf("%s\n", lines->content);
 			if (err->token->str != NULL || err->token->loc.chr != 0)
-				ft_printf("%*.c\n", line_width(lines->content, err->token->loc.chr + 1), '^');
+				ft_printf("%*.c\n", line_width(lines->content,
+												err->token->loc.chr + 1), '^');
 		}
 		lines = lines->next;
 	}
 }
 
-t_ret	set_error(const char *file, t_index idx, t_ret ret, t_error *error)
+t_ret			set_error
+	(const char *file, t_index idx, t_ret ret, t_error *error)
 {
 	error->code = ret;
 	error->token = &error->rtoken;
@@ -302,7 +303,7 @@ t_ret	set_error(const char *file, t_index idx, t_ret ret, t_error *error)
 	return (ret);
 }
 
-t_ret	set_err_loc(t_place loc, t_ret ret, t_error *error)
+t_ret			set_err_loc(t_place loc, t_ret ret, t_error *error)
 {
 	error->code = ret;
 	error->token = &error->rtoken;
@@ -310,10 +311,9 @@ t_ret	set_err_loc(t_place loc, t_ret ret, t_error *error)
 	return (ret);
 }
 
-t_ret	set_err_token(t_tksave *token, t_ret ret, t_error *error)
+t_ret			set_err_token(t_tksave *token, t_ret ret, t_error *error)
 {
 	error->code = ret;
 	error->token = token;
 	return (ret);
 }
-

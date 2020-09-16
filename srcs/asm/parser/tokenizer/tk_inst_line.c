@@ -6,13 +6,13 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 13:01:20 by floris        #+#    #+#                 */
-/*   Created: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
+/*   Updated: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-t_ret tk_inst_line(char *line, t_place loc, t_list **tokens, t_error *error)
+t_ret	tk_inst_line(char *line, t_place loc, t_list **tokens, t_error *error)
 {
 	t_ret		ret;
 	t_tksave	*token;

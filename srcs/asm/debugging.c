@@ -33,28 +33,28 @@ void		print_lines(t_list *lines)
 	ft_printf("++++ END ++++\n\n");
 }
 
-static char *token_type_str(t_asm_token token)
+static char	*token_type_str(t_asm_token token)
 {
 	if (token == kTokenNone)
-		return "kTokenNone";
+		return ("kTokenNone");
 	else if (token == kTokenLabel)
-		return "kTokenLabel";
+		return ("kTokenLabel");
 	else if (token == kTokenInstruction)
-		return "kTokenInstruction";
+		return ("kTokenInstruction");
 	else if (token == kTokenRegister)
-		return "kTokenRegister";
+		return ("kTokenRegister");
 	else if (token == kTokenSeperator)
-		return "kTokenSeperator";
+		return ("kTokenSeperator");
 	else if (token == kTokenDir)
-		return "kTokenDir";
+		return ("kTokenDir");
 	else if (token == kTokenDirLabel)
-		return "kTokenDirLabel";
+		return ("kTokenDirLabel");
 	else if (token == kTokenInd)
-		return "kTokenInd";
+		return ("kTokenInd");
 	else if (token == kTokenIndLabel)
-		return "kTokenIndLabel";
+		return ("kTokenIndLabel");
 	else if (token == kTokenUnknown)
-		return "kTokenUnknown";
+		return ("kTokenUnknown");
 	return (NULL);
 }
 
@@ -67,7 +67,8 @@ void		print_tokens(t_list *tokens)
 	{
 		part = tokens->content;
 		ft_printf("token: %.3d:%.3d %-18s | %s\n",
-					part->loc.ln, part->loc.chr, token_type_str(part->token), part->str);
+					part->loc.ln, part->loc.chr,
+					token_type_str(part->token), part->str);
 		tokens = tokens->next;
 	}
 	ft_printf(" ==== ==== ====  END TOKENS  ==== ==== ====\n\n");
@@ -75,7 +76,7 @@ void		print_tokens(t_list *tokens)
 
 void		print_bc(t_asm *asmblr, size_t size)
 {
-	debug_print_mem(asmblr->bytecode.bytecode, size);
+	debug_print_mem(asmblr->bc.bcdata, size);
 	ft_printf("\n");
 }
 

@@ -1,16 +1,31 @@
-//
-//  linker.c
-//  cw-asm
-//
-//  Created by Floris Fredrikze on 02/09/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   linker.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: floris <ffredrik@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/09/13 22:17:00 by floris        #+#    #+#                 */
+/*   Updated: 2020/09/13 22:17:00 by floris        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 
 #include "linker.h"
 #include "translator.h"
 
-// TODO: this function has to be checked.. does it compare correctly (it maybe now does)
+/*
+** TODO: Remove
+*/
+
+#include "debugging.h"
+
+/*
+** TODO: this function has to be checked..
+** does it compare correctly (it maybe now does)
+*/
+
 static int		clean_and_compare(t_jump *jmp, t_marker *mkr)
 {
 	t_index	sp_jmp;
@@ -27,16 +42,16 @@ static int		clean_and_compare(t_jump *jmp, t_marker *mkr)
 	while (smkr[sp_mkr] != '\0' && !ft_isalnum(smkr[sp_mkr]))
 		sp_mkr++;
 	while (ft_isalnum(sjmp[sp_jmp]) && ft_isalnum(smkr[sp_mkr])
-		   && sjmp[sp_jmp] == smkr[sp_mkr])
+			&& sjmp[sp_jmp] == smkr[sp_mkr])
 	{
 		sp_jmp++;
 		sp_mkr++;
 	}
 	if ((sjmp[sp_jmp] == '\0' || !ft_isalnum(sjmp[sp_jmp]))
 		&& (smkr[sp_mkr] == '\0' || !ft_isalnum(smkr[sp_mkr])))
-		return 1;
+		return (1);
 	else
-		return 0;
+		return (0);
 }
 
 static t_ret	find_marker(t_list *markers, t_jump *jump, t_marker **marker)
@@ -52,7 +67,7 @@ static t_ret	find_marker(t_list *markers, t_jump *jump, t_marker **marker)
 		if (clean_and_compare(jump, (t_marker *)markers->content))
 		{
 			found = (t_marker *)markers->content;
-			break;
+			break ;
 		}
 		markers = markers->next;
 	}
@@ -62,35 +77,37 @@ static t_ret	find_marker(t_list *markers, t_jump *jump, t_marker **marker)
 	return (ret);
 }
 
-static t_ret 	put_link
-(t_bytecode *bc, t_list *markers, t_jump *jump, t_error *error)
+static t_ret	put_link
+	(t_bytecode *bc, t_list *markers, t_jump *jump, t_error *error)
 {
 	t_marker	*res;
 	t_ret		ret;
-	
+
 	ret = find_marker(markers, jump, &res);
 	if (ret != kSuccess)
 	{
 		error->code = ret;
 		error->token = jump->token;
-		return ret;
+		return (ret);
 	}
-	ft_putmembe(&bc->bytecode[jump->idx], res->idx - jump->ins_idx,
-				(jump->type == kTDir) ? 2 : 4); // TODO: make this correct size alwasy
+	// TODO: make this correct size alwasy
+	ft_putmembe(&bc->bcdata[jump->idx], res->idx - jump->ins_idx,
+				(jump->type == kTDir) ? 2 : 4);
 	return (kSuccess);
 }
 
-t_ret	asm_link(t_asm *asmblr, t_error *error)
+t_ret			asm_link(t_asm *asmblr, t_error *error)
 {
 	t_ret	ret;
 	t_list	*jumps;
 
 	ret = kSuccess;
-	jumps = asmblr->bytecode.jump;
+	jumps = asmblr->bc.jump;
 	while (jumps != NULL && ret == kSuccess)
 	{
-		ret = put_link(&asmblr->bytecode, asmblr->bytecode.marker, jumps->content, error);
+		ret = put_link(&asmblr->bc, asmblr->bc.marker, jumps->content, error);
 		jumps = jumps->next;
+		print_bc(asmblr, asmblr->bc.length - 16);
 	}
 	return (ret);
 }

@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef debugging_h
-#define debugging_h
+#ifndef DEBUGGING_H
+# define DEBUGGING_H
 
-#include "asm.h"
+# include "asm.h"
 
 void	print_file(char *file);
 void	print_lines(t_list *lines);

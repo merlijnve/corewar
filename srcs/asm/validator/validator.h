@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef VALIDATOR_H
-#define VALIDATOR_H
+# define VALIDATOR_H
 
-#include "asm.h"
+# include "asm.h"
 
 t_ret	validate_tokens(t_list *tokens, t_asm *asmblr, t_error *error);
 

@@ -25,13 +25,17 @@
 
 #include "error.h"
 
-#include "debugging.h" // TODO: Remove
+/*
+** TODO: Remove
+*/
 
-static int open_file(char *str)
+#include "debugging.h"
+
+static int		open_file(char *str)
 {
-	size_t len;
-	int fd;
-	char *fn;
+	size_t	len;
+	int		fd;
+	char	*fn;
 
 	len = ft_strlen(str);
 	fn = ft_strnew(len + 2);
@@ -39,24 +43,24 @@ static int open_file(char *str)
 	ft_memcpy(&fn[len - 2], ".cor", 4);
 	fd = open(fn, O_CREAT | O_RDWR | O_TRUNC, 0600);
 	free(fn);
-	return fd;
+	return (fd);
 }
 
-static t_ret setup_asmblr(t_asm **asmblr, t_error *error)
+static t_ret	setup_asmblr(t_asm **asmblr, t_error *error)
 {
 	t_asm *asmblr_loc;
 
 	asmblr_loc = ft_memalloc(sizeof(t_asm));
 	if (asmblr_loc != NULL)
 	{
-		asmblr_loc->bytecode.bytecode = ft_memalloc(100 + 16);
-		asmblr_loc->bytecode.length = (100 + 16);
-		if (asmblr_loc->bytecode.bytecode == NULL)
+		asmblr_loc->bc.bcdata = ft_memalloc(255 + 16);
+		asmblr_loc->bc.length = (255 + 16);
+		if (asmblr_loc->bc.bcdata == NULL)
 		{
 			free(asmblr_loc);
 			return (kErrorAlloc);
 		}
-		asmblr_loc->bytecode.bcpoint = asmblr_loc->bytecode.bytecode;
+		asmblr_loc->bc.bcp = asmblr_loc->bc.bcdata;
 		*asmblr = asmblr_loc;
 		error->token = &error->rtoken;
 		error->rtoken.token = kTokenUnknown;
@@ -68,26 +72,26 @@ static t_ret setup_asmblr(t_asm **asmblr, t_error *error)
 	return (kErrorAlloc);
 }
 
-// TODO: Handle wrong number or arg types
-// TODO: Error for no champ code
-// TODO: Handle token with space in middle (should only be allowed when + or - is used)
-// TODO: /Users/floris/Documents/GitHub/test_asm/assets/file_parsing/incorrect/negative_value_reg.s
-// TODO: /Users/floris/Documents/GitHub/test_asm/assets/file_parsing/incorrect/op_and_line_break.s
-// TODO:  /Users/floris/Documents/GitHub/test_asm/assets/file_parsing/incorrect/no_value_ind.s (', ,' without arg in between..)
-// TODO: /Users/floris/Documents/GitHub/test_asm/assets/file_parsing/incorrect/no_value_dir.s (',%,' dir without value)
-// TODO: (reg bigger than 255 (max to write))
+/*
+** TODO: Handle wrong number or arg types
+** TODO: Error for no champ code
+** TODO: Handle token with space in middle (only allowed when + or - is used)
+** TODO: file_parsing/incorrect/negative_value_reg.s
+** TODO: file_parsing/incorrect/op_and_line_break.s
+** TODO: file_parsing/incorrect/no_value_ind.s (', ,' without arg in between..)
+** TODO: file_parsing/incorrect/no_value_dir.s (',%,' dir without value)
+** TODO:
+*/
 
-int		main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_asm		*asmblr;
 	t_index		skipln;
 	int			fd[2];
-	t_error 	error;
+	t_error		error;
 
 	skipln = 0;
-
 	error.code = setup_asmblr(&asmblr, &error);
-
 	if (error.code == kSuccess)
 	{
 		fd[0] = check_args(argc, argv, asmblr);
@@ -100,7 +104,8 @@ int		main(int argc, char **argv)
 	if (error.code == kSuccess)
 		error.code = get_meta_from_file(asmblr->file, asmblr, &error, &skipln);
 	if (error.code == kSuccess)
-		error.code = tokens_from_lines(asmblr->lines, &asmblr->tokens, skipln, &error);
+		error.code = tokens_from_lines(
+			asmblr->lines, &asmblr->tokens, skipln, &error);
 	if (error.code == kSuccess)
 		error.code = validate_tokens(asmblr->tokens, asmblr, &error);
 	if (error.code == kSuccess)
@@ -111,12 +116,10 @@ int		main(int argc, char **argv)
 		error.code = write_file(asmblr, open_file(argv[1]), &error);
 	if (error.code != kSuccess)
 		print_error(&error, asmblr->lines);
-
 	if (error.code != kSuccess && asmblr->tokens)
 		print_tokens(asmblr->tokens);
 	if (error.code == kSuccess)
 		printf("Succesfully Assembled: %s\n", asmblr->file_name);
-
 	close(fd[0]);
 	if (error.code != kSuccess)
 		return (1);

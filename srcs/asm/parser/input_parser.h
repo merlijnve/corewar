@@ -21,7 +21,7 @@
 
 t_ret		read_lines(const char *file, t_list **lines);
 t_ret		read_file(int fd, char **buffer);
-t_ret   	parse_file(t_list *lines, t_asm *asmblr);
+t_ret		parse_file(t_list *lines, t_asm *asmblr);
 
 t_inst		is_inst(const char *line);
 t_line_type	line_type(const char *line);

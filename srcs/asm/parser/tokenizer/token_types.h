@@ -1,16 +1,21 @@
-//
-//  token_types.h
-//  cw-asm
-//
-//  Created by Floris Fredrikze on 14/09/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   token_types.h                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: floris <ffredrik@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/09/13 22:17:00 by floris        #+#    #+#                 */
+/*   Updated: 2020/09/13 22:17:00 by floris        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef token_types_h
-#define token_types_h
+#ifndef TOKEN_TYPES_H
+# define TOKEN_TYPES_H
 
 typedef enum e_asm_token	t_asm_token;
 
-enum e_asm_token
+enum	e_asm_token
 {
 	kTokenNone = 0,
 	kTokenLabel,
@@ -41,4 +46,4 @@ struct	s_tksave
 	t_place		loc;
 };
 
-#endif /* token_types_h */
+#endif
