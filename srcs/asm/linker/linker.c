@@ -57,7 +57,7 @@ static t_ret	find_marker(t_list *markers, t_jump *jump, t_marker **marker)
 		markers = markers->next;
 	}
 	if (found == NULL)
-		return (kLinkNotFoundError);
+		return (kErrorLinkNotFound);
 	*marker = found;
 	return (ret);
 }

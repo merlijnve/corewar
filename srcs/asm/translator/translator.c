@@ -114,7 +114,7 @@ t_ret translate(t_list *tokens, t_asm *asmblr, t_error *error)
 		}
 		else
 			// TODO: is this always the correct error?
-			ret = set_err_token(&tk_arr[idx], kTranslationError, error);
+			ret = set_err_token(&tk_arr[idx], kErrorTranslation, error);
 	}
 	return (ret);
 }

@@ -43,7 +43,7 @@ t_ret			go_next_line(t_index *idx, const char *file)
 
 	new_line = ft_find_chr(&file[*idx], '\n', NULL);
 	if (new_line == NULL)
-		return (kMetaParseError);
+		return (kErrotMetaParse);
 	*idx = (new_line - file) + 1;
 	return (kSuccess);
 }
@@ -58,7 +58,7 @@ t_ret	get_comment(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 	end = NULL;
 	if (start)
 	{
-		start = &file[*idx + ft_strlen(COMMENT_CMD_STRING)];
+		start = &start[ft_strlen(COMMENT_CMD_STRING)];
 		start = ft_find_chr(start, '\"', ft_isspace_h);
 	}
 	if (start)
@@ -69,13 +69,15 @@ t_ret	get_comment(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 		if (end - start <= COMMENT_LENGTH)
 		{
 			ft_memcpy(asmblr->comment, &start[1], end - start - 1);
+			if (end - start <= 1)
+				ft_memcpy(asmblr->comment, "(null)", 7);
 			*idx = (end - file) + 1;
 		}
 		else
-			return (set_error(file, start - file, kMPCommentTooLong, error));
+			return (set_error(file, start - file, kErrorCommentTooLong, error));
 	}
 	else
-		return (set_error(file, *idx, kMetaParseError, error));
+		return (set_error(file, *idx, kErrotMetaParse, error));
 	return kSuccess;
 }
 
@@ -88,7 +90,7 @@ t_ret	get_name(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 	end = NULL;
 	if (start)
 	{
-		start = &file[*idx + ft_strlen(NAME_CMD_STRING)];
+		start = &start[ft_strlen(NAME_CMD_STRING)];
 		start = ft_find_chr(start, '\"', ft_isspace_h);
 	}
 	if (start)
@@ -99,13 +101,15 @@ t_ret	get_name(t_asm *asmblr, const char *file, t_index *idx, t_error *error)
 		if (end - start <= PROG_NAME_LENGTH)
 		{
 			ft_memcpy(asmblr->name, &start[1], end - start - 1);
+			if (end - start <= 1)
+				ft_memcpy(asmblr->name, "(null)", 7);
 			*idx = (end - file) + 1;
 		}
 		else
-			return (set_error(file, start - file, kMPNameTooLong, error));
+			return (set_error(file, start - file, kErrorNameTooLong, error));
 	}
 	else
-		return (set_error(file, *idx, kMetaParseError, error));
+		return (set_error(file, *idx, kErrotMetaParse, error));
 	return kSuccess;
 }
 
@@ -128,14 +132,14 @@ t_ret	get_meta_from_file
 		if (type == kSourceCommentLine || type == kEmptyLine)
 		{
 			if (go_next_line(&idx, file) != kSuccess)
-				return (set_error(file, idx, kMetaParseError, error));
+				return (set_error(file, idx, kErrotMetaParse, error));
 		}
 		else if (type == kCommentLine)
 			ret = get_comment(asmblr, file, &idx, error);
 		else if (type == kNameLine)
 			ret = get_name(asmblr, file, &idx, error);
 		else
-			return (set_error(file, idx, kMetaParseError, error));
+			return (set_error(file, idx, kErrotMetaParse, error));
 	}
 	*lines = ft_chrcnt(file, '\n', idx + 1) + 1;
 	return (ret);

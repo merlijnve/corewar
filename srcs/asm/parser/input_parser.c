@@ -37,7 +37,11 @@ t_inst	is_inst(const char *line)
 		idx++;
 	}
 	if (inst == kInstNone && start != NULL)
+	{
+		if (!ft_isvisible(start[0]) )
+			return (kInstNone);
 		return (kInstUndef);
+	}
 	return (inst);
 }
 
@@ -59,21 +63,21 @@ static t_line_type	has_label(const char *line)
 {
 	const char	*sym;
 	const char	*space;
-	char		*poten; // potential
+//	char		*poten; // potential
 	t_inst		type;
 
+	space = NULL;
 	sym = ft_find_set(line, ft_isalnum, ft_isspace_h);
 	if (sym)
-		sym = ft_find_chr(line, LABEL_CHAR, is_label_chr);
-	space = find_space(line);
+		sym = ft_find_chr(sym, LABEL_CHAR, is_readable);
+	if (sym)
+		space = find_space(sym);
 	if (sym != NULL && (space == NULL || (space != NULL && sym < space)))
 	{
-		if (ft_find_set(&sym[1], ft_isalpha, ft_isspace_h))
+		if (ft_find_set(&sym[1], ft_isalpha, ft_isspace_h) && !ft_find_set(&sym[1], is_comment_chr, ft_isspace_h))
 		{
-			poten = ft_strtrim(&sym[1]);
-			type = is_inst(poten);
-			free(poten);
-			if (type != kInstUndef && type != kInstNone)
+			type = is_inst(&sym[1]);
+			if (type != kInstNone)
 				return (kInstLabelLine);
 		}
 		else

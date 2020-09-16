@@ -27,7 +27,9 @@ typedef enum e_ret			t_ret;
 // 10 - 29 Input Erros
 // 30 - 39 Translation Errors
 // 40 - 49 Linking errors
-// 50 - 69 Token errors
+// 50 - 59 Token errors
+// 60 - 69 MetaParse errors
+// 70 - 79 Validation errors
 //
 
 enum	e_ret
@@ -38,21 +40,25 @@ enum	e_ret
 	kErrorOpeningFile = -3,
 	kErrorEmptyFile = -4,
 
-	kInputError = -10,
-	kParseError = -11,
+	kErrorInput = -10,
+	kErrorParse = -11,
+	kErrorGarbageFound = -12,
 
-	kTranslationError = -30,
-	kInvalidArgumentCount = -31,
-	kUndefineInstructionError = -32,
+	kErrorTranslation = -30,
+	kErrorInvalidArgumentCount = -31,
+	kErrorUndefineInstructionError = -32,
 
-	kLinkingError = -40,
-	kLinkNotFoundError = -41,
+	kErrorLinking = -40,
+	kErrorLinkNotFound = -41,
 
-	kTokenError = -50,
+	kErrorToken = -50,
 
-	kMetaParseError = -60,
-	kMPNameTooLong = -61,
-	kMPCommentTooLong = -62,
+	kErrotMetaParse = -60,
+	kErrorNameTooLong = -61,
+	kErrorCommentTooLong = -62,
+
+	kErrorValidation = -70,
+	kErrorBadCharInLabel = -71,
 };
 
 typedef struct s_error		t_error;

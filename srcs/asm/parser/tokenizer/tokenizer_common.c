@@ -27,7 +27,7 @@ t_ret	get_tk_for_sep(char *line, t_tksave *token, t_place *loc, t_error *error)
 		return (kErrorAlloc);
 	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
-		return (kTokenError);
+		return (kErrorToken);
 	ft_memcpy(&token->loc, loc, sizeof(t_place));
 	token->str = str;
 	token->token = kTokenSeperator;
@@ -52,7 +52,7 @@ t_ret	get_tk_for_ind(char *line, t_tksave *token, t_place *loc, t_error *error)
 		return (kErrorAlloc);
 	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
-		return (kTokenError);
+		return (kErrorToken);
 	token->str = str;
 	token->token =
 		(line[loc->chr + 1] == DIRECT_CHAR) ? kTokenIndLabel : kTokenInd;
@@ -77,7 +77,7 @@ t_ret	get_tk_for_dir(char *line, t_tksave *token, t_place *loc, t_error *error)
 		return (kErrorAlloc);
 	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
-		return (kTokenError);
+		return (kErrorToken);
 	token->str = str;
 	token->token =
 		(line[loc->chr + 1] == DIRECT_CHAR) ? kTokenDirLabel : kTokenDir;
@@ -103,7 +103,7 @@ t_ret	get_tk_for_reg(char *line, t_tksave *token, t_place *loc, t_error *error)
 		return (kErrorAlloc);
 	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
-		return (kTokenError);
+		return (kErrorToken);
 	token->str = str;
 	token->token = kTokenRegister;
 	loc->chr += idx;
@@ -126,7 +126,7 @@ t_ret	get_tk_for_inst(char *line, t_tksave *token, t_place *loc, t_error *error)
 		return (kErrorAlloc);
 	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
-		return (kTokenError);
+		return (kErrorToken);
 	token->str = str;
 	token->token = kTokenInstruction;
 	loc->chr += idx;
@@ -149,10 +149,10 @@ t_ret	get_tk_for_label(char *line, t_tksave *token, t_place *loc, t_error *error
 		return (kErrorAlloc);
 	// TODO: remove below.. check if can be 0 length.. could be annoying
 	if (*str == '\0')
-		return (kTokenError);
+		return (kErrorToken);
 	token->str = str;
 	token->token = kTokenLabel;
-	loc->chr += idx;
 	token->loc = *loc;
+	loc->chr += idx;
 	return (kSuccess);
 }

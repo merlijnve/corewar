@@ -58,7 +58,7 @@ t_ret tokens_from_lines(t_list *lines, t_list **tokens, t_index skiplines, t_err
 			ret = tk_label_line(lines->content,
 				(t_place){lines->content_size, 0}, tokens, error);
 		else if (type == kUndefinedLine)
-			ret = set_err_loc((t_place){lines->content_size, 0}, kInputError, error);
+			ret = set_err_loc((t_place){lines->content_size, 0}, kErrorInput, error);
 		lines = lines->next;
 	}
 	ft_lstrev(tokens);

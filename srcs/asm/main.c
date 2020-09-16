@@ -68,12 +68,14 @@ static t_ret setup_asmblr(t_asm **asmblr, t_error *error)
 	return (kErrorAlloc);
 }
 
+// TODO: Handle wrong number or arg types
 // TODO: Error for no champ code
-// TODO: Handle negative numbers
-// TODO: Support _ in link names
-// TODO: Support empty comment (with 2 quotes)
-// TODO: Handle:	/Users/floris/Documents/GitHub/test_asm/assets/file_parsing/multiline_name_and_comment.s (Tab before .name)
-// TODO:			/Users/floris/Documents/GitHub/test_asm/assets/file_parsing/Wall.s (Tab before .name)
+// TODO: Handle token with space in middle (should only be allowed when + or - is used)
+// TODO: /Users/floris/Documents/GitHub/test_asm/assets/file_parsing/incorrect/negative_value_reg.s
+// TODO: /Users/floris/Documents/GitHub/test_asm/assets/file_parsing/incorrect/op_and_line_break.s
+// TODO:  /Users/floris/Documents/GitHub/test_asm/assets/file_parsing/incorrect/no_value_ind.s (', ,' without arg in between..)
+// TODO: /Users/floris/Documents/GitHub/test_asm/assets/file_parsing/incorrect/no_value_dir.s (',%,' dir without value)
+// TODO: (reg bigger than 255 (max to write))
 
 int		main(int argc, char **argv)
 {
@@ -110,7 +112,7 @@ int		main(int argc, char **argv)
 	if (error.code != kSuccess)
 		print_error(&error, asmblr->lines);
 
-	if (error.code != kSuccess)
+	if (error.code != kSuccess && asmblr->tokens)
 		print_tokens(asmblr->tokens);
 	if (error.code == kSuccess)
 		printf("Succesfully Assembled: %s\n", asmblr->file_name);

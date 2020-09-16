@@ -14,6 +14,7 @@
 #define SHARED_UTILS_H
 
 int is_label_chr(int chr);
+int is_readable(int chr);
 int	is_comment_chr(int chr);
 
 #endif

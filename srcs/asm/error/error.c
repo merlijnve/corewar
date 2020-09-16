@@ -13,7 +13,7 @@
 #include <ft_printf.h>
 #include "error.h"
 
-static const t_errinfo	g_errinfo[70] =
+static const t_errinfo	g_errinfo[80] =
 {
 	{
 		.format = ERR_PFX_FL"%d:%d -- kSuccsess (0)\n",
@@ -22,7 +22,7 @@ static const t_errinfo	g_errinfo[70] =
 		.format = ERR_PFX_FL"%d:%d -- kError (1) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX"kAllocError (2)\n",
+		.format = ERR_PFX"kErrorAlloc (2)\n",
 	},
 	{
 		.format = ERR_PFX_FL" -- kErrorOpeningFile (3)\n",
@@ -46,16 +46,13 @@ static const t_errinfo	g_errinfo[70] =
 		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kInputError (10) TOKEN:[%s]\n",
+		.format = ERR_PFX_FL"%d:%d -- kErrorInput (10) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kParseError (11) TOKEN:[%s]\n",
+		.format = ERR_PFX_FL"%d:%d -- kErrorParse (11) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
+		.format = ERR_PFX_FL"%d:%d -- kErrorGarbageFound (12) TOKEN:[%s]\n",
 	},
 	{
 		.format = ERR_PFX"\n",
@@ -106,13 +103,16 @@ static const t_errinfo	g_errinfo[70] =
 		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kTranslationError (30) TOKEN:[%s]\n",
+		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kInvalidArgumentCount (31) TOKEN:[%s]\n",
+		.format = ERR_PFX_FL"%d:%d -- kErrorTranslation (30) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kUndefineInstructionError (32) TOKEN:[%s]\n",
+		.format = ERR_PFX_FL"%d:%d -- kErrorInvalidArgumentCount (31) TOKEN:[%s]\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kErrorUndefineInstruction (32) TOKEN:[%s]\n",
 	},
 	{
 		.format = ERR_PFX"\n",
@@ -136,37 +136,10 @@ static const t_errinfo	g_errinfo[70] =
 		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kLinkingError (40) TOKEN:[%s]\n",
+		.format = ERR_PFX_FL"%d:%d -- kErrorLinking (40) TOKEN:[%s]\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kLinkNotFoundError (41) TOKEN:[%s]\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX"\n",
-	},
-	{
-		.format = ERR_PFX_FL"%d:%d -- kTokenError (50) TOKEN:[%s]\n",
+		.format = ERR_PFX_FL"%d:%d -- kErrorLinkNotFound (41) TOKEN:[%s]\n",
 	},
 	{
 		.format = ERR_PFX"\n",
@@ -193,16 +166,94 @@ static const t_errinfo	g_errinfo[70] =
 		.format = ERR_PFX"\n",
 	},
 	{
+		.format = ERR_PFX_FL"%d:%d -- kErrorToken (50) TOKEN:[%s]\n",
+	},
+	{
 		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kMetaParseError (60) TOKEN:[%s]\n",
+		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kMPNameTooLong (61)\n",
+		.format = ERR_PFX"\n",
 	},
 	{
-		.format = ERR_PFX_FL"%d:%d -- kMPCommentTooLong (62)\n",
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kErrorMetaParse (60) TOKEN:[%s]\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kErrorNameTooLong (61)\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kErrorCommentTooLong (62)\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kErrorValidation (70) TOKEN:[%s]\n",
+	},
+	{
+		.format = ERR_PFX_FL"%d:%d -- kErrorBadCharInLabel (70) TOKEN:[%s]\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
+	},
+	{
+		.format = ERR_PFX"\n",
 	},
 };
 
@@ -228,7 +279,7 @@ static size_t	line_width(const char *str, size_t num)
 
 void	print_error(t_error *err, t_list *lines)
 {
-	if (err->code <= 0 && err->code >= -70)
+	if (err->code <= 0 && err->code >= -80)
 		ft_printf(g_errinfo[-err->code].format, err->file_name, err->token->loc.ln, err->token->loc.chr, err->token->str);
 	while (lines != NULL)
 	{

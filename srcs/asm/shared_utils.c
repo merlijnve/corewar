@@ -14,6 +14,13 @@
 #include <op.h>
 #include "shared_utils.h"
 
+int is_readable(int chr)
+{
+	if (ft_strchr("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_", chr))
+		return (1);
+	return (0);
+}
+
 int is_label_chr(int chr)
 {
 	if (ft_strchr(LABEL_CHARS, chr))
