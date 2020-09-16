@@ -6,7 +6,7 @@
 /*   By: merlijn <merlijn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/09 20:54:02 by merlijn       #+#    #+#                 */
-/*   Updated: 2020/09/16 01:09:53 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/16 14:59:43 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,11 @@ void		visual_print_players(WINDOW *win, t_arena *arena)
 	}
 }
 
-static void	visual_print_cursor(WINDOW *win, t_arena *arena, t_cursor *cursor)
+static void	visual_print_cursor(WINDOW *win, t_arena *arena, t_cursor *cursor,
+int i)
 {
-	int i;
 	static const char *types[] = { "N/a", "TReg", "TDir", "TInd" };
 
-	i = 0;
 	wattrset(win, COLOR_PAIR(5));
 	mvwprintw(win, 26, 3, "CURSOR:");
 	wattrset(win, COLOR_PAIR(6));
@@ -72,18 +71,16 @@ static void	visual_print_cursor(WINDOW *win, t_arena *arena, t_cursor *cursor)
 		get_opinfo(cursor->opcode)->name : "?", cursor->opcode);
 	mvwprintw(win, 29, 3, "timeout:\t%d", cursor->timeout);
 	mvwprintw(win, 30, 3, "pos:\t\t%d", get_pos(cursor->pos, 0));
-	mvwprintw(win, 31, 3, "Lives left:\t%d", arena->cycles_to_die - (arena->cycles_total - cursor->last_alive));
+	mvwprintw(win, 31, 3, "Lives left:\t%d", arena->cycles_to_die
+	- (arena->cycles_total - cursor->last_alive));
 	mvwprintw(win, 32, 3, "Last alive:\t%d", cursor->last_alive);
 	mvwprintw(win, 33, 3, "Aguments:");
 	mvwprintw(win, 34, 3, "[0] %s: %#04x (%d)", types[cursor->args[0].type],
-		cursor->args[0].value, cursor->args[0].value
-	);
+		cursor->args[0].value, cursor->args[0].value);
 	mvwprintw(win, 35, 3, "[1] %s: %#04x (%d)", types[cursor->args[1].type],
-		cursor->args[1].value, cursor->args[1].value
-	);
+		cursor->args[1].value, cursor->args[1].value);
 	mvwprintw(win, 36, 3, "[2] %s: %#04x (%d)", types[cursor->args[2].type],
-		cursor->args[2].value, cursor->args[2].value
-	);
+		cursor->args[2].value, cursor->args[2].value);
 	while (i < 16)
 	{
 		mvwprintw(win, 38 + i, 3, "REG [%d]:\t%d", i + 1,
@@ -117,7 +114,7 @@ void		visual_print_stats(WINDOW *win, t_arena *arena, t_cursor *cursor)
 	arena->visualizer.framemode ? "true" : "false");
 	mvwprintw(win, 24, 3, "Sleep:\t%dµs", arena->visualizer.sleep);
 	if (cursor != NULL)
-		visual_print_cursor(win, arena, cursor);
+		visual_print_cursor(win, arena, cursor, 1);
 }
 
 void		visual_update(t_arena *arena, t_cursor *cursor)

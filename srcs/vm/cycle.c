@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/16 02:28:36 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/16 14:47:20 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int		vm_cursor_alive(t_arena *arena_s)
 	current = arena_s->cursors;
 	while (current != NULL)
 	{
-		lives = arena_s->cycles_to_die - (arena_s->cycles_total - current->last_alive);
+		lives = arena_s->cycles_to_die - (arena_s->cycles_total
+		- current->last_alive);
 		if (arena_s->cycles_to_die <= 0 || lives <= 0)
 		{
 			// printf("I SHALL DIE NOW!\n");
@@ -47,7 +48,7 @@ static void		vm_run_cursor(t_arena *arena_s, t_cursor *current)
 			reverse_eb(&(current->enbyte));
 		}
 		if ((!get_opinfo(current->opcode)->has_enbyte
-			|| (get_opinfo(current->opcode)->has_enbyte 
+		|| (get_opinfo(current->opcode)->has_enbyte
 				&& is_valid_enbyte(current->opcode, current->enbyte)))
 			&& preload_args(arena_s, current))
 			get_op_func(current->opcode)(arena_s, current);
@@ -96,7 +97,7 @@ static void		vm_run_cursors(t_arena *arena_s)
 // 		arena_s->check_count++;
 // 		vm_cursor_alive(arena_s);
 // 		if (arena_s->live_count >= NBR_LIVE ||
-// 		arena_s->check_count == MAX_CHECKS) 
+// 		arena_s->check_count == MAX_CHECKS)
 // 			arena_s->cycles_to_die -= CYCLE_DELTA;
 // 		if (arena_s->check_count >= MAX_CHECKS)
 // 			arena_s->check_count = 0;
@@ -121,15 +122,14 @@ bool			vm_run_cycle(t_arena *arena_s)
 	{
 		arena_s->check_count++;
 		vm_cursor_alive(arena_s);
-		if (arena_s->live_count >= NBR_LIVE || arena_s->check_count >= MAX_CHECKS) 
+		if (arena_s->live_count >= NBR_LIVE || arena_s->check_count
+		>= MAX_CHECKS)
 		{
 			arena_s->cycles_to_die -= CYCLE_DELTA;
 			arena_s->check_count = 0;
 		}
 		arena_s->live_count = 0;
-		
 		arena_s->cycle_count = 0;
 	}
 	return (true);
 }
-

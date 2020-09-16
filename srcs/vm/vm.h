@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/15 22:27:13 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/16 15:01:14 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void				dump(uint8_t *mem);
 
 void				vm_start(t_arena *arena_s);
 bool				vm_run_cycle(t_arena *arena_s);
+void				run_cycle(t_arena *arena);
 
 int					check_champions(t_champion *champions);
 t_champion			*champion_find_id(t_arena *arena, int id);
@@ -230,7 +231,8 @@ bool				preload_args(t_arena *arena_s, t_cursor *cursor);
 
 # pragma mark - Visualizer
 
-int					check_visual_flags(t_arena *arena, int index, int argc, char **argv);
+int					check_visual_flags(t_arena *arena, int index,
+int argc, char **argv);
 void				visual_start(t_arena *arena);
 void				visual_update(t_arena *arena, t_cursor *cursor);
 void				visual_set_cursor_color(WINDOW *win, t_arena *arena,\

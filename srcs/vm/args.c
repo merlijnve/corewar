@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/13 13:48:52 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/16 02:38:06 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/16 14:57:06 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				arg_length(t_args_type type, t_inst inst)
 
 int				args_length(t_enbyte byte, t_inst inst)
 {
-	int 	len;
+	int		len;
 	int		i;
 
 	len = 1;
