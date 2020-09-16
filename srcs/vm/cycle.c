@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/16 14:47:20 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/16 17:28:23 by merlijn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int		vm_cursor_alive(t_arena *arena_s)
 		- current->last_alive);
 		if (arena_s->cycles_to_die <= 0 || lives <= 0)
 		{
-			// printf("I SHALL DIE NOW!\n");
 			tmp = current->next;
 			cursor_del(arena_s, current->id);
 			current = tmp;
@@ -56,6 +55,9 @@ static void		vm_run_cursor(t_arena *arena_s, t_cursor *current)
 	}
 	else
 		current->jump = 1;
+	if (current->opcode == kInstZjmp && current->args[0].value == 0 &&
+	current->carry == 1)
+		current->jump = 0;
 	cursor_setpos(arena_s, current, current->pos + current->jump);
 	current->jump = 0;
 }
