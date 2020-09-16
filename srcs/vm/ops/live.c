@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/15 21:40:37 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/16 15:29:14 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void				inst_live(t_arena *arena, t_cursor *cursor)
 
 	arena->live_count += 1;
 	champ = NULL;
-	if (cursor->args[0].value == cursor->registries[0])
+	if (cursor->args[0].value < 0 && cursor->args[0].value >= -MAX_PLAYERS)
 	{
-		champ = find_player_id(arena, cursor->registries[0] * -1);
+		champ = find_player_id(arena, cursor->args[0].value * -1);
 		if (champ != NULL)
 			arena->winner = champ;
 		if (champ != NULL && !arena->visualizer.enabled &&
