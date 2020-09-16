@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:46:22 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/15 23:29:12 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/16 02:28:36 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ static int		vm_cursor_alive(t_arena *arena_s)
 {
 	t_cursor	*current;
 	t_cursor	*tmp;
-	int			last_cycle;
+	int			lives;
 
 	current = arena_s->cursors;
 	while (current != NULL)
 	{
-		last_cycle = arena_s->cycle_count - current->last_alive;
-		if (arena_s->cycles_to_die <= 0 || last_cycle >=
-		arena_s->cycles_to_die)
+		lives = arena_s->cycles_to_die - (arena_s->cycles_total - current->last_alive);
+		if (arena_s->cycles_to_die <= 0 || lives <= 0)
 		{
+			// printf("I SHALL DIE NOW!\n");
 			tmp = current->next;
 			cursor_del(arena_s, current->id);
 			current = tmp;
@@ -38,7 +38,6 @@ static int		vm_cursor_alive(t_arena *arena_s)
 static void		vm_run_cursor(t_arena *arena_s, t_cursor *current)
 {
 	current->enbyte = (t_enbyte){kTNone, kTNone, kTNone, kTNone};
-	ft_bzero(&current->args[0], sizeof(t_argument) * 3);
 	if (is_opcode(current->opcode))
 	{
 		if (get_opinfo(current->opcode)->has_enbyte)
@@ -47,10 +46,10 @@ static void		vm_run_cursor(t_arena *arena_s, t_cursor *current)
 			&arena_s->mem[get_pos(current->pos, 1)], sizeof(t_enbyte));
 			reverse_eb(&(current->enbyte));
 		}
-		if ((!get_opinfo(current->opcode)->has_enbyte ||
-		(get_opinfo(current->opcode)->has_enbyte &&
-		is_valid_enbyte(current->opcode, current->enbyte))) &&
-		preload_args(arena_s, current))
+		if ((!get_opinfo(current->opcode)->has_enbyte
+			|| (get_opinfo(current->opcode)->has_enbyte 
+				&& is_valid_enbyte(current->opcode, current->enbyte)))
+			&& preload_args(arena_s, current))
 			get_op_func(current->opcode)(arena_s, current);
 		cursor_jump(current, current->enbyte);
 	}
@@ -80,6 +79,7 @@ static void		vm_run_cursors(t_arena *arena_s)
 			vm_run_cursor(arena_s, current);
 		if (visual_should_update(arena_s))
 			visual_update(arena_s, current);
+		ft_bzero(&current->args[0], sizeof(t_argument) * 3);
 		current = current->next;
 	}
 }
@@ -113,6 +113,7 @@ bool			vm_run_cycle(t_arena *arena_s)
 {
 	if (arena_s->cursors == NULL)
 		return (false);
+	arena_s->cycles_total++;
 	arena_s->cycle_count++;
 	vm_run_cursors(arena_s);
 	if (arena_s->cycle_count >= arena_s->cycles_to_die ||

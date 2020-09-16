@@ -20,7 +20,9 @@
         // "${workspaceFolder}/resources/42-AI/champions/fluttershy.cor",
         // "${workspaceFolder}/resources/42-AI/champions/skynet.cor",
         "-v",
-        "-f"
+        "-f",
+        "-b",
+        "0"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

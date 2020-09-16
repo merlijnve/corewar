@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/13 13:48:52 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/15 20:44:20 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/16 02:38:06 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,18 @@ int				arg_length(t_args_type type, t_inst inst)
 
 int				args_length(t_enbyte byte, t_inst inst)
 {
-	int len;
+	int 	len;
+	int		i;
 
 	len = 1;
+	i = 0;
 	if (is_opcode(inst))
 	{
-		len += arg_length(get_arg(byte, inst, 1), inst);
-		len += arg_length(get_arg(byte, inst, 2), inst);
-		len += arg_length(get_arg(byte, inst, 3), inst);
+		while (i < get_opinfo(inst)->argc)
+		{
+			len += arg_length(get_arg(byte, inst, i + 1), inst);
+			i++;
+		}
 		len += get_opinfo(inst)->has_enbyte ? 1 : 0;
 	}
 	return (len);

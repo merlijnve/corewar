@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/10 13:34:50 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/15 23:49:50 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/16 00:40:55 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void				vm_start(t_arena *arena_s)
 		visual_start(arena_s);
 	while (vm_run_cycle(arena_s))
 	{
-		arena_s->cycles_total++;
 		if (arena_s->visualizer.breakpoint == arena_s->cycles_total &&
 			arena_s->visualizer.enabled == false) {
 				arena_s->visualizer.enabled = true;

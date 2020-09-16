@@ -1,5 +1,6 @@
 #!/bin/bash
 PATH_YOUR_CW="../../../srcs/vm/corewar"
+# PATH_YOUR_CW="../../../resources/nstabel/corewar"
 PATH_PLAYERS="../valid_asm/valid_cor/*.cor"
 
 # players=("vm_test")
@@ -22,32 +23,32 @@ fi
 function    test_players()
 {
     # CYCLES=10000
-    error=0
 
     rm ./diff/*
     for player in $PATH_PLAYERS
     do
-        ((error=0))
-        # echo $player
-        for (( i=1; ( ( i <= $CYCLES ) && ( $error == 0 ) ) ; i+=100))
-        do
-            $PATH_ORGN_CW $player -d $i > diff/$(basename $player)_"$i"_og.dump
-            $PATH_YOUR_CW $player -d $i > diff/$(basename $player)_"$i"_ours.dump
-            if ! cmp -s diff/$(basename $player)_"$i"_og.dump diff/$(basename $player)_"$i"_ours.dump; then
+        (
+            error=0
+            # echo $player
+            for (( i=1; ( ( i <= $CYCLES ) && ( $error == 0 ) ) ; i+=100))
+            do
+                $PATH_ORGN_CW $player -d $i > diff/$(basename $player)_"$i"_og.dump
+                $PATH_YOUR_CW $player -d $i > diff/$(basename $player)_"$i"_ours.dump
+                if ! cmp -s diff/$(basename $player)_"$i"_og.dump diff/$(basename $player)_"$i"_ours.dump; then
+                    printf '\033[0m[%10s] ' "$player"
+                    ((i=i-1))
+                    printf "\033[0;31mmemory is NOT the same at cycle [%d]\n\033[0m" "$i" ;
+                    ((error=1))
+                else
+                    rm ./diff/$(basename $player)_"$i"_*.dump
+                fi
+            done
+            if [ $error == 0 ] ; then
                 printf '\033[0m[%10s] ' "$player"
                 ((i=i-1))
-                printf "\033[0;31mmemory is NOT the same at cycle [%d]\n\033[0m" "$i" ;
-                ((error=1))
-            else
-                rm ./diff/$(basename $player)_"$i"_*.dump
+                printf '\033[0;32mPerfect! Memory is the same at all cycles until %s\n\033[0m' "$i"
             fi
-        done
-        if [ $error == 0 ] ; then
-            printf '\033[0m[%10s] ' "$player"
-            ((i=i-1))
-            printf '\033[0;32mPerfect! Memory is the same at all cycles until %s\n\033[0m' "$i"
-        fi
-        ((error=0))
+        ) &
     done
 }
 
@@ -77,8 +78,8 @@ if ! [[ $CYCLES =~ $re ]]; then
 fi
 for (( i=1; i <= $CYCLES; i+=10))
 do
-    $PATH_ORGN_CW $@ -d $i | sed -n -e '/^0x/p' > diff/origin_output1
-    $PATH_YOUR_CW $@ -dump $i | sed -n -e'/^0x/p' > diff/yours_output2
+    $PATH_ORGN_CW $@ -d $i > diff/origin_output1
+    $PATH_YOUR_CW $@ -d $i > diff/yours_output2
     if ! cmp -s "diff/origin_output1" "diff/yours_output2"; then
         printf "\033[0;31mmemory is NOT the same at cycle [%d]\n\033[0m" "$i" ; exit 1
     fi
