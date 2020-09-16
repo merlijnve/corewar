@@ -113,7 +113,7 @@ t_ret			asm_link(t_asm *asmblr, t_error *error)
 	{
 		ret = put_link(&asmblr->bc, asmblr->bc.marker, jumps->content, error);
 		jumps = jumps->next;
-		print_bc(asmblr, asmblr->bc.length - 16);
+//		print_bc(asmblr, asmblr->bc.length - 16);
 	}
 	return (ret);
 }

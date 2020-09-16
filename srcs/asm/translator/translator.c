@@ -97,13 +97,14 @@ t_ret					translate(t_list *tokens, t_asm *asmblr, t_error *error)
 	t_inst		type;
 
 	idx = 0;
+	tk_arr = NULL;
 	ret = prepare_tokens(tokens, &tk_arr);
 	while (ret == kSuccess && tk_arr[idx].token != kTokenNone)
 	{
 //		print_bc(asmblr, asmblr->bc.length - 16);
 		if (tk_arr[idx].token == kTokenInstruction)
 		{
-			type = is_inst(tk_arr[idx].str);
+			type = is_parse_inst(tk_arr[idx].str);
 			ret = g_tr_funcs[type](asmblr, &tk_arr[idx + 1], error);
 			idx += get_opinfo(type)->argc + 1;
 		}
@@ -115,7 +116,7 @@ t_ret					translate(t_list *tokens, t_asm *asmblr, t_error *error)
 		else
 			ret = set_err_token(&tk_arr[idx], kErrorTranslation, error);
 	}
-	if (tk_arr[idx].token != kTokenNone)
+	if (tk_arr == NULL || tk_arr[idx].token != kTokenNone)
 		return (set_err_token(&tk_arr[idx], kErrorTranslation, error));
 	return (ret);
 }

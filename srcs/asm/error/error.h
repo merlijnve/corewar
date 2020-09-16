@@ -53,6 +53,7 @@ enum	e_ret
 	kErrorLinkNotFound = -41,
 
 	kErrorToken = -50,
+	kErrorTokenUnknown = -51,
 
 	kErrotMetaParse = -60,
 	kErrorNameTooLong = -61,
@@ -60,6 +61,7 @@ enum	e_ret
 
 	kErrorValidation = -70,
 	kErrorBadCharInLabel = -71,
+	kErrorBadRegister = -72,
 };
 
 typedef struct s_error		t_error;

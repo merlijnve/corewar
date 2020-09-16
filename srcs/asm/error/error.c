@@ -169,7 +169,7 @@ static const t_errinfo	g_errinfo[80] =
 		ERR_PFX_FL"%d:%d -- kErrorToken (50) TOKEN:[%s]\n",
 	},
 	{
-		ERR_PFX"\n",
+		ERR_PFX_FL"%d:%d -- kErrorTokenUnknown (51) TOKEN:[%s]\n",
 	},
 	{
 		ERR_PFX"\n",
@@ -229,10 +229,10 @@ static const t_errinfo	g_errinfo[80] =
 		ERR_PFX_FL"%d:%d -- kErrorValidation (70) TOKEN:[%s]\n",
 	},
 	{
-		ERR_PFX_FL"%d:%d -- kErrorBadCharInLabel (70) TOKEN:[%s]\n",
+		ERR_PFX_FL"%d:%d -- kErrorBadCharInLabel (71) TOKEN:[%s]\n",
 	},
 	{
-		ERR_PFX"\n",
+		ERR_PFX_FL"%d:%d -- kErrorBadRegister (72) TOKEN:[%s]\n",
 	},
 	{
 		ERR_PFX"\n",

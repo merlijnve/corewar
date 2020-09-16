@@ -18,7 +18,7 @@
 #include "input_parser.h"
 #include "tokenizer.h"
 
-t_inst				is_inst(const char *line)
+t_inst				is_parse_inst(const char *line)
 {
 	int			idx;
 	t_inst		inst;
@@ -76,7 +76,7 @@ static t_line_type	has_label(const char *line)
 		if (ft_find_set(&sym[1], ft_isalpha, ft_isspace_h)
 			&& !ft_find_set(&sym[1], is_comment_chr, ft_isspace_h))
 		{
-			type = is_inst(&sym[1]);
+			type = is_parse_inst(&sym[1]);
 			if (type != kInstNone)
 				return (kInstLabelLine);
 		}
@@ -99,7 +99,7 @@ t_line_type			line_type(const char *line)
 	type = has_label(line);
 	if (type != kUndefinedLine)
 		return (type);
-	if (is_inst(line) != kInstNone)
+	if (is_parse_inst(line) != kInstNone)
 		return (kInstLine);
 	return (kUndefinedLine);
 }

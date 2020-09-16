@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   input_parser.h                                     :+:    :+:            */
+/*   validator_label.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/11 15:29:15 by floris        #+#    #+#                 */
-/*   Updated: 2020/06/11 15:29:26 by floris        ########   odam.nl         */
+/*   Created: 2020/09/16 21:24:00 by floris        #+#    #+#                 */
+/*   Updated: 2020/09/16 21:24:00 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_PARSER_H
-# define INPUT_PARSER_H
+#include "validator.h"
+#include "shared_utils.h"
 
-# include "asm.h"
-
-# define BUFF_SIZE 1024
-
-# pragma mark - funcs
-
-t_ret		read_lines(const char *file, t_list **lines);
-t_ret		read_file(int fd, char **buffer);
-t_ret		parse_file(t_list *lines, t_asm *asmblr);
-
-t_inst		is_parse_inst(const char *line);
-t_line_type	line_type(const char *line);
-
-#endif
+t_ret	validate_label(t_tksave *token, t_error *error)
+{
+	if (ft_find_chr(token->str, LABEL_CHAR, is_label_chr) == NULL)
+	{
+		return (set_err_token(token, kErrorBadCharInLabel, error));
+	}
+	return (kSuccess);
+}

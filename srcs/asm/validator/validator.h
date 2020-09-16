@@ -17,4 +17,19 @@
 
 t_ret	validate_tokens(t_list *tokens, t_asm *asmblr, t_error *error);
 
+t_ret	validate_label(t_tksave *token, t_error *error);
+t_ret	validate_instruction(t_tksave *token, t_error *error);
+t_ret	validate_register(t_tksave *token, t_error *error);
+
+t_ret	validate_none(t_tksave *token, t_error *error);
+t_ret	validate_label(t_tksave *token, t_error *error);
+t_ret	validate_instruction(t_tksave *token, t_error *error);
+t_ret	validate_register(t_tksave *token, t_error *error);
+t_ret	validate_dir(t_tksave *token, t_error *error);
+t_ret	validate_dirlabel(t_tksave *token, t_error *error);
+t_ret	validate_ind(t_tksave *token, t_error *error);
+t_ret	validate_indlabel(t_tksave *token, t_error *error);
+
+t_ret	validate_args(t_list *tokens, t_error *error);
+
 #endif

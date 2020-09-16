@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shared_utils.c                                     :+:    :+:            */
+/*   validator_instruction.c                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/08 14:41:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/08 14:41:00 by floris        ########   odam.nl         */
+/*   Created: 2020/09/16 21:24:00 by floris        #+#    #+#                 */
+/*   Updated: 2020/09/16 21:24:00 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <op.h>
-#include "shared_utils.h"
+#include "validator.h"
 
-int		is_readable(int chr)
-{
-	if (ft_strchr("0123456789abcdefghijklmnopqrstuvwxyz"
-					"ABCDEFGHIJKLMNOPQRSTUVWXYZ-_", chr))
-		return (1);
-	return (0);
-}
-
-int		is_label_chr(int chr)
-{
-	if (ft_strchr(LABEL_CHARS, chr))
-		return (1);
-	return (0);
-}
-
-int		is_comment_chr(int chr)
-{
-	if (ft_strchr(COMMENT_CHARS, chr))
-		return (1);
-	return (0);
-}
-
-t_inst				is_inst(const char *line)
+static t_inst	is_inst(const char *line)
 {
 	int			idx;
 	t_inst		inst;
@@ -53,4 +29,15 @@ t_inst				is_inst(const char *line)
 		idx++;
 	}
 	return (inst);
+}
+
+t_ret	validate_instruction(t_tksave *token, t_error *error)
+{
+	if (token->token == kTokenInstruction && is_inst(token->str) == kInstUndef)
+	{
+		error->code = kErrorUndefineInstructionError;
+		error->token = token;
+		return (error->code);
+	}
+	return (kSuccess);
 }
