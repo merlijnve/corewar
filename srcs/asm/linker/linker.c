@@ -14,6 +14,7 @@
 
 #include "linker.h"
 #include "translator.h"
+#include "shared_utils.h"
 
 /*
 ** TODO: Remove
@@ -37,18 +38,19 @@ static int		clean_and_compare(t_jump *jmp, t_marker *mkr)
 	sp_mkr = 0;
 	sjmp = jmp->token->str;
 	smkr = mkr->token->str;
-	while (sjmp[sp_jmp] != '\0' && !ft_isalnum(sjmp[sp_jmp]))
+	smkr = smkr;
+
+	while (sjmp[sp_jmp] != '\0'
+		   && (sjmp[sp_jmp] == LABEL_CHAR || sjmp[sp_jmp] == DIRECT_CHAR))
 		sp_jmp++;
-	while (smkr[sp_mkr] != '\0' && !ft_isalnum(smkr[sp_mkr]))
-		sp_mkr++;
-	while (ft_isalnum(sjmp[sp_jmp]) && ft_isalnum(smkr[sp_mkr])
+	while (is_label_chr(sjmp[sp_jmp]) && is_label_chr(smkr[sp_mkr])
 			&& sjmp[sp_jmp] == smkr[sp_mkr])
 	{
 		sp_jmp++;
 		sp_mkr++;
 	}
-	if ((sjmp[sp_jmp] == '\0' || !ft_isalnum(sjmp[sp_jmp]))
-		&& (smkr[sp_mkr] == '\0' || !ft_isalnum(smkr[sp_mkr])))
+	if ((sjmp[sp_jmp] == '\0' || !is_label_chr(sjmp[sp_jmp]))
+		&& (smkr[sp_mkr] == '\0' || !is_label_chr(smkr[sp_mkr])))
 		return (1);
 	else
 		return (0);
@@ -82,6 +84,8 @@ static t_ret	put_link
 {
 	t_marker	*res;
 	t_ret		ret;
+	size_t		size;
+	t_inst 		inst;
 
 	ret = find_marker(markers, jump, &res);
 	if (ret != kSuccess)
@@ -90,9 +94,11 @@ static t_ret	put_link
 		error->token = jump->token;
 		return (ret);
 	}
-	// TODO: make this correct size alwasy
-	ft_putmembe(&bc->bcdata[jump->idx], res->idx - jump->ins_idx,
-				(jump->type == kTDir) ? 2 : 4);
+	size = 2;
+	inst = bc->bcdata[jump->ins_idx];
+	if (jump->type == kTDir && get_opinfo(inst)->dir_size == 4)
+		size = 4;
+	ft_putmembe(&bc->bcdata[jump->idx], res->idx - jump->ins_idx, size);
 	return (kSuccess);
 }
 

@@ -14,7 +14,7 @@
 
 t_ret	translate_aff(t_asm *asmblr, t_tksave parts[], t_error *error)
 {
-	put_instruction(&asmblr->bc, kInstAdd);
-	put_encode(&asmblr->bc, (t_enbyte){kTDir, kTNone, kTNone, kTNone});
+	put_instruction(&asmblr->bc, kInstAff);
+	put_encode(&asmblr->bc, (t_enbyte){kTReg, kTNone, kTNone, kTNone});
 	return (put_part(asmblr, &parts[0], kInstAdd, error));
 }

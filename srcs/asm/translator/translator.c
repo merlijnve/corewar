@@ -100,6 +100,7 @@ t_ret					translate(t_list *tokens, t_asm *asmblr, t_error *error)
 	ret = prepare_tokens(tokens, &tk_arr);
 	while (ret == kSuccess && tk_arr[idx].token != kTokenNone)
 	{
+//		print_bc(asmblr, asmblr->bc.length - 16);
 		if (tk_arr[idx].token == kTokenInstruction)
 		{
 			type = is_inst(tk_arr[idx].str);
@@ -113,7 +114,6 @@ t_ret					translate(t_list *tokens, t_asm *asmblr, t_error *error)
 		}
 		else
 			ret = set_err_token(&tk_arr[idx], kErrorTranslation, error);
-		print_bc(asmblr, asmblr->bc.length - 16);
 	}
 	if (tk_arr[idx].token != kTokenNone)
 		return (set_err_token(&tk_arr[idx], kErrorTranslation, error));

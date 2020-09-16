@@ -17,7 +17,7 @@ t_ret	translate_sub(t_asm *asmblr, t_tksave parts[], t_error *error)
 	t_ret ret;
 
 	put_instruction(&asmblr->bc, kInstSub);
-	put_encode(&asmblr->bc, (t_enbyte){kTDir, kTDir, kTDir, kTNone});
+	put_encode(&asmblr->bc, (t_enbyte){kTReg, kTReg, kTReg, kTNone});
 	ret = put_part(asmblr, &parts[0], kInstSub, error);
 	if (ret == kSuccess)
 		ret = put_part(asmblr, &parts[1], kInstSub, error);
