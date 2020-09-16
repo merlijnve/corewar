@@ -66,8 +66,7 @@ t_ret			get_comment
 		if (end - start <= COMMENT_LENGTH)
 		{
 			ft_memcpy(asmblr->comment, &start[1], end - start - 1);
-			if (end - start <= 1)
-				ft_memcpy(asmblr->comment, "(null)", 7);
+			asmblr->has_comment = true;
 			*idx = (end - file) + 1;
 		}
 		else
@@ -96,8 +95,7 @@ t_ret			get_name
 		if (end - start <= PROG_NAME_LENGTH)
 		{
 			ft_memcpy(asmblr->name, &start[1], end - start - 1);
-			if (end - start <= 1)
-				ft_memcpy(asmblr->name, "(null)", 7);
+			asmblr->has_name = true;
 			*idx = (end - file) + 1;
 		}
 		else
@@ -118,7 +116,7 @@ t_ret			get_meta_from_file
 	ret = kSuccess;
 	idx = 0;
 	while (file[idx] != '\0' && ret == kSuccess
-			&& (asmblr->comment[0] == '\0' || asmblr->name[0] == '\0'))
+			&& (!asmblr->has_comment || !asmblr->has_name))
 	{
 		type = fline_type(&file[idx]);
 		if (type == kSourceCommentLine || type == kEmptyLine)

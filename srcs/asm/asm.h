@@ -59,7 +59,9 @@ struct	s_asm
 {
 	int			n_flags;
 	char		name[PROG_NAME_LENGTH + 2];
+	bool		has_name;
 	char		comment[COMMENT_LENGTH + 2];
+	bool		has_comment;
 	t_bytecode	bc;
 	char		*file;
 	t_list		*lines;
