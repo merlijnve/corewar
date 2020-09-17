@@ -16,3 +16,8 @@ int		ft_isprint(int c)
 {
 	return ((c >= ' ' && c <= '~'));
 }
+
+int		ft_isvisible(int c)
+{
+	return ((c > ' ' && c <= '~'));
+}

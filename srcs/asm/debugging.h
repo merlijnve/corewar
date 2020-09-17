@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef debugging_h
-#define debugging_h
+#ifndef DEBUGGING_H
+# define DEBUGGING_H
 
-#include "asm.h"
+# include "asm.h"
 
 void	print_file(char *file);
 void	print_lines(t_list *lines);
 void	print_tokens(t_list *lines);
 void	print_bc(t_asm *asmblr, size_t size);
+void	debug_print_mem(const void *addr, size_t size);
 
 #endif

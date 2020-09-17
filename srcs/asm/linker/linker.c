@@ -1,16 +1,23 @@
-//
-//  linker.c
-//  cw-asm
-//
-//  Created by Floris Fredrikze on 02/09/2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   linker.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: floris <ffredrik@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/09/13 22:17:00 by floris        #+#    #+#                 */
+/*   Updated: 2020/09/13 22:17:00 by floris        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 
 #include "linker.h"
 #include "translator.h"
+#include "shared_utils.h"
 
-// TODO: this function has to be checked.. does it compare correctly (it maybe now does)
+#include "debugging.h"
+
 static int		clean_and_compare(t_jump *jmp, t_marker *mkr)
 {
 	t_index	sp_jmp;
@@ -22,21 +29,20 @@ static int		clean_and_compare(t_jump *jmp, t_marker *mkr)
 	sp_mkr = 0;
 	sjmp = jmp->token->str;
 	smkr = mkr->token->str;
-	while (sjmp[sp_jmp] != '\0' && !ft_isalnum(sjmp[sp_jmp]))
+	while (sjmp[sp_jmp] != '\0'
+			&& (sjmp[sp_jmp] == LABEL_CHAR || sjmp[sp_jmp] == DIRECT_CHAR))
 		sp_jmp++;
-	while (smkr[sp_mkr] != '\0' && !ft_isalnum(smkr[sp_mkr]))
-		sp_mkr++;
-	while (ft_isalnum(sjmp[sp_jmp]) && ft_isalnum(smkr[sp_mkr])
-		   && sjmp[sp_jmp] == smkr[sp_mkr])
+	while (is_label_chr(sjmp[sp_jmp]) && is_label_chr(smkr[sp_mkr])
+			&& sjmp[sp_jmp] == smkr[sp_mkr])
 	{
 		sp_jmp++;
 		sp_mkr++;
 	}
-	if ((sjmp[sp_jmp] == '\0' || !ft_isalnum(sjmp[sp_jmp]))
-		&& (smkr[sp_mkr] == '\0' || !ft_isalnum(smkr[sp_mkr])))
-		return 1;
+	if ((sjmp[sp_jmp] == '\0' || !is_label_chr(sjmp[sp_jmp]))
+		&& (smkr[sp_mkr] == '\0' || !is_label_chr(smkr[sp_mkr])))
+		return (1);
 	else
-		return 0;
+		return (0);
 }
 
 static t_ret	find_marker(t_list *markers, t_jump *jump, t_marker **marker)
@@ -52,44 +58,50 @@ static t_ret	find_marker(t_list *markers, t_jump *jump, t_marker **marker)
 		if (clean_and_compare(jump, (t_marker *)markers->content))
 		{
 			found = (t_marker *)markers->content;
-			break;
+			break ;
 		}
 		markers = markers->next;
 	}
 	if (found == NULL)
-		return (kLinkNotFoundError);
+		return (kErrorLinkNotFound);
 	*marker = found;
 	return (ret);
 }
 
-static t_ret 	put_link
-(t_bytecode *bc, t_list *markers, t_jump *jump, t_error *error)
+static t_ret	put_link
+	(t_bytecode *bc, t_list *markers, t_jump *jump, t_error *error)
 {
 	t_marker	*res;
 	t_ret		ret;
-	
+	size_t		size;
+	t_inst		inst;
+
 	ret = find_marker(markers, jump, &res);
 	if (ret != kSuccess)
 	{
 		error->code = ret;
 		error->token = jump->token;
-		return ret;
+		return (ret);
 	}
-	ft_putmembe(&bc->bytecode[jump->idx], res->idx - jump->ins_idx,
-				(jump->type == kTDir) ? 2 : 4); // TODO: make this correct size alwasy
+	size = 2;
+	inst = bc->bcdata[jump->ins_idx];
+	if (jump->type == kTDir && get_opinfo(inst)->dir_size == 4)
+		size = 4;
+	ft_putmembe(&bc->bcdata[jump->idx], res->idx - jump->ins_idx, size);
 	return (kSuccess);
 }
 
-t_ret	asm_link(t_asm *asmblr, t_error *error)
+t_ret			asm_link(t_asm *asmblr, t_error *error)
 {
 	t_ret	ret;
 	t_list	*jumps;
 
 	ret = kSuccess;
-	jumps = asmblr->bytecode.jump;
+	ft_lstrev(&asmblr->bc.marker);
+	jumps = asmblr->bc.jump;
 	while (jumps != NULL && ret == kSuccess)
 	{
-		ret = put_link(&asmblr->bytecode, asmblr->bytecode.marker, jumps->content, error);
+		ret = put_link(&asmblr->bc, asmblr->bc.marker, jumps->content, error);
 		jumps = jumps->next;
 	}
 	return (ret);

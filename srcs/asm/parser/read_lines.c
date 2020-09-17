@@ -14,7 +14,8 @@
 #include <libft.h>
 #include "input_parser.h"
 
-static t_ret	add_lines(t_list **lines, char *file, char *last, t_index idx)
+static t_ret	add_lines
+	(t_list **lines, const char *file, const char *last, t_index idx)
 {
 	t_list	*item;
 
@@ -34,18 +35,19 @@ static t_ret	add_lines(t_list **lines, char *file, char *last, t_index idx)
 	return (kSuccess);
 }
 
-t_ret			read_lines(char *file, t_list **lines)
+t_ret			read_lines(const char *file, t_list **lines)
 {
 	t_ret			ret;
 	t_index			idx;
-	char			*last;
+	const char		*last;
 
 	idx = 0;
 	last = file;
 	ret = kSuccess;
 	while (file[idx] != '\0' && ret == kSuccess)
 	{
-		if (file[idx] == '\n') {
+		if (file[idx] == '\n')
+		{
 			ret = add_lines(lines, file, last, idx);
 			last = &file[idx + 1];
 		}

@@ -13,8 +13,8 @@
 #ifndef CHECK_ARGS_H
 # define CHECK_ARGS_H
 
-#include "asm.h"
+# include "asm.h"
 
-int		check_args(int argc, char *argv[], t_asm *asm_s);
+int		check_args(int argc, char *argv[], t_asm *asmblr);
 
 #endif

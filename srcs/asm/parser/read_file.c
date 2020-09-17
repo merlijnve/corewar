@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 13:01:20 by floris        #+#    #+#                 */
-/*   Created: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
+/*   Updated: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include <libft.h>
 #include "input_parser.h"
 
-static void *ft_realloc(void *buff, const void *badd, size_t sold, size_t sadd)
+static void		*ft_realloc
+	(void *buff, const void *badd, size_t sold, size_t sadd)
 {
 	void *new;
 
 	new = ft_memalloc(sold + sadd + 1);
-
 	if (new != NULL)
 	{
 		ft_memcpy(new, buff, sold);
@@ -30,7 +30,7 @@ static void *ft_realloc(void *buff, const void *badd, size_t sold, size_t sadd)
 	return (new);
 }
 
-t_ret	read_file(int fd, char **buffer)
+t_ret			read_file(int fd, char **buffer)
 {
 	char	part[BUFF_SIZE];
 	t_ret	ret;
@@ -46,8 +46,12 @@ t_ret	read_file(int fd, char **buffer)
 		if (rret > 0)
 		{
 			*buffer = ft_realloc(*buffer, part, bsize, rret);
+			if (*buffer == NULL)
+				return (kErrorAlloc);
 			bsize += rret;
 		}
 	}
+	if (*buffer == NULL)
+		return (kErrorEmptyFile);
 	return (ret);
 }

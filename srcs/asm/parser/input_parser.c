@@ -13,28 +13,39 @@
 #include <stdlib.h>
 #include <ft_printf.h>
 
+#include "shared_utils.h"
+
 #include "input_parser.h"
 #include "tokenizer.h"
 
-t_inst	is_inst(char *line)
+t_inst				is_parse_inst(const char *line)
 {
-	int		idx;
-	t_inst	inst;
+	int			idx;
+	t_inst		inst;
+	size_t		len;
+	const char	*start;
 
 	idx = 0;
 	inst = kInstNone;
-	while (idx < 16 && inst == kInstNone)
+	start = ft_find_set(line, ft_isalpha, ft_isspace_h);
+	while (idx < 16 && inst == kInstNone && start != NULL)
 	{
-		if (ft_strcmp(line, get_opinfo(idx + 1)->name) == 0)
+		len = ft_strlen(get_opinfo(idx + 1)->name);
+		if (ft_strncmp(start, get_opinfo(idx + 1)->name, len) == 0
+			&& (ft_isspace(start[len]) || start[len] == '\0'))
 			inst = (t_inst)(idx + 1);
 		idx++;
 	}
-	if (inst == kInstNone)
+	if (inst == kInstNone && start != NULL)
+	{
+		if (!ft_isvisible(start[0]))
+			return (kInstNone);
 		return (kInstUndef);
+	}
 	return (inst);
 }
 
-static void	*find_space(char *line)
+static const char	*find_space(const char *line)
 {
 	t_index idx;
 
@@ -48,50 +59,47 @@ static void	*find_space(char *line)
 	return (NULL);
 }
 
-static t_line_type	has_label(char *line)
+static t_line_type	has_label(const char *line)
 {
-	char	*sym;
-	char	*space;
-	char	*poten; // potential
-	t_inst	type;
+	const char	*sym;
+	const char	*space;
+	t_inst		type;
 
-	sym = ft_strchr(line, LABEL_CHAR);
-	space = find_space(line);
+	space = NULL;
+	sym = ft_find_set(line, ft_isalnum, ft_isspace_h);
+	if (sym)
+		sym = ft_find_chr(sym, LABEL_CHAR, is_readable);
+	if (sym)
+		space = find_space(sym);
 	if (sym != NULL && (space == NULL || (space != NULL && sym < space)))
 	{
-		if (sym[1] != '\0')
+		if (ft_find_set(&sym[1], ft_isalpha, ft_isspace_h)
+			&& !ft_find_set(&sym[1], is_comment_chr, ft_isspace_h))
 		{
-			poten = ft_strtrim(&sym[1]);
-			type = is_inst(poten);
-			free(poten);
-			if (type >= 0)
+			type = is_parse_inst(&sym[1]);
+			if (type != kInstNone)
 				return (kInstLabelLine);
 		}
 		else
 			return (kLabelLine);
 	}
 	return (kUndefinedLine);
-
 }
 
-t_line_type	line_type(char *line)
+t_line_type			line_type(const char *line)
 {
 	t_line_type type;
 
 	if (line == NULL)
 		return (kUndefinedLine);
-	if (*line == COMMENT_CHAR)
+	if (ft_find_set(line, is_comment_chr, ft_isspace_h))
 		return (kSourceCommentLine);
-	if (*line == '\0')
+	if (ft_find_chr(line, '\0', ft_isspace_h))
 		return (kEmptyLine);
-	if (ft_strncmp(line, NAME_CMD_STRING, 5) == 0)
-		return (kNameLine);
-	if (ft_strncmp(line, COMMENT_CMD_STRING, 8) == 0)
-		return (kCommentLine);
 	type = has_label(line);
 	if (type != kUndefinedLine)
 		return (type);
-	if (is_inst(line) != kInstNone)
+	if (is_parse_inst(line) != kInstNone)
 		return (kInstLine);
 	return (kUndefinedLine);
 }

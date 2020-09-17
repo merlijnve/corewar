@@ -6,18 +6,18 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/27 13:01:20 by floris        #+#    #+#                 */
-/*   Created: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
+/*   Updated: 2020/08/27 13:01:20 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "translator.h"
 
-t_ret translate_ld(t_asm *asmblr, t_tksave parts[], t_error *error)
+t_ret	translate_ld(t_asm *asmblr, t_tksave parts[], t_error *error)
 {
 	t_ret ret;
 
-	put_instruction(&asmblr->bytecode, kInstLd);
-	put_encode(&asmblr->bytecode,
+	put_instruction(&asmblr->bc, kInstLd);
+	put_encode(&asmblr->bc,
 				(t_enbyte){tft(parts[0].token), kTReg, kTNone, kTNone});
 	ret = put_part(asmblr, &parts[0], kInstLd, error);
 	if (ret == kSuccess)

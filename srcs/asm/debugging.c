@@ -33,113 +33,49 @@ void		print_lines(t_list *lines)
 	ft_printf("++++ END ++++\n\n");
 }
 
+static char	*token_type_str(t_asm_token token)
+{
+	if (token == kTokenNone)
+		return ("kTokenNone");
+	else if (token == kTokenLabel)
+		return ("kTokenLabel");
+	else if (token == kTokenInstruction)
+		return ("kTokenInstruction");
+	else if (token == kTokenRegister)
+		return ("kTokenRegister");
+	else if (token == kTokenSeperator)
+		return ("kTokenSeperator");
+	else if (token == kTokenDir)
+		return ("kTokenDir");
+	else if (token == kTokenDirLabel)
+		return ("kTokenDirLabel");
+	else if (token == kTokenInd)
+		return ("kTokenInd");
+	else if (token == kTokenIndLabel)
+		return ("kTokenIndLabel");
+	else if (token == kTokenUnknown)
+		return ("kTokenUnknown");
+	return (NULL);
+}
+
 void		print_tokens(t_list *tokens)
 {
 	t_tksave *part;
 
-	ft_printf("LINES:\n ++++ START ++++\n");
-	while (lines != NULL)
+	ft_printf(" ==== ==== ==== START TOKENS ==== ==== ====\n");
+	while (tokens != NULL)
 	{
-		part = lines->content;
-		ft_printf("token: %.3d:%.3d %d | %s\n",
-					part->loc.ln, part->loc.chr, part->token, part->str);
-		lines = lines->next;
+		part = tokens->content;
+		ft_printf("token: %.3d:%.3d %-18s | %s\n",
+					part->loc.ln, part->loc.chr,
+					token_type_str(part->token), part->str);
+		tokens = tokens->next;
 	}
-	ft_printf("++++ END ++++\n\n");
+	ft_printf(" ==== ==== ====  END TOKENS  ==== ==== ====\n\n");
 }
 
 void		print_bc(t_asm *asmblr, size_t size)
 {
-	debug_print_mem(asmblr->bytecode.bytecode, size);
+	debug_print_mem(asmblr->bc.bcdata, size);
 	ft_printf("\n");
-}
-
-#pragma mark - memory_print
-
-static void	ft_print_chars(const void *addr, size_t size)
-{
-	int		idx;
-	char	c;
-
-	idx = 0;
-	while (idx < (int)size)
-	{
-		c = *(char const *)(addr + idx);
-		if (c < ' ' || c > '~')
-			write(1, ".", 1);
-		else
-			write(1, &c, 1);
-		idx++;
-	}
-	write(1, "\n", 1);
-}
-
-static void	ft_print_two_bytes(const void *addr, size_t size)
-{
-	int				cnt;
-	char			c;
-
-	cnt = 0;
-	while (cnt < 2)
-	{
-		if (2 - cnt >= (int)size)
-			write(1, "--", 2);
-		else
-		{
-			if ((c = *(unsigned char const *)(addr + cnt) / 16) <= 9)
-				c += '0';
-			else
-				c += 'a' - 10;
-			write(1, &c, 1);
-			if ((c = *(unsigned char const *)(addr + cnt) % 16) <= 9)
-				c += '0';
-			else
-				c += 'a' - 10;
-			write(1, &c, 1);
-		}
-		cnt++;
-	}
-	write(1, " ", 1);
-}
-
-static void	ft_print_block(const void *addr, size_t size)
-{
-	unsigned int	cnt;
-	size_t			tmp_size;
-
-	tmp_size = size;
-	cnt = 0;
-	while (cnt < 16)
-	{
-		if (cnt >= size)
-			write(1, "      ", 5);
-		else
-		{
-			ft_print_two_bytes(addr + cnt, size);
-		}
-		tmp_size -= 2;
-		cnt += 2;
-	}
-	write(1, " ", 1);
-}
-
-static void	ft_print_row(const void *addr, size_t size)
-{
-	ft_print_block(addr, size);
-	ft_print_chars(addr, size);
-}
-
-void		debug_print_mem(const void *addr, size_t size)
-{
-	long	temp_size;
-
-	temp_size = (long)size;
-	while (temp_size > 0)
-	{
-		if (temp_size <= 16)
-			ft_print_row(addr + (size - temp_size), temp_size);
-		else
-			ft_print_row(addr + (size - temp_size), 16);
-		temp_size -= 4 * 4;
-	}
 }

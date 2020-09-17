@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   input_parser.h                                     :+:    :+:            */
+/*   shared_utils.h                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/11 15:29:15 by floris        #+#    #+#                 */
-/*   Updated: 2020/06/11 15:29:26 by floris        ########   odam.nl         */
+/*   Created: 2020/09/08 14:41:00 by floris        #+#    #+#                 */
+/*   Updated: 2020/09/08 14:41:00 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_PARSER_H
-# define INPUT_PARSER_H
+#ifndef SHARED_UTILS_H
+# define SHARED_UTILS_H
 
-# include "asm.h"
-
-# define BUFF_SIZE 1024
-
-# pragma mark - funcs
-
-t_ret		read_lines(const char *file, t_list **lines);
-t_ret		read_file(int fd, char **buffer);
-t_ret		parse_file(t_list *lines, t_asm *asmblr);
-
-t_inst		is_parse_inst(const char *line);
-t_line_type	line_type(const char *line);
+int		is_label_chr(int chr);
+int		is_readable(int chr);
+int		is_comment_chr(int chr);
 
 #endif
