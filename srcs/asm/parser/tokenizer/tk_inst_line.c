@@ -22,7 +22,7 @@ t_ret	tk_inst_line(char *line, t_place loc, t_list **tokens, t_error *error)
 		return (kErrorAlloc);
 	while (line[loc.chr] != '\0' && ft_isspace(line[loc.chr]))
 		loc.chr++;
-	ret = get_tk_for_inst(line, token, &loc, error);
+	ret = get_tk_for_inst(line, token, &loc);
 	add_token(tokens, token);
 	if (ret == kSuccess)
 		ret = tk_args_line(line, loc, tokens, error);

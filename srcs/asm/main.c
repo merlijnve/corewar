@@ -87,7 +87,7 @@ static t_ret	extracted(t_asm **asmblr, t_error *error, int *fd)
 		error->code = tokens_from_lines(
 			(*asmblr)->lines, &(*asmblr)->tokens, skipln, error);
 	if (error->code == kSuccess)
-		error->code = validate_tokens((*asmblr)->tokens, *asmblr, error);
+		error->code = validate_tokens((*asmblr)->tokens, error);
 	if (error->code == kSuccess)
 		error->code = translate((*asmblr)->tokens, *asmblr, error);
 	if (error->code == kSuccess)
@@ -119,7 +119,10 @@ int				main(int argc, char **argv)
 		error.code = extracted(&asmblr, &error, fd);
 	}
 	if (error.code == kSuccess)
-		error.code = write_file(asmblr, open_file(argv[1]), &error);
+		error.code = write_file(
+			asmblr, open_file(argv[1]), COREWAR_EXEC_MAGICR);
+	if (error.code == kSuccess)
+		printf("Succesfully Assembled: %s\n", asmblr->file_name);
 	if (error.code != kSuccess)
 		print_error(&error, asmblr->lines);
 	close(fd[0]);

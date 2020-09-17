@@ -52,7 +52,7 @@ static const t_vl_func	g_vl_funcs[10] =
 **		error->code = validate_seperator(token, error);
 */
 
-t_ret	validate_tokens(t_list *tokens, t_asm *asmblr, t_error *error)
+t_ret	validate_tokens(t_list *tokens, t_error *error)
 {
 	t_tksave	*token;
 	t_vl_func	func;

@@ -17,8 +17,7 @@
 ** TODO: Set correct Error Code
 */
 
-t_ret	get_tk_for_ind
-	(char *line, t_tksave *token, t_place *loc, t_error *error)
+t_ret	get_tk_for_ind(char *line, t_tksave *token, t_place *loc)
 {
 	t_index idx;
 	char	*str;
@@ -47,8 +46,7 @@ t_ret	get_tk_for_ind
 ** TODO: Set correct Error Code
 */
 
-t_ret	get_tk_for_dir
-	(char *line, t_tksave *token, t_place *loc, t_error *error)
+t_ret	get_tk_for_dir(char *line, t_tksave *token, t_place *loc)
 {
 	t_index idx;
 	char	*str;
@@ -77,8 +75,7 @@ t_ret	get_tk_for_dir
 ** TODO: Set correct Error Code
 */
 
-t_ret	get_tk_for_reg
-	(char *line, t_tksave *token, t_place *loc, t_error *error)
+t_ret	get_tk_for_reg(char *line, t_tksave *token, t_place *loc)
 {
 	t_index idx;
 	char	*str;
@@ -106,8 +103,7 @@ t_ret	get_tk_for_reg
 ** TODO: Set correct Error Code
 */
 
-t_ret	get_tk_for_inst
-	(char *line, t_tksave *token, t_place *loc, t_error *error)
+t_ret	get_tk_for_inst(char *line, t_tksave *token, t_place *loc)
 {
 	t_index idx;
 	char	*str;
@@ -133,8 +129,7 @@ t_ret	get_tk_for_inst
 ** TODO: Set correct Error Code
 */
 
-t_ret	get_tk_for_label
-	(char *line, t_tksave *token, t_place *loc, t_error *error)
+t_ret	get_tk_for_label(char *line, t_tksave *token, t_place *loc)
 {
 	t_index	idx;
 	char	*str;

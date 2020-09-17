@@ -29,7 +29,6 @@ static int		clean_and_compare(t_jump *jmp, t_marker *mkr)
 	sp_mkr = 0;
 	sjmp = jmp->token->str;
 	smkr = mkr->token->str;
-	smkr = smkr;
 	while (sjmp[sp_jmp] != '\0'
 			&& (sjmp[sp_jmp] == LABEL_CHAR || sjmp[sp_jmp] == DIRECT_CHAR))
 		sp_jmp++;

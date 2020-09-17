@@ -20,7 +20,7 @@ typedef t_ret	(*t_vl_func)(t_tksave *token, t_error *error);
 t_inst	is_inst(const char *line);
 bool	ft_strisdigit_padd(const char *s);
 
-t_ret	validate_tokens(t_list *tokens, t_asm *asmblr, t_error *error);
+t_ret	validate_tokens(t_list *tokens, t_error *error);
 
 t_ret	validate_label(t_tksave *token, t_error *error);
 t_ret	validate_instruction(t_tksave *token, t_error *error);

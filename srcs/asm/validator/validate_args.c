@@ -44,16 +44,6 @@ static bool	is_argument(t_tksave *token)
 	return (false);
 }
 
-t_ret		check_arg(t_index idx, t_inst inst, t_tksave *token, t_error *error)
-{
-	t_args_type type;
-
-	type = tft(token->token);
-	if (is_valid_arg(inst, type, idx))
-		return (kSuccess);
-	return (kError);
-}
-
 t_ret		validate_args(t_list *tkns, t_inst inst, t_error *error)
 {
 	t_index		idx;
@@ -65,7 +55,7 @@ t_ret		validate_args(t_list *tkns, t_inst inst, t_error *error)
 	{
 		last = tkns->content;
 		while (inst != kInstUndef && inst != kInstNone
-				&& idx <= get_opinfo(inst)->argc)
+				&& idx <= (uint64_t)get_opinfo(inst)->argc)
 		{
 			if (tkns == NULL || !is_argument(tkns->content))
 				return (set_err_token(last, kErrorInvalidArgCount, error));

@@ -16,6 +16,6 @@
 # include "asm.h"
 # include "error.h"
 
-t_ret	write_file(t_asm *asmblr, int fd, t_error *error);
+t_ret	write_file(t_asm *asmblr, int fd, uint32_t magic);
 
 #endif

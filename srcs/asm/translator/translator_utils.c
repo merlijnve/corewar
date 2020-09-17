@@ -64,7 +64,7 @@ t_ret			put_part
 	if (tft(part->token) == kTReg)
 		ret = put_registry(&asmblr->bc, asm_regtoint(part->str));
 	else if (tft(part->token) == kTDir)
-		ret = put_direct(asmblr, part, dir_size(inst), error);
+		ret = put_direct(asmblr, part, dir_size(inst));
 	else if (tft(part->token) == kTInd)
 		ret = put_indirect(asmblr, part, 2);
 	if (ret != kSuccess)

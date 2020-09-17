@@ -17,8 +17,7 @@
 ** TODO: Set correct Error Code
 */
 
-t_ret	get_tk_for_sep
-	(char *line, t_tksave *token, t_place *loc, t_error *error)
+t_ret	get_tk_for_sep(char *line, t_tksave *token, t_place *loc)
 {
 	t_index	idx;
 	char	*str;

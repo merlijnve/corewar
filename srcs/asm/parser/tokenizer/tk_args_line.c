@@ -24,14 +24,14 @@ t_ret	tk_args_line(char *line, t_place loc, t_list **tokens, t_error *error)
 		while (line[loc.chr] != '\0' && ft_isspace(line[loc.chr]))
 			loc.chr++;
 		if (line[loc.chr] == SEPARATOR_CHAR)
-			ret = get_tk_for_sep(line, &token, &loc, error);
+			ret = get_tk_for_sep(line, &token, &loc);
 		else if (line[loc.chr] == DIRECT_CHAR)
-			ret = get_tk_for_dir(line, &token, &loc, error);
+			ret = get_tk_for_dir(line, &token, &loc);
 		else if (line[loc.chr] == REGISTER_CHAR)
-			ret = get_tk_for_reg(line, &token, &loc, error);
+			ret = get_tk_for_reg(line, &token, &loc);
 		else if (ft_isalnum(line[loc.chr])
 					|| line[loc.chr] == '-' || line[loc.chr] == LABEL_CHAR)
-			ret = get_tk_for_ind(line, &token, &loc, error);
+			ret = get_tk_for_ind(line, &token, &loc);
 		else if (ft_strchr(COMMENT_CHARS, line[loc.chr])
 					&& line[loc.chr] != '\0')
 			break ;
