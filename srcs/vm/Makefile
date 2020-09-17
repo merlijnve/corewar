@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = corewar
+NAME = ../../corewar
 CC = clang
 C_FLAGS = -Wall -Wextra -gfull # -Werror - NOTE: Set back after prod.
 

@@ -6,7 +6,7 @@
 /*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/14 17:25:00 by ffredrik      #+#    #+#                 */
-/*   Updated: 2020/09/14 17:25:00 by ffredrik      ########   odam.nl         */
+/*   Updated: 2020/09/17 13:37:10 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ const char	*ft_find_chr(const char *line, char chr, int (skip)(int chr))
 	else
 		while (line[idx] != '\0' && line[idx] != chr)
 			idx++;
-
 	if (line[idx] == chr)
 		return (&line[idx]);
 	return (NULL);
@@ -41,7 +40,6 @@ const char	*ft_find_set
 	else
 		while (line[idx] != '\0' && !in_set(line[idx]))
 			idx++;
-
 	if (in_set(line[idx]))
 		return (&line[idx]);
 	return (NULL);

@@ -13,16 +13,14 @@
 #include <stdlib.h>
 #include "libft.h"
 
-void	ft_hdictremove(t_hdict *dict, t_hash key, void(*del)(void*))
+void	ft_hdictremove(t_hdict *dict, t_hash key, void (*del)(void*))
 {
 	t_hlist	**head;
 	t_hlist *bc;
 
 	head = &(dict->buckets[key % dict->size]);
-
 	while (*head != NULL && (*head)->content->key != key)
 		head = &((*head)->next);
-
 	if (*head == NULL)
 		return ;
 	else

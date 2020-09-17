@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-void	ft_hdictfree(t_hdict *dict, void(*del)(void*))
+void	ft_hdictfree(t_hdict *dict, void (*del)(void*))
 {
 	t_index idx;
 	t_hlist *next;

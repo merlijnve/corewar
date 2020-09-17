@@ -19,7 +19,6 @@ void	*ft_hdictget(t_hdict *dict, t_hash key)
 	bucket = dict->buckets[key % dict->size];
 	while (bucket != NULL && bucket->content->key != key)
 		bucket = bucket->next;
-
 	if (bucket == NULL)
 		return (bucket);
 	else

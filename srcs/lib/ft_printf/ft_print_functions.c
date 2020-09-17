@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                      ::::::::: :::::::::   */
-/*   ft_print_functions.c                              :+:       :+:          */
-/*                                                    +:+       +:+           */
-/*   By: ffredrik <ffredrik@student.codam.nl>        :#::+::#  :#::+::#       */
-/*                                                  +#+       +#+             */
-/*   Created: 2019/03/01 17:22:48 by ffredrik      #+#       #+#              */
-/*   Updated: 2019/03/30 16:46:08 by ffredrik     ###       ###               */
+/*                                                        ::::::::            */
+/*   ft_print_functions.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/03/01 17:22:48 by ffredrik      #+#    #+#                 */
+/*   Updated: 2020/09/17 14:00:18 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <libft.h>
 #include "ft_print_functions.h"
-
-# ifdef __linux__
-#  define FILENO_KW _fileno;
-# elif __APPLE__
-#  define FILENO_KW _file;
-# endif
+#include "utils.h"
 
 static t_pf_ret		print_buffer(t_pf_buffer *buff, size_t len, t_pf_obj *obj)
 {
@@ -31,7 +26,7 @@ static t_pf_ret		print_buffer(t_pf_buffer *buff, size_t len, t_pf_obj *obj)
 				? PF_RET_SUCCESS : PF_RET_WRITE_ERROR);
 	else if (obj->dtype == PRINT_DEST_STREAM)
 	{
-		fd = obj->dest.file->FILENO_KW;
+		fd = get_fd(obj);
 		if (fd >= 0)
 			ret = (write(fd, buff->data, len) >= 0
 				? PF_RET_SUCCESS : PF_RET_WRITE_ERROR);

@@ -20,7 +20,6 @@ all: $(VM_NAME) $(ASM_NAME)
 
 corewar:
 	make -C $(VM_LOC)
-	cp $(VM_LOC)$(VM_NAME) .
 
 $(ASM_NAME):
 	make -C $(ASM_LOC)

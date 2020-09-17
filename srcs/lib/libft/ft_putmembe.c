@@ -25,7 +25,6 @@ void		ft_putmembe(void *mem, uint64_t num, size_t size)
 
 	idx = 0;
 	mems = mem;
-
 	while (idx + 1 <= size)
 	{
 		mems[idx] =

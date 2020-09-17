@@ -10,65 +10,68 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#define IND_SIZE				2
-#define REG_SIZE				4
-#define DIR_SIZE				REG_SIZE
+#ifndef OP_H
+# define OP_H
 
-#define REG_SIZE_ASM			1
-#define IND_SIZE_ASM			2
+# include <stdbool.h>
 
-#define REG_CODE				1
-#define DIR_CODE				2
-#define IND_CODE				3
+# define IND_SIZE				2
+# define REG_SIZE				4
+# define DIR_SIZE				REG_SIZE
 
+# define REG_SIZE_ASM			1
+# define IND_SIZE_ASM			2
 
-#define MAX_ARGS_NUMBER			4
-#define MAX_PLAYERS				4
-#define MEM_SIZE				(4*1024)
-#define IDX_MOD					(MEM_SIZE / 8)
-#define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
+# define REG_CODE				1
+# define DIR_CODE				2
+# define IND_CODE				3
 
-#define COMMENT_CHAR			'#'
-#define COMMENT_CHARS			";#"
-#define LABEL_CHAR				':'
-#define DIRECT_CHAR				'%'
-#define SEPARATOR_CHAR			','
-#define REGISTER_CHAR			'r'
+# define MAX_ARGS_NUMBER		4
+# define MAX_PLAYERS			4
+# define MEM_SIZE				4096
+# define IDX_MOD				512
+# define CHAMP_MAX_SIZE			683
 
+# define COMMENT_CHAR			'#'
+# define COMMENT_CHARS			";#"
+# define LABEL_CHAR				':'
+# define DIRECT_CHAR			'%'
+# define SEPARATOR_CHAR			','
+# define REGISTER_CHAR			'r'
 
-#define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"
+# define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
-#define NAME_CMD_STRING			".name"
-#define COMMENT_CMD_STRING		".comment"
+# define NAME_CMD_STRING		".name"
+# define COMMENT_CMD_STRING		".comment"
 
-#define REG_NUMBER				16
+# define REG_NUMBER				16
 
-#define CYCLE_TO_DIE			1536
-#define CYCLE_DELTA				50
-#define NBR_LIVE				21
-#define MAX_CHECKS				10
+# define CYCLE_TO_DIE			1536
+# define CYCLE_DELTA			50
+# define NBR_LIVE				21
+# define MAX_CHECKS				10
 
-#define PROG_NAME_LENGTH		(128)
-#define COMMENT_LENGTH			(2048)
-#define COREWAR_EXEC_MAGIC		0x00ea83f3
-#define COREWAR_EXEC_MAGICR		0xf383ea00
+# define PROG_NAME_LENGTH		128
+# define COMMENT_LENGTH			2048
+# define COREWAR_EXEC_MAGIC		0x00ea83f3
+# define COREWAR_EXEC_MAGICR	0xf383ea00
 
-#include <stdbool.h>
+typedef struct s_header			t_header;
 
-typedef struct		header_s
+struct							s_header
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-}					header_t;
+	unsigned int				magic;
+	char						prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int				prog_size;
+	char						comment[COMMENT_LENGTH + 1];
+};
 
-#pragma mark - from asm
+# pragma mark - from asm
 
-typedef enum e_inst			t_inst;
-typedef enum e_args_type	t_args_type;
+typedef enum e_inst				t_inst;
+typedef enum e_args_type		t_args_type;
 
-enum e_inst
+enum							e_inst
 {
 	kInstNone = -1,
 	kInstUndef = 0x00,
@@ -90,7 +93,7 @@ enum e_inst
 	kInstAff = 0x10,
 };
 
-enum e_args_type
+enum							e_args_type
 {
 	kTReg = 0b01,
 	kTDir = 0b10,
@@ -98,9 +101,9 @@ enum e_args_type
 	kTNone = 0b00,
 };
 
-typedef struct s_enbyte		t_enbyte;
+typedef struct s_enbyte			t_enbyte;
 
-struct	s_enbyte
+struct							s_enbyte
 {
 	t_args_type	arg1 : 2;
 	t_args_type	arg2 : 2;
@@ -112,21 +115,22 @@ struct	s_enbyte
 ** Info struct for operations
 */
 
-typedef struct s_opinfo t_opinfo;
+typedef struct s_opinfo			t_opinfo;
 
-struct s_opinfo
+struct							s_opinfo
 {
-	char		*name;
-	int			argc;
-	int			dir_size;
-	int			timeout;
-	bool		has_enbyte;
-	bool		needs_address;
-	bool		mod_trunc;
-	t_enbyte	v_args[3];
+	char						*name;
+	int							argc;
+	int							dir_size;
+	int							timeout;
+	bool						has_enbyte;
+	bool						needs_address;
+	bool						mod_trunc;
+	t_enbyte					v_args[3];
 };
 
+# pragma mark - Shared
 
-#pragma mark - Shared
+const t_opinfo					*get_opinfo(t_inst intst);
 
-const t_opinfo *get_opinfo(t_inst intst);
+#endif

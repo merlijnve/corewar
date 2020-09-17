@@ -1,7 +1,0 @@
-Fill valid_asm or invalid_asm with files to test
-
-1.      ./checker
-2.      Enter path to your own asm
-
-For invalid maps .out.own in the folder invalid_asm_out is your output (.out is from original asm)
-For valid maps .cor in the folder valid_asm_out is your output (.cor.orig is from original asm)

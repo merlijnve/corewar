@@ -6,7 +6,7 @@
 /*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/09 17:46:02 by ffredrik      #+#    #+#                 */
-/*   Updated: 2019/02/10 19:07:51 by ffredrik      ########   odam.nl         */
+/*   Updated: 2020/09/17 13:47:15 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # pragma mark - Types
 
 typedef size_t	t_index;
-typedef enum e_lft_ret t_lft_ret;
+typedef enum e_lft_ret	t_lft_ret;
 
-enum e_lft_ret
+enum			e_lft_ret
 {
 	kLFTSucces = 0,
 	kLFTAllocError = -1,
@@ -32,7 +32,7 @@ enum e_lft_ret
 # pragma mark - Functions
 
 void			ft_putmembe(void *mem, uint64_t num, size_t size);
-long 			ft_mod(long a, long b);
+long			ft_mod(long a, long b);
 const char		*ft_find_chr(const char *s1, char chr, int (skip)(int chr));
 const char		*ft_find_set(const char *s1, int (in_s)(int), int (skp)(int c));
 
@@ -76,8 +76,8 @@ char			*ft_strupper(char *str);
 
 long long		ft_min(long long x, long long y);
 long long		ft_max(long long x, long long y);
-void*			ft_minp(void *x, void *y);
-void*			ft_maxp(void *x, void *y);
+void			*ft_minp(void *x, void *y);
+void			*ft_maxp(void *x, void *y);
 
 void			*ft_memalloc(size_t size);
 void			ft_memdel(void **ap);
@@ -191,7 +191,6 @@ struct			s_hpair
 	void	*value;
 };
 
-
 struct			s_hdict
 {
 	size_t		size;
@@ -216,8 +215,8 @@ struct			s_queue
 };
 
 t_hdict			*ft_queuenew(size_t size);
-void		 	ft_queuepush(t_hdict *dict, t_hash key, void *item);
-void		 	ft_queuepop(t_hdict *dict, t_hash key, void *item);
+void			ft_queuepush(t_hdict *dict, t_hash key, void *item);
+void			ft_queuepop(t_hdict *dict, t_hash key, void *item);
 void			ft_queuefree(t_queue *dict, void(*del)(void*));
 
 # pragma mark - get next line

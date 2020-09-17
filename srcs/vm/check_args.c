@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 18:53:34 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/15 22:30:48 by wmisiedj      ########   odam.nl         */
+/*   Updated: 2020/09/17 13:35:06 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,7 @@ void		check_args(int argc, char **argv, t_arena *arena)
 	c = 0;
 	loop_args(argc, argv, arena);
 	if (arena->champion_count == 0 || arena->champion_count > MAX_PLAYERS)
-	{
-		printf("HELLO WORLD\n");
 		vm_error(kErrParams, NULL);
-	}
 	while (arena->champion_count - arena->n_flag > index_fd)
 	{
 		if (arena->champions[index_fd].fd == 0)

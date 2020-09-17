@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                      ::::::::: :::::::::   */
-/*   pf_choose_length_for_mod.c                        :+:       :+:          */
-/*                                                    +:+       +:+           */
-/*   By: ffredrik <ffredrik@student.codam.nl>        :#::+::#  :#::+::#       */
-/*                                                  +#+       +#+             */
-/*   Created: 2019/03/01 17:22:48 by ffredrik      #+#       #+#              */
-/*   Updated: 2019/03/30 16:46:08 by ffredrik     ###       ###               */
+/*                                                        ::::::::            */
+/*   pf_choose_length_for_mod.c                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/03/01 17:22:48 by ffredrik      #+#    #+#                 */
+/*   Updated: 2020/09/17 13:34:36 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static t_pf_len_mod	get_default_length(t_pf_conv *conv)
 t_pf_len_mod		pf_get_length_for_conv
 	(t_pf_len_mod *lenmod, t_pf_conv *conv)
 {
-	if (DECI_CONV & *conv)
+	if ((D_CONV | I_CONV | O_CONV | U_CONV | B_CONV |
+			XX_CONV | XD_CONV | XO_CONV | XU_CONV | X_CONV) & *conv)
 	{
 		if (*lenmod & LL_PF_LEN_MOD)
 			return (LL_PF_LEN_MOD);
@@ -55,16 +56,15 @@ t_pf_len_mod		pf_get_length_for_conv
 		else
 			return (get_default_length(conv));
 	}
-	else if (STR_CONV & *conv)
+	else if ((C_CONV | S_CONV | P_CONV) & *conv)
 		return (get_default_length(conv));
 	else if (*conv == F_CONV)
 	{
 		if (*lenmod & XL_PF_LEN_MOD)
 			return (XL_PF_LEN_MOD);
 		else if (*lenmod & L_PF_LEN_MOD)
-			return (L_PF_LEN_MOD);
-		else
-			return (get_default_length(conv));
+			return (*lenmod & L_PF_LEN_MOD) ?
+			(L_PF_LEN_MOD) : get_default_length(conv);
 	}
 	return (*lenmod);
 }

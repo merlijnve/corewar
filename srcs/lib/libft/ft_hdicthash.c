@@ -12,14 +12,15 @@
 
 #include "libft.h"
 
-t_hash ft_hdicthash(char *data, size_t size)
+t_hash	ft_hdicthash(char *data, size_t size)
 {
 	t_hash	hash;
 	t_index idx;
 
 	hash = 0;
 	idx = 0;
-	if (size > 0) {
+	if (size > 0)
+	{
 		while (idx < size)
 		{
 			hash = (int)(*(data + idx)) + (hash << 6) + (hash << 16) - hash;

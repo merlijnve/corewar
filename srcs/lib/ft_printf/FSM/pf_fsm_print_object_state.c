@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                      ::::::::: :::::::::   */
-/*   pf_fsm_print_object_state.c                       :+:       :+:          */
-/*                                                    +:+       +:+           */
-/*   By: ffredrik <ffredrik@student.codam.nl>        :#::+::#  :#::+::#       */
-/*                                                  +#+       +#+             */
-/*   Created: 2019/03/01 17:22:49 by ffredrik      #+#       #+#              */
-/*   Updated: 2019/03/31 18:10:24 by ffredrik     ###       ###               */
+/*                                                        ::::::::            */
+/*   pf_fsm_print_object_state.c                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/03/01 17:22:49 by ffredrik      #+#    #+#                 */
+/*   Updated: 2020/09/17 13:31:07 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ static t_pf_ret		set_value_p(t_pf_obj *obj, t_pf_part *part)
 
 t_pf_ret			pf_fsm_print_object_state(t_pf_obj *obj)
 {
-	if ((obj->part->conv & PNTR_CONV) != 0)
+	if ((obj->part->conv & (N_CONV | S_CONV | P_CONV)) != 0)
 		set_value_p(obj, obj->part);
-	else if ((obj->part->conv & SIGN_CONV) != 0)
+	else if ((obj->part->conv
+				& (U_CONV | O_CONV | X_CONV | XX_CONV | B_CONV)) != 0)
 		set_value_v_u(obj, obj->part);
-	else if ((obj->part->conv & FLOAT_CONV) != 0)
+	else if ((obj->part->conv & (F_CONV | XF_CONV)) != 0)
 		set_value_f(obj, obj->part);
 	else
 		set_value_v_s(obj, obj->part);

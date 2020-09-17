@@ -6,7 +6,7 @@
 /*   By: ffredrik <ffredrik@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/24 09:25:52 by ffredrik      #+#    #+#                 */
-/*   Updated: 2020/06/24 09:25:53 by ffredrik      ########   odam.nl         */
+/*   Updated: 2020/09/17 13:48:13 by floris        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_hlist	*pack_item(t_hash hash, void *item)
 	pair->key = hash;
 	pair->value = item;
 	link->content = pair;
-	return link;
+	return (link);
 }
 
 t_lft_ret		ft_hdictadd(t_hdict *dict, t_hash key, void *item)

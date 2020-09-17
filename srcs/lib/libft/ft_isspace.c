@@ -30,7 +30,7 @@ int		ft_isspace_v(int c)
 
 int		ft_isspace(int c)
 {
-	if (ft_isspace_h(c) || ft_isspace_v(c) )
+	if (ft_isspace_h(c) || ft_isspace_v(c))
 		return (1);
 	else
 		return (0);
