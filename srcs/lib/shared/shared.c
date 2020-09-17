@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 13:01:20 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/15 01:23:14 by merlijn       ########   odam.nl         */
+/*   Updated: 2020/09/17 01:41:58 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ static const t_opinfo	g_opinfo[16] =
 		.name = "lld",
 		.argc = 2, .dir_size = 4, .timeout = 10,
 		.has_enbyte = true,
-		.needs_address = false,
+		.needs_address = true,
 		.mod_trunc = false,
 		.v_args =
 		{

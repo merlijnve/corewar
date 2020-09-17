@@ -6,7 +6,7 @@
 /*   By: wmisiedj <wmisiedj@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/30 19:22:32 by wmisiedj      #+#    #+#                 */
-/*   Updated: 2020/09/14 15:44:49 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/16 22:50:27 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int			read_2_bytes(uint8_t *mem, long pos)
 	parts[1] = mem[get_pos(pos, 1)];
 	sum = parts[0] << 8;
 	sum += parts[1];
-	return (sum);
+	return ((short)sum);
 }
 
 void		write_2_bytes(uint8_t *mem, long pos, int value)

@@ -6,7 +6,7 @@
 /*   By: joris <joris@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 17:24:18 by joris         #+#    #+#                 */
-/*   Updated: 2020/09/15 13:40:21 by mvan-eng      ########   odam.nl         */
+/*   Updated: 2020/09/16 15:01:14 by joris         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 # include <unistd.h>
 # include <stdint.h>
 
-# include "op.h"
-# include "ft_printf.h"
-# include "libft.h"
-# include "vm_errors.h"
+# include <op.h>
+# include <ft_printf.h>
+# include <libft.h>
+# include "./errors/vm_errors.h"
 
 # define MAGIC_NUMBER_LEN	4
 # define ARGS_MAX			3
@@ -109,6 +109,7 @@ typedef struct		s_visualizer
 	int				sleep;
 	double			updated_ms;
 	bool			framemode;
+	int				breakpoint;
 }					t_visualizer;
 
 typedef struct		s_arena
@@ -130,7 +131,7 @@ typedef struct		s_arena
 	t_champion		*winner;
 
 	int				cycles_to_die;
-	int				cycles_since_check;
+	int				cycles_total;
 
 	int				cycle_count;
 	int				live_count;
@@ -145,6 +146,7 @@ void				dump(uint8_t *mem);
 
 void				vm_start(t_arena *arena_s);
 bool				vm_run_cycle(t_arena *arena_s);
+void				run_cycle(t_arena *arena);
 
 int					check_champions(t_champion *champions);
 t_champion			*champion_find_id(t_arena *arena, int id);
@@ -229,7 +231,8 @@ bool				preload_args(t_arena *arena_s, t_cursor *cursor);
 
 # pragma mark - Visualizer
 
-void				check_visual_flags(t_arena *arena, char *arg);
+int					check_visual_flags(t_arena *arena, int index,
+int argc, char **argv);
 void				visual_start(t_arena *arena);
 void				visual_update(t_arena *arena, t_cursor *cursor);
 void				visual_set_cursor_color(WINDOW *win, t_arena *arena,\

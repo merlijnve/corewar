@@ -6,7 +6,7 @@
 /*   By: floris <ffredrik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/06 10:00:00 by floris        #+#    #+#                 */
-/*   Updated: 2020/09/14 16:01:35 by joris         ########   odam.nl         */
+/*   Updated: 2020/09/16 15:29:14 by wmisiedj      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void				inst_live(t_arena *arena, t_cursor *cursor)
 
 	arena->live_count += 1;
 	champ = NULL;
-	if (cursor->args[0].value == cursor->registries[0])
+	if (cursor->args[0].value < 0 && cursor->args[0].value >= -MAX_PLAYERS)
 	{
-		champ = find_player_id(arena, cursor->registries[0] * -1);
+		champ = find_player_id(arena, cursor->args[0].value * -1);
 		if (champ != NULL)
 			arena->winner = champ;
 		if (champ != NULL && !arena->visualizer.enabled &&
@@ -42,6 +42,6 @@ void				inst_live(t_arena *arena, t_cursor *cursor)
 			ft_printf("A process shows that player %d (%s) is alive\n",
 			arena->winner->id, arena->winner->champ.name);
 	}
-	cursor->last_alive = arena->cycle_count;
+	cursor->last_alive = arena->cycles_total;
 	return ;
 }
