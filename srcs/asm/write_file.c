@@ -33,6 +33,7 @@ t_ret	write_file(t_asm *asmblr, int fd, t_error *error)
 		write(fd, &box[4], 4);
 		write(fd, asmblr->bc.bcdata, code_len);
 		close(fd);
+		printf("Succesfully Assembled: %s\n", asmblr->file_name);
 		return (kSuccess);
 	}
 	return (kErrorOpeningFile);

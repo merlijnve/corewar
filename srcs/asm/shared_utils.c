@@ -13,6 +13,7 @@
 #include <libft.h>
 #include <op.h>
 #include "shared_utils.h"
+#include "error.h"
 
 int		is_readable(int chr)
 {
@@ -36,21 +37,19 @@ int		is_comment_chr(int chr)
 	return (0);
 }
 
-t_inst				is_inst(const char *line)
-{
-	int			idx;
-	t_inst		inst;
-	size_t		len;
+/*
+** TODO: correct error
+** TODO: check if all numbers and positive
+** TODO: correct error
+** if (ft_stralpha())
+*/
 
-	idx = 0;
-	inst = kInstUndef;
-	while (idx < 16 && inst == kInstUndef && line != NULL)
-	{
-		len = ft_strlen(get_opinfo(idx + 1)->name);
-		if (ft_strncmp(line, get_opinfo(idx + 1)->name, len) == 0
-			&& (ft_isspace(line[len]) || line[len] == '\0'))
-			inst = (t_inst)(idx + 1);
-		idx++;
-	}
-	return (inst);
+t_ret	asm_regtoint(char *str)
+{
+	int number;
+
+	if (*str != 'r')
+		return (kError);
+	number = ft_atoi(&str[1]);
+	return (number >= 0 ? number : kError);
 }

@@ -39,9 +39,8 @@ static int		clean_and_compare(t_jump *jmp, t_marker *mkr)
 	sjmp = jmp->token->str;
 	smkr = mkr->token->str;
 	smkr = smkr;
-
 	while (sjmp[sp_jmp] != '\0'
-		   && (sjmp[sp_jmp] == LABEL_CHAR || sjmp[sp_jmp] == DIRECT_CHAR))
+			&& (sjmp[sp_jmp] == LABEL_CHAR || sjmp[sp_jmp] == DIRECT_CHAR))
 		sp_jmp++;
 	while (is_label_chr(sjmp[sp_jmp]) && is_label_chr(smkr[sp_mkr])
 			&& sjmp[sp_jmp] == smkr[sp_mkr])
@@ -85,7 +84,7 @@ static t_ret	put_link
 	t_marker	*res;
 	t_ret		ret;
 	size_t		size;
-	t_inst 		inst;
+	t_inst		inst;
 
 	ret = find_marker(markers, jump, &res);
 	if (ret != kSuccess)
@@ -108,12 +107,12 @@ t_ret			asm_link(t_asm *asmblr, t_error *error)
 	t_list	*jumps;
 
 	ret = kSuccess;
+	ft_lstrev(&asmblr->bc.marker);
 	jumps = asmblr->bc.jump;
 	while (jumps != NULL && ret == kSuccess)
 	{
 		ret = put_link(&asmblr->bc, asmblr->bc.marker, jumps->content, error);
 		jumps = jumps->next;
-//		print_bc(asmblr, asmblr->bc.length - 16);
 	}
 	return (ret);
 }

@@ -46,30 +46,53 @@ static int		open_file(char *str)
 	return (fd);
 }
 
-static t_ret	setup_asmblr(t_asm **asmblr, t_error *error)
+static t_asm	*setup_asmblr(t_error *error)
 {
-	t_asm *asmblr_loc;
+	t_asm *asmblr;
 
-	asmblr_loc = ft_memalloc(sizeof(t_asm));
-	if (asmblr_loc != NULL)
+	asmblr = ft_memalloc(sizeof(t_asm));
+	if (asmblr != NULL)
 	{
-		asmblr_loc->bc.bcdata = ft_memalloc(255 + 16);
-		asmblr_loc->bc.length = (255 + 16);
-		if (asmblr_loc->bc.bcdata == NULL)
+		asmblr->bc.bcdata = ft_memalloc(255 + 16);
+		asmblr->bc.length = (255 + 16);
+		if (asmblr->bc.bcdata == NULL)
 		{
-			free(asmblr_loc);
-			return (kErrorAlloc);
+			free(asmblr);
+			return (NULL);
 		}
-		asmblr_loc->bc.bcp = asmblr_loc->bc.bcdata;
-		*asmblr = asmblr_loc;
+		asmblr->bc.bcp = asmblr->bc.bcdata;
 		error->token = &error->rtoken;
 		error->rtoken.token = kTokenUnknown;
 		error->rtoken.loc.chr = 0;
 		error->rtoken.loc.ln = 0;
 		error->rtoken.str = NULL;
-		return (kSuccess);
+		return (asmblr);
 	}
-	return (kErrorAlloc);
+	return (NULL);
+}
+
+static t_ret	extracted(t_asm **asmblr, t_error *error, int *fd)
+{
+	t_index		skipln;
+
+	skipln = 0;
+	if (error->code == kSuccess)
+		error->code = read_file(fd[0], &(*asmblr)->file);
+	if (error->code == kSuccess)
+		error->code = read_lines((*asmblr)->file, &(*asmblr)->lines);
+	if (error->code == kSuccess)
+		error->code = get_meta_from_file(
+			(*asmblr)->file, *asmblr, error, &skipln);
+	if (error->code == kSuccess)
+		error->code = tokens_from_lines(
+			(*asmblr)->lines, &(*asmblr)->tokens, skipln, error);
+	if (error->code == kSuccess)
+		error->code = validate_tokens((*asmblr)->tokens, *asmblr, error);
+	if (error->code == kSuccess)
+		error->code = translate((*asmblr)->tokens, *asmblr, error);
+	if (error->code == kSuccess)
+		error->code = asm_link(*asmblr, error);
+	return (error->code);
 }
 
 /*
@@ -86,40 +109,25 @@ static t_ret	setup_asmblr(t_asm **asmblr, t_error *error)
 int				main(int argc, char **argv)
 {
 	t_asm		*asmblr;
-	t_index		skipln;
 	int			fd[2];
 	t_error		error;
 
-	skipln = 0;
-	error.code = setup_asmblr(&asmblr, &error);
+	error.code = kSuccess;
+	asmblr = setup_asmblr(&error);
+	if (asmblr == NULL)
+		error.code = kErrorAlloc;
 	if (error.code == kSuccess)
 	{
 		fd[0] = check_args(argc, argv, asmblr);
 		error.file_name = asmblr->file_name;
+		error.code = extracted(&asmblr, &error, fd);
 	}
-	if (error.code == kSuccess)
-		error.code = read_file(fd[0], &asmblr->file);
-	if (error.code == kSuccess)
-		error.code = read_lines(asmblr->file, &asmblr->lines);
-	if (error.code == kSuccess)
-		error.code = get_meta_from_file(asmblr->file, asmblr, &error, &skipln);
-	if (error.code == kSuccess)
-		error.code = tokens_from_lines(
-			asmblr->lines, &asmblr->tokens, skipln, &error);
-	if (error.code == kSuccess)
-		error.code = validate_tokens(asmblr->tokens, asmblr, &error);
-	if (error.code == kSuccess)
-		error.code = translate(asmblr->tokens, asmblr, &error);
-	if (error.code == kSuccess)
-		error.code = asm_link(asmblr, &error);
 	if (error.code == kSuccess)
 		error.code = write_file(asmblr, open_file(argv[1]), &error);
 	if (error.code != kSuccess)
 		print_error(&error, asmblr->lines);
 	if (error.code != kSuccess && asmblr->tokens)
 		print_tokens(asmblr->tokens);
-	if (error.code == kSuccess)
-		printf("Succesfully Assembled: %s\n", asmblr->file_name);
 	close(fd[0]);
 	if (error.code != kSuccess)
 		return (1);

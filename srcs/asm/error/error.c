@@ -235,25 +235,25 @@ static const t_errinfo	g_errinfo[80] =
 		ERR_PFX_FL"%d:%d -- kErrorBadRegister (72) TOKEN:[%s]\n",
 	},
 	{
-		ERR_PFX"\n",
+		ERR_PFX_FL"%d:%d -- kErrorInvalidArgCount (73) TOKEN:[%s]\n",
 	},
 	{
-		ERR_PFX"\n",
+		ERR_PFX_FL"%d:%d -- kErrorWrongArgType (74) TOKEN:[%s]\n",
 	},
 	{
-		ERR_PFX"\n",
+		ERR_PFX_FL"%d:%d -- kErrorUnexpectedToken (75) TOKEN:[%s]\n",
 	},
 	{
-		ERR_PFX"\n",
+		ERR_PFX_FL"%d:%d -- kErrorBadDir (76) TOKEN:[%s]\n",
 	},
 	{
-		ERR_PFX"\n",
+		ERR_PFX_FL"%d:%d -- kErrorBadDirLabel (77) TOKEN:[%s]\n",
 	},
 	{
-		ERR_PFX"\n",
+		ERR_PFX_FL"%d:%d -- kErrorBadInd (78) TOKEN:[%s]\n",
 	},
 	{
-		ERR_PFX"\n",
+		ERR_PFX_FL"%d:%d -- kErrorBadIndLabel (79) TOKEN:[%s]\n",
 	},
 };
 

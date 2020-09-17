@@ -18,15 +18,15 @@ typedef enum e_asm_token	t_asm_token;
 enum	e_asm_token
 {
 	kTokenNone = 0,
-	kTokenLabel,
-	kTokenInstruction,
-	kTokenRegister,
-	kTokenSeperator,
-	kTokenDir,
-	kTokenDirLabel,
-	kTokenInd,
-	kTokenIndLabel,
-	kTokenUnknown,
+	kTokenLabel = 1,
+	kTokenInstruction = 2,
+	kTokenRegister = 3,
+	kTokenSeperator = 4,
+	kTokenDir = 5,
+	kTokenDirLabel = 6,
+	kTokenInd = 7,
+	kTokenIndLabel = 8,
+	kTokenUnknown = 9,
 };
 
 typedef struct s_place		t_place;

@@ -11,15 +11,8 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-
 #include "translator.h"
-
 #include "input_parser.h"
-
-/*
-** TODO: Remove
-*/
-
 #include "debugging.h"
 
 static const t_tr_func	g_tr_funcs[17] =
@@ -89,33 +82,43 @@ static t_ret			put_marker(t_asm *asmblr, t_tksave *part)
 	return (ret);
 }
 
+static t_ret			extracted
+	(t_asm *asmblr, t_error *error, t_index *idx, t_tksave *tk_arr)
+{
+	t_ret		ret;
+	t_args_type	type;
+
+	ret = kSuccess;
+	while (ret == kSuccess && tk_arr[*idx].token != kTokenNone)
+	{
+		if (tk_arr[*idx].token == kTokenInstruction)
+		{
+			type = is_parse_inst(tk_arr[*idx].str);
+			ret = g_tr_funcs[type](asmblr, &tk_arr[*idx + 1], error);
+			*idx += get_opinfo(type)->argc + 1;
+		}
+		else if (tk_arr[*idx].token == kTokenLabel)
+		{
+			put_marker(asmblr, &tk_arr[*idx]);
+			*idx += 1;
+		}
+		else
+			ret = set_err_token(&tk_arr[*idx], kErrorTranslation, error);
+	}
+	return (ret);
+}
+
 t_ret					translate(t_list *tokens, t_asm *asmblr, t_error *error)
 {
 	t_ret		ret;
 	t_tksave	*tk_arr;
 	t_index		idx;
-	t_inst		type;
 
 	idx = 0;
 	tk_arr = NULL;
 	ret = prepare_tokens(tokens, &tk_arr);
-	while (ret == kSuccess && tk_arr[idx].token != kTokenNone)
-	{
-//		print_bc(asmblr, asmblr->bc.length - 16);
-		if (tk_arr[idx].token == kTokenInstruction)
-		{
-			type = is_parse_inst(tk_arr[idx].str);
-			ret = g_tr_funcs[type](asmblr, &tk_arr[idx + 1], error);
-			idx += get_opinfo(type)->argc + 1;
-		}
-		else if (tk_arr[idx].token == kTokenLabel)
-		{
-			put_marker(asmblr, &tk_arr[idx]);
-			idx++;
-		}
-		else
-			ret = set_err_token(&tk_arr[idx], kErrorTranslation, error);
-	}
+	if (ret == kSuccess)
+		ret = extracted(asmblr, error, &idx, tk_arr);
 	if (tk_arr == NULL || tk_arr[idx].token != kTokenNone)
 		return (set_err_token(&tk_arr[idx], kErrorTranslation, error));
 	return (ret);

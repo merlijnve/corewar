@@ -14,10 +14,38 @@
 #include "input_parser.h"
 #include "validator.h"
 
+bool	ft_strisdigit_padd(const char *s)
+{
+	t_index idx;
+
+	idx = 0;
+	while (s[idx] != '\0' && !ft_isspace(s[idx]))
+	{
+		if (!ft_isdigit(s[idx]))
+			return (false);
+		idx++;
+	}
+	return (true);
+}
+
 t_ret	validate_none(t_tksave *token, t_error *error)
 {
 	return (set_err_token(token, kErrorTokenUnknown, error));
 }
+
+static const t_vl_func	g_vl_funcs[10] =
+{
+	validate_none,
+	validate_label,
+	validate_instruction,
+	validate_register,
+	NULL,
+	validate_dir,
+	validate_dirlabel,
+	validate_ind,
+	validate_indlabel,
+	validate_none,
+};
 
 /*
 ** 	if (token->token == kTokenSeperator)
@@ -27,26 +55,19 @@ t_ret	validate_none(t_tksave *token, t_error *error)
 t_ret	validate_tokens(t_list *tokens, t_asm *asmblr, t_error *error)
 {
 	t_tksave	*token;
+	t_vl_func	func;
 
+	func = NULL;
 	while (tokens != NULL && error->code == kSuccess)
 	{
 		token = tokens->content;
-		if (token->token == kTokenNone || token->token == kTokenUnknown)
-			error->code = validate_none(token, error);
-		else if (token->token == kTokenLabel)
-			error->code = validate_label(token, error);
-		else if (token->token == kTokenInstruction)
-			error->code = validate_instruction(token, error);
-		else if (token->token == kTokenRegister)
-			error->code = validate_register(token, error);
-		else if (token->token == kTokenDir)
-			error->code = validate_dir(token, error);
-		else if (token->token == kTokenDirLabel)
-			error->code = validate_dirlabel(token, error);
-		else if (token->token == kTokenInd)
-			error->code = validate_ind(token, error);
-		else if (token->token == kTokenIndLabel)
-			error->code = validate_indlabel(token, error);
+		if (token->token >= 0 && token->token < 10)
+			func = g_vl_funcs[token->token];
+		if (func != NULL)
+			error->code = func(token, error);
+		if (error->code == kSuccess && token->token == kTokenInstruction)
+			error->code = validate_args(
+				tokens->next, is_inst(token->str), error);
 		tokens = tokens->next;
 	}
 	return (error->code);

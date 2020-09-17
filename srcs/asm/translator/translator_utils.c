@@ -47,23 +47,6 @@ static t_ret	check_and_resize(t_asm *asmblr)
 	return (kSuccess);
 }
 
-/*
-** TODO: correct error
-** TODO: check if all numbers and positive
-** TODO: correct error
-** if (ft_stralpha())
-*/
-
-t_ret			asm_regtoint(char *str)
-{
-	int number;
-
-	if (*str != 'r')
-		return (kError);
-	number = ft_atoi(&str[1]);
-	return (number >= 0 ? number : kError);
-}
-
 void			reverse_eb(t_enbyte *eb)
 {
 	t_enbyte bc;

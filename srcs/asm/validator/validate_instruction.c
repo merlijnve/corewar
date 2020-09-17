@@ -12,7 +12,7 @@
 
 #include "validator.h"
 
-static t_inst	is_inst(const char *line)
+t_inst	is_inst(const char *line)
 {
 	int			idx;
 	t_inst		inst;

@@ -62,6 +62,13 @@ enum	e_ret
 	kErrorValidation = -70,
 	kErrorBadCharInLabel = -71,
 	kErrorBadRegister = -72,
+	kErrorInvalidArgCount = -73,
+	kErrorWrongArgType = -74,
+	kErrorUnexpectedToken = -75,
+	kErrorBadDir = -76,
+	kErrorBadDirLabel = -77,
+	kErrorBadInd = -78,
+	kErrorBadIndLabel = -79,
 };
 
 typedef struct s_error		t_error;
