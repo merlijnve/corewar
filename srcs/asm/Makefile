@@ -12,7 +12,7 @@
 
 NAME = asm
 CC = clang
-C_FLAGS = -Wall -Wextra # -Werror - NOTE: Set back after prod.
+C_FLAGS = -Wall -Wextra -Werror
 
 LIBFT_LOC = ../lib/libft
 LIBFT_PRINTF_LOC = ../lib/ft_printf
@@ -23,18 +23,20 @@ NAME_LIBFT_PRINTF = $(LIBFT_PRINTF_LOC)/libftprintf.a
 LINK_FLAGS = -lftprintf -lft
 
 C_HEADERS = \
-	asm.h \
-	check_args.h \
-	debugging.h \
-	error/error.h \
-	linker/linker.h \
-	parser/input_parser.h \
-	parser/metaparse.h \
-	parser/tokenizer/token_types.h \
-	parser/tokenizer/tokenizer.h \
-	translator/translator.h \
-	validator/validator.h \
-	write_file.h
+	./asm.h \
+	./check_args.h \
+	./debugging.h \
+	./error/error.h \
+	./linker/linker.h \
+	./parser/input_parser.h \
+	./parser/metaparse.h \
+	./parser/tokenizer/token_types.h \
+	./parser/tokenizer/tokenizer.h \
+	./shared_utils.h \
+	./translator/translator.h \
+	./validator/validator.h \
+	./write_file.h
+
 
 C_INCLUDES = \
 	-I ../includes/ \
@@ -46,10 +48,15 @@ C_INCLUDES = \
 	-I ./translator/ \
 	-I ./validator/
 
+
+
+
+
 C_SRCS = \
 	../lib/shared/shared.c \
-	./debugging.c \
 	./check_args.c \
+	./debugging.c \
+	./debugging_mem.c \
 	./error/error.c \
 	./linker/linker.c \
 	./main.c \
@@ -63,6 +70,8 @@ C_SRCS = \
 	./parser/tokenizer/tk_label_line.c \
 	./parser/tokenizer/tokenizer.c \
 	./parser/tokenizer/tokenizer_common.c \
+	./parser/tokenizer/tokenizer_common_two.c \
+	./shared_utils.c \
 	./translator/instructions/tr_add.c \
 	./translator/instructions/tr_aff.c \
 	./translator/instructions/tr_and.c \
@@ -82,6 +91,14 @@ C_SRCS = \
 	./translator/translator.c \
 	./translator/translator_common.c \
 	./translator/translator_utils.c \
+	./validator/validate_args.c \
+	./validator/validate_dir.c \
+	./validator/validate_dirlabel.c \
+	./validator/validate_ind.c \
+	./validator/validate_indlabel.c \
+	./validator/validate_instruction.c \
+	./validator/validate_label.c \
+	./validator/validate_register.c \
 	./validator/validator.c \
 	./write_file.c
 
