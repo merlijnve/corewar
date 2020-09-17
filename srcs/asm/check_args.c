@@ -74,9 +74,7 @@ int		check_args(int argc, char *argv[], t_asm *asmblr)
 	argv_s = strip_flags(argc, argv, asmblr);
 	if (argc - asmblr->n_flags == 1)
 	{
-		ft_printf("Usage: %s [-a] <sourcefile.s>\n\t-a : "
-			"Instead of creating a .cor file, outputs a stripped and annotated"
-			" version of the code to the standard output\n", argv[0]);
+		ft_printf("Usage: %s <sourcefile.s>\n", argv[0]);
 		exit_check_args(argv, argv_s, kError);
 	}
 	input_fd = open(argv_s[argc - asmblr->n_flags - 1], O_RDONLY);

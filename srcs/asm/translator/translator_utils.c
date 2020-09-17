@@ -13,10 +13,6 @@
 #include <stdlib.h>
 #include "translator.h"
 
-/*
-** TODO: fix check op
-*/
-
 static int		dir_size(t_inst type)
 {
 	return ((type <= 16 && type >= 1) ? get_opinfo(type)->dir_size : 0);

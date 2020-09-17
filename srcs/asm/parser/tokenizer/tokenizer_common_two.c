@@ -14,8 +14,6 @@
 #include "tokenizer.h"
 
 /*
-** TODO: Should be looking for anouter seperator?
-** TEST: sub r1, r2, # r3 Some comment
 ** TODO: Set correct Error Code
 */
 

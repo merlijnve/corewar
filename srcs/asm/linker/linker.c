@@ -16,16 +16,7 @@
 #include "translator.h"
 #include "shared_utils.h"
 
-/*
-** TODO: Remove
-*/
-
 #include "debugging.h"
-
-/*
-** TODO: this function has to be checked..
-** does it compare correctly (it maybe now does)
-*/
 
 static int		clean_and_compare(t_jump *jmp, t_marker *mkr)
 {

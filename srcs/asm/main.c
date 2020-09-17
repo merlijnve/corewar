@@ -96,14 +96,10 @@ static t_ret	extracted(t_asm **asmblr, t_error *error, int *fd)
 }
 
 /*
-** TODO: Handle wrong number or arg types
-** TODO: Error for no champ code
-** TODO: Handle token with space in middle (only allowed when + or - is used)
-** TODO: file_parsing/incorrect/negative_value_reg.s
-** TODO: file_parsing/incorrect/op_and_line_break.s
-** TODO: file_parsing/incorrect/no_value_ind.s (', ,' without arg in between..)
-** TODO: file_parsing/incorrect/no_value_dir.s (',%,' dir without value)
-** TODO:
+** TODO: Error for no champ code ?
+** Code below to print tokens on error
+** if (error.code != kSuccess && asmblr->tokens)
+**		print_tokens(asmblr->tokens);
 */
 
 int				main(int argc, char **argv)
@@ -126,8 +122,6 @@ int				main(int argc, char **argv)
 		error.code = write_file(asmblr, open_file(argv[1]), &error);
 	if (error.code != kSuccess)
 		print_error(&error, asmblr->lines);
-	if (error.code != kSuccess && asmblr->tokens)
-		print_tokens(asmblr->tokens);
 	close(fd[0]);
 	if (error.code != kSuccess)
 		return (1);

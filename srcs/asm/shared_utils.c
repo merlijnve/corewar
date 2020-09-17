@@ -37,13 +37,6 @@ int		is_comment_chr(int chr)
 	return (0);
 }
 
-/*
-** TODO: correct error
-** TODO: check if all numbers and positive
-** TODO: correct error
-** if (ft_stralpha())
-*/
-
 t_ret	asm_regtoint(char *str)
 {
 	int number;
