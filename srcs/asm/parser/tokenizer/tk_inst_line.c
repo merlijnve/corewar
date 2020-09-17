@@ -15,15 +15,13 @@
 t_ret	tk_inst_line(char *line, t_place loc, t_list **tokens, t_error *error)
 {
 	t_ret		ret;
-	t_tksave	*token;
+	t_tksave	token;
 
-	token = ft_memalloc(sizeof(t_tksave));
-	if (token == NULL)
-		return (kErrorAlloc);
+	bzero(&token, sizeof(t_tksave));
 	while (line[loc.chr] != '\0' && ft_isspace(line[loc.chr]))
 		loc.chr++;
-	ret = get_tk_for_inst(line, token, &loc);
-	add_token(tokens, token);
+	ret = get_tk_for_inst(line, &token, &loc);
+	add_token(tokens, &token);
 	if (ret == kSuccess)
 		ret = tk_args_line(line, loc, tokens, error);
 	error->code = ret;
